@@ -2,6 +2,7 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,12 +16,27 @@ public class Item {
     private double price;
     private String type;
     private String color;
+    private String imagesrc;
+
+    public String getImagesrc() {
+        return imagesrc;
+    }
+
+    public void setImagesrc(String imagesrc) {
+        this.imagesrc = imagesrc;
+    }
+
+
+
+
+
     //private Picture picture;
-    public Item(String name, double price,String type,String color){
+    public Item(String name, double price,String type,String color,String imagesrc){
         this.name=name;
         this.price=price;
         this.type=type;
         this.color=color;
+        this.imagesrc=imagesrc;
     }
 
     public Item() {
