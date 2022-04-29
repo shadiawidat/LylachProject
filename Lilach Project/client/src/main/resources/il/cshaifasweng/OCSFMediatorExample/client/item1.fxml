@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="920.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ItemController">
+   <children>
+      <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
+               <image>
+                  <Image url="@../../../../Icons/Menu_icon.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <HBox alignment="CENTER" maxWidth="756.0" prefHeight="60.0" prefWidth="756.0" styleClass="transparent" stylesheets="@../../../../Styles/Style.css" HBox.hgrow="NEVER">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="247.0">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
+                     <font>
+                        <Font name="Cambria Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="247.0" text="Welcome John Pierre">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="Cart" fitHeight="50.0" fitWidth="50.0" onKeyPressed="#gotocart" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+               <image>
+                  <Image url="@../../../../Icons/shopping-cart-png-icon-2.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="logo" />
+               </styleClass>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="20.0" layoutY="101.0" prefHeight="100.0" prefWidth="248.0">
+         <children>
+            <TextField fx:id="SerachField" prefHeight="25.0" prefWidth="133.0" promptText="Type here to search">
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="rounded" />
+               </styleClass>
+            </TextField>
+            <Button fx:id="SerachBtn" mnemonicParsing="false" onKeyPressed="#SearchItem" onMouseClicked="#SearchItem" text="Search">
+               <styleClass>
+                  <String fx:value="rounded" />
+                  <String fx:value="transparent" />
+                  <String fx:value="searchbtn" />
+               </styleClass>
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+            </Button>
+         </children>
+         <styleClass>
+            <String fx:value="rounded" />
+            <String fx:value="searchbox" />
+         </styleClass>
+      </HBox>
+      <AnchorPane layoutX="334.0" layoutY="170.0" prefHeight="550.0" prefWidth="600.0" stylesheets="@../../../../Styles/Style.css">
+         <children>
+            <ImageView fx:id="imgid" fitHeight="262.0" fitWidth="296.0" layoutX="157.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/lavender.jpg" />
+               </image>
+            </ImageView>
+            <Label fx:id="nameid" layoutX="148.0" layoutY="315.0" stylesheets="@../../../../Styles/Style.css" text="Name:">
+               <font>
+                  <Font name="Cambria" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="type" layoutX="148.0" layoutY="381.0" text="Type:">
+               <font>
+                  <Font name="Cambria" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="color" layoutX="345.0" layoutY="381.0" text="Color:">
+               <font>
+                  <Font name="Cambria" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="price" layoutX="349.0" layoutY="315.0" text="Price:">
+               <font>
+                  <Font name="Cambria" size="22.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="pressX" fitHeight="38.0" fitWidth="29.0" layoutX="507.0" layoutY="14.0" onKeyPressed="#CloseItem" onMouseClicked="#CloseItem" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Icons/x-icon.jpg" />
+               </image>
+            </ImageView>
+            <HBox alignment="CENTER" layoutX="152.0" layoutY="427.0" prefHeight="100.0" prefWidth="248.0">
+               <children>
+                  <TextField fx:id="PriceFiled" prefHeight="25.0" prefWidth="133.0" promptText="Enter new Price">
+                     <styleClass>
+                        <String fx:value="transparent" />
+                        <String fx:value="rounded" />
+                     </styleClass>
+                  </TextField>
+                  <Button fx:id="ChangePrice" mnemonicParsing="false" onKeyPressed="#ChangePrice" onMouseClicked="#ChangePrice" text="Change">
+                     <styleClass>
+                        <String fx:value="rounded" />
+                        <String fx:value="transparent" />
+                        <String fx:value="searchbtn" />
+                     </styleClass>
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+               <styleClass>
+                  <String fx:value="rounded" />
+                  <String fx:value="searchbox" />
+               </styleClass>
+            </HBox>
+         </children>
+         <styleClass>
+            <String fx:value="anchorsitem" />
+            <String fx:value="rounded" />
+         </styleClass>
+      </AnchorPane>
+      <VBox layoutX="20.0" layoutY="170.0" prefHeight="200.0" prefWidth="100.0" styleClass="menubox" />
+   </children>
+</AnchorPane>

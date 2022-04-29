@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,15 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 
 public class ItemviewController {
+
+        @FXML
+        private ImageView imageid;
+
+        @FXML
+        private Label nameid;
+
+        @FXML
+        private Label price;
 
     @FXML
     private TextField ChangePriceTextField;
@@ -34,7 +44,7 @@ public class ItemviewController {
 
     @FXML
     private Label TypeLabel;
-
+    private Item item;
     @FXML
     void Back_to_Catalog(ActionEvent event) throws IOException {
         App.setRoot("item");
@@ -107,5 +117,13 @@ public class ItemviewController {
 
     public void setTypeLabel(Label typeLabel) {
         TypeLabel = typeLabel;
+    }
+
+    public void setData(Item item){
+        this.item=item;
+        nameid.setText(item.getName());
+        price.setText("$" + String.valueOf(item.getPrice()));
+//        Image image=new Image(getClass().getResourceAsStream(item.getImagesrc()));
+//        imageid.setImage(image);
     }
 }

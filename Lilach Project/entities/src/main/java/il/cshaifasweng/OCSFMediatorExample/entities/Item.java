@@ -1,10 +1,7 @@
 
-package il.cshaifasweng.OCSFMediatorExample.server;
+package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.*;
-import java.awt.*;
-import java.util.LinkedList;
-import java.util.List;
 
 @Entity
 @Table(name = "item")

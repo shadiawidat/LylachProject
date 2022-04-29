@@ -8,11 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.io.IOException;
 
 /**
  * JavaFX App
@@ -29,7 +28,7 @@ public class App extends Application {
     	EventBus.getDefault().register(this);
     	client = SimpleClient.getClient();
     	client.openConnection();
-        scene = new Scene(loadFXML("item"), 677, 654);
+        scene = new Scene(loadFXML("catalog1"), 920, 720);
         stage.setScene(scene);
         stage.show();
     }
@@ -50,6 +49,7 @@ public class App extends Application {
 		// TODO Auto-generated method stub
     	EventBus.getDefault().unregister(this);
 		super.stop();
+
 	}
     
     @Subscribe

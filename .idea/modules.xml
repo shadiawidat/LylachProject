@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Lilach Project/OCSFMediatorExample.iml" filepath="$PROJECT_DIR$/Lilach Project/OCSFMediatorExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Software_engineering_new.iml" filepath="$PROJECT_DIR$/.idea/Software_engineering_new.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lilach Project/client/client.iml" filepath="$PROJECT_DIR$/Lilach Project/client/client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lilach Project/entities/entities.iml" filepath="$PROJECT_DIR$/Lilach Project/entities/entities.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lilach Project/server/server.iml" filepath="$PROJECT_DIR$/Lilach Project/server/server.iml" />
+    </modules>
+  </component>
+</project>
