@@ -11,7 +11,10 @@
 }
 
 .transparent{
--fx-background-color:rgba(0,0,0,0);
+    -fx-background-color: rgba(0,0,0,0);
+}
+.scrollpane{
+-fx-background-color: rgba(0,0,0,0);
 }
 .rounded{
 -fx-background-radius:15;

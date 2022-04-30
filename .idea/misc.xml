@@ -6,13 +6,6 @@
         <option value="$PROJECT_DIR$/Lilach Project/pom.xml" />
       </list>
     </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/Lilach Project/client/pom.xml" />
-        <option value="$PROJECT_DIR$/Lilach Project/entities/pom.xml" />
-        <option value="$PROJECT_DIR$/Lilach Project/server/pom.xml" />
-      </set>
-    </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_18" default="true" project-jdk-name="openjdk-18" project-jdk-type="JavaSDK" />
   <component name="ProjectType">

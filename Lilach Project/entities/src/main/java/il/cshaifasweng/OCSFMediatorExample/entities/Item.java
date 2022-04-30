@@ -2,6 +2,7 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.*;
+import java.net.URL;
 
 @Entity
 @Table(name = "item")
@@ -14,6 +15,9 @@ public class Item {
     private String type;
     private String color;
     private String imagesrc;
+
+    public Item() {
+    }
 
     public String getImagesrc() {
         return imagesrc;
@@ -36,7 +40,7 @@ public class Item {
         this.imagesrc=imagesrc;
     }
 
-    public Item() {
+    public Item(String lavender, int price, String flower, String purple, String s) {
 
     }
 
