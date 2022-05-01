@@ -16,7 +16,7 @@ public class App {
         server.saveObject(item4);
         Item item5 = new Item("Dahlia", 9, "flower", "pink","/img/");
         server.saveObject(item5);
-        Item item6 = new Item("Lavender", 11, "flower", "purple","/img/");
+        Item item6 = new Item("SunFlower", 11, "flower", "purple","/img/");
         server.saveObject(item6);
     }
  /*
@@ -32,7 +32,7 @@ cache errors.
     public static void main(String[] args) throws Exception {
 
         server=new SimpleServer(3050);
-        generateItems();
+//        generateItems();
         server.listen();
 //        server.close();
     }

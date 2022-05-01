@@ -48,7 +48,7 @@ public class ItemviewController {
         this.item=item;
         nameid.setText(item.getName());
         price.setText("$"+item.getPrice());
-        Image image=new Image(getClass().getResourceAsStream(item.getImagesrc()));
+        Image image=new Image(ItemviewController.class.getResourceAsStream(item.getImagesrc()));
         imageid.setImage(image);
 
     }

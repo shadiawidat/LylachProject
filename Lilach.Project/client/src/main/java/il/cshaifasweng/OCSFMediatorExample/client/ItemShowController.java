@@ -76,7 +76,9 @@ public class ItemShowController implements Initializable {
     }
 
     @FXML
-    void ChangePrice(MouseEvent event) {
+    void ChangePrice(MouseEvent event) throws IOException {
+
+        SimpleClient.getClient().sendToServer("#changePrice "+ITEM.getId()+" "+PriceFiled.getText());
 
     }
 

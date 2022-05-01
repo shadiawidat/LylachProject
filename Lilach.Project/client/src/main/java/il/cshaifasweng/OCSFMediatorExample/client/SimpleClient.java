@@ -32,7 +32,7 @@ public class SimpleClient extends AbstractClient {
 	protected void handleMessageFromServer(Object msg) {
 
 		List<Item> items=(List<Item>)msg;
-		setRecievedmsg(items);
+		CatalogController.itemsg=items;
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 		}

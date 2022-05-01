@@ -52,7 +52,12 @@ public class SimpleServer extends AbstractServer {
 		session.flush();
 		session.getTransaction().commit();
 	}
-
+	protected void setInfo(int itemId,double price)
+	{
+		session.beginTransaction();
+		session.find(Item.class,itemId).setPrice(price);
+		session.getTransaction().commit();
+	}
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws IOException {
 		String msgString = msg.toString();
@@ -63,6 +68,12 @@ public class SimpleServer extends AbstractServer {
 			client.sendToClient(getList("#getItems"));
 			client.sendToClient("#recviveItems");
         }
+		if(msg.toString().startsWith("#changePrice"))
+		{
+			String[] msgarray=msgString.split(" ");
+			
+			setInfo(Integer.parseInt(msgarray[1]),Double.parseDouble(msgarray[2]));
+		}
 		double price=Double.parseDouble(msgString);
 	}
 
