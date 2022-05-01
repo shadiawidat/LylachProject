@@ -1,11 +1,11 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 import org.greenrobot.eventbus.EventBus;
 
-import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleClient extends AbstractClient {
@@ -18,18 +18,32 @@ public class SimpleClient extends AbstractClient {
 		super(host, port);
 	}
 
+	private static List<Item> recievedmsg=new ArrayList<>();
+
+	public List<Item> getRecievedmsg() {
+		return recievedmsg;
+	}
+
+	public void setRecievedmsg(List<Item> recievedmsg1) {
+		recievedmsg.addAll(recievedmsg1);
+	}
 
 	@Override
 	protected void handleMessageFromServer(Object msg) {
+
+		List<Item> items=(List<Item>)msg;
+		setRecievedmsg(items);
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 		}
 
 	}
-	
+
+
+
 	public static SimpleClient getClient() {
 		if (client == null) {
-			client = new SimpleClient("localhost", 4030);
+			client = new SimpleClient("localhost", 3050);
 		}
 		return client;
 	}

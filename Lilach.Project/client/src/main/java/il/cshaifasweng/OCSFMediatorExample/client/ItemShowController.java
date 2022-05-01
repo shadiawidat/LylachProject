@@ -2,16 +2,20 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ItemShowController {
+public class ItemShowController implements Initializable {
 
     @FXML
     private ImageView CartBtn;
@@ -32,7 +36,7 @@ public class ItemShowController {
     private Button SearchBtn;
 
     @FXML
-    private TextField SerachField;
+    private TextField SearchField;
 
     @FXML
     private Label UserName;
@@ -55,18 +59,20 @@ public class ItemShowController {
     @FXML
     private  Label type;
 
-    public Item items;
+    @FXML
+    public  Item ITEM;
 
-    public static void SetItem(Item item) {
+    @FXML
+    public void SetItem(Item item) throws Exception {
         if(item==null)
             return;
-//        items=item;
-//        System.out.println(item.getColor());
-//        color.setText(item.getColor());
-//        price.setText("$"+item.getPrice());
-//        nameid.setText(item.getName());
-//        type.setText(item.getType());
-//           imgid.setImage(new Image(il.cshaifasweng.OCSFMediatorExample.client.App.class.getResourceAsStream(item.getImagesrc())));
+        ITEM=item;
+        nameid.setText("Name: "+item.getName());
+        price.setText("Price: $"+item.getPrice());
+        type.setText("Type : "+item.getType());
+        color.setText("Color: "+item.getColor());
+        Image image=new Image(ItemShowController.class.getResourceAsStream(item.getImagesrc()));
+        imgid.setImage(image);
     }
 
     @FXML
@@ -99,4 +105,12 @@ public class ItemShowController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            SetItem(App.getOnscreen());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

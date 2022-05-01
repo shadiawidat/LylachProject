@@ -13,7 +13,6 @@ import org.hibernate.service.ServiceRegistry;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 public class SimpleServer extends AbstractServer {
@@ -29,14 +28,12 @@ public class SimpleServer extends AbstractServer {
 
 		return configuration.buildSessionFactory(serviceRegistry);
 	}
-	public List<Object> getList(String classn){
+	public List<Item> getList(String classn){
 		CriteriaBuilder builder=session.getCriteriaBuilder();
-
 		if(classn.equals("#getItems")){
-
 			CriteriaQuery<Item> query=builder.createQuery(Item.class);
 			query.from(Item.class);
-			return Collections.singletonList(session.createQuery(query).getResultList());
+			return session.createQuery(query).getResultList();
 		}
 		return null;
 	}
@@ -55,11 +52,17 @@ public class SimpleServer extends AbstractServer {
 		session.flush();
 		session.getTransaction().commit();
 	}
+
 	@Override
-	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
+	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws IOException {
 		String msgString = msg.toString();
 
-
+		if(msg.toString().equals("#getItems"))
+        {
+			client.sendToClient("#prepItems");
+			client.sendToClient(getList("#getItems"));
+			client.sendToClient("#recviveItems");
+        }
 		double price=Double.parseDouble(msgString);
 	}
 

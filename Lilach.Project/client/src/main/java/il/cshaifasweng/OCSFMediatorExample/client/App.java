@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -11,13 +12,38 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.util.List;
 
 public class App extends Application {
 
+
+    private void SetItemShowCon(Item item){
+
+    }
     private static Scene scene;
 
+    public static Item getOnscreen() {
+        return onscreen;
+    }
+
+    public static void setOnscreen(Item onscreen1) {
+        onscreen = onscreen1;
+    }
+
+    private static Item onscreen;
+
+    public static List<Item> items;
+
+    public static List<Item> getItems() {
+        return items;
+    }
+
+    public static void setItems(Object msg) {
+        App.items = (List<Item>)msg;
+    }
 
     private SimpleClient client;
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -27,11 +53,14 @@ public class App extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("catalog.fxml"));
         stage.setTitle("LyLach");
-        stage.setScene(new Scene(root, 920, 720));
+        scene=new Scene(root, 920, 720);
+        stage.setScene(scene);
         stage.show();
     }
 
+
     public static void setRoot(String fxml) throws IOException {
+
         scene.setRoot(loadFXML(fxml));
     }
 

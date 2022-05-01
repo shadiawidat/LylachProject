@@ -40,7 +40,7 @@ import java.util.ResourceBundle;
 		private Button SearchBtn;
 
 		@FXML
-		private TextField SerachField;
+		private TextField SearchField;
 
 		@FXML
 		private Label UserName;
@@ -55,8 +55,8 @@ import java.util.ResourceBundle;
 		}
 
 		@FXML
-		void ClickSearch(MouseEvent event) {
-
+		void ClickSearch(MouseEvent event) throws IOException {
+			App.setRoot("Cart");
 		}
 
 		@FXML
@@ -70,30 +70,41 @@ import java.util.ResourceBundle;
 
 
 		private List<Item> itemsg=new ArrayList<>();
-		public void setData(List<Item> it)
-		{
-			itemsg=it;
+		public void setData() throws IOException {
+			SimpleClient.getClient().sendToServer("#getItems");
+
+			itemsg.addAll(SimpleClient.getClient().getRecievedmsg());
+			System.out.println(itemsg.size());
 		}
-		private List<Item> getData(){
-			List<Item> items=new ArrayList<>();
-			Item item;
-			 item = new Item("Orchid" , 87, "flower", "white", "/img/");
-			items.add(item);
-			 item = new Item("Tulip", 15, "flower", "white", "/img/");
-			items.add(item);
-			 item = new Item("Orchid", 13, "flower", "orange", "/img/");
-			items.add(item);
-			 item = new Item( "Orchid", 7, "flower", "red","/img/");
-			items.add(item);
-			 item = new Item("Orchid", 9, "flower", "pink", "/img/");
-			items.add(item);
+		private List<Item> getData() throws IOException {
+//            ));
 
+//			items= (List<Item>) SimpleClient.getRecievedmsg();
+//			Item item;
+//			 item = new Item("Orchid" , 87, "flower", "white", "/img/");
+//			items.add(item);
+//			 item = new Item("Tulip", 15, "flower", "white", "/img/");
+//			items.add(item);
+//			 item = new Item("Lavender", 13, "flower", "orange", "/img/");
+//			items.add(item);
+//			 item = new Item( "Lily", 7, "flower", "red","/img/");
+//			items.add(item);
+//			 item = new Item("Orchid", 9, "flower", "pink", "/img/");
+//			items.add(item);
+//			item = new Item( "Lily", 7, "flower", "red","/img/");
+//			items.add(item);
+//			item = new Item("Orchid", 9, "flower", "pink", "/img/");
+//			items.add(item);
+//			item = new Item( "Lily", 7, "flower", "red","/img/");
+//			items.add(item);
+//			item = new Item("Orchid", 9, "flower", "pink", "/img/");
+//			items.add(item);
+//			item = new Item( "Lily", 7, "flower", "red","/img/");
+//			items.add(item);
+//			item = new Item("Orchid", 9, "flower", "pink", "/img/");
+//			items.add(item);
 
-
-
-
-
-			return items;
+			return itemsg;
 		}
 		@FXML
 		@Override
@@ -106,7 +117,12 @@ import java.util.ResourceBundle;
 //			assert grid != null : "fx:id=\"grid\" was not injected: check your FXML file 'catalog.fxml'.";
 
 
-			itemsg=getData();
+			try {
+				setData();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			System.out.println();
 			int column = 0;
 			int row = 1;
 
@@ -120,7 +136,7 @@ import java.util.ResourceBundle;
 
 					ItemviewController itemController = fxmlLoader.getController();
 
-					itemController.setItem(itemsg.get(i));
+					itemController.setItemView(itemsg.get(i));
 
 					if (column == 3) {
 						column = 0;

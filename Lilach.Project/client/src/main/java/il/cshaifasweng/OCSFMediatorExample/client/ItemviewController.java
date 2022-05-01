@@ -37,19 +37,17 @@ public class ItemviewController {
     }
 
     @FXML
-    void  ShowItem(MouseEvent event) throws IOException {
-
-        ItemShowController.SetItem(item);
+    void ShowItem(MouseEvent event) throws Exception {
+        App.setOnscreen(item);
         App.setRoot("ItemShow");
     }
 
-    public void setItem(Item item) throws IOException {
+    public void setItemView(Item item) throws IOException {
         if(item==null)
             return;
         this.item=item;
         nameid.setText(item.getName());
         price.setText("$"+item.getPrice());
-
         Image image=new Image(getClass().getResourceAsStream(item.getImagesrc()));
         imageid.setImage(image);
 

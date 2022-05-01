@@ -19,7 +19,7 @@
    <children>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
+            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
                <image>
                   <Image url="@../../../../Icons/Menu_icon.png" />
                </image>
@@ -44,14 +44,14 @@
                         <Font name="Cambria" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="UserName" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="247.0" text="Welcome John Pierre">
+                  <Label fx:id="UserName" alignment="CENTER_RIGHT" onMouseClicked="#GoToAccount" prefHeight="25.0" prefWidth="247.0" text="Welcome John Pierre">
                      <font>
                         <Font name="Cambria" size="14.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+            <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#CartClick" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                <image>
                   <Image url="@../../../../Icons/shopping-cart-png-icon-2.png" />
                </image>
@@ -67,13 +67,13 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="101.0" prefHeight="100.0" prefWidth="248.0">
          <children>
-            <TextField prefHeight="25.0" prefWidth="133.0" promptText="Type here to search">
+            <TextField fx:id="SearchField" prefHeight="25.0" prefWidth="133.0" promptText="Type here to search">
                <styleClass>
                   <String fx:value="transparent" />
                   <String fx:value="rounded" />
                </styleClass>
             </TextField>
-            <Button fx:id="SearchBtn" mnemonicParsing="false" text="Search">
+            <Button fx:id="SearchBtn" mnemonicParsing="false" onMouseClicked="#ClickSearch" text="Search">
                <styleClass>
                   <String fx:value="rounded" />
                   <String fx:value="transparent" />
@@ -89,11 +89,11 @@
             <String fx:value="searchbox" />
          </styleClass>
       </HBox>
-      <HBox alignment="CENTER" layoutX="291.0" layoutY="173.0" prefHeight="520.0" prefWidth="613.0" VBox.vgrow="ALWAYS">
+      <HBox alignment="CENTER" layoutX="291.0" layoutY="173.0" prefHeight="520.0" prefWidth="613.0" styleClass="scrollpane" stylesheets="@../../../../Styles/Style.css" VBox.vgrow="ALWAYS">
          <children>
             <ScrollPane fx:id="scroll" prefHeight="520.0" prefWidth="564.0" styleClass="scrollpane" stylesheets="@../../../../Styles/Style.css">
                <content>
-                  <GridPane fx:id="grid" prefHeight="0.0" prefWidth="10.0" styleClass="scrollpane" stylesheets="@../../../../Styles/Style.css">
+                  <GridPane fx:id="grid" prefHeight="8.0" prefWidth="8.0">
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" />
                      </rowConstraints>
