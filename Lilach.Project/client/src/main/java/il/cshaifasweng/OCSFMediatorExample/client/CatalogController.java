@@ -97,7 +97,7 @@ import java.util.ResourceBundle;
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
-				if(itemsg.size()==6) {
+				if(itemsg.size()==7) {
 					try {
 						for (int i = 0; i < itemsg.size(); i++) {
 							FXMLLoader fxmlLoader = new FXMLLoader();
