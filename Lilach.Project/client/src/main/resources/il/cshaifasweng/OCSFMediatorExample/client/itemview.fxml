@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="170.0" maxWidth="170.0" minHeight="170.0" minWidth="170.0" onMouseClicked="#ShowItem" prefHeight="170.0" prefWidth="170.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ItemviewController">
+<AnchorPane maxHeight="170.0" maxWidth="170.0" minHeight="157.0" minWidth="157.0" onMouseClicked="#ShowItem" prefHeight="157.0" prefWidth="157.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ItemviewController">
    <children>
       <VBox alignment="CENTER" prefHeight="160.0" prefWidth="160.0">
          <children>

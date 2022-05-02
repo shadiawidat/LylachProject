@@ -56,7 +56,47 @@ import java.util.ResourceBundle;
 
 		@FXML
 		void ClickSearch(MouseEvent event) throws IOException {
-			App.setRoot("Cart");
+			List<Item> searchitem=new ArrayList<>();
+			for(int i=0;i<itemsg.size();i++)
+			{
+				String name=itemsg.get(i).getName().toLowerCase();
+				if(name.startsWith(SearchField.getText().toLowerCase()))
+				{
+					searchitem.add(itemsg.get(i));
+				}
+			}
+			SearchField.setText("");
+			grid.getChildren().clear();
+
+			int column = 0;
+			int row = 1;
+			try {
+				for (int i = 0; i < searchitem.size(); i++) {
+					FXMLLoader fxmlLoader = new FXMLLoader();
+					fxmlLoader.setLocation(getClass().getResource("itemview.fxml"));
+					AnchorPane anchorPane = fxmlLoader.load();
+					ItemviewController itemController = fxmlLoader.getController();
+					itemController.setItemView(searchitem.get(i));
+					if (column == 3) {
+						column = 0;
+						row++;
+					}
+					grid.add(anchorPane, column++, row); //(child,column,row)
+					//set grid width
+//					grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+					grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+					grid.setMaxWidth(Region.USE_PREF_SIZE);
+					//set grid height
+//					grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+					grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+					grid.setMaxHeight(Region.USE_PREF_SIZE);
+					GridPane.setMargin(anchorPane, new Insets(10));
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+
 		}
 
 		@FXML
@@ -79,54 +119,61 @@ import java.util.ResourceBundle;
            SimpleClient.getClient().sendToServer("#getItems");
 
 		}
+
+		private void setCatalog(List<Item> items)
+		{
+
+		}
+
 		@FXML
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
+			int column = 0;
+			int row = 1;
 
 			try {
 				getData();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-
-			int column = 0;
-			int row = 1;
-			while(itemsg.size()<10) {
-				try {
-					setData();
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
-				if(itemsg.size()==7) {
-					try {
-						for (int i = 0; i < itemsg.size(); i++) {
-							FXMLLoader fxmlLoader = new FXMLLoader();
-							fxmlLoader.setLocation(getClass().getResource("itemview.fxml"));
-							AnchorPane anchorPane = fxmlLoader.load();
-							ItemviewController itemController = fxmlLoader.getController();
-							itemController.setItemView(itemsg.get(i));
-							if (column == 3) {
-								column = 0;
-								row++;
-							}
-							grid.add(anchorPane, column++, row); //(child,column,row)
-							//set grid width
-							grid.setMinWidth(anchorPane.getMinWidth());
-							grid.setPrefWidth(anchorPane.getPrefWidth());
-							grid.setMaxWidth(anchorPane.getMaxWidth());
-							//set grid height
-							grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-							grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-							grid.setMaxHeight(Region.USE_PREF_SIZE);
-							GridPane.setMargin(anchorPane, new Insets(10));
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					break;
-				}
+		while(itemsg.size()<100) {
+			try {
+				setData();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
 			}
+			if (itemsg.size() == 11) {
 
+				try {
+					for (int i = 0; i < itemsg.size(); i++) {
+						FXMLLoader fxmlLoader = new FXMLLoader();
+						fxmlLoader.setLocation(getClass().getResource("itemview.fxml"));
+						AnchorPane anchorPane = fxmlLoader.load();
+						ItemviewController itemController = fxmlLoader.getController();
+
+						itemController.setItemView(itemsg.get(i));
+						if (column == 3) {
+							column = 0;
+							row++;
+						}
+						grid.add(anchorPane, column++, row); //(child,column,row)
+						//set grid width
+//						grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+						grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+						grid.setMaxWidth(Region.USE_PREF_SIZE);
+						//set grid height
+//						grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+						grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+						grid.setMaxHeight(Region.USE_PREF_SIZE);
+						GridPane.setMargin(anchorPane, new Insets(10));
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				break;
+			}
+		}
 		}
 
 	}

@@ -1,34 +1,35 @@
 .anchors{
--fx-background-color:#fff8e7;
+-fx-background-color:#FDEFE9;
     -fx-pref-width:920;
     -fx-pref-height:720;
 }
 
 .anchorsitem{
-    -fx-background-color:#d2d8c0;
+    -fx-background-color:#FBDFD3;
     -fx-pref-width:550;
     -fx-pref-height:500;
+-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
 }
 
 .transparent{
-    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-color: #FFFFFF;
 }
 .scrollpane{
--fx-background-color: rgba(255, 248, 231, 1);
+-fx-background-color: #FDEFE9;
 }
 .rounded{
 -fx-background-radius:15;
 }
 .searchbtn{
-    -fx-background-color:#d2d2d2;
+    -fx-background-color:#ffffff;
 
 }
 .searchbox{
-    -fx-background-color:#ffffff;
+    -fx-background-color:rgb(255,255,255);
     -fx-pref-width:250;
     -fx-pref-height:50;
     -fx-background-radius:30;
-
+-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
 }
 
 .menubox{
@@ -36,14 +37,14 @@
     -fx-pref-width:250;
     -fx-pref-height:520;
     -fx-background-radius:30;
-
+-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
 }
 .toolbar{
-    -fx-background-color:#d2d8c0;
+    -fx-background-color:#FBDFD3;
     -fx-background-radius: 15;
     -fx-pref-width:880;
     -fx-pref-height:60;
-
+-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
 }
 .logo{
       -fx-width:50;
@@ -51,9 +52,17 @@
 
 }
 .itemviewicon{
--fx-background-color:#d2d8c0;
+-fx-background-color:#FBDFD3;
     -fx-background-radius: 30;
+     -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
 }
 .shadow{
--fx-effect:dropshadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);
+-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+.left_menu_btns{
+-fx-background-radius: 30;
+-fx-background-color:#ffffff;
+    -fx-pref-width:210;
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+    -fx-pref-height:30;
 }

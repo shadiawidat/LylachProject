@@ -48,8 +48,10 @@ public class SimpleServer extends AbstractServer {
 	protected void saveObject(Object o)
 	{
 		session.beginTransaction();
+
 		session.save(o);
 		session.flush();
+
 		session.getTransaction().commit();
 	}
 	protected void setInfo(int itemId,double price)
