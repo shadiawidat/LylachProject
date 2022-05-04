@@ -33,12 +33,13 @@ public class Item implements Serializable {
 
 
     //private Picture picture;
-    public Item(String name, double price,String type,String color,String imagesrc){
+    public Item(String name, double price,String type,String color){
         this.name=name;
         this.price=price;
         this.type=type;
         this.color=color;
-        this.imagesrc=imagesrc+name+".png";
+        this.imagesrc="/Media/"+type+"/"+name+".png";
+
     }
 
     public int getId() {

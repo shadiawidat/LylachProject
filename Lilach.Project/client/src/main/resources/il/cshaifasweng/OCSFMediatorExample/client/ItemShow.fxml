@@ -18,13 +18,13 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="920.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ItemShowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="920.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemShow">
    <children>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
             <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
                <image>
-                  <Image url="@../../../../Icons/Menu_icon.png" />
+                  <Image url="@../../../../Icons/Menu.png" />
                </image>
                <HBox.margin>
                   <Insets />
@@ -39,7 +39,7 @@
                   </Label>
                   <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
                      <font>
-                        <Font name="Cambria Bold" size="24.0" />
+                        <Font name="Cambria" size="24.0" />
                      </font>
                   </Label>
                   <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
@@ -56,7 +56,7 @@
             </HBox>
             <ImageView fx:id="Cart" fitHeight="50.0" fitWidth="50.0" onKeyPressed="#GoToCart" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                <image>
-                  <Image url="@../../../../Icons/shopping-cart-png-icon-2.png" />
+                  <Image url="@../../../../Icons/Cart.png" />
                </image>
                <HBox.margin>
                   <Insets />
@@ -94,7 +94,7 @@
       </HBox>
       <ImageView fitHeight="221.0" fitWidth="247.0" layoutX="35.0" layoutY="445.0" pickOnBounds="true" preserveRatio="true" styleClass="rounded" AnchorPane.topAnchor="445.0">
          <image>
-            <Image url="@../../../../img/SpringSale.png" />
+            <Image url="@../../../../Media/GIFS/FlowerGIF.gif" />
          </image>
          <effect>
             <DropShadow>
@@ -110,7 +110,7 @@
                <children>
                   <ImageView fx:id="imgid" fitHeight="262.0" fitWidth="296.0" layoutX="157.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../img/lavender.jpg" />
+                        <Image url="@../../../../Media/Flower/Lavender.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="nameid" layoutX="148.0" layoutY="315.0" stylesheets="@../../../../Styles/Style.css" text="Name:">
@@ -135,7 +135,7 @@
                   </Label>
                   <ImageView fx:id="pressX" fitHeight="38.0" fitWidth="29.0" layoutX="507.0" layoutY="14.0" onKeyPressed="#CloseItem" onMouseClicked="#CloseItem" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Icons/x-icon.jpg" />
+                        <Image url="@../../../../Icons/Close.jpg" />
                      </image>
                   </ImageView>
                   <HBox alignment="CENTER" layoutX="152.0" layoutY="427.0" prefHeight="100.0" prefWidth="248.0">
