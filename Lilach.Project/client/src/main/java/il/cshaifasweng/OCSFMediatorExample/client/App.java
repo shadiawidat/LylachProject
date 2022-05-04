@@ -51,7 +51,7 @@ public class App extends Application {
         client = SimpleClient.getClient();
         client.openConnection();
 
-        Parent root = FXMLLoader.load(getClass().getResource("catalog.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Catalog.fxml"));
         stage.setTitle("LyLach");
         scene=new Scene(root, 920, 720);
         stage.setScene(scene);
