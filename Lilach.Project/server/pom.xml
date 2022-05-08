@@ -59,7 +59,11 @@
 					<artifactId>exec-maven-plugin</artifactId>
 					<version>1.6.0</version>
 					<configuration>
-						<mainClass>il.cshaifasweng.OCSFMediatorExample.server.App</mainClass>
+
+
+								<mainClass>il.cshaifasweng.OCSFMediatorExample.server.App</mainClass>
+					
+
 					</configuration>
 				</plugin>
 				<plugin>

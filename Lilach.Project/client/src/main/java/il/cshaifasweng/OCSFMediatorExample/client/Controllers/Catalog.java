@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 	public class Catalog implements Initializable {
 
 		@FXML
@@ -43,7 +42,7 @@ import java.util.ResourceBundle;
 		private Button SearchBtn;
 
 		@FXML
-		private TextField SearchField;
+		public TextField SearchField;
 
 		@FXML
 		private Label UserName;
@@ -86,11 +85,11 @@ import java.util.ResourceBundle;
 					}
 					grid.add(anchorPane, column++, row); //(child,column,row)
 					//set grid width
-//					grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+					grid.setMinWidth(Region.USE_COMPUTED_SIZE);
 					grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
 					grid.setMaxWidth(Region.USE_PREF_SIZE);
 					//set grid height
-//					grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+					grid.setMinHeight(Region.USE_COMPUTED_SIZE);
 					grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
 					grid.setMaxHeight(Region.USE_PREF_SIZE);
 					GridPane.setMargin(anchorPane, new Insets(10));

@@ -106,33 +106,13 @@
       </ImageView>
       <HBox alignment="CENTER" layoutX="270.0" layoutY="120.0" prefHeight="594.0" prefWidth="650.0">
          <children>
-            <AnchorPane prefHeight="550.0" prefWidth="600.0" stylesheets="@../../../../Styles/Style.css">
+            <AnchorPane prefHeight="578.0" prefWidth="534.0" stylesheets="@../../../../Styles/Style.css">
                <children>
-                  <ImageView fx:id="imgid" fitHeight="262.0" fitWidth="296.0" layoutX="157.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgid" fitHeight="259.0" fitWidth="402.0" layoutX="82.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Media/Flower/Lavender.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="nameid" layoutX="148.0" layoutY="315.0" stylesheets="@../../../../Styles/Style.css" text="Name:">
-                     <font>
-                        <Font name="Cambria" size="22.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="type" layoutX="148.0" layoutY="381.0" text="Type:">
-                     <font>
-                        <Font name="Cambria" size="22.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="color" layoutX="345.0" layoutY="381.0" text="Color:">
-                     <font>
-                        <Font name="Cambria" size="22.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="price" layoutX="349.0" layoutY="315.0" text="Price:">
-                     <font>
-                        <Font name="Cambria" size="22.0" />
-                     </font>
-                  </Label>
                   <ImageView fx:id="pressX" fitHeight="38.0" fitWidth="29.0" layoutX="507.0" layoutY="14.0" onKeyPressed="#CloseItem" onMouseClicked="#CloseItem" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Icons/Close.jpg" />
@@ -162,6 +142,38 @@
                         <String fx:value="searchbox" />
                      </styleClass>
                   </HBox>
+                  <VBox layoutX="1.0" layoutY="273.0" prefHeight="154.0" prefWidth="550.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="112.0" prefWidth="550.0">
+                           <children>
+                              <Label fx:id="nameid" stylesheets="@../../../../Styles/Style.css" text="Name:">
+                                 <font>
+                                    <Font name="Cambria" size="22.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="price" text="Price:">
+                                 <font>
+                                    <Font name="Cambria" size="22.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="type" text="Type:">
+                                 <font>
+                                    <Font name="Cambria" size="22.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="color" text="Color:">
+                                 <font>
+                                    <Font name="Cambria" size="22.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
                <styleClass>
                   <String fx:value="anchorsitem" />

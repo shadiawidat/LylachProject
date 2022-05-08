@@ -44,11 +44,11 @@
     -fx-background-radius: 15;
     -fx-pref-width:880;
     -fx-pref-height:60;
--fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
 }
 .logo{
       -fx-width:50;
-         -fx-height:10;
+       -fx-height:10;
 
 }
 .itemviewicon{
@@ -60,8 +60,8 @@
 -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
 }
 .left_menu_btns{
--fx-background-radius: 30;
--fx-background-color:#ffffff;
+    -fx-background-radius: 30;
+    -fx-background-color:#ffffff;
     -fx-pref-width:210;
     -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
     -fx-pref-height:30;
