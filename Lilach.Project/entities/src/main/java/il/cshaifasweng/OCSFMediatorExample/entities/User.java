@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "User")
-public class User implements Serializable {
+@Table(name = "user")
+public class User {
     @Id
     private String username;
     private String password;
@@ -16,6 +16,20 @@ public class User implements Serializable {
     private Date birthday;
     private String addres;
     private int permission;
+    public User() {
+    }
+
+    public User(String username, String password, String firstname, String lastname, String email, int phonenumber, Date birthday, String addres, int permission) {
+        this.username = username;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phonenumber = phonenumber;
+        this.birthday = birthday;
+        this.addres = addres;
+        this.permission = permission;
+    }
 
     public String getUsername() {
         return username;

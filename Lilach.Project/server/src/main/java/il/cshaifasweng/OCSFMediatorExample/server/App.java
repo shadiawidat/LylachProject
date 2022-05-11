@@ -1,6 +1,11 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Branch;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
+
+import java.sql.Time;
+import java.util.Date;
 
 public class App {
 
@@ -36,14 +41,24 @@ public class App {
  * MANDATORY to do if you are saving a large amount of data - otherwise you may get
 cache errors.
  */
+    private static void generateBranches() throws Exception {
+        Branch b = new Branch();
+        server.saveObject(b);
+        b = new Branch();
+        server.saveObject(b);
+        b = new Branch();
+        server.saveObject(b);
+     }
+
 
 
     public static SimpleServer server;
 
     public static void main(String[] args) throws Exception {
 
-        server=new SimpleServer(4020);
+        server=new SimpleServer(3010);
         generateItems();
+      //  generateBranches();
         server.listen();
 //        server.close();
     }

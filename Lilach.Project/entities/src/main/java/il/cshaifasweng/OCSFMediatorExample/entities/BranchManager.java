@@ -5,9 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class BranchManager extends User implements Serializable {
+public class BranchManager extends User {
+    @OneToOne
     private Branch mybranch;
+    public BranchManager() {
 
+    }
     public Branch getMybranch() {
         return mybranch;
     }

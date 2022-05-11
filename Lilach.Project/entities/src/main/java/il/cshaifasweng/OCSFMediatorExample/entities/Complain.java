@@ -3,17 +3,27 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
 @Entity
-@Table(name = "Complain")
-public class Complain implements Serializable {
+@Table(name = "complain")
+public class Complain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @ManyToOne
+    @JoinColumn(name="Branch_ID")
     private Branch branch;
     private String reason;
     private Date date;
 
+    public Complain(String reason, Date date) {
+        super();
+        this.reason = reason;
+        this.date = date;
+    }
+
+    public Complain() {
+
+    }
     public Branch getBranch() {
         return branch;
     }
