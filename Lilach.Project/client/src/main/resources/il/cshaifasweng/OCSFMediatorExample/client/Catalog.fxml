@@ -10,7 +10,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,7 +17,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Catalog">
@@ -100,17 +98,10 @@
          </content>
       </ScrollPane>
          </children></HBox>
-      <ImageView fitHeight="221.0" fitWidth="247.0" layoutX="35.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true" styleClass="rounded" AnchorPane.topAnchor="445.0">
+      <ImageView fitHeight="221.0" fitWidth="247.0" layoutX="35.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs" AnchorPane.topAnchor="445.0">
          <image>
             <Image url="@../../../../Media/Sales/SpringSale.png" />
          </image>
-         <effect>
-            <DropShadow>
-               <color>
-                  <Color red="0.6105263233184814" green="0.6105263233184814" blue="0.6105263233184814" />
-               </color>
-            </DropShadow>
-         </effect>
       </ImageView>
       <HBox alignment="BASELINE_RIGHT" prefHeight="173.0" prefWidth="920.0" styleClass="scrollpane" />
       <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -161,7 +152,7 @@
             </ImageView>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="20.0" layoutY="101.0" prefHeight="100.0" prefWidth="248.0">
+      <HBox alignment="CENTER" layoutX="20.0" layoutY="101.0" prefHeight="100.0" prefWidth="248.0" styleClass="textFields">
          <children>
             <TextField fx:id="SearchField" prefHeight="25.0" prefWidth="133.0" promptText="Type here to search">
                <styleClass>
@@ -180,10 +171,6 @@
                </font>
             </Button>
          </children>
-         <styleClass>
-            <String fx:value="searchbox" />
-            <String fx:value="rounded" />
-         </styleClass>
       </HBox>
    </children>
 </AnchorPane>

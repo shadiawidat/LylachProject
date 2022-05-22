@@ -4,6 +4,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,7 +14,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Cart">
@@ -64,28 +66,44 @@
                 </ImageView>
             </children>
         </HBox>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="705.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="649.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Icons/Cards.png" />
          </image>
       </ImageView>
-      <Button fx:id="Shipping" layoutX="710.0" layoutY="666.0" mnemonicParsing="false" onMouseClicked="#Continue_to_shipping" style="-fx-background-color: rgb(255,255,255);" styleClass="rounded" stylesheets="@../../../../Styles/Style.css" text="Continue to shipping">
+      <Button fx:id="Shipping" layoutX="654.0" layoutY="666.0" mnemonicParsing="false" onMouseClicked="#Continue_to_shipping" style="-fx-background-color: rgb(255,255,255);" styleClass="rounded" stylesheets="@../../../../Styles/Style.css" text="Continue to shipping">
          <font>
             <Font name="Cambria Bold Italic" size="18.0" />
          </font>
       </Button>
-      <VBox layoutX="53.0" layoutY="97.0" minHeight="10.0" minWidth="10.0" prefHeight="590.0" prefWidth="538.0" style="-fx-background-color: #FDEFE9#FDEFE9;">
-         <children>
-                <ScrollPane fx:id="scroll" hbarPolicy="NEVER" prefHeight="590.0" prefWidth="533.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER" VBox.vgrow="SOMETIMES">
-                    <content>
-                        <GridPane fx:id="grid" minHeight="13.0" minWidth="14.0" prefHeight="13.0" prefWidth="14.0" style="-fx-background-color: #FDEFE9#FDEFE9;" styleClass="scrollpane" stylesheets="@../../../../Styles/Style.css">
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                            </rowConstraints>
-                        </GridPane>
-                    </content>
-                </ScrollPane>
-         </children>
-      </VBox>
+          <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="20.0" layoutY="104.0" prefHeight="555.0" prefWidth="550.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
+              <content>
+                  <GridPane fx:id="grid" minHeight="13.0" minWidth="14.0" prefHeight="13.0" prefWidth="14.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css">
+                      <rowConstraints>
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                      </rowConstraints>
+                  </GridPane>
+              </content>
+          </ScrollPane>
+      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" prefHeight="28.0" prefWidth="228.0" style="-fx-background-color: #FFFFFF;" visible="false">
+        <menus>
+          <Menu mnemonicParsing="false" style="-fx-background-color: #f98898;" text="File">
+            <items>
+              <MenuItem fx:id="LogIn" mnemonicParsing="false" text="LogIn" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+            <Menu fx:id="CloseMenu" mnemonicParsing="false" onAction="#CloseMN" text="X" />
+        </menus>
+      </MenuBar>
     </children>
 </AnchorPane>

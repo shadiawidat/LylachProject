@@ -17,9 +17,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="960.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.LogIn">
    <children>
-      <AnchorPane layoutX="535.0" layoutY="177.0" prefHeight="403.0" prefWidth="320.0" style="-fx-background-color: #FBDFD3#FBDFD3;" styleClass="rounded" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="150.0">
+      <AnchorPane layoutX="535.0" layoutY="177.0" prefHeight="403.0" prefWidth="320.0" styleClass="logincards" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="150.0">
          <children>
-            <TextField fx:id="UsaeName" layoutX="32.0" layoutY="53.0" styleClass="searchbox">
+            <TextField fx:id="UsaeName" layoutX="32.0" layoutY="53.0" prefHeight="103.0" styleClass="textFields" AnchorPane.topAnchor="53.0">
                <font>
                   <Font size="24.0" />
                </font>
@@ -34,7 +34,7 @@
                   <Font name="Cambria" size="24.0" />
                </font>
             </Label>
-            <Button layoutX="86.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#SignIn" prefHeight="59.0" prefWidth="157.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" text="SignIn">
+            <Button layoutX="86.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#SignIn" prefHeight="59.0" prefWidth="157.0" styleClass="Largebtn" text="SignIn">
                <font>
                   <Font name="Cambria Bold Italic" size="24.0" />
                </font>
@@ -43,7 +43,7 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <PasswordField fx:id="Password" layoutX="32.0" layoutY="166.0" styleClass="searchbox" />
+            <PasswordField fx:id="Password" layoutX="32.0" layoutY="166.0" prefHeight="50.0" styleClass="textFields" />
          </children>
          <effect>
             <DropShadow blurType="GAUSSIAN" height="30.0" radius="14.5" width="30.0">
@@ -91,7 +91,7 @@
             </ImageView>
          </children>
       </HBox>
-      <AnchorPane layoutX="87.0" layoutY="174.0" prefHeight="403.0" prefWidth="320.0" style="-fx-background-color: #FBDFD3#FBDFD3;" styleClass="rounded" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="150.0">
+      <AnchorPane layoutX="87.0" layoutY="174.0" prefHeight="403.0" prefWidth="320.0" styleClass="logincards" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="150.0">
          <effect>
             <DropShadow blurType="GAUSSIAN" height="30.0" radius="14.5" width="30.0">
                <color>
