@@ -51,10 +51,6 @@ import java.util.ResourceBundle;
 		private GridPane grid;
 
 		private MyListener myListener;
-		@FXML
-		void CartClick(MouseEvent event) throws IOException {
-			App.setRoot("Cart");
-		}
 
 		@FXML
 		void ClickSearch(MouseEvent event) throws IOException {
@@ -110,6 +106,10 @@ import java.util.ResourceBundle;
 			App.setRoot("Account");
 		}
 
+		@FXML
+		void GoToCart(MouseEvent event) throws IOException {
+			App.setRoot("Cart");
+		}
 
 		public static List<Item> itemsg=new ArrayList<>();
 		public void setData() throws IOException {

@@ -12,6 +12,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class App extends Application {
@@ -32,7 +33,7 @@ public class App extends Application {
 
     private static Item onscreen;
 
-    public static List<Item> items;
+    public static List<Item> items=new ArrayList<>();
 
     public static List<Item> getItems() {
         return items;
@@ -51,7 +52,7 @@ public class App extends Application {
         client = SimpleClient.getClient();
         client.openConnection();
 
-        Parent root = FXMLLoader.load(getClass().getResource("Catalog.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
         stage.setTitle("LyLach");
         scene=new Scene(root, 920, 720);
         stage.setScene(scene);

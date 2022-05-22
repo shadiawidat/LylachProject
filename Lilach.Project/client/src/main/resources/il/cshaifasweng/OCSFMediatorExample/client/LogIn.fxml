@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="960.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.LogIn">
+   <children>
+      <AnchorPane layoutX="535.0" layoutY="177.0" prefHeight="403.0" prefWidth="320.0" style="-fx-background-color: #FBDFD3#FBDFD3;" styleClass="rounded" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="150.0">
+         <children>
+            <TextField fx:id="UsaeName" layoutX="32.0" layoutY="53.0" styleClass="searchbox">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <Label layoutX="37.0" layoutY="23.0" text="UserName:">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="36.0" layoutY="140.0" text="Password:">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Button layoutX="86.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#SignIn" prefHeight="59.0" prefWidth="157.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" text="SignIn">
+               <font>
+                  <Font name="Cambria Bold Italic" size="24.0" />
+               </font>
+            </Button>
+            <Label layoutX="25.0" layoutY="347.0" onMouseClicked="#SignUP" text="Don't have an account yet? Signup here" textFill="#eb0e0e">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <PasswordField fx:id="Password" layoutX="32.0" layoutY="166.0" styleClass="searchbox" />
+         </children>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="30.0" radius="14.5" width="30.0">
+               <color>
+                  <Color red="0.43421053886413574" green="0.43421053886413574" blue="0.43421053886413574" />
+               </color>
+            </DropShadow>
+         </effect>
+      </AnchorPane>
+      <HBox alignment="CENTER" layoutX="30.0" layoutY="37.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
+               <image>
+                  <Image url="@../../../../Icons/Menu.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
+                     <font>
+                        <Font name="Cambria Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="NEVER">
+               <image>
+                  <Image url="@../../../../Icons/Cart.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="logo" />
+               </styleClass>
+            </ImageView>
+         </children>
+      </HBox>
+      <AnchorPane layoutX="87.0" layoutY="174.0" prefHeight="403.0" prefWidth="320.0" style="-fx-background-color: #FBDFD3#FBDFD3;" styleClass="rounded" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="150.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="30.0" radius="14.5" width="30.0">
+               <color>
+                  <Color red="0.43421053886413574" green="0.43421053886413574" blue="0.43421053886413574" />
+               </color>
+            </DropShadow>
+         </effect>
+         <children>
+            <VBox alignment="CENTER" layoutX="-1.0" layoutY="2.0" onMouseClicked="#OpenCatalog" prefHeight="402.0" prefWidth="321.0" AnchorPane.leftAnchor="-1.0">
+               <children>
+                  <Label contentDisplay="CENTER" prefHeight="60.0" prefWidth="197.0" text="Continue" textAlignment="CENTER">
+                     <font>
+                        <Font name="Cambria Bold Italic" size="48.0" />
+                     </font>
+                  </Label>
+                  <Label contentDisplay="CENTER" prefHeight="57.0" prefWidth="216.0" text="as a guest" textAlignment="CENTER">
+                     <font>
+                        <Font name="Cambria Bold Italic" size="48.0" />
+                     </font>
+                  </Label>
+                  <Label contentDisplay="CENTER" prefHeight="60.0" prefWidth="39.0" text="&amp;" textAlignment="CENTER">
+                     <font>
+                        <Font name="Cambria Bold Italic" size="48.0" />
+                     </font>
+                  </Label>
+                  <Label contentDisplay="CENTER" prefHeight="60.0" prefWidth="197.0" text="enjoy the" textAlignment="CENTER">
+                     <font>
+                        <Font name="Cambria Bold Italic" size="48.0" />
+                     </font>
+                  </Label>
+                  <Label contentDisplay="CENTER" prefHeight="60.0" prefWidth="143.0" text="scents" textAlignment="CENTER">
+                     <font>
+                        <Font name="Cambria Bold Italic" size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
