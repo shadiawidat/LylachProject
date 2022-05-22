@@ -1,6 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 import org.hibernate.HibernateException;
@@ -21,7 +21,22 @@ public class SimpleServer extends AbstractServer {
 	private static SessionFactory getSessionFactory() throws HibernateException {
 		Configuration configuration = new Configuration();
 		// Add ALL of your entities here. You can also try adding a whole package.
+
 		configuration.addAnnotatedClass(Item.class);
+		configuration.addAnnotatedClass(Report.class);
+		configuration.addAnnotatedClass(Branch.class);
+		configuration.addAnnotatedClass(Cart.class);
+		configuration.addAnnotatedClass(Catalog.class);
+		configuration.addAnnotatedClass(Complain.class);
+		configuration.addAnnotatedClass(User.class);
+
+		configuration.addAnnotatedClass(BranchManager.class);
+		configuration.addAnnotatedClass(CoroporationManager.class);
+		configuration.addAnnotatedClass(Client.class);
+		configuration.addAnnotatedClass(IncomeReport.class);
+		configuration.addAnnotatedClass(OrderReport.class);
+		configuration.addAnnotatedClass(ComplainReport.class);
+
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 				.applySettings(configuration.getProperties())
 				.build();

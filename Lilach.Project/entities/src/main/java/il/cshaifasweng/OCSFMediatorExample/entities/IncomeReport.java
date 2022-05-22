@@ -1,18 +1,43 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class IncomeReport extends Report implements Serializable {
+public class IncomeReport extends Report{
     private Double Netincome;
+    @OneToMany
     private List<Cart> orders;
     private int totalcount;
     private int canceledcount;
     private int orderscount;
+    @OneToMany
     private List<Cart> canceledorders;
 
+    public IncomeReport(Double netincome, int totalcount, int canceledcount, int orderscount) {
+        Netincome = netincome;
+        this.totalcount = totalcount;
+        this.canceledcount = canceledcount;
+        this.orderscount = orderscount;
+    }
+
+    public IncomeReport() {
+
+    }
+    public void AddOneCart(Cart c){
+        orders.add(c);
+    }
+    public void DeleteOneCart(Cart c){
+        orders.remove(c);
+    }
+    public void AddOneCanceledCart(Cart c){
+        canceledorders.add(c);
+    }
+    public void DeleteOneCanceledCart(Cart c){
+        canceledorders.remove(c);
+    }
     public Double getNetincome() {
         return Netincome;
     }

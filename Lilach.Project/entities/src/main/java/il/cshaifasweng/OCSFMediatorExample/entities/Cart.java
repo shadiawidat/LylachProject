@@ -7,31 +7,52 @@ import java.util.List;
 
 @Entity
 @Table(name = "Cart")
-public class Cart implements Serializable {
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private List<Item> items;
-    private Client client;
+   /* @ManyToMany
+    private List<Item> items;*/
+    @OneToOne
+    private User client;
     private Date date;
     private String blessingticket;
     private Double price;
     private Boolean delivery;
     private String address;
 
+   /* public Cart(Date date, String blessingticket, Double price, Boolean delivery, String address, String paymentmethod) {
+        super();
+        this.date = date;
+        this.blessingticket = blessingticket;
+        this.price = price;
+        this.delivery = delivery;
+        this.address = address;
+        this.paymentmethod = paymentmethod;
+    }*/
+
+    public Cart() {
+
+    }
+    /*public void AddOneItem(Item i){
+        items.add(i);
+    }
+    public void DeleteOneItem(Item i){
+        items.remove(i);
+    }
     public List<Item> getItems() {
         return items;
     }
 
     public void setItems(List<Item> items) {
         this.items = items;
-    }
+    }*/
 
-    public Client getClient() {
+    public User getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(User client) {
         this.client = client;
     }
 

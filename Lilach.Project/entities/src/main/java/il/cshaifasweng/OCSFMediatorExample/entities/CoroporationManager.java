@@ -1,18 +1,30 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class CoroporationManager extends User implements Serializable {
-    private List<Branch> mybranchs;
+public class CoroporationManager extends User {
+    @OneToMany
+    private List<Branch> mybranches;
 
+    public CoroporationManager() {
+
+    }
+    public void AddOneBranch(Branch b){
+        mybranches.add(b);
+    }
+    public void DeleteOneBranch(Branch b){
+        mybranches.remove(b);
+    }
     public List<Branch> getMybranchs() {
-        return mybranchs;
+        return mybranches;
     }
 
     public void setMybranchs(List<Branch> mybranchs) {
-        this.mybranchs = mybranchs;
+        this.mybranches = mybranchs;
     }
 }

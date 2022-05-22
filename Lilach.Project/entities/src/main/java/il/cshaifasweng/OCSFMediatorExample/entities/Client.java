@@ -5,13 +5,37 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Client extends User implements Serializable {
+public class Client extends User  {
     private int accounttype;
     private Double amount;
+    @OneToMany
     private List<Cart> myorders;
+    @ManyToMany
     private List<Branch> mybranches;
     private Boolean freezed;
 
+    public Client(int accounttype, Double amount, Boolean freezed) {
+        super();
+        this.accounttype = accounttype;
+        this.amount = amount;
+        this.freezed = freezed;
+    }
+
+    public Client() {
+
+    }
+   /* public void AddOneCart(Cart c){
+        myorders.add(c);
+    }
+    public void DeleteOneCart(Cart c){
+        myorders.remove(c);
+    }*/
+    public void AddOneBranch(Branch b){
+        mybranches.add(b);
+    }
+    public void DeleteOneBranch(Branch b){
+        mybranches.remove(b);
+    }
     public int getAccounttype() {
         return accounttype;
     }
@@ -28,14 +52,14 @@ public class Client extends User implements Serializable {
         this.amount = amount;
     }
 
-    public List<Cart> getMyorders() {
+  /*  public List<Cart> getMyorders() {
         return myorders;
     }
 
     public void setMyorders(List<Cart> myorders) {
         this.myorders = myorders;
     }
-
+*/
     public List<Branch> getMybranches() {
         return mybranches;
     }
