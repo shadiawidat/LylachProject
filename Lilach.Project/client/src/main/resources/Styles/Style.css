@@ -52,7 +52,7 @@
 
 }
 .itemviewicon{
--fx-background-color:#FBDFD3;
+    -fx-background-color:#FBDFD3;
     -fx-background-radius: 30;
      -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
 }
@@ -65,4 +65,9 @@
     -fx-pref-width:210;
     -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
     -fx-pref-height:30;
+}
+
+.ItemCart{
+    -fx-background-color:rgb(255,255,255);
+    -fx-background-radius: 30;
 }

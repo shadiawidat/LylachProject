@@ -42,7 +42,9 @@ cache errors.
 
     public static void main(String[] args) throws Exception {
 
+
         server=new SimpleServer(4020);
+
         generateItems();
         server.listen();
 //        server.close();
