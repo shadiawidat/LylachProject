@@ -16,8 +16,8 @@ public class Branch {
     private CoroporationManager cmanager;
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Client> client;            //needs to check
-    /*@OneToMany
-    private List<User> workers; */              //needs to check
+    @OneToMany
+    private List<User> workers;               //needs to check
     @OneToMany(mappedBy = "branch")
     private List<Complain> complains;
     @OneToMany(mappedBy = "branch")
@@ -31,12 +31,12 @@ public class Branch {
     public void DeleteOneClient(Client c){
         client.remove(c);
     }
-  /*  public void AddIOneWorker(User u){
+    public void AddIOneWorker(User u){
         workers.add(u);
     }
     public void DeleteOneWorker(User u){
         workers.remove(u);
-    }*/
+    }
     public void AddOneComplain(Complain c){
         complains.add(c);
     }

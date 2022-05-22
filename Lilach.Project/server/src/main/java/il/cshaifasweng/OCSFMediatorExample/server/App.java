@@ -56,14 +56,9 @@ cache errors.
 
     public static void main(String[] args) throws Exception {
 
-
-
         server=new SimpleServer(4020);
-
-
         generateItems();
-      //  generateBranches();
+      //generateBranches();
         server.listen();
-//        server.close();
     }
 }

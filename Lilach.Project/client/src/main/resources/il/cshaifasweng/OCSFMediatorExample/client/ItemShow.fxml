@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -9,13 +10,11 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="920.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemShow">
@@ -37,9 +36,9 @@
                         <Font name="Cambria" size="14.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" styleClass="logo" text="Lylach's">
                      <font>
-                        <Font name="Cambria" size="24.0" />
+                        <Font name="Cambria Bold" size="24.0" />
                      </font>
                   </Label>
                   <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
@@ -68,45 +67,24 @@
             </ImageView>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="20.0" layoutY="101.0" prefHeight="100.0" prefWidth="248.0">
+      <HBox alignment="CENTER" layoutX="20.0" layoutY="101.0" prefHeight="100.0" prefWidth="248.0" styleClass="textFields">
          <children>
-            <TextField fx:id="SerachField" prefHeight="25.0" prefWidth="133.0" promptText="Type here to search">
-               <styleClass>
-                  <String fx:value="transparent" />
-                  <String fx:value="rounded" />
-               </styleClass>
-            </TextField>
-            <Button fx:id="SerachBtn" mnemonicParsing="false" onKeyPressed="#SearchItem" onMouseClicked="#SearchItem" text="Search">
-               <styleClass>
-                  <String fx:value="rounded" />
-                  <String fx:value="transparent" />
-                  <String fx:value="searchbtn" />
-               </styleClass>
+            <TextField fx:id="SerachField" prefHeight="25.0" prefWidth="133.0" promptText="Type here to search" styleClass="transparent" />
+            <Button fx:id="SerachBtn" mnemonicParsing="false" onKeyPressed="#SearchItem" onMouseClicked="#SearchItem" styleClass="transparent" text="Search">
                <font>
                   <Font name="Cambria" size="14.0" />
                </font>
             </Button>
          </children>
-         <styleClass>
-            <String fx:value="rounded" />
-            <String fx:value="searchbox" />
-         </styleClass>
       </HBox>
-      <ImageView fitHeight="221.0" fitWidth="247.0" layoutX="35.0" layoutY="445.0" pickOnBounds="true" preserveRatio="true" styleClass="rounded" AnchorPane.topAnchor="445.0">
+      <ImageView fitHeight="221.0" fitWidth="247.0" layoutX="35.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs" AnchorPane.topAnchor="445.0">
          <image>
             <Image url="@../../../../Media/GIFS/FlowerGIF.gif" />
          </image>
-         <effect>
-            <DropShadow>
-               <color>
-                  <Color red="0.6105263233184814" green="0.6105263233184814" blue="0.6105263233184814" />
-               </color>
-            </DropShadow>
-         </effect>
       </ImageView>
       <HBox alignment="CENTER" layoutX="270.0" layoutY="120.0" prefHeight="594.0" prefWidth="650.0">
          <children>
-            <AnchorPane prefHeight="530.0" prefWidth="534.0" stylesheets="@../../../../Styles/Style.css">
+            <AnchorPane prefHeight="530.0" prefWidth="534.0">
                <children>
                   <ImageView fx:id="imgid" fitHeight="249.0" fitWidth="250.0" layoutX="152.0" layoutY="29.0" pickOnBounds="true" />
                   <ImageView fx:id="pressX" fitHeight="38.0" fitWidth="29.0" layoutX="507.0" layoutY="14.0" onKeyPressed="#CloseItem" onMouseClicked="#CloseItem" pickOnBounds="true" preserveRatio="true">
@@ -114,29 +92,15 @@
                         <Image url="@../../../../Icons/Close.jpg" />
                      </image>
                   </ImageView>
-                  <HBox alignment="CENTER" layoutX="152.0" layoutY="427.0" prefHeight="100.0" prefWidth="248.0">
+                  <HBox alignment="CENTER" layoutX="152.0" layoutY="427.0" prefHeight="100.0" prefWidth="248.0" styleClass="textFields">
                      <children>
-                        <TextField fx:id="PriceFiled" prefHeight="25.0" prefWidth="133.0" promptText="Enter new Price">
-                           <styleClass>
-                              <String fx:value="transparent" />
-                              <String fx:value="rounded" />
-                           </styleClass>
-                        </TextField>
-                        <Button fx:id="ChangePrice" mnemonicParsing="false" onKeyPressed="#ChangePrice" onMouseClicked="#ChangePrice" text="Change">
-                           <styleClass>
-                              <String fx:value="rounded" />
-                              <String fx:value="transparent" />
-                              <String fx:value="searchbtn" />
-                           </styleClass>
+                        <TextField fx:id="PriceFiled" prefHeight="25.0" prefWidth="133.0" promptText="Enter new Price" styleClass="transparent" />
+                        <Button fx:id="ChangePrice" mnemonicParsing="false" onKeyPressed="#ChangePrice" onMouseClicked="#ChangePrice" styleClass="transparent" text="Change">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
                      </children>
-                     <styleClass>
-                        <String fx:value="rounded" />
-                        <String fx:value="searchbox" />
-                     </styleClass>
                   </HBox>
                   <Label fx:id="nameid" layoutX="60.0" layoutY="309.0" stylesheets="@../../../../Styles/Style.css" text="Name:">
                      <font>
@@ -159,13 +123,17 @@
                      </font>
                   </Label>
                </children>
+               <HBox.margin>
+                  <Insets bottom="50.0" top="50.0" />
+               </HBox.margin>
+               <stylesheets>
+                  <URL value="@../../../../Styles/Style.css" />
+                  <URL value="@../../../../Styles/Style.css" />
+               </stylesheets>
                <styleClass>
                   <String fx:value="anchorsitem" />
                   <String fx:value="rounded" />
                </styleClass>
-               <HBox.margin>
-                  <Insets bottom="50.0" top="50.0" />
-               </HBox.margin>
             </AnchorPane>
          </children>
       </HBox>

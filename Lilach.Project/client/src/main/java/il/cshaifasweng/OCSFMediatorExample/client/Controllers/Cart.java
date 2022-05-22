@@ -3,12 +3,14 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -40,7 +42,8 @@ public class Cart implements Initializable {
 
     @FXML
     private GridPane grid;
-
+    @FXML
+    private MenuBar menu;
     @FXML
     private ScrollPane scroll;
 
@@ -61,9 +64,12 @@ public class Cart implements Initializable {
 
     @FXML
     void MenuClick(MouseEvent event) {
+        menu.setVisible(true);
+    }
+    @FXML
+    void CloseMN(ActionEvent event) {
 
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         items= App.items;
