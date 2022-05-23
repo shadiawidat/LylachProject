@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -41,11 +42,16 @@ public class LogIn {
     @FXML
     void SignIn(MouseEvent event) {
 
+
+
+
+
+        SimpleClient.getClient().setUsername(UsaeName.getText());
     }
 
     @FXML
-    void SignUP(MouseEvent event) {
-
+    void SignUP(MouseEvent event) throws IOException {
+        App.setRoot("SignUp");
     }
 
 }
