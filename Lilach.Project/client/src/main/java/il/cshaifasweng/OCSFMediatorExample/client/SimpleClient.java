@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 import il.cshaifasweng.OCSFMediatorExample.client.Controllers.Catalog;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,22 +28,26 @@ public class SimpleClient extends AbstractClient {
 		super(host, port);
 	}
 
-	private static List<Item> recievedmsg=new ArrayList<>();
+	public static String lastms=new String("");
 
-	public List<Item> getRecievedmsg() {
-		return recievedmsg;
+	public static String getLastms() {
+		return lastms;
 	}
 
-	public void setRecievedmsg(List<Item> recievedmsg1) {
-		recievedmsg.addAll(recievedmsg1);
+	public static void setLastms(String lastms) {
+		SimpleClient.lastms = lastms;
 	}
-
 
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 
-		List<Item> items=(List<Item>)msg;
-		Catalog.itemsg=items;
+		Message ms=(Message)msg;
+		if(ms.getString().equals("#CatalogReady")) {
+			Catalog.itemsg = (List<Item>) ms.getObject();
+			setLastms("#CatalogReady");
+
+		}
+
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 		}
@@ -53,7 +58,7 @@ public class SimpleClient extends AbstractClient {
 
 	public static SimpleClient getClient() {
 		if (client == null) {
-			client = new SimpleClient("localhost", 4220);
+			client = new SimpleClient("localhost", 3250);
 
 		}
 		return client;

@@ -15,9 +15,9 @@ public class Branch {
     @ManyToOne(fetch = FetchType.LAZY)
     private CoroporationManager cmanager;
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<Client> client;            //needs to check
+    private List<Client> client;
     @OneToMany
-    private List<User> workers;               //needs to check
+    private List<User> workers;
     @OneToMany(mappedBy = "branch")
     private List<Complain> complains;
     @OneToMany(mappedBy = "branch")
@@ -73,13 +73,13 @@ public class Branch {
         this.client = client;
     }
 
-    /*public List<User> getWorkers() {
+    public List<User> getWorkers() {
         return workers;
     }
 
     public void setWorkers(List<User> workers) {
         this.workers = workers;
-    }*/
+    }
 
     public List<Complain> getComplains() {
         return complains;

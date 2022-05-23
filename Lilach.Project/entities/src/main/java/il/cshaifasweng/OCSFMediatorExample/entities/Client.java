@@ -8,6 +8,8 @@ import java.util.List;
 public class Client extends User  {
     private int accounttype;
     private Double amount;
+    @OneToOne
+    private Cart order;
     @OneToMany
     private List<Cart> myorders;
     @ManyToMany
@@ -40,6 +42,14 @@ public class Client extends User  {
         return accounttype;
     }
 
+    public Cart getOrder() {
+        return order;
+    }
+
+    public void setOrder(Cart order) {
+        this.order = order;
+    }
+
     public void setAccounttype(int accounttype) {
         this.accounttype = accounttype;
     }
@@ -52,14 +62,14 @@ public class Client extends User  {
         this.amount = amount;
     }
 
-  /*  public List<Cart> getMyorders() {
+    public List<Cart> getMyorders() {
         return myorders;
     }
 
     public void setMyorders(List<Cart> myorders) {
         this.myorders = myorders;
     }
-*/
+
     public List<Branch> getMybranches() {
         return mybranches;
     }

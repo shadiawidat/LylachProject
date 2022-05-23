@@ -4,6 +4,8 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.MyListener;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.application.Platform;
 
 import javax.swing.text.html.ImageView;
 import java.io.IOException;
@@ -24,7 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-	public class Catalog implements Initializable {
+import static com.sun.javafx.application.PlatformImpl.runLater;
+
+public class Catalog implements Initializable {
 
 		@FXML
 		private ResourceBundle resources;
@@ -114,11 +119,13 @@ import java.util.ResourceBundle;
 		public static List<Item> itemsg=new ArrayList<>();
 		public void setData() throws IOException {
 
-			itemsg.addAll(SimpleClient.getClient().getRecievedmsg());
-
 		}
 		private void getData() throws IOException {
-           SimpleClient.getClient().sendToServer("#getItems");
+
+			Message ms=new Message(null,"#LoadCatalog");
+           SimpleClient.getClient().sendToServer(ms);
+
+
 
 		}
 
@@ -130,6 +137,13 @@ import java.util.ResourceBundle;
 		@FXML
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
+			runLater(()-> {
+				try {
+					getData();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
 			int column = 0;
 			int row = 1;
 
@@ -138,13 +152,9 @@ import java.util.ResourceBundle;
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-		while(itemsg.size()<100) {
-			try {
-				setData();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			if (itemsg.size() == 11) {
+
+		while(SimpleClient.getLastms().equals("#CatalogReady")==false) {
+		}
 
 				try {
 					for (int i = 0; i < itemsg.size(); i++) {
@@ -173,9 +183,8 @@ import java.util.ResourceBundle;
 					e.printStackTrace();
 				}
 
-				break;
-			}
-		}
+
+
 		}
 
 	}
