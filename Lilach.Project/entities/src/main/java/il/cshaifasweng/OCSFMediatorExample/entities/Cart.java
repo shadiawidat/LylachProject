@@ -11,8 +11,8 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-   /* @ManyToMany
-    private List<Item> items;*/
+    @ManyToMany
+    private List<Item> items;
     @OneToOne
     private User client;
     private Date date;
@@ -21,7 +21,7 @@ public class Cart {
     private Boolean delivery;
     private String address;
 
-   /* public Cart(Date date, String blessingticket, Double price, Boolean delivery, String address, String paymentmethod) {
+    public Cart(Date date, String blessingticket, Double price, Boolean delivery, String address, String paymentmethod) {
         super();
         this.date = date;
         this.blessingticket = blessingticket;
@@ -29,12 +29,12 @@ public class Cart {
         this.delivery = delivery;
         this.address = address;
         this.paymentmethod = paymentmethod;
-    }*/
+    }
 
     public Cart() {
 
     }
-    /*public void AddOneItem(Item i){
+    public void AddOneItem(Item i){
         items.add(i);
     }
     public void DeleteOneItem(Item i){
@@ -46,7 +46,7 @@ public class Cart {
 
     public void setItems(List<Item> items) {
         this.items = items;
-    }*/
+    }
 
     public User getClient() {
         return client;
