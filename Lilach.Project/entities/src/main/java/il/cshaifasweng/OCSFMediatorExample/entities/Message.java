@@ -1,6 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-public class Message {
+
+import java.io.Serializable;
+
+public class Message implements Serializable {
+
     private Object object;
     private String string;
 

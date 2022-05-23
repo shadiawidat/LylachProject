@@ -13,6 +13,7 @@ import org.hibernate.service.ServiceRegistry;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 public class SimpleServer extends AbstractServer {
@@ -43,39 +44,35 @@ public class SimpleServer extends AbstractServer {
 
 		return configuration.buildSessionFactory(serviceRegistry);
 	}
-	public List<Object> getList(String classn){
-		CriteriaBuilder builder=session.getCriteriaBuilder();
-		if(classn.equals("#getItems")){
-			CriteriaQuery<Object> query=builder.createQuery(Object.class);
-			query.from(Item.class);
-			return session.createQuery(query).getResultList();
-		}
+	public Collection<Object> getList(String classn){
+
+
+//		if(classn.equals("#getItems")){
+//			CriteriaBuilder builder=session.getCriteriaBuilder();
+//			CriteriaQuery<Item> query=builder.createQuery(Item.class);
+//			query.from(Item.class);
+//			List<Item> items=session.createQuery(query).getResultList();
+//			return items;
+//		}
 		return null;
 	}
 
-//	public Object getItem(String classn, int id){
-//		CriteriaBuilder builder=session.getCriteriaBuilder();
-//
-//
-//	}
-
 	public SimpleServer(int port) throws IOException {
 		super(port);
-
 			SessionFactory sessionFactory = getSessionFactory();
 			session = sessionFactory.openSession();
 			listen();
-
 	}
-
-	protected Object findObject(Object object){
+	protected Object findObject(String classn,String id){
 		session.beginTransaction();
-		if(session.find(object.getClass(), object) == null){
-			return null;
+
+		if(classn.equals("Item"))
+		{
+			return session.find(Item.class,id);
 		}
 
 		session.getTransaction().commit();
-		return object;
+		return null;
 	}
 
 	protected void saveObject(Object o)
@@ -121,8 +118,6 @@ public class SimpleServer extends AbstractServer {
 
 		session.getTransaction().commit();
 	}
-
-
 	protected void setInfo(int itemId,double price)
 	{
 		session.beginTransaction();
@@ -131,76 +126,18 @@ public class SimpleServer extends AbstractServer {
 	}
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws IOException {
-		String msgString = msg.toString();
+		Message ms=(Message) msg;
+		String request=ms.getString();
 
-		//if(msg.toString().startsWith())
-		if(msg.toString().equals("#initCatalog"))
-        {
-			client.sendToClient("#prepItems");
-			client.sendToClient(getList("#getItems"));
-			client.sendToClient("#recviveItems");
-        }
-
-		if(msg.toString().equals("#addItemToCart")){
-			client.sendToClient("#prepItemToAddToCart");
-			//client.sendToClient(getItem("#getItem", ));
-			client.sendToClient("#itemAddedToCart");
-		}
-
-		if(msg.toString().equals("#deleteItemFromCart")){
-			client.sendToClient("#prepItemToDelete");
-
-			client.sendToClient("#ItemDeleted");
-			client.sendToClient("#ItemDoesn'tExist");
-
-		}
-		if(msg.toString().equals("#addItemToCatalog")){
-			client.sendToClient("#prepItemToAddToCatalog");
-
-			client.sendToClient("#ItemAddedToCatalog");
-
-		}
-		if(msg.toString().equals("#deleteItemFromCatalog")){
-			client.sendToClient("#prepItemToDeleteFromCatalog");
-
-			client.sendToClient("#ItemDeletedFromCatalog");
-			client.sendToClient("#ItemDoesn'tExist");
-		}
-
-		if(msg.toString().equals("#addClient")){
-			client.sendToClient("#ItemAdded");
-		}
-		if(msg.toString().equals("#deleteClient")){}
-		if(msg.toString().equals("#addWorker")){}
-		if(msg.toString().equals("#deleteWorker")){}
-		if(msg.toString().equals("#addReport")){}
-		if(msg.toString().equals("#showReportInfo")){}
-		if(msg.toString().equals("#addComplain")){}
-		if(msg.toString().equals("#deleteComplain")){}
-
-		if(msg.toString().equals("#addCart")){}
-		if(msg.toString().equals("#delteCart")){}
-		if(msg.toString().equals("#addBranch")){}
-		if(msg.toString().equals("#deleteBranch")){}
-
-
-
-
-
-
-
-
-
-
-
-
-
-		if(msg.toString().startsWith("#changePrice"))
+		if(request.equals("#LoadCatalog"))
 		{
-			String[] msgarray=msgString.split(" ");
-			setInfo(Integer.parseInt(msgarray[1]),Double.parseDouble(msgarray[2]));
+			CriteriaBuilder builder=session.getCriteriaBuilder();
+			CriteriaQuery<Item> query=builder.createQuery(Item.class);
+			query.from(Item.class);
+			Message msa=new Message(session.createQuery(query).getResultList(),"#CatalogReady");
+			client.sendToClient(msa);
 		}
-		double price=Double.parseDouble(msgString);
+
 	}
 
 }

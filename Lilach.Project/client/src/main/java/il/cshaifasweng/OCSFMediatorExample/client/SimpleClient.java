@@ -28,24 +28,26 @@ public class SimpleClient extends AbstractClient {
 		super(host, port);
 	}
 
-	private static List<Item> recievedmsg=new ArrayList<>();
+	public static String lastms=new String("");
 
-	public List<Item> getRecievedmsg() {
-		return recievedmsg;
+	public static String getLastms() {
+		return lastms;
 	}
 
-	public void setRecievedmsg(List<Item> recievedmsg1) {
-		recievedmsg.addAll(recievedmsg1);
+	public static void setLastms(String lastms) {
+		SimpleClient.lastms = lastms;
 	}
-
 
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		Message m =(Message)msg;
 		String s = m.getString();
-		if(s.equals("initCatalog")){
-			List<Item> items=(List<Item>)msg;
-			Catalog.itemsg=items;
+
+		Message ms=(Message)msg;
+		if(ms.getString().equals("#CatalogReady")) {
+			Catalog.itemsg = (List<Item>) ms.getObject();
+			setLastms("#CatalogReady");
+
 		}
 
 		if (msg.getClass().equals(Warning.class)) {
@@ -58,7 +60,7 @@ public class SimpleClient extends AbstractClient {
 
 	public static SimpleClient getClient() {
 		if (client == null) {
-			client = new SimpleClient("localhost", 4220);
+			client = new SimpleClient("localhost", 3250);
 
 		}
 		return client;
