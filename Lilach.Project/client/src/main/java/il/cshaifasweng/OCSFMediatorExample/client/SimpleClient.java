@@ -40,6 +40,8 @@ public class SimpleClient extends AbstractClient {
 
 	@Override
 	protected void handleMessageFromServer(Object msg) {
+		Message m =(Message)msg;
+		String s = m.getString();
 
 		Message ms=(Message)msg;
 		if(ms.getString().equals("#CatalogReady")) {
