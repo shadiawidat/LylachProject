@@ -50,6 +50,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         EventBus.getDefault().register(this);
         client = SimpleClient.getClient();
+
         client.openConnection();
 
         Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));

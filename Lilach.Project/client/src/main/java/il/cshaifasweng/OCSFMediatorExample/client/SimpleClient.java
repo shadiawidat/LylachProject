@@ -29,6 +29,7 @@ public class SimpleClient extends AbstractClient {
 		recievedmsg.addAll(recievedmsg1);
 	}
 
+
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 

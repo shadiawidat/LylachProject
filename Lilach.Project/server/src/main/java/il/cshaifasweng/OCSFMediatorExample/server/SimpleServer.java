@@ -43,15 +43,22 @@ public class SimpleServer extends AbstractServer {
 
 		return configuration.buildSessionFactory(serviceRegistry);
 	}
-	public List<Item> getList(String classn){
+	public List<Object> getList(String classn){
 		CriteriaBuilder builder=session.getCriteriaBuilder();
 		if(classn.equals("#getItems")){
-			CriteriaQuery<Item> query=builder.createQuery(Item.class);
+			CriteriaQuery<Object> query=builder.createQuery(Object.class);
 			query.from(Item.class);
 			return session.createQuery(query).getResultList();
 		}
 		return null;
 	}
+
+//	public Object getItem(String classn, int id){
+//		CriteriaBuilder builder=session.getCriteriaBuilder();
+//
+//
+//	}
+
 	public SimpleServer(int port) throws IOException {
 		super(port);
 
@@ -60,6 +67,17 @@ public class SimpleServer extends AbstractServer {
 			listen();
 
 	}
+
+	protected Object findObject(Object object){
+		session.beginTransaction();
+		if(session.find(object.getClass(), object) == null){
+			return null;
+		}
+
+		session.getTransaction().commit();
+		return object;
+	}
+
 	protected void saveObject(Object o)
 	{
 		session.beginTransaction();
@@ -68,7 +86,43 @@ public class SimpleServer extends AbstractServer {
 		session.flush();
 
 		session.getTransaction().commit();
+
 	}
+
+	protected void saveObjectList(List<Object> list)
+	{
+		session.beginTransaction();
+		for(int i =0; i < list.size();i++){
+		session.save(list.get(i));
+		session.flush();
+		}
+
+		session.getTransaction().commit();
+	}
+
+	protected void deleteObject(Object o)
+	{
+		session.beginTransaction();
+
+		session.delete(o);
+		session.flush();
+
+		session.getTransaction().commit();
+	}
+
+	protected void deleteObjectList(List<Object> list)
+	{
+		session.beginTransaction();
+
+		for(int i =0; i < list.size();i++){
+			session.delete(list.get(i));
+		}
+		session.flush();
+
+		session.getTransaction().commit();
+	}
+
+
 	protected void setInfo(int itemId,double price)
 	{
 		session.beginTransaction();
@@ -79,12 +133,68 @@ public class SimpleServer extends AbstractServer {
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws IOException {
 		String msgString = msg.toString();
 
-		if(msg.toString().equals("#getItems"))
+		//if(msg.toString().startsWith())
+		if(msg.toString().equals("#initCatalog"))
         {
 			client.sendToClient("#prepItems");
 			client.sendToClient(getList("#getItems"));
 			client.sendToClient("#recviveItems");
         }
+
+		if(msg.toString().equals("#addItemToCart")){
+			client.sendToClient("#prepItemToAddToCart");
+			//client.sendToClient(getItem("#getItem", ));
+			client.sendToClient("#itemAddedToCart");
+		}
+
+		if(msg.toString().equals("#deleteItemFromCart")){
+			client.sendToClient("#prepItemToDelete");
+
+			client.sendToClient("#ItemDeleted");
+			client.sendToClient("#ItemDoesn'tExist");
+
+		}
+		if(msg.toString().equals("#addItemToCatalog")){
+			client.sendToClient("#prepItemToAddToCatalog");
+
+			client.sendToClient("#ItemAddedToCatalog");
+
+		}
+		if(msg.toString().equals("#deleteItemFromCatalog")){
+			client.sendToClient("#prepItemToDeleteFromCatalog");
+
+			client.sendToClient("#ItemDeletedFromCatalog");
+			client.sendToClient("#ItemDoesn'tExist");
+		}
+
+		if(msg.toString().equals("#addClient")){
+			client.sendToClient("#ItemAdded");
+		}
+		if(msg.toString().equals("#deleteClient")){}
+		if(msg.toString().equals("#addWorker")){}
+		if(msg.toString().equals("#deleteWorker")){}
+		if(msg.toString().equals("#addReport")){}
+		if(msg.toString().equals("#showReportInfo")){}
+		if(msg.toString().equals("#addComplain")){}
+		if(msg.toString().equals("#deleteComplain")){}
+
+		if(msg.toString().equals("#addCart")){}
+		if(msg.toString().equals("#delteCart")){}
+		if(msg.toString().equals("#addBranch")){}
+		if(msg.toString().equals("#deleteBranch")){}
+
+
+
+
+
+
+
+
+
+
+
+
+
 		if(msg.toString().startsWith("#changePrice"))
 		{
 			String[] msgarray=msgString.split(" ");
