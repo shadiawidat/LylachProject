@@ -41,9 +41,10 @@ public class ItemView {
 
     private MyListener myListener;
     @FXML
-    void AddToCart(MouseEvent event) {
+    void AddToCart(MouseEvent event) throws IOException {
         App.items.add(item);
-
+//        SimpleClient.getClient().sendToServer("#AddtoCart "+item.getId()+" "+SimpleClient.getClient().getUsername());
+//        System.out.println("AddtoCart "+item.getId()+" "+SimpleClient.getClient().getUsername());
         TilePane r = new TilePane();
 
         // create a alert

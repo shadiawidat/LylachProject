@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.SignUp">
+   <children>
+      <HBox alignment="CENTER" layoutX="5.0" layoutY="36.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
+               <image>
+                  <Image url="@../../../../Icons/Menu.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
+                     <font>
+                        <Font name="Cambria Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="NEVER">
+               <image>
+                  <Image url="@../../../../Icons/Cart.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="logo" />
+               </styleClass>
+            </ImageView>
+         </children>
+      </HBox>
+      <Label layoutX="559.0" layoutY="141.0" text="Address">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Address" layoutX="559.0" layoutY="171.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="559.0" layoutY="246.0" text="BirthDate">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="UsaeName5" layoutX="559.0" layoutY="276.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="559.0" layoutY="351.0" text="Password">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="Password" layoutX="559.0" layoutY="381.0" prefHeight="50.0" styleClass="textFields" />
+      <Label layoutX="559.0" layoutY="456.0" text="Confirm password">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="ConPassword" layoutX="559.0" layoutY="486.0" prefHeight="50.0" styleClass="textFields" />
+      <Label layoutX="121.0" layoutY="141.0" text="First name">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="FirstName" layoutX="121.0" layoutY="171.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="121.0" layoutY="246.0" text="Last name">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="LastName" layoutX="121.0" layoutY="276.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="121.0" layoutY="351.0" text="Email">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Email" layoutX="121.0" layoutY="381.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="121.0" layoutY="456.0" text="Phone">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Phone" layoutX="121.0" layoutY="486.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Button fx:id="SignUp" layoutX="657.0" layoutY="587.0" mnemonicParsing="false" onMouseClicked="#SignUp" styleClass="Largebtn" stylesheets="@../../../../Styles/Style.css" text="SingUp">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font></Button>
+      <MenuButton fx:id="AccountType" layoutX="123.0" layoutY="589.0" mnemonicParsing="false" styleClass="textFields">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+         <font>
+            <Font name="Cambria" size="14.0" />
+         </font>
+      </MenuButton>
+      <Label layoutX="125.0" layoutY="559.0" text="Account type">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="Birthdate" layoutX="573.0" layoutY="282.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" />
+   </children>
+</AnchorPane>

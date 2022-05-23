@@ -11,7 +11,15 @@ import java.util.List;
 
 public class SimpleClient extends AbstractClient {
 
+	private String username;
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	private static SimpleClient client = null;
 
@@ -44,9 +52,8 @@ public class SimpleClient extends AbstractClient {
 
 	public static SimpleClient getClient() {
 		if (client == null) {
+			client = new SimpleClient("localhost", 4220);
 
-
-			client = new SimpleClient("localhost", 4020);
 		}
 		return client;
 	}

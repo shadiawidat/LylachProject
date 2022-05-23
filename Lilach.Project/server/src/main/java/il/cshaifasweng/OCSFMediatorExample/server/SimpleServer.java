@@ -88,7 +88,6 @@ public class SimpleServer extends AbstractServer {
 		if(msg.toString().startsWith("#changePrice"))
 		{
 			String[] msgarray=msgString.split(" ");
-			
 			setInfo(Integer.parseInt(msgarray[1]),Double.parseDouble(msgarray[2]));
 		}
 		double price=Double.parseDouble(msgString);
