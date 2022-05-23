@@ -24,12 +24,12 @@ public class Client extends User  {
     public Client() {
 
     }
-   /* public void AddOneCart(Cart c){
+    public void AddOneToCart(Cart c){
         myorders.add(c);
     }
-    public void DeleteOneCart(Cart c){
+    public void DeleteOneFromCart(Cart c){
         myorders.remove(c);
-    }*/
+    }
     public void AddOneBranch(Branch b){
         mybranches.add(b);
     }
