@@ -12,15 +12,15 @@ public class Report {
     private int id;
     @ManyToOne(targetEntity = Branch.class)
     private Branch branch;
-   /* private Date from;
-    private Date to;*/
+    private Date datefrom;
+    private Date dateto;
     public Report() {
     }
 
-   /* public Report(Date from, Date to) {
-        this.from = from;
-        this.to = to;
-    }*/
+    public Report(Date from, Date to) {
+        this.datefrom = from;
+        this.dateto = to;
+    }
 
     public Branch getBranch() {
         return branch;
@@ -30,19 +30,19 @@ public class Report {
         this.branch = branch;
     }
 
-  /*  public Date getFrom() {
-        return from;
+    public Date getFrom() {
+        return datefrom;
     }
 
     public void setFrom(Date from) {
-        this.from = from;
-    }*/
+        this.datefrom = from;
+    }
 
-    /*public Date getTo() {
-        return to;
+    public Date getTo() {
+        return dateto;
     }
 
     public void setTo(Date to) {
-        this.to = to;
-    }*/
+        this.dateto = to;
+    }
 }
