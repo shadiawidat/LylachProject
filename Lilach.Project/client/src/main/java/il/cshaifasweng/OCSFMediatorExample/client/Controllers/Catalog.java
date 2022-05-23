@@ -68,38 +68,39 @@ public class Catalog implements Initializable {
 					searchitem.add(itemsg.get(i));
 				}
 			}
+
 			SearchField.setText("");
 			grid.getChildren().clear();
-
-			int column = 0;
-			int row = 1;
-			try {
-				for (int i = 0; i < searchitem.size(); i++) {
-					FXMLLoader fxmlLoader = new FXMLLoader();
-					fxmlLoader.setLocation(getClass().getResource("ItemView.fxml"));
-					AnchorPane anchorPane = fxmlLoader.load();
-					ItemView itemController = fxmlLoader.getController();
-					itemController.setItemView(searchitem.get(i));
-					if (column == 3) {
-						column = 0;
-						row++;
+			Platform.runLater(()-> {
+				int column = 0;
+				int row = 1;
+				try {
+					for (int i = 0; i < searchitem.size(); i++) {
+						FXMLLoader fxmlLoader = new FXMLLoader();
+						fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
+						AnchorPane anchorPane = fxmlLoader.load();
+						ItemView itemController = fxmlLoader.getController();
+						itemController.setItemView(searchitem.get(i));
+						if (column == 3) {
+							column = 0;
+							row++;
+						}
+						grid.add(anchorPane, column++, row); //(child,column,row)
+						//set grid width
+						grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+						grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+						grid.setMaxWidth(Region.USE_PREF_SIZE);
+						//set grid height
+						grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+						grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+						grid.setMaxHeight(Region.USE_PREF_SIZE);
+						GridPane.setMargin(anchorPane, new Insets(10));
 					}
-					grid.add(anchorPane, column++, row); //(child,column,row)
-					//set grid width
-					grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-					grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-					grid.setMaxWidth(Region.USE_PREF_SIZE);
-					//set grid height
-					grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-					grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-					grid.setMaxHeight(Region.USE_PREF_SIZE);
-					GridPane.setMargin(anchorPane, new Insets(10));
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 
-
+			});
 		}
 
 		@FXML
@@ -137,53 +138,47 @@ public class Catalog implements Initializable {
 		@FXML
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			runLater(()-> {
-				try {
-					getData();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			});
-			int column = 0;
-			int row = 1;
+
+
 
 			try {
 				getData();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-		//last
-		while(SimpleClient.getLastms().equals("#CatalogReady")==false) {
-		}
 
-				try {
-					for (int i = 0; i < itemsg.size(); i++) {
-						FXMLLoader fxmlLoader = new FXMLLoader();
-						fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
-						AnchorPane anchorPane = fxmlLoader.load();
-						ItemView itemController = fxmlLoader.getController();
 
-						itemController.setItemView(itemsg.get(i));
-						if (column == 3) {
-							column = 0;
-							row++;
+			Platform.runLater(()-> {
+					System.out.println("here");
+					try {
+						int column = 0;
+						int row = 1;
+						for (int i = 0; i < itemsg.size(); i++) {
+							FXMLLoader fxmlLoader = new FXMLLoader();
+							fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
+							AnchorPane anchorPane = fxmlLoader.load();
+							ItemView itemController = fxmlLoader.getController();
+
+							itemController.setItemView(itemsg.get(i));
+							if (column == 3) {
+								column = 0;
+								row++;
+							}
+							grid.add(anchorPane, column++, row); //(child,column,row)
+							//set grid width
+							grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+							grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+							grid.setMaxWidth(Region.USE_PREF_SIZE);
+							//set grid height
+							grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+							grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+							grid.setMaxHeight(Region.USE_PREF_SIZE);
+							GridPane.setMargin(anchorPane, new Insets(10));
 						}
-						grid.add(anchorPane, column++, row); //(child,column,row)
-						//set grid width
-						grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-						grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-						grid.setMaxWidth(Region.USE_PREF_SIZE);
-						//set grid height
-						grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-						grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-						grid.setMaxHeight(Region.USE_PREF_SIZE);
-						GridPane.setMargin(anchorPane, new Insets(10));
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-
+			});
 
 		}
 
