@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="549.0" styleClass="shadow" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Complain">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="549.0" style="-fx-background-color: #FFFFFF;" styleClass="Complain" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Complain">
    <children>
       <ImageView fitHeight="43.0" fitWidth="36.0" layoutX="499.0" layoutY="14.0" onMouseClicked="#deleteComplain" pickOnBounds="true" preserveRatio="true" styleClass="itemviewicon">
          <image>
             <Image url="@../../../../Icons/Close.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="Handlebtn" layoutX="380.0" layoutY="244.0" mnemonicParsing="false" onMouseClicked="#Decide_refund" styleClass="btns" stylesheets="@../../../../Styles/Style.css" text="Handle complain">
+      <Button fx:id="Handlebtn" layoutX="376.0" layoutY="244.0" maxWidth="150.0" mnemonicParsing="false" onMouseClicked="#Decide_refund" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Decline refund">
          <font>
             <Font name="Cambria" size="18.0" />
          </font>
@@ -30,22 +30,22 @@
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="Reason" alignment="TOP_LEFT" layoutX="26.0" layoutY="146.0" prefHeight="84.0" prefWidth="500.0" promptText="I bough a bouquet and it died two days after">
+      <TextField fx:id="Reason" alignment="TOP_LEFT" layoutX="25.0" layoutY="151.0" prefHeight="84.0" prefWidth="500.0" promptText="I bough a bouquet and it died two days after">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </TextField>
-      <Label layoutX="26.0" layoutY="109.0" text="Reason:">
+      <Label layoutX="25.0" layoutY="114.0" text="Reason:">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="Date" layoutX="275.0" layoutY="26.0" text="23/5/2022">
+      <Label fx:id="Date" layoutX="308.0" layoutY="26.0" text="23/5/2022">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="184.0" layoutY="69.0" text="Branch : ">
+      <Label layoutX="160.0" layoutY="70.0" text="Branch : ">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
@@ -60,7 +60,32 @@
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="Branch" layoutX="278.0" layoutY="70.0" text="Haifa">
+      <Label fx:id="Branch" layoutX="254.0" layoutY="71.0" text="Haifa">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="357.0" layoutY="70.0" text="OrderID:">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="OrderID" layoutX="451.0" layoutY="71.0" text="16">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="Handlebtn2" layoutX="216.0" layoutY="244.0" maxWidth="150.0" mnemonicParsing="false" onMouseClicked="#Decide_refund" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Approve refund">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="19.0" layoutY="246.0" text="Remaining: ">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Remaining" layoutX="141.0" layoutY="246.0" text="23:12">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>

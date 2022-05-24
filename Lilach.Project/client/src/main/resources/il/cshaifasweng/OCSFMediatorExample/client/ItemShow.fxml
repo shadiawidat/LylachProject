@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="920.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemShow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="920.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemShow">
    <children>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -73,46 +73,76 @@
             </Button>
          </children>
       </HBox>
-      <ImageView fitHeight="249.0" fitWidth="221.0" layoutX="35.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs" AnchorPane.topAnchor="445.0">
+      <ImageView fitHeight="249.0" fitWidth="221.0" layoutX="35.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="417.0">
          <image>
             <Image url="@../../../../Media/GIFS/FlowerGIF.gif" />
          </image>
       </ImageView>
-      <HBox alignment="CENTER" layoutX="270.0" layoutY="120.0" prefHeight="594.0" prefWidth="650.0">
+      <HBox alignment="CENTER" layoutX="250.0" layoutY="112.0" prefHeight="594.0" prefWidth="650.0">
          <children>
             <AnchorPane prefHeight="530.0" prefWidth="534.0">
                <children>
-                  <ImageView fx:id="imgid" fitHeight="249.0" fitWidth="250.0" layoutX="152.0" layoutY="29.0" pickOnBounds="true" />
+                  <ImageView fx:id="imgid" fitHeight="249.0" fitWidth="250.0" layoutX="257.0" layoutY="123.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../../Media/Flower/Orchid.png" />
+                     </image></ImageView>
                   <ImageView fx:id="pressX" fitHeight="38.0" fitWidth="29.0" layoutX="507.0" layoutY="14.0" onKeyPressed="#CloseItem" onMouseClicked="#CloseItem" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Icons/Close.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="nameid" layoutX="60.0" layoutY="309.0" stylesheets="@../../../../Styles/Style.css" text="Name:">
+                  <Button layoutX="322.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="left_menu_btns" text="Update Info" visible="false">
                      <font>
-                        <Font name="Cambria" size="22.0" />
+                        <Font name="Cambria" size="18.0" />
                      </font>
-                  </Label>
-                  <Label fx:id="price" layoutX="348.0" layoutY="371.0" text="Price:">
-                     <font>
-                        <Font name="Cambria" size="22.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="type" layoutX="64.0" layoutY="371.0" text="Type:">
-                     <font>
-                        <Font name="Cambria" size="22.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="color" layoutX="346.0" layoutY="309.0" text="Color:">
-                     <font>
-                        <Font name="Cambria" size="22.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="NameText" layoutX="90.0" layoutY="343.0" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false" />
-                  <TextField fx:id="TypeText" layoutX="91.0" layoutY="401.0" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false" />
-                  <TextField fx:id="ColorText" layoutX="371.0" layoutY="343.0" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false" />
-                  <TextField fx:id="PriceText" layoutX="372.0" layoutY="401.0" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false" />
-                  <Button fx:id="UpdateInfo" layoutX="391.0" layoutY="445.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="rounded" text="Update Info" visible="false">
+                  </Button>
+                  <VBox layoutX="42.0" layoutY="60.0" prefHeight="400.0" prefWidth="215.0">
+                     <children>
+                        <Label fx:id="nameid" prefHeight="27.0" prefWidth="214.0" stylesheets="@../../../../Styles/Style.css" text="Name: Orcid">
+                           <font>
+                              <Font name="Cambria" size="22.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="NameText1" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <Label fx:id="type" prefHeight="27.0" prefWidth="214.0" text="Type: Flower">
+                           <font>
+                              <Font name="Cambria" size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="35.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="NameText12" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <Label fx:id="color" text="Color: Pink">
+                           <font>
+                              <Font name="Cambria" size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="35.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="NameText13" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <Label fx:id="price" text="Price: 18.99$">
+                           <font>
+                              <Font name="Cambria" size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="35.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="NameText11" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <Label fx:id="discount" text="Discount: 50%">
+                           <font>
+                              <Font name="Cambria" size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="35.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="NameText14" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                     </children>
+                  </VBox>
+                  <Button layoutX="322.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#AddToCart" styleClass="left_menu_btns" text="Add to cart">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
@@ -132,10 +162,15 @@
             </AnchorPane>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="21.0" layoutY="172.0" maxHeight="230.0" prefHeight="230.0" prefWidth="100.0" styleClass="menubox" AnchorPane.topAnchor="174.0">
+      <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="164.0" maxHeight="230.0" prefHeight="230.0" prefWidth="100.0" styleClass="menubox" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="164.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </VBox>
+      <Button layoutX="20.0" layoutY="650.0" mnemonicParsing="false" styleClass="BackBtn" text="&lt;">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

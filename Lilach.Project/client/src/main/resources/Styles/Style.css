@@ -85,6 +85,13 @@
     -fx-pref-height:150;
     -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
 }
+.Complain{
+    -fx-background-color:rgb(255,255,255);
+    -fx-background-radius: 30;
+    -fx-pref-width:549;
+    -fx-pref-height:292;
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
 .logincards{
     -fx-pref-width:320;
     -fx-pref-height:400;
