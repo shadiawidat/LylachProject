@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ReportView">
+   <children>
+      <HBox alignment="CENTER" layoutX="5.0" layoutY="36.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
+               <image>
+                  <Image url="@../../../../Icons/Menu.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
+                     <font>
+                        <Font name="Cambria Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="NEVER">
+               <image>
+                  <Image url="@../../../../Icons/Cart.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="logo" />
+               </styleClass>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="2.0" layoutY="94.0" prefHeight="548.0" prefWidth="916.0" styleClass="transparent">
+         <children>
+            <ScrollPane fx:id="scroll" hbarPolicy="NEVER" prefHeight="641.0" prefWidth="978.0" style="-fx-background-color: #FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
+               <content>
+                  <GridPane fx:id="grid" minHeight="551.0" minWidth="538.0" prefHeight="551.0" prefWidth="907.0" style="-fx-background-color: #FDEFE9;" styleClass="transparent" stylesheets="@../../../../Styles/Style.css">
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+      <Button fx:id="Backbtn" layoutX="28.0" layoutY="651.0" mnemonicParsing="false" onAction="#Goback" prefHeight="45.0" prefWidth="112.0" styleClass="btns" stylesheets="@../../../../Styles/Style.css" text="back">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
