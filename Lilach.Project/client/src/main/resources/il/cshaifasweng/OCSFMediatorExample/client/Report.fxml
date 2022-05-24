@@ -104,7 +104,7 @@
         <items>
           <MenuItem mnemonicParsing="false" onAction="#Order" text="Order" />
           <MenuItem mnemonicParsing="false" onAction="#Income" text="Income" />
-            <MenuItem mnemonicParsing="false" onAction="#Income" text="Complain" />
+            <MenuItem mnemonicParsing="false" onAction="#Complain" text="Complain" />
         </items>
       </MenuButton>
       <DatePicker fx:id="FirstReportFrom" layoutX="135.0" layoutY="282.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" />
@@ -146,9 +146,9 @@
       </TextField>
       <MenuButton fx:id="SecondReportType" layoutX="540.0" layoutY="174.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" styleClass="textFields" visible="false">
          <items>
-            <MenuItem mnemonicParsing="false" onAction="#Order" text="Order" />
-            <MenuItem mnemonicParsing="false" onAction="#Income" text="Income" />
-            <MenuItem mnemonicParsing="false" onAction="#Income" text="Complain" />
+            <MenuItem mnemonicParsing="false" onAction="#Order2" text="Order" />
+            <MenuItem mnemonicParsing="false" onAction="#Income2" text="Income" />
+            <MenuItem mnemonicParsing="false" onAction="#Complain2" text="Complain" />
          </items>
       </MenuButton>
       <DatePicker fx:id="SecondReportFrom" layoutX="556.0" layoutY="282.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" visible="false" />
