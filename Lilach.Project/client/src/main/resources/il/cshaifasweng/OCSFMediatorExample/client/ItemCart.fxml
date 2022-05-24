@@ -26,7 +26,7 @@
             <String fx:value="rounded" />
          </styleClass>
       </Spinner>
-      <ImageView fitHeight="43.0" fitWidth="36.0" layoutX="470.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="itemviewicon">
+      <ImageView fitHeight="43.0" fitWidth="36.0" layoutX="470.0" layoutY="14.0" onMouseClicked="#RemoveItem" pickOnBounds="true" preserveRatio="true" styleClass="itemviewicon">
          <image>
             <Image url="@../../../../Icons/Close.jpg" />
          </image>

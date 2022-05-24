@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +22,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ItemShow implements Initializable {
+    public static String Caller="";
+
+    public static String getCaller() {
+        return Caller;
+    }
+    public static void setCaller(String caller) {
+        Caller = caller;
+    }
 
     @FXML
     private ImageView CartBtn;
@@ -82,6 +91,10 @@ public class ItemShow implements Initializable {
     @FXML
     private Button UpdateInfo;
 
+    @FXML
+    private Label discount;
+
+
 
     @FXML
     public void SetItem(Item item) throws Exception {
@@ -107,10 +120,7 @@ public class ItemShow implements Initializable {
     void CloseItem(MouseEvent event) throws IOException {
         App.setRoot("catalog");
     }
-    @FXML
-    void AddToCart(MouseEvent event) {
 
-    }
     @FXML
     void GoToAccount(MouseEvent event) {
 
@@ -170,4 +180,19 @@ public class ItemShow implements Initializable {
         }
         App.setRoot("Catalog");
     }
+    @FXML
+    void DeleteItem(MouseEvent event) {
+
+
+    }
+    private Item item;
+    @FXML
+    void AddToCart(MouseEvent event) {
+
+    }
+    @FXML
+    void Back(MouseEvent event) throws IOException {
+        App.setRoot(getCaller());
+    }
+
 }

@@ -75,7 +75,7 @@
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="Handlebtn2" layoutX="216.0" layoutY="244.0" maxWidth="150.0" mnemonicParsing="false" onMouseClicked="#Decide_refund" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Approve refund">
+      <Button layoutX="216.0" layoutY="244.0" maxWidth="150.0" mnemonicParsing="false" onMouseClicked="#Approve_refund" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Approve refund">
          <font>
             <Font name="Cambria" size="18.0" />
          </font>
