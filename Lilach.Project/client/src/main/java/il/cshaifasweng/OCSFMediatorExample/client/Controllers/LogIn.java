@@ -38,6 +38,7 @@ public class LogIn {
 
     @FXML
     void OpenCatalog(MouseEvent event) throws IOException {
+        Catalog.setCaller("LogIn");
         App.setUser(null);
         App.setRoot("Catalog");
     }
