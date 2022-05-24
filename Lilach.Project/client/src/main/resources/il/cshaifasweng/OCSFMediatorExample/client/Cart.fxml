@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Cart">
@@ -53,9 +54,6 @@
                     </children>
                 </HBox>
                 <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#CartClick" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-                    <image>
-                        <Image url="@../../../../Icons/Cart.png" />
-                    </image>
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -76,7 +74,7 @@
             <Font name="Cambria Bold Italic" size="18.0" />
          </font>
       </Button>
-          <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="20.0" layoutY="104.0" prefHeight="555.0" prefWidth="550.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
+          <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="20.0" layoutY="104.0" prefHeight="539.0" prefWidth="550.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
               <content>
                   <GridPane fx:id="grid" minHeight="13.0" minWidth="14.0" prefHeight="13.0" prefWidth="14.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css">
                       <rowConstraints>
@@ -105,5 +103,75 @@
             <Menu fx:id="CloseMenu" mnemonicParsing="false" onAction="#CloseMN" text="X" />
         </menus>
       </MenuBar>
+      <Button fx:id="Shipping1" layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="300.0" fitWidth="275.0" layoutX="606.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs">
+         <image>
+            <Image url="@../../../../Icons/FreeShipping.png" />
+         </image>
+      </ImageView>
+      <HBox layoutX="621.0" layoutY="439.0" maxHeight="200.0" prefHeight="244.0" prefWidth="200.0" styleClass="menubox">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="125.0">
+               <children>
+                  <Label text="Tax">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Saved">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Total ">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" top="25.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="125.0">
+               <children>
+                  <Label fx:id="Tax" text="23.7$">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="Saved" text="23.5$">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="Total" text="64.8$">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>
