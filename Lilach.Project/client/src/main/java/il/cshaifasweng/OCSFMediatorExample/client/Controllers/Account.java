@@ -1,28 +1,36 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
-import javafx.event.ActionEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.App;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
+
 public class Account {
 
+    public static String Caller="";
+
+    public static String getCaller() {
+        return Caller;
+    }
+    public static void setCaller(String caller) {
+        Caller = caller;
+    }
     @FXML
-    private TextField AccountType;
+    private PasswordField AccountType;
 
     @FXML
     private TextField Address;
 
     @FXML
-    private Button BackBtn;
+    private PasswordField BirthDate;
 
     @FXML
-    private TextField BirthDate;
-
-    @FXML
-    private ImageView CartButton;
+    private ImageView CartB;
 
     @FXML
     private TextField CreditCard;
@@ -43,13 +51,22 @@ public class Account {
     private ImageView MenuBtn;
 
     @FXML
-    private Button MyOrdersBtn;
-
-    @FXML
     private TextField Phone;
 
     @FXML
-    void Back(ActionEvent event) {
+    private Label UserName;
+
+    @FXML
+    private TextField Username;
+
+    @FXML
+    void Back(MouseEvent event) throws IOException {
+        App.setRoot(getCaller());
+    }
+
+
+    @FXML
+    void GoToAccount(MouseEvent event) {
 
     }
 
@@ -64,12 +81,7 @@ public class Account {
     }
 
     @FXML
-    void SignUp(MouseEvent event) {
-
-    }
-
-    @FXML
-    void ViewOrders(ActionEvent event) {
+    void Myorders(MouseEvent event) {
 
     }
 

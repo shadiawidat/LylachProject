@@ -76,7 +76,7 @@
       </Button>
           <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="20.0" layoutY="104.0" prefHeight="539.0" prefWidth="550.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
               <content>
-                  <GridPane fx:id="grid" minHeight="13.0" minWidth="14.0" prefHeight="13.0" prefWidth="14.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css">
+                  <GridPane fx:id="gridPane" minHeight="13.0" minWidth="14.0" prefHeight="13.0" prefWidth="14.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css">
                       <rowConstraints>
                           <RowConstraints minHeight="10.0" prefHeight="30.0" />
                       </rowConstraints>
@@ -103,7 +103,7 @@
             <Menu fx:id="CloseMenu" mnemonicParsing="false" onAction="#CloseMN" text="X" />
         </menus>
       </MenuBar>
-      <Button fx:id="Shipping1" layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;">
+      <Button fx:id="Back" layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
