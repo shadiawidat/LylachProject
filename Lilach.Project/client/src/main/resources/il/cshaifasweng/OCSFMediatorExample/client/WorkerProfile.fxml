@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="Back" prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.WorkerProfile">
+   <children>
+      <HBox alignment="CENTER" layoutX="5.0" layoutY="36.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
+               <image>
+                  <Image url="@../../../../Icons/Menu.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <HBox fx:id="Back" alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
+                     <font>
+                        <Font name="Cambria Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="NEVER">
+               <image>
+                  <Image url="@../../../../Icons/Cart.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="logo" />
+               </styleClass>
+            </ImageView>
+         </children>
+      </HBox>
+      <TextField fx:id="FirstName" layoutX="50.0" layoutY="158.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="48.0" layoutY="238.0" text="Permission">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="addItem" layoutX="70.0" layoutY="386.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="229.0" text="Add Item">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font>
+         <styleClass>
+            <String fx:value="btns" />
+            <String fx:value="left_menu_btns" />
+         </styleClass>
+      </Button>
+      <Button fx:id="RemoveItem" layoutX="356.0" layoutY="386.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="Remove Item">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font>
+         <styleClass>
+            <String fx:value="btns" />
+            <String fx:value="left_menu_btns" />
+         </styleClass>
+      </Button>
+      <Button fx:id="UpdateCatalog" layoutX="642.0" layoutY="386.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="Update Catalog">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font>
+         <styleClass>
+            <String fx:value="btns" />
+            <String fx:value="left_menu_btns" />
+         </styleClass>
+      </Button>
+      <TextField fx:id="Permission" layoutX="50.0" layoutY="269.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Button fx:id="ShowComplains" layoutX="70.0" layoutY="492.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="Show Complains">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font>
+         <styleClass>
+            <String fx:value="btns" />
+            <String fx:value="left_menu_btns" />
+         </styleClass>
+      </Button>
+      <Button fx:id="ViewReports" layoutX="356.0" layoutY="492.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="View Reports">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font>
+         <styleClass>
+            <String fx:value="btns" />
+            <String fx:value="left_menu_btns" />
+         </styleClass>
+      </Button>
+      <Button fx:id="Back" layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" prefHeight="51.0" prefWidth="86.0" styleClass="BackBtn" text="&lt;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="UpdateUser" layoutX="510.0" layoutY="437.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="Update User">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font>
+         <styleClass>
+            <String fx:value="btns" />
+            <String fx:value="left_menu_btns" />
+         </styleClass>
+      </Button>
+      <Button fx:id="FreezeUser" layoutX="202.0" layoutY="438.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="Freeze User">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font>
+         <styleClass>
+            <String fx:value="btns" />
+            <String fx:value="left_menu_btns" />
+         </styleClass>
+      </Button>
+      <TextField fx:id="Id" layoutX="333.0" layoutY="269.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="333.0" layoutY="238.0" text="ID">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="48.0" layoutY="127.0" text="First Name">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="333.0" layoutY="127.0" text="Last Name">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="LastName" layoutX="333.0" layoutY="158.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="621.0" layoutY="127.0" text="User Name">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="UserName" layoutX="621.0" layoutY="158.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="622.0" layoutY="238.0" text="Email">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Email" layoutX="622.0" layoutY="269.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Button fx:id="AddUser" layoutX="202.0" layoutY="547.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="Add User">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font>
+         <styleClass>
+            <String fx:value="btns" />
+            <String fx:value="left_menu_btns" />
+         </styleClass>
+      </Button>
+      <Button fx:id="RemoveUser" layoutX="510.0" layoutY="547.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="Remove User">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font>
+         <styleClass>
+            <String fx:value="btns" />
+            <String fx:value="left_menu_btns" />
+         </styleClass>
+      </Button>
+   </children>
+</AnchorPane>
