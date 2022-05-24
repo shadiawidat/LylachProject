@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.User;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +46,15 @@ public class App extends Application {
 
     private SimpleClient client;
 
+    public static User getUser() {
+        return user;
+    }
+
+    public static void setUser(User user) {
+        App.user = user;
+    }
+
+    private static User user;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -52,7 +62,6 @@ public class App extends Application {
         client = SimpleClient.getClient();
 
         client.openConnection();
-
         Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
         stage.setTitle("LyLach");
         scene=new Scene(root, 920, 720);

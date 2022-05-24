@@ -19,7 +19,7 @@
    <children>
       <AnchorPane layoutX="535.0" layoutY="177.0" prefHeight="403.0" prefWidth="320.0" styleClass="logincards" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="150.0">
          <children>
-            <TextField fx:id="UsaeName" layoutX="32.0" layoutY="53.0" prefHeight="103.0" styleClass="textFields" AnchorPane.topAnchor="53.0">
+            <TextField fx:id="UserName" layoutX="32.0" layoutY="53.0" prefHeight="103.0" styleClass="textFields" AnchorPane.topAnchor="53.0">
                <font>
                   <Font size="24.0" />
                </font>
@@ -44,6 +44,11 @@
                   <Font size="16.0" />
                </font></Label>
             <PasswordField fx:id="Password" layoutX="32.0" layoutY="166.0" prefHeight="50.0" styleClass="textFields" />
+            <Label fx:id="Incorrect" layoutX="40.0" layoutY="219.0" onMouseClicked="#SignUP" text="Username or password are incorrect" textFill="#eb0e0e" visible="false">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow blurType="GAUSSIAN" height="30.0" radius="14.5" width="30.0">

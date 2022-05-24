@@ -129,6 +129,11 @@ public class SimpleServer extends AbstractServer {
 		Message ms=(Message) msg;
 		String request=ms.getString();
 
+		if(request.startsWith("#identify"))
+		{
+			String[] msgarray=request.split(" ");
+						client.sendToClient(new Message(session.find(User.class,msgarray[1]),"#Useridentified"));
+		}
 		if(request.equals("#LoadCatalog"))
 		{
 			CriteriaBuilder builder=session.getCriteriaBuilder();
@@ -137,7 +142,6 @@ public class SimpleServer extends AbstractServer {
 			Message msa=new Message(session.createQuery(query).getResultList(),"#CatalogReady");
 			client.sendToClient(msa);
 		}
-
 	}
 
 }

@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -65,6 +66,22 @@ public class ItemShow implements Initializable {
     public  Item ITEM;
 
     @FXML
+    private TextField NameText;
+
+    @FXML
+    private TextField ColorText;
+
+    @FXML
+    private TextField TypeText;
+
+    @FXML
+    private TextField PriceText;
+
+    @FXML
+    private Button UpdateInfo;
+
+
+    @FXML
     public void SetItem(Item item) throws Exception {
         if(item==null)
             return;
@@ -116,5 +133,36 @@ public class ItemShow implements Initializable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        if(App.getUser()!=null&&App.getUser().getPermission()== permissions.MANAGER)
+        {
+            NameText.setVisible(true);
+            PriceText.setVisible(true);
+            TypeText.setVisible(true);
+            ColorText.setVisible(true);
+            UpdateInfo.setVisible(true);
+        }
+    }
+    @FXML
+    void UpdateInfo(MouseEvent event) throws IOException {
+
+        String Name=ITEM.getName();
+        double Price=ITEM.getPrice();
+        String Type=ITEM.getType();
+        String Colot=ITEM.getColor();
+
+        if(NameText.getText()!=""){
+
+        }
+        if(PriceText.getText()!=""){
+
+        }
+        if(TypeText.getText()!=""){
+
+        }
+        if(ColorText.getText()!=""){
+
+        }
+        App.setRoot("Catalog");
     }
 }

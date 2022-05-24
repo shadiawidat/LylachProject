@@ -12,6 +12,9 @@ public class Complain {
     @ManyToOne
     @JoinColumn(name="Branch_ID")
     private Branch branch;
+    @ManyToOne
+    private Client client;
+
     private String reason;
     private Date date;
 
@@ -24,6 +27,15 @@ public class Complain {
     public Complain() {
 
     }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     public Branch getBranch() {
         return branch;
     }
