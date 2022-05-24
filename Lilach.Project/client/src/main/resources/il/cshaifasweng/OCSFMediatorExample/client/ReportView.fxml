@@ -66,7 +66,7 @@
             </ScrollPane>
          </children>
       </HBox>
-      <Button fx:id="Backbtn" layoutX="28.0" layoutY="651.0" mnemonicParsing="false" onAction="#Goback" prefHeight="45.0" prefWidth="112.0" styleClass="btns" stylesheets="@../../../../Styles/Style.css" text="back">
+      <Button layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Backbtn" prefHeight="45.0" prefWidth="112.0" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>

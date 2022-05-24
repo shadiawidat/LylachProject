@@ -8,19 +8,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="400.0" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.CartItem">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="400.0" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.CartItem">
    <children>
       <ImageView fx:id="Image" fitHeight="130.0" fitWidth="130.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#ShowItem" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Media/Flower/Dahlia.png" />
          </image>
       </ImageView>
-      <Label fx:id="Name" layoutX="173.0" layoutY="28.0" onMouseClicked="#ShowItem" text="Dahlia">
+      <Label fx:id="Name" layoutX="176.0" layoutY="17.0" onMouseClicked="#ShowItem" text="Dahlia">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <Spinner fx:id="Quantity" layoutX="285.0" layoutY="99.0" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: rgb(255,255,255);">
+      <Spinner fx:id="Quantity" layoutX="342.0" layoutY="62.0" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: rgb(255,255,255);">
          <styleClass>
             <String fx:value="shadow" />
             <String fx:value="rounded" />
@@ -31,22 +31,32 @@
             <Image url="@../../../../Icons/Close.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="Price" layoutX="285.0" layoutY="28.0" text="3.2$">
+      <Label fx:id="Price" layoutX="338.0" layoutY="17.0" text="3.2$">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="173.0" layoutY="101.0" text="Quantity:">
+      <Label layoutX="173.0" layoutY="64.0" text="Quantity:">
          <font>
             <Font name="Cambria" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="374.0" layoutY="101.0" text="Subtotal:">
+      <Label layoutX="175.0" layoutY="103.0" text="Subtotal:">
          <font>
             <Font name="Cambria" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="Subtotal" layoutX="448.0" layoutY="101.0" text="16.0$">
+      <Label fx:id="Subtotal" layoutX="245.0" layoutY="103.0" text="16.0$">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="338.0" layoutY="103.0" text="Discount:">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="Discount" layoutX="413.0" layoutY="103.0" text="50%">
          <font>
             <Font name="Cambria" size="18.0" />
          </font>
