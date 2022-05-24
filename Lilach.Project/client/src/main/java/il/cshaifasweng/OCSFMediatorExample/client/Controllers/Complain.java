@@ -13,8 +13,6 @@ import java.io.IOException;
 
 public class Complain {
 
-    private Client client;
-
     @FXML
     private Label Branch;
 
@@ -34,7 +32,18 @@ public class Complain {
     private Label LastName;
 
     @FXML
+    private Label OrderID;
+
+    @FXML
     private TextField Reason;
+
+    @FXML
+    private Label Remaining;
+
+    @FXML
+    void Approve_refund(MouseEvent event) {
+
+    }
 
     @FXML
     void Decide_refund(MouseEvent event) {
@@ -43,7 +52,7 @@ public class Complain {
 
     @FXML
     void ViewAccount(MouseEvent event) throws IOException {
-       //Account.setClient(client);
+        //Account.setClient(client);
         App.setRoot("Account");
     }
 

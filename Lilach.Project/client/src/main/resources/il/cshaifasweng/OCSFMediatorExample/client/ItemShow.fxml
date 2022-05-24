@@ -91,7 +91,7 @@
                         <Image url="@../../../../Icons/Close.jpg" />
                      </image>
                   </ImageView>
-                  <Button layoutX="322.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="left_menu_btns" text="Update Info" visible="false">
+                  <Button layoutX="392.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="left_menu_btns" text="Update Info" visible="false">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
@@ -147,6 +147,11 @@
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Button>
+                  <Button layoutX="238.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#DeleteItem" styleClass="left_menu_btns" text="Delete Item" visible="false">
+                     <font>
+                        <Font name="Cambria" size="18.0" />
+                     </font>
+                  </Button>
                </children>
                <HBox.margin>
                   <Insets bottom="50.0" top="50.0" />
@@ -167,7 +172,7 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <Button layoutX="20.0" layoutY="650.0" mnemonicParsing="false" styleClass="BackBtn" text="&lt;">
+      <Button layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" text="&lt;">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>

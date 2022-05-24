@@ -82,7 +82,7 @@
                   </Label>
                </children>
             </HBox>
-            <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="NEVER">
+            <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="NEVER">
                <image>
                   <Image url="@../../../../Icons/Cart.png" />
                </image>

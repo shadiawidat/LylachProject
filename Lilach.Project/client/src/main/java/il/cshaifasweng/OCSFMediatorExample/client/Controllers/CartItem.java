@@ -15,6 +15,10 @@ import java.io.IOException;
 public class CartItem {
 
     private Item ITEM ;
+
+    @FXML
+    private Label Discount;
+
     @FXML
     private ImageView Image;
 
@@ -30,8 +34,9 @@ public class CartItem {
     @FXML
     private Label Subtotal;
 
+
     @FXML
-    void RemoveItem(MouseEvent event) {
+    void RemoveItem(MouseEvent event)throws IOException {
 
     }
 

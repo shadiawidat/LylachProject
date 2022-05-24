@@ -30,10 +30,6 @@ public class LogIn {
     @FXML
     private TextField UserName;
 
-    @FXML
-    void GoToCart(MouseEvent event) {
-
-    }
 
     @FXML
     void MenuClick(MouseEvent event) {
