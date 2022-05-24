@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Report">
+   <children>
+      <HBox alignment="CENTER" layoutX="5.0" layoutY="36.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
+               <image>
+                  <Image url="@../../../../Icons/Menu.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
+                     <font>
+                        <Font name="Cambria Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="NEVER">
+               <image>
+                  <Image url="@../../../../Icons/Cart.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="logo" />
+               </styleClass>
+            </ImageView>
+         </children>
+      </HBox>
+      <Label layoutX="121.0" layoutY="141.0" text="ReportType">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="121.0" layoutY="246.0" text="FromDate">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="FirstReportFromWhite" editable="false" layoutX="121.0" layoutY="276.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="121.0" layoutY="351.0" text="ToDate">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="FirstReportToWhite" editable="false" layoutX="121.0" layoutY="381.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="121.0" layoutY="456.0" text="Branch">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="FirstReportBranch" layoutX="121.0" layoutY="486.0" prefHeight="103.0" styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Button fx:id="View" layoutX="385.0" layoutY="601.0" mnemonicParsing="false" onMouseClicked="#ViewReports" prefWidth="191.0" styleClass="Largebtn" stylesheets="@../../../../Styles/Style.css" text="View">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font>
+      </Button>
+      <CheckBox fx:id="CompareTo" layoutX="126.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#TwoReports" prefHeight="30.0" prefWidth="177.0" text="Compare two reports">
+         <font>
+            <Font name="Cambria" size="15.0" />
+         </font>
+      </CheckBox>
+      <MenuButton fx:id="FirstReportType" layoutX="119.0" layoutY="174.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" styleClass="textFields">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <DatePicker fx:id="FirstReportFrom" layoutX="135.0" layoutY="282.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" />
+      <DatePicker fx:id="FirstReportTo" layoutX="137.0" layoutY="389.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" />
+      <Label fx:id="SecondReportTypeLable" layoutX="542.0" layoutY="141.0" text="ReportType" visible="false">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="SecondReportFromDateLable" layoutX="542.0" layoutY="246.0" text="FromDate" visible="false">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="SecondReportFromWhite" editable="false" layoutX="542.0" layoutY="276.0" prefHeight="103.0" styleClass="textFields" visible="false">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label fx:id="SecondReportToDateLable" layoutX="542.0" layoutY="351.0" text="ToDate" visible="false">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="SecondReportToWhite" editable="false" layoutX="542.0" layoutY="381.0" prefHeight="103.0" styleClass="textFields" visible="false">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label fx:id="SecondReportBranchLable" layoutX="542.0" layoutY="456.0" text="Branch" visible="false">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="SecondReportBranch" layoutX="542.0" layoutY="486.0" prefHeight="103.0" styleClass="textFields" visible="false">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <MenuButton fx:id="SecondReportType" layoutX="540.0" layoutY="174.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" styleClass="textFields" visible="false">
+         <items>
+            <MenuItem mnemonicParsing="false" text="Action 1" />
+            <MenuItem mnemonicParsing="false" text="Action 2" />
+         </items>
+      </MenuButton>
+      <DatePicker fx:id="SecondReportFrom" layoutX="556.0" layoutY="282.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" visible="false" />
+      <DatePicker fx:id="SecondReportTo" layoutX="558.0" layoutY="389.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" visible="false" />
+   </children>
+</AnchorPane>

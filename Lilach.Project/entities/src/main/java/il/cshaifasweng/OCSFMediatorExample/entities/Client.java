@@ -14,6 +14,8 @@ public class Client extends User  {
     private List<Cart> myorders;
     @ManyToMany
     private List<Branch> mybranches;
+    @OneToMany
+    private List<Complain> complains;
     private Boolean freezed;
 
     public Client(int accounttype, Double amount, Boolean freezed) {
@@ -26,6 +28,20 @@ public class Client extends User  {
     public Client() {
 
     }
+    public List<Complain> getComplains() {
+        return complains;
+    }
+
+    public void setComplains(List<Complain> complains) {
+        this.complains = complains;
+    }
+    public void AddOneComplain(Complain c){
+        complains.add(c);
+    }
+    public void DeleteOneComplain(Complain c){
+        complains.remove(c);
+    }
+
     public void AddOneToCart(Cart c){
         myorders.add(c);
     }
