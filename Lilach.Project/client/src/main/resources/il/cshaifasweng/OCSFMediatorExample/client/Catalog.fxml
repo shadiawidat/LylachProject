@@ -3,8 +3,6 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.CustomMenuItem?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -25,13 +23,9 @@
          <children>
             <MenuButton mnemonicParsing="false" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Refine by">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-                  <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
-                    <content>
-                      <CheckBox text="Click Me" />
-                    </content>
-                  </CustomMenuItem>
+                <MenuItem mnemonicParsing="false" text="Price" />
+                <MenuItem mnemonicParsing="false" text="OnSale" />
+                  <MenuItem mnemonicParsing="false" text="NewArival" />
               </items>
                <VBox.margin>
                   <Insets top="20.0" />
@@ -45,7 +39,8 @@
                   <MenuItem mnemonicParsing="false" text="Single flowers" />
                   <MenuItem mnemonicParsing="false" text="Bouquets" />
                   <MenuItem mnemonicParsing="false" text="Vases" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
+                  <MenuItem mnemonicParsing="false" text="Gardning tools" />
+                  <MenuItem mnemonicParsing="false" text="Wedings" />
                </items>
                <VBox.margin>
                   <Insets top="20.0" />
@@ -56,8 +51,10 @@
             </MenuButton>
             <MenuButton mnemonicParsing="false" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Sort By">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
+                  <MenuItem mnemonicParsing="false" onAction="#SortHL" text="Price: High to Low" />
+                  <MenuItem mnemonicParsing="false" text="Price: Low to High" />
+                  <MenuItem mnemonicParsing="false" text="Name: A-&gt;Z" />
+                  <MenuItem mnemonicParsing="false" text="Name: Z-&gt;A" />
                </items>
                <VBox.margin>
                   <Insets top="20.0" />
@@ -68,11 +65,14 @@
             </MenuButton>
             <MenuButton contentDisplay="TOP" mnemonicParsing="false" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Pick colors">
                <items>
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: #FEEE09; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: F79254; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: F9F5F4; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: B95493; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: DC0023; -fx-background-radius: 10;" text="                     " />
+                  <MenuItem fx:id="YellowColor" mnemonicParsing="false" onAction="#Yellow" style="-fx-background-color: #FEEE09; -fx-background-radius: 10;" text="                     " />
+                  <MenuItem mnemonicParsing="false" onAction="#Orange" style="-fx-background-color: F79254; -fx-background-radius: 10;" text="                     " />
+                  <MenuItem mnemonicParsing="false" onAction="#White" style="-fx-background-color: F9F5F4; -fx-background-radius: 10;" text="                     " />
+                  <MenuItem mnemonicParsing="false" onAction="#Purple" style="-fx-background-color: B95493; -fx-background-radius: 10;" text="                     " />
+                  <MenuItem mnemonicParsing="false" onAction="#Red" style="-fx-background-color: DC0023; -fx-background-radius: 10;" text="                     " />
+                  <MenuItem mnemonicParsing="false" onAction="#Black" style="-fx-background-color: #000000; -fx-background-radius: 10;" text="                     " />
+                  <MenuItem mnemonicParsing="false" onAction="#Pink" style="-fx-background-color: #F1919B; -fx-background-radius: 10;" text="                     " />
+                  <MenuItem mnemonicParsing="false" onAction="#Multicolor" style="-fx-background-radius: 10;" text="MultiColor" />
                </items>
                <VBox.margin>
                   <Insets top="20.0" />
@@ -103,7 +103,6 @@
             <Image url="@../../../../Media/Sales/SpringSale.png" />
          </image>
       </ImageView>
-      <HBox alignment="BASELINE_RIGHT" prefHeight="173.0" prefWidth="920.0" styleClass="scrollpane" />
       <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
             <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
@@ -138,7 +137,7 @@
                   </Label>
                </children>
             </HBox>
-            <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+            <ImageView fx:id="CartB" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                <image>
                   <Image url="@../../../../Icons/Cart.png" />
                </image>

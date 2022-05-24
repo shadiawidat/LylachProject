@@ -63,8 +63,6 @@ public class ItemView {
     void ShowItem(MouseEvent event) throws Exception {
         App.setOnscreen(item);
         App.setRoot("ItemShow");
-
-
     }
 
     public void setItemView(Item item) throws IOException {

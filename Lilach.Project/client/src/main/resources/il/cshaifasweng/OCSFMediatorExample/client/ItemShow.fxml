@@ -92,16 +92,6 @@
                         <Image url="@../../../../Icons/Close.jpg" />
                      </image>
                   </ImageView>
-                  <HBox alignment="CENTER" layoutX="152.0" layoutY="427.0" prefHeight="100.0" prefWidth="248.0" styleClass="textFields">
-                     <children>
-                        <TextField fx:id="PriceFiled" prefHeight="25.0" prefWidth="133.0" promptText="Enter new Price" styleClass="transparent" />
-                        <Button fx:id="ChangePrice" mnemonicParsing="false" onKeyPressed="#ChangePrice" onMouseClicked="#ChangePrice" styleClass="transparent" text="Change">
-                           <font>
-                              <Font name="Cambria" size="14.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
                   <Label fx:id="nameid" layoutX="60.0" layoutY="309.0" stylesheets="@../../../../Styles/Style.css" text="Name:">
                      <font>
                         <Font name="Cambria" size="22.0" />
@@ -122,6 +112,15 @@
                         <Font name="Cambria" size="22.0" />
                      </font>
                   </Label>
+                  <TextField fx:id="NameText" layoutX="90.0" layoutY="343.0" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false" />
+                  <TextField fx:id="TypeText" layoutX="91.0" layoutY="401.0" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false" />
+                  <TextField fx:id="ColorText" layoutX="371.0" layoutY="343.0" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false" />
+                  <TextField fx:id="PriceText" layoutX="372.0" layoutY="401.0" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false" />
+                  <Button fx:id="UpdateInfo" layoutX="391.0" layoutY="445.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="rounded" text="Update Info" visible="false">
+                     <font>
+                        <Font name="Cambria" size="18.0" />
+                     </font>
+                  </Button>
                </children>
                <HBox.margin>
                   <Insets bottom="50.0" top="50.0" />

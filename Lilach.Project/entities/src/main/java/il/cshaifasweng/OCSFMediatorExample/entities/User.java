@@ -5,21 +5,21 @@ import java.util.Date;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable{
     @Id
     private String username;
     private String password;
     private String firstname;
     private String lastname;
     private String email;
-    private int phonenumber;
+    private String phonenumber;
     private Date birthday;
     private String addres;
-    private int permission;
+    private permissions permission;
     public User() {
     }
 
-    public User(String username, String password, String firstname, String lastname, String email, int phonenumber, Date birthday, String addres, int permission) {
+    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String addres, permissions permission) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -29,6 +29,21 @@ public class User {
         this.birthday = birthday;
         this.addres = addres;
         this.permission = permission;
+    }
+
+    public User(String guest) {
+        username=guest;
+    }
+    public User(User guest) {
+        this.username = guest.username;
+        this.password = guest.password;
+        this.firstname = guest.firstname;
+        this.lastname = guest.lastname;
+        this.email = guest.email;
+        this.phonenumber = guest.phonenumber;
+        this.birthday = guest.birthday;
+        this.addres = guest.addres;
+        this.permission = guest.permission;
     }
 
     public String getUsername() {
@@ -71,11 +86,11 @@ public class User {
         this.email = email;
     }
 
-    public int getPhonenumber() {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
-    public void setPhonenumber(int phonenumber) {
+    public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
     }
 
@@ -95,11 +110,11 @@ public class User {
         this.addres = addres;
     }
 
-    public int getPermission() {
+    public permissions getPermission() {
         return permission;
     }
 
-    public void setPermission(int permission) {
+    public void setPermission(permissions permission) {
         this.permission = permission;
     }
 }
