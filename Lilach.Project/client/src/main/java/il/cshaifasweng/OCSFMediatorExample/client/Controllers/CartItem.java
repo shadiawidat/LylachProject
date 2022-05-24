@@ -23,9 +23,6 @@ public class CartItem {
     private ImageView Image;
 
     @FXML
-    private Label Discount;
-
-    @FXML
     private Label Name;
 
     @FXML

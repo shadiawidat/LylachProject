@@ -12,6 +12,16 @@ public class Item implements Serializable {
     private int id;
     private String name;
     private double price;
+
+    public double getDiscount() {
+        return Discount;
+    }
+
+    public void setDiscount(double discount) {
+        Discount = discount;
+    }
+
+    private double Discount;
     private String type;
     private String color;
     private String imagesrc;
