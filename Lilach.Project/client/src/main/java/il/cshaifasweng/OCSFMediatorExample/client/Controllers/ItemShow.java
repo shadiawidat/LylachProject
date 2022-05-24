@@ -134,7 +134,7 @@ public class ItemShow implements Initializable {
             throw new RuntimeException(e);
         }
 
-        if(App.getUser().getPermission()== permissions.MANAGER)
+        if(App.getUser()!=null&&App.getUser().getPermission()== permissions.MANAGER)
         {
             NameText.setVisible(true);
             PriceText.setVisible(true);

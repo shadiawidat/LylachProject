@@ -4,11 +4,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.CustomMenuItem?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -77,7 +73,7 @@
             </Button>
          </children>
       </HBox>
-      <ImageView fitHeight="221.0" fitWidth="247.0" layoutX="35.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs" AnchorPane.topAnchor="445.0">
+      <ImageView fitHeight="249.0" fitWidth="221.0" layoutX="35.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs" AnchorPane.topAnchor="445.0">
          <image>
             <Image url="@../../../../Media/GIFS/FlowerGIF.gif" />
          </image>
@@ -137,64 +133,6 @@
          </children>
       </HBox>
       <VBox alignment="TOP_CENTER" layoutX="21.0" layoutY="172.0" maxHeight="230.0" prefHeight="230.0" prefWidth="100.0" styleClass="menubox" AnchorPane.topAnchor="174.0">
-         <children>
-            <MenuButton mnemonicParsing="false" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Refine by">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
-                  <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
-                     <content>
-                        <CheckBox text="Click Me" />
-                     </content>
-                  </CustomMenuItem>
-               </items>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Cambria" size="14.0" />
-               </font>
-            </MenuButton>
-            <MenuButton mnemonicParsing="false" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Sort By">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
-               </items>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Cambria" size="14.0" />
-               </font>
-            </MenuButton>
-            <MenuButton contentDisplay="TOP" mnemonicParsing="false" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Pick colors">
-               <items>
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: #FEEE09; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: F79254; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: F9F5F4; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: B95493; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: DC0023; -fx-background-radius: 10;" text="                     " />
-               </items>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Cambria" size="14.0" />
-               </font>
-            </MenuButton>
-            <MenuButton mnemonicParsing="false" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Filter">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
-               </items>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Cambria" size="14.0" />
-               </font>
-            </MenuButton>
-         </children>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
