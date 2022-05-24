@@ -43,7 +43,7 @@ public class Complain {
 
     @FXML
     void ViewAccount(MouseEvent event) throws IOException {
-       Account.setClient(client);
+       //Account.setClient(client);
         App.setRoot("Account");
     }
 
