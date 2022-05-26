@@ -4,6 +4,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -15,7 +18,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="960.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.LogIn">
+<AnchorPane prefHeight="400.0" prefWidth="960.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.LogIn">
    <children>
       <AnchorPane layoutX="535.0" layoutY="177.0" prefHeight="403.0" prefWidth="320.0" styleClass="logincards" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="150.0">
          <children>
@@ -39,12 +42,12 @@
                   <Font name="Cambria Bold Italic" size="24.0" />
                </font>
             </Button>
-            <Label layoutX="25.0" layoutY="347.0" onMouseClicked="#SignUP" text="Don't have an account yet? Signup here" textFill="#eb0e0e">
+            <Label layoutX="25.0" layoutY="347.0" onMouseClicked="#GoToSignUp" text="Don't have an account yet? Signup here" textFill="#eb0e0e">
                <font>
                   <Font size="16.0" />
                </font></Label>
             <PasswordField fx:id="Password" layoutX="32.0" layoutY="166.0" prefHeight="50.0" styleClass="textFields" />
-            <Label fx:id="Incorrect" layoutX="40.0" layoutY="219.0" onMouseClicked="#SignUP" text="Username or password are incorrect" textFill="#eb0e0e" visible="false">
+            <Label fx:id="Incorrect" layoutX="40.0" layoutY="219.0"  text="Username or password are incorrect" textFill="#eb0e0e" visible="false">
                <font>
                   <Font size="16.0" />
                </font>
@@ -136,5 +139,24 @@
             </VBox>
          </children>
       </AnchorPane>
+      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0"  prefHeight="28.0" prefWidth="181.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+         <menus>
+            <Menu mnemonicParsing="false" text="Go to">
+               <items>
+                  <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUpMN" text="SignUp" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Account">
+               <items>
+                  <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem fx:id="MenuAbout" mnemonicParsing="false" onAction="#GoToAbout" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

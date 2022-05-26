@@ -4,6 +4,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -13,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Account">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Account">
    <children>
       <Button layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;">
          <font>
@@ -197,5 +200,95 @@
             <Font name="Cambria Bold Italic" size="24.0" />
          </font>
       </Button>
+      <HBox alignment="CENTER" layoutX="1.0" layoutY="570.0" prefHeight="83.0" prefWidth="918.0">
+         <children>
+            <Button fx:id="UpdateUser" maxWidth="180.0" mnemonicParsing="false" onMouseClicked="#UpdateUser" prefHeight="50.0" prefWidth="200.0" text="Update User">
+               <font>
+                  <Font name="Cambria Bold Italic" size="24.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="btns" />
+                  <String fx:value="left_menu_btns" />
+               </styleClass>
+            </Button>
+            <Button fx:id="FreezeUser" maxWidth="180.0" mnemonicParsing="false" onMouseClicked="#FreezeUser" prefHeight="50.0" prefWidth="200.0" text="Freeze User">
+               <font>
+                  <Font name="Cambria Bold Italic" size="24.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="btns" />
+                  <String fx:value="left_menu_btns" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="AddUser" maxWidth="180.0" mnemonicParsing="false" onMouseClicked="#AddUser" prefHeight="50.0" prefWidth="200.0" text="Add User">
+               <font>
+                  <Font name="Cambria Bold Italic" size="24.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="btns" />
+                  <String fx:value="left_menu_btns" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="RemoveUser" maxWidth="180.0" mnemonicParsing="false" onMouseClicked="#RemoveUser" prefHeight="50.0" prefWidth="200.0" text="Remove User">
+               <font>
+                  <Font name="Cambria Bold Italic" size="24.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="btns" />
+                  <String fx:value="left_menu_btns" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <ImageView fitHeight="65.0" fitWidth="93.0" layoutX="413.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Icons/Freeze.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="418.0" layoutY="377.0" text="Freezed">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="AddUser1" layoutX="388.0" layoutY="424.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#AddUser" prefHeight="50.0" prefWidth="200.0" text="Search">
+         <font>
+            <Font name="Cambria Bold Italic" size="24.0" />
+         </font>
+         <styleClass>
+            <String fx:value="btns" />
+            <String fx:value="left_menu_btns" />
+         </styleClass>
+      </Button>
+      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="181.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+         <menus>
+            <Menu mnemonicParsing="false" text="Go to">
+               <items>
+                  <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUp" text="SignUp" />
+                  <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCart" text="Cart" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Account">
+               <items>
+                  <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in" />
+                  <MenuItem fx:id="MenuSignOut" mnemonicParsing="false" onAction="#GoToSignOut" text="Sign Out" />
+                  <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem fx:id="MenuAbout" mnemonicParsing="false" onAction="#GoToAbout" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

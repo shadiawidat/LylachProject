@@ -1,38 +1,17 @@
 #Notes
 
 #John Pierre Haddad
-Account
 
-Worker Profile
-Cart
+LognIn: SignIn too slow
 
-Login
-
-Report
-
-Catalog
-
-SignUp
-
-ReportView
-
-Create Menu
-
-ItemView:add discount Image
-
+SignUp: need to check if username is already in use and send to server
 #Shadi Awidat
-
-Replace Left Menu
-
-GetRid of WorkerProfile
-
-About
-
-#Noor Abu elfoul
 
 Shipping
 
-Catalog additem
+#Noor Abu elfoul
+
+GetRid of WorkerProfile
 
 create Complains page
 

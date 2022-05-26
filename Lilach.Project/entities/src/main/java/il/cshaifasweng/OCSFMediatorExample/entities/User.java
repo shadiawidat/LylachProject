@@ -19,7 +19,7 @@ public class User implements Serializable{
     public User() {
     }
 
-    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String addres, permissions permission) {
+    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -27,13 +27,11 @@ public class User implements Serializable{
         this.email = email;
         this.phonenumber = phonenumber;
         this.birthday = birthday;
-        this.addres = addres;
+        this.addres = address;
         this.permission = permission;
     }
 
-    public User(String guest) {
-        username=guest;
-    }
+
     public User(User guest) {
         this.username = guest.username;
         this.password = guest.password;

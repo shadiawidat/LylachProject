@@ -4,16 +4,18 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LogIn {
+public class LogIn implements Initializable {
 
     @FXML
     private Label Incorrect;
@@ -30,10 +32,51 @@ public class LogIn {
     @FXML
     private TextField UserName;
 
+    @FXML
+    private MenuItem MenuAbout;
+
+    @FXML
+    private MenuItem MenuCart;
+
+    @FXML
+    private MenuItem MenuProfile;
+
+    @FXML
+    private MenuItem MenuSignIn;
+
+    @FXML
+    private MenuItem MenuSignOut;
+
+    @FXML
+    private MenuItem MenuSignUp;
+    @FXML
+    private MenuBar menu;
+
+    @FXML
+    void GoToAbout(ActionEvent event) throws IOException {
+        About.setCaller("LogIn");
+        App.setRoot("About");
+    }
+
+    @FXML
+    void GoToSignIn(ActionEvent event) throws IOException {
+        App.setRoot("LogIn");
+    }
+
+    @FXML
+    void GoToSignUpMN(ActionEvent event) throws IOException {
+        SignUp.setCaller("LogIn");
+        App.setRoot("SignUp");
+    }
+    @FXML
+    void GoToSignUp(MouseEvent event) throws IOException {
+        SignUp.setCaller("LogIn");
+        App.setRoot("SignUp");
+    }
 
     @FXML
     void MenuClick(MouseEvent event) {
-
+        menu.setVisible(true);
     }
 
     @FXML
@@ -44,29 +87,29 @@ public class LogIn {
     }
 
     @FXML
-    void SignIn(MouseEvent event) throws IOException {
-        Message ms=new Message(null,"#identify "+UserName.getText()+" "+Password.getText());
+    void SignIn(MouseEvent event) throws IOException, InterruptedException {
+        Message ms = new Message(null, "#identify " + UserName.getText() + " " + Password.getText());
         SimpleClient.getClient().sendToServer(ms);
-        if(App.getUser()==null)
-        {
-            Incorrect.setVisible(true);
-            UserName.setText("");
-            Password.setText("");
-            return;
-        }
+
         Platform.runLater(()->{
+            if (App.getUser() != null)
+        {
             try {
                 App.setRoot("Catalog");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
+        }
+        else { Incorrect.setVisible(true);
+            UserName.setText("");
+            Password.setText("");
+            return;
 
+        }});
     }
 
-    @FXML
-    void SignUP(MouseEvent event) throws IOException {
-        App.setRoot("SingUp");
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        App.setUser(null);
     }
-
 }

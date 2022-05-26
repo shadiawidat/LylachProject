@@ -49,7 +49,7 @@ public class SimpleClient extends AbstractClient {
 		else if (deliver.equals("#Useridentified"))
 		{
 			App.setUser((User) ms.getObject());
-
+			System.out.println("First");
 		}
 		else if (deliver.equals("#Usernotidentified"))
 		{
@@ -66,7 +66,7 @@ public class SimpleClient extends AbstractClient {
 	public static SimpleClient getClient() {
 		if (client == null) {
 
-			client = new SimpleClient("localhost", 3030);
+			client = new SimpleClient("localhost", 3130);
 
 		}
 		return client;
