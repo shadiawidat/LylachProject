@@ -25,27 +25,27 @@ public class App {
         server.saveObject(user);
     }
     private static void generateItems() throws Exception {
-        Item item = new Item("Orchid" , 87, "Flower", "Purple");
+        Item item = new Item("Orchid" , 87, "Flower", "Purple",0);
         server.saveObject(item);
-         item = new Item("Lily", 15, "Flower", "White");
+         item = new Item("Lily", 15, "Flower", "White",0);
         server.saveObject(item);
-         item = new Item("Tulip", 13, "Flower", "Orange");
+         item = new Item("Tulip", 13, "Flower", "Orange",23);
         server.saveObject(item);
-         item = new Item( "Rose", 7, "Flower", "Red");
+         item = new Item( "Rose", 7, "Flower", "Red",0);
         server.saveObject(item);
-         item = new Item("Dahlia", 9, "Flower", "Pink");
+         item = new Item("Dahlia", 9, "Flower", "Pink",0);
         server.saveObject(item);
-         item = new Item("SunFlower", 11, "Flower", "Yellow");
+         item = new Item("SunFlower", 11, "Flower", "Yellow",0);
         server.saveObject(item);
-         item = new Item("Black Vase", 11, "Vase", "Black");
+         item = new Item("Black Vase", 11, "Vase", "Black",20);
         server.saveObject(item);
-         item = new Item( "Bouquet 1", 7, "Bouquet", "Red");
+         item = new Item( "Bouquet 1", 7, "Bouquet", "Red",35);
         server.saveObject(item);
-         item = new Item("Bouquet 2", 9, "Bouquet", "MultiColor");
+         item = new Item("Bouquet 2", 9, "Bouquet", "MultiColor",10);
         server.saveObject(item);
-         item = new Item("Bouquet 3", 11, "Bouquet", "Yellow");
+         item = new Item("Bouquet 3", 11, "Bouquet", "Yellow",5);
         server.saveObject(item);
-         item = new Item("Bouquet 4", 11, "Bouquet", "MultiColor");
+         item = new Item("Bouquet 4", 11, "Bouquet", "MultiColor",0);
         server.saveObject(item);
     }
  /*
@@ -70,7 +70,7 @@ cache errors.
 
     public static void main(String[] args) throws Exception {
 
-        server=new SimpleServer(3030);
+        server=new SimpleServer(3130);
         generateUsers();
         generateItems();
 

@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class CartItem {
 
-    private Item ITEM ;
+    private Item ITEM;
 
     @FXML
     private Label Discount;
@@ -36,7 +36,7 @@ public class CartItem {
 
 
     @FXML
-    void RemoveItem(MouseEvent event)throws IOException {
+    void RemoveItem(MouseEvent event) throws IOException {
 
     }
 
@@ -47,14 +47,14 @@ public class CartItem {
     }
 
     public void setItemView(Item item) {
-        if(item==null)
+        if (item == null)
             return;
-        ITEM=item;
+        ITEM = item;
         Name.setText(item.getName());
-        Price.setText("$"+item.getPrice());
-        javafx.scene.image.Image image=new Image(SimpleClient.class.getResourceAsStream(item.getImagesrc()));
+        Price.setText("$" + item.getPrice());
+        javafx.scene.image.Image image = new Image(SimpleClient.class.getResourceAsStream(item.getImagesrc()));
         Image.setImage(image);
-        Subtotal.setText(Double.toString(item.getPrice())+"$");
+        Subtotal.setText(Double.toString(item.getPrice()) + "$");
 
     }
 }

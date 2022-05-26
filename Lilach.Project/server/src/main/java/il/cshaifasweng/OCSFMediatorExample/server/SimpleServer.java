@@ -132,7 +132,14 @@ public class SimpleServer extends AbstractServer {
 		if(request.startsWith("#identify"))
 		{
 			String[] msgarray=request.split(" ");
-						client.sendToClient(new Message(session.find(User.class,msgarray[1]),"#Useridentified"));
+			User user=session.find(User.class,msgarray[1]);
+			if(user!=null&&user.getPassword().equals(msgarray[2])) {
+				client.sendToClient(new Message(user, "#Useridentified"));
+
+			}
+			else
+				client.sendToClient(new Message(null,"#UserNotidentified"));
+
 		}
 		if(request.equals("#LoadCatalog"))
 		{

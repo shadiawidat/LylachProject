@@ -4,8 +4,6 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.MyListener;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -15,31 +13,35 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 public class ItemView {
 
+    @FXML
+    public Label nameid;
     private Item item;
     @FXML
     private ImageView AddCart;
-
     @FXML
     private ImageView imageid;
-
     @FXML
-    public Label nameid;
-
+    private ImageView SaleImage;
     @FXML
     private Label price;
+    private MyListener myListener;
+
+    public ImageView getSaleImage() {
+        return SaleImage;
+    }
+
+    public void setSaleImage(ImageView saleImage) {
+        SaleImage = saleImage;
+    }
 
     @FXML
-    private void click(MouseEvent mouseEvent)
-    {
+    private void click(MouseEvent mouseEvent) {
         myListener.onClickListener(item);
     }
 
-    private MyListener myListener;
     @FXML
     void AddToCart(MouseEvent event) throws IOException {
         App.items.add(item);
@@ -66,12 +68,12 @@ public class ItemView {
     }
 
     public void setItemView(Item item) throws IOException {
-        if(item==null)
+        if (item == null)
             return;
-        this.item=item;
+        this.item = item;
         nameid.setText(item.getName());
-        price.setText("$"+item.getPrice());
-        Image image=new Image(SimpleClient.class.getResourceAsStream(item.getImagesrc()));
+        price.setText("$" + item.getPrice());
+        Image image = new Image(SimpleClient.class.getResourceAsStream(item.getImagesrc()));
         imageid.setImage(image);
 
     }

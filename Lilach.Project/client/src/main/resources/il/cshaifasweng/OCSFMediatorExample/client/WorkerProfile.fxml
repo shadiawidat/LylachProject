@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Back" prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.WorkerProfile">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.WorkerProfile">
    <children>
       <HBox alignment="CENTER" layoutX="5.0" layoutY="36.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -61,33 +61,6 @@
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="addItem" layoutX="70.0" layoutY="386.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="229.0" text="Add Item">
-         <font>
-            <Font name="Cambria Bold Italic" size="24.0" />
-         </font>
-         <styleClass>
-            <String fx:value="btns" />
-            <String fx:value="left_menu_btns" />
-         </styleClass>
-      </Button>
-      <Button fx:id="RemoveItem" layoutX="356.0" layoutY="386.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="Remove Item">
-         <font>
-            <Font name="Cambria Bold Italic" size="24.0" />
-         </font>
-         <styleClass>
-            <String fx:value="btns" />
-            <String fx:value="left_menu_btns" />
-         </styleClass>
-      </Button>
-      <Button fx:id="UpdateCatalog" layoutX="642.0" layoutY="386.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="Update Catalog">
-         <font>
-            <Font name="Cambria Bold Italic" size="24.0" />
-         </font>
-         <styleClass>
-            <String fx:value="btns" />
-            <String fx:value="left_menu_btns" />
-         </styleClass>
-      </Button>
       <TextField fx:id="Permission" layoutX="50.0" layoutY="269.0" prefHeight="103.0" styleClass="textFields">
          <font>
             <Font size="24.0" />

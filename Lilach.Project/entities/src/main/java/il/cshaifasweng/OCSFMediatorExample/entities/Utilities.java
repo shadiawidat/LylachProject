@@ -3,31 +3,95 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import java.util.Date;
 
 public class Utilities {
-    public boolean check_Valid_String(String text){
+    public static boolean check_Validate_String(String text){
         for(int i = 0; i < text.length(); i++){
-            if(text.charAt(i) < 'a' || (text.charAt(i) > 'z' && text.charAt(i) < 'A') ||text.charAt(i) > 'Z'){
+            if(text.charAt(i) < 'A' || (text.charAt(i) > 'Z' && text.charAt(i) < 'a') ||text.charAt(i) > 'z'){
                 return false;
             }
         }
         return true;
     }
 
-    public boolean checkValidDate(Date from, Date to){
-        if(from.after(to)){ // momken to.after(from)
-            return false;
+    public static boolean checkValidDate(Date Then, Date Now){
+        if(Now.after(Then)){ // momken to.after(from)
+            return true;
         }
-        return true;
+        return false;
     }
 
-    public boolean check_Validate_Price(String price){
+    public static boolean check_Validate_Price(String price){
         if(price.charAt(0) == '-'){
             return false;
         }
         for(int i = 0; i < price.length(); i++){
-            if(price.charAt(i) > '0' || price.charAt(i) > '9'){
+            if(price.charAt(i) < '0' || price.charAt(i) > '9'){
                 return false;
             }
         }
+        return true;
+    }
+
+    public static boolean check_Validate_Phone(String Phone){
+        if(Phone.length()!=10||Phone.length()==0)
+            return false;
+        for(int i = 0; i < Phone.length(); i++){
+            if(Phone.charAt(i) < '0' || Phone.charAt(i) > '9'){
+                return false;
+            }
+        }
+        if(Phone.charAt(0)!='0'||Phone.charAt(1)!='5')
+            return false;
+        return true;
+    }
+
+    public static boolean check_Validate_ID(String ID){
+    if(ID.length()>10||ID.length()<9)
+        return false;
+        for(int i = 0; i < ID.length(); i++){
+            if(ID.charAt(i) < '0' || ID.charAt(i) > '9'){
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean check_Validate_Card(String Card){
+        if(Card.length()!=16||Card.length()<1)
+            return false;
+        for(int i = 0; i < Card.length(); i++){
+            if(Card.charAt(i) < '0' || Card.charAt(i) > '9'){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean check_Validate_Pass(String Password){
+        if(Password.length()>10||Password.length()<1)
+            return false;
+        for(int i = 0; i < Password.length(); i++){
+            if(Password.charAt(i) == ' '){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean check_Validate_Username(String User){
+        if(User.length()>10||User.length()<1)
+            return false;
+
+        for(int i = 0; i < User.length(); i++){
+            if(User.charAt(i) == ' ')
+                return false;
+            if(User.charAt(i)<'0'||User.charAt(i)>'z')
+                return false;
+            if(User.charAt(i)>'9'&& User.charAt(i)<'A')
+                return false;
+            if(User.charAt(i)>'Z'&& User.charAt(i)<'a')
+                return false;
+        }
+        if(User.charAt(0)<='9'&&User.charAt(0)>='0')
+            return false;
         return true;
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 public class Client extends User  {
-    private int accounttype;
+    private AccountTypes accounttype;
     private Double amount;
     @OneToOne
     private Cart order;
@@ -18,11 +18,12 @@ public class Client extends User  {
     private List<Complain> complains;
     private Boolean freezed;
 
-    public Client(int accounttype, Double amount, Boolean freezed) {
-        super();
+
+    public Client(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, AccountTypes accounttype, Double amount, Boolean freezed) {
+        super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission);
         this.accounttype = accounttype;
-        this.amount = amount;
-        this.freezed = freezed;
+        this.amount = 0.0;
+        this.freezed = false;
     }
 
     public Client() {
@@ -54,7 +55,7 @@ public class Client extends User  {
     public void DeleteOneBranch(Branch b){
         mybranches.remove(b);
     }
-    public int getAccounttype() {
+    public AccountTypes getAccounttype() {
         return accounttype;
     }
 
@@ -66,7 +67,7 @@ public class Client extends User  {
         this.order = order;
     }
 
-    public void setAccounttype(int accounttype) {
+    public void setAccounttype(AccountTypes accounttype) {
         this.accounttype = accounttype;
     }
 

@@ -14,61 +14,62 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class Cart implements Initializable {
-    public static String Caller="";
+    public static String Caller = "";
+    @FXML
+    public List<Item> items;
+    @FXML
+    private Button Back;
+    @FXML
+    private ImageView CartButton;
+    @FXML
+    private Menu CloseMenu;
+    @FXML
+    private MenuItem LogIn;
+    @FXML
+    private ImageView MenuBtn;
+    @FXML
+    private Label Saved;
+    @FXML
+    private Button Shipping;
+    @FXML
+    private Label Tax;
+    @FXML
+    private Label Total;
+    @FXML
+    private MenuItem MenuAbout;
+    @FXML
+    private MenuItem MenuCart;
+    @FXML
+    private MenuItem MenuProfile;
+    @FXML
+    private MenuItem MenuSignIn;
+    @FXML
+    private MenuItem MenuSignOut;
+    @FXML
+    private MenuItem MenuSignUp;
+    @FXML
+    private Label UserName;
+    @FXML
+    private GridPane gridPane;
+    @FXML
+    private MenuBar menu;
+    @FXML
+    private ScrollPane scroll;
 
     public static String getCaller() {
         return Caller;
     }
+
     public static void setCaller(String caller) {
         Caller = caller;
     }
-    @FXML
-    public List<Item> items;
-
-    @FXML
-    private Button Back;
-
-    @FXML
-    private ImageView CartButton;
-
-    @FXML
-    private Menu CloseMenu;
-
-    @FXML
-    private MenuItem LogIn;
-
-    @FXML
-    private ImageView MenuBtn;
-
-    @FXML
-    private Label Saved;
-
-    @FXML
-    private Button Shipping;
-
-    @FXML
-    private Label Tax;
-
-    @FXML
-    private Label Total;
-
-    @FXML
-    private Label UserName;
-
-    @FXML
-    private GridPane gridPane;
-
-    @FXML
-    private MenuBar menu;
-
-    @FXML
-    private ScrollPane scroll;
 
     @FXML
     void Back(MouseEvent event) throws IOException {
@@ -92,18 +93,54 @@ public class Cart implements Initializable {
     }
 
     @FXML
+    void GoToAbout(ActionEvent event) {
+
+    }
+
+    @FXML
+    void GoToCart(ActionEvent event) {
+
+    }
+
+    @FXML
+    void GoToProfile(ActionEvent event) {
+
+    }
+
+    @FXML
+    void GoToSignIn(ActionEvent event) {
+
+    }
+
+    @FXML
+    void GoToSignOut(ActionEvent event) {
+
+    }
+
+    @FXML
+    void GoToSignUp(ActionEvent event) {
+
+    }
+
+    @FXML
     void GoToAccount(MouseEvent event) {
 
     }
 
     @FXML
-    void MenuClick(MouseEvent event) {
-
+    void CloseMenu(MouseEvent event) {
+        menu.setVisible(false);
     }
+
+    @FXML
+    void MenuClick(MouseEvent event) {
+        menu.setVisible(true);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        items= App.items;
-        if(items==null)
+        items = App.items;
+        if (items == null)
             return;
         int column = 0;
         int row = 1;

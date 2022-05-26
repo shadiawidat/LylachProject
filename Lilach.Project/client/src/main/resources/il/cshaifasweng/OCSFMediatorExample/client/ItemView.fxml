@@ -46,5 +46,10 @@
             </HBox>
          </children>
       </VBox>
+      <ImageView fx:id="SaleImage" fitHeight="157.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Media/Sales/SaleItem.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

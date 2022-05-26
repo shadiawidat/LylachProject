@@ -3,41 +3,27 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
-public class Account {
+public class About {
 
     public static String Caller = "";
+
     @FXML
-    private PasswordField AccountType;
-    @FXML
-    private TextField Address;
-    @FXML
-    private PasswordField BirthDate;
+    private Button Back;
     @FXML
     private ImageView CartB;
     @FXML
-    private TextField CreditCard;
-    @FXML
-    private TextField Email;
-    @FXML
-    private TextField FirstName;
-    @FXML
-    private TextField ID;
-    @FXML
-    private TextField LastName;
-    @FXML
     private ImageView MenuBtn;
     @FXML
-    private TextField Phone;
-    @FXML
     private Label UserName;
-    @FXML
-    private TextField Username;
     @FXML
     private MenuItem MenuAbout;
     @FXML
@@ -62,38 +48,20 @@ public class Account {
     }
 
     @FXML
-    void GoToAbout(ActionEvent event) {
-
+    void GoToCart(ActionEvent event) throws IOException {
+        Cart.setCaller("About");
+        App.setRoot("Cart");
     }
 
     @FXML
-    void GoToCart(ActionEvent event) {
-
+    void GoToProfile(ActionEvent event) throws IOException {
+        Account.setCaller("About");
+        App.setRoot("Account");
     }
 
     @FXML
-    void GoToProfile(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToSignIn(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToSignOut(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToSignUp(ActionEvent event) {
-
-    }
-
-    @FXML
-    void Back(MouseEvent event) throws IOException {
-        App.setRoot(getCaller());
+    void GoToSignIn(ActionEvent event) throws IOException {
+        App.setRoot("LogIn");
     }
 
     @FXML
@@ -102,23 +70,43 @@ public class Account {
     }
 
     @FXML
-    void GoToAccount(MouseEvent event) {
-
+    void GoToSignOut(ActionEvent event) throws IOException {
+        App.setUser(null);
+        App.setRoot("Login");
     }
 
     @FXML
-    void GoToCart(MouseEvent event) {
+    void GoToSignUp(ActionEvent event) throws IOException {
+        SignUp.setCaller("About");
+        App.setRoot("SignUp");
+    }
+
+    @FXML
+    void Back(MouseEvent event) throws IOException {
+        App.setRoot(getCaller());
+    }
+
+    @FXML
+    void GoToAccount(MouseEvent event) throws IOException {
+        Account.setCaller("About");
+        App.setRoot("Account");
+    }
+
+    @FXML
+    void GoToCart(MouseEvent event) throws IOException {
+        Cart.setCaller("About");
+        App.setRoot("Cart");
+    }
+
+    @FXML
+    void GoToAbout(MouseEvent event) throws IOException {
+
 
     }
 
     @FXML
     void MenuClick(MouseEvent event) {
         menu.setVisible(true);
-    }
-
-    @FXML
-    void Myorders(MouseEvent event) {
-
     }
 
 }
