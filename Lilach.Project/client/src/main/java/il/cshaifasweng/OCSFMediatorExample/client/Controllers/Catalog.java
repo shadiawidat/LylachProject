@@ -230,7 +230,12 @@ public class Catalog implements Initializable {
 
     @FXML
     void CreateNew(MouseEvent event) {
-
+        ItemShow.setCaller("CatalogNew");
+        try {
+            App.setRoot("ItemShow");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
