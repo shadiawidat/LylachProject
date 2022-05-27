@@ -184,6 +184,7 @@ public class Catalog implements Initializable {
     private void getData() throws IOException {
         Message ms = new Message(null, "#LoadCatalog");
         SimpleClient.getClient().sendToServer(ms);
+        SimpleClient.getClient().catalogControl=this;
     }
 
     @FXML
@@ -494,10 +495,42 @@ public class Catalog implements Initializable {
         });
     }
 
+    public void LoadList(List<Item> items)
+    {
+        try {
+            int column = 0;
+            int row = 1;
+            for (Item item : items) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+                ItemView itemController = fxmlLoader.getController();
+
+                itemController.setItemView(item);
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+                if (item.getDiscount() == 0)
+                    itemController.getSaleImage().setImage(null);
+                grid.add(anchorPane, column++, row); //(child,column,row)
+                //set grid width
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+                //set grid height
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        YellowFlag = false;
         try {
             getData();
         } catch (IOException e) {
@@ -508,36 +541,6 @@ public class Catalog implements Initializable {
                 UserName.setText("Welcome guest");
             else
                 UserName.setText("Welcome " + App.getUser().getFirstname());
-            try {
-                int column = 0;
-                int row = 1;
-                for (Item item : Catalog) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
-                    AnchorPane anchorPane = fxmlLoader.load();
-                    ItemView itemController = fxmlLoader.getController();
-
-                    itemController.setItemView(item);
-                    if (column == 3) {
-                        column = 0;
-                        row++;
-                    }
-                    if (item.getDiscount() == 0)
-                        itemController.getSaleImage().setImage(null);
-                    grid.add(anchorPane, column++, row); //(child,column,row)
-                    //set grid width
-                    grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxWidth(Region.USE_PREF_SIZE);
-                    //set grid height
-                    grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxHeight(Region.USE_PREF_SIZE);
-                    GridPane.setMargin(anchorPane, new Insets(10));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         });
 
     }

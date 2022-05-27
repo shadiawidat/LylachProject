@@ -90,22 +90,26 @@ public class LogIn implements Initializable {
     void SignIn(MouseEvent event) throws IOException, InterruptedException {
         Message ms = new Message(null, "#identify " + UserName.getText() + " " + Password.getText());
         SimpleClient.getClient().sendToServer(ms);
+        SimpleClient.getClient().logControl=this;
 
-        Platform.runLater(()->{
+    }
+    public void Sign(){
             if (App.getUser() != null)
-        {
-            try {
-                App.setRoot("Catalog");
-            } catch (IOException e) {
-                e.printStackTrace();
+            {
+                try {
+                    App.setRoot("Catalog");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        else { Incorrect.setVisible(true);
-            UserName.setText("");
-            Password.setText("");
-            return;
+            else {
+                System.out.println("here");
+                Incorrect.setVisible(true);
+                UserName.setText("");
+                Password.setText("");
+                return;
 
-        }});
+            }
     }
 
     @Override

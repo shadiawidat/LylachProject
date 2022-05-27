@@ -70,7 +70,7 @@ cache errors.
 
     public static void main(String[] args) throws Exception {
 
-        server=new SimpleServer(3130);
+        server=new SimpleServer(3330);
         generateUsers();
         generateItems();
 
