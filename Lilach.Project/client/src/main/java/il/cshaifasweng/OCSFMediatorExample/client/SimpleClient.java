@@ -1,11 +1,12 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import il.cshaifasweng.OCSFMediatorExample.client.Controllers.Catalog;
+import il.cshaifasweng.OCSFMediatorExample.client.Controllers.*;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.User;
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
+import javafx.application.Platform;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -13,30 +14,25 @@ import java.util.List;
 
 public class SimpleClient extends AbstractClient {
 
-	private String username;
+	public About aboutControl;
+	public Account accountControl;
+	public Cart cartControl;
+	public CartItem cartitemControl;
+	public Catalog catalogControl;
+	public Complain complainControl;
+	public ItemShow itemshowControl;
+	public LogIn logControl;
+	public Report reportControl;
+	public ReportHistogram reportHistogramControl;
+	public ReportView reportViewControl;
+	public SignUp	signUpControl;
 
-	public String getUsername() {
-		return username;
-	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	private static SimpleClient client = null;
 
 	private SimpleClient(String host, int port) {
 		super(host, port);
-	}
-
-	public static String lastms=new String("");
-
-	public static String getLastms() {
-		return lastms;
-	}
-
-	public static void setLastms(String lastms) {
-		SimpleClient.lastms = lastms;
 	}
 
 	@Override
@@ -45,15 +41,12 @@ public class SimpleClient extends AbstractClient {
 		String deliver=ms.getString();
 		if(deliver.equals("#CatalogReady")) {
 			Catalog.Catalog = (List<Item>) ms.getObject();
+			Platform.runLater(()->{catalogControl.LoadList(Catalog.Catalog);});
 		}
-		else if (deliver.equals("#Useridentified"))
+		else if (deliver.equals("#Useridentify"))
 		{
 			App.setUser((User) ms.getObject());
-			System.out.println("First");
-		}
-		else if (deliver.equals("#Usernotidentified"))
-		{
-			App.setUser(null);
+			Platform.runLater(()->{logControl.Sign();});
 		}
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
@@ -65,9 +58,7 @@ public class SimpleClient extends AbstractClient {
 
 	public static SimpleClient getClient() {
 		if (client == null) {
-
-			client = new SimpleClient("localhost", 3130);
-
+			client = new SimpleClient("localhost", 3330);
 		}
 		return client;
 	}
