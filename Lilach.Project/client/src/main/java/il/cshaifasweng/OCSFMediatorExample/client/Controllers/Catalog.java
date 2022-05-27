@@ -4,6 +4,8 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.Utilities;
+import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +21,9 @@ import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.Permission;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -30,6 +34,9 @@ public class Catalog implements Initializable {
     public static List<Item> CatalogShow = new ArrayList<>();
     @FXML
     private Button Back;
+
+    @FXML
+    private Button addItemBtn;
 
     @FXML
     private ImageView CartB;
@@ -71,6 +78,22 @@ public class Catalog implements Initializable {
     @FXML
     private MenuBar menu;
 
+    @FXML
+    private Label Matched;
+
+    @FXML
+    private TextField Max;
+
+    @FXML
+    private TextField Min;
+
+    @FXML
+    private Button Filter;
+
+    @FXML
+    private Label InvalidPrice;
+
+
     public static String getCaller() {
         return Caller;
     }
@@ -80,28 +103,36 @@ public class Catalog implements Initializable {
     }
 
     @FXML
-    void GoToAbout(ActionEvent event) {
+    void GoToAbout(ActionEvent event) throws IOException {
+        About.setCaller("Catalog");
+        App.setRoot("About");
+    }
+
+    @FXML
+    void GoToCartMN(ActionEvent event) throws IOException {
+        Cart.setCaller("Catalog");
+        App.setRoot("Cart");
 
     }
 
     @FXML
-    void GoToCart(ActionEvent event) {
-
+    void GoToProfile(ActionEvent event) throws IOException {
+        if(App.getUser()==null)
+            return;
+        Account.setCaller("Catalog");
+        App.setRoot("Account");
     }
 
     @FXML
-    void GoToProfile(ActionEvent event) {
-
+    void GoToSignIn(ActionEvent event) throws IOException {
+        App.setUser(null);
+        App.setRoot("LogIn");
     }
 
     @FXML
-    void GoToSignIn(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToSignOut(ActionEvent event) {
-
+    void GoToSignOut(ActionEvent event) throws IOException {
+        App.setUser(null);
+        App.setRoot("LogIn");
     }
 
     @FXML
@@ -110,62 +141,14 @@ public class Catalog implements Initializable {
     }
 
     @FXML
-    void GoToSignUp(ActionEvent event) {
-
+    void GoToSignUp(ActionEvent event) throws IOException {
+        SignUp.setCaller("Catalog");
+        App.setRoot("SignUp");
     }
 
     @FXML
     void Back(MouseEvent event) throws IOException {
         App.setRoot(getCaller());
-    }
-
-    @FXML
-    void Black(ActionEvent event) {
-
-    }
-
-    @FXML
-    void ClickSearch(MouseEvent event) {
-        List<Item> searchitem = new ArrayList<>();
-        for (Item value : Catalog) {
-            String name = value.getName().toLowerCase();
-            if (name.startsWith(SearchField.getText().toLowerCase())) {
-                CatalogShow.add(value);
-            }
-        }
-
-        SearchField.setText("");
-        grid.getChildren().clear();
-        Platform.runLater(() -> {
-            int column = 0;
-            int row = 1;
-            try {
-                for (Item item : CatalogShow) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
-                    AnchorPane anchorPane = fxmlLoader.load();
-                    ItemView itemController = fxmlLoader.getController();
-                    itemController.setItemView(item);
-                    if (column == 3) {
-                        column = 0;
-                        row++;
-                    }
-                    grid.add(anchorPane, column++, row); //(child,column,row)
-                    //set grid width
-                    grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxWidth(Region.USE_PREF_SIZE);
-                    //set grid height
-                    grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxHeight(Region.USE_PREF_SIZE);
-                    GridPane.setMargin(anchorPane, new Insets(10));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
     }
 
     @FXML
@@ -193,86 +176,56 @@ public class Catalog implements Initializable {
     }
 
     @FXML
-    void Multicolor(ActionEvent event) {
-        for (Item value : Catalog) {
-            String color = value.getColor();
-            if (color.equals("MultiColor")) {
-                CatalogShow.add(value);
+    void ClickSearch(MouseEvent event) {
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getName().toLowerCase().startsWith(SearchField.getText().toLowerCase()))
+            {
+                CatalogShow.add(item);
             }
         }
+        LoadList(CatalogShow);
+        SearchField.setText("");
+    }
 
-        grid.getChildren().clear();
-        Platform.runLater(() -> {
-            int column = 0;
-            int row = 1;
-            try {
-                for (Item item : CatalogShow) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
-                    AnchorPane anchorPane = fxmlLoader.load();
-                    ItemView itemController = fxmlLoader.getController();
-                    itemController.setItemView(item);
-                    if (column == 3) {
-                        column = 0;
-                        row++;
-                    }
-                    grid.add(anchorPane, column++, row); //(child,column,row)
-                    //set grid width
-                    grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxWidth(Region.USE_PREF_SIZE);
-                    //set grid height
-                    grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxHeight(Region.USE_PREF_SIZE);
-                    GridPane.setMargin(anchorPane, new Insets(10));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+    @FXML
+    void Black(ActionEvent event) {
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getColor().equals("Black"))
+            {
+                CatalogShow.add(item);
             }
+        }
+        LoadList(CatalogShow);
+    }
 
-        });
+    @FXML
+    void Multicolor(ActionEvent event) {
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getColor().equals("MultiColor"))
+            {
+                CatalogShow.add(item);
+            }
+        }
+        LoadList(CatalogShow);
     }
 
     @FXML
     void Orange(ActionEvent event) {
-        for (Item value : Catalog) {
-            String color = value.getColor();
-            if (color.equals("Orange")) {
-                CatalogShow.add(value);
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getColor().equals("Orange"))
+            {
+                CatalogShow.add(item);
             }
         }
-        grid.getChildren().clear();
-        Platform.runLater(() -> {
-            int column = 0;
-            int row = 1;
-            try {
-                for (Item item : CatalogShow) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
-                    AnchorPane anchorPane = fxmlLoader.load();
-                    ItemView itemController = fxmlLoader.getController();
-                    itemController.setItemView(item);
-                    if (column == 3) {
-                        column = 0;
-                        row++;
-                    }
-                    grid.add(anchorPane, column++, row); //(child,column,row)
-                    //set grid width
-                    grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxWidth(Region.USE_PREF_SIZE);
-                    //set grid height
-                    grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxHeight(Region.USE_PREF_SIZE);
-                    GridPane.setMargin(anchorPane, new Insets(10));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
+        LoadList(CatalogShow);
     }
 
     @FXML
@@ -282,221 +235,241 @@ public class Catalog implements Initializable {
 
     @FXML
     void Pink(ActionEvent event) {
-        for (Item value : Catalog) {
-            String color = value.getColor();
-            if (color.equals("Pink")) {
-                CatalogShow.add(value);
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getColor().equals("Pink"))
+            {
+                CatalogShow.add(item);
             }
         }
-
-        grid.getChildren().clear();
-        Platform.runLater(() -> {
-            int column = 0;
-            int row = 1;
-            try {
-                for (Item item : CatalogShow) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
-                    AnchorPane anchorPane = fxmlLoader.load();
-                    ItemView itemController = fxmlLoader.getController();
-                    itemController.setItemView(item);
-                    if (column == 3) {
-                        column = 0;
-                        row++;
-                    }
-                    grid.add(anchorPane, column++, row); //(child,column,row)
-                    //set grid width
-                    grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxWidth(Region.USE_PREF_SIZE);
-                    //set grid height
-                    grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxHeight(Region.USE_PREF_SIZE);
-                    GridPane.setMargin(anchorPane, new Insets(10));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
+        LoadList(CatalogShow);
     }
 
     @FXML
     void Purple(ActionEvent event) {
-        for (Item value : Catalog) {
-            String color = value.getColor();
-            if (color.equals("Purple")) {
-                CatalogShow.add(value);
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getColor().equals("Purple"))
+            {
+                CatalogShow.add(item);
             }
         }
-
-        grid.getChildren().clear();
-        Platform.runLater(() -> {
-            int column = 0;
-            int row = 1;
-            try {
-                for (Item item : CatalogShow) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
-                    AnchorPane anchorPane = fxmlLoader.load();
-                    ItemView itemController = fxmlLoader.getController();
-                    itemController.setItemView(item);
-                    if (column == 3) {
-                        column = 0;
-                        row++;
-                    }
-                    grid.add(anchorPane, column++, row); //(child,column,row)
-                    //set grid width
-                    grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxWidth(Region.USE_PREF_SIZE);
-                    //set grid height
-                    grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxHeight(Region.USE_PREF_SIZE);
-                    GridPane.setMargin(anchorPane, new Insets(10));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
+        LoadList(CatalogShow);
     }
 
     @FXML
     void Red(ActionEvent event) {
-        for (Item value : Catalog) {
-            String color = value.getColor();
-            if (color.equals("Red")) {
-                CatalogShow.add(value);
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getColor().equals("Red"))
+            {
+                CatalogShow.add(item);
             }
         }
-
-        grid.getChildren().clear();
-        Platform.runLater(() -> {
-            int column = 0;
-            int row = 1;
-            try {
-                for (Item item : CatalogShow) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
-                    AnchorPane anchorPane = fxmlLoader.load();
-                    ItemView itemController = fxmlLoader.getController();
-                    itemController.setItemView(item);
-                    if (column == 3) {
-                        column = 0;
-                        row++;
-                    }
-                    grid.add(anchorPane, column++, row); //(child,column,row)
-                    //set grid width
-                    grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxWidth(Region.USE_PREF_SIZE);
-                    //set grid height
-                    grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxHeight(Region.USE_PREF_SIZE);
-                    GridPane.setMargin(anchorPane, new Insets(10));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
-    }
-
-    @FXML
-    void SortHL(ActionEvent event) {
-
+        LoadList(CatalogShow);
     }
 
     @FXML
     void White(ActionEvent event) {
-        for (Item value : Catalog) {
-            String color = value.getColor();
-            if (color.equals("White")) {
-                CatalogShow.add(value);
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getColor().equals("White"))
+            {
+                CatalogShow.add(item);
             }
         }
-
-        grid.getChildren().clear();
-        Platform.runLater(() -> {
-            int column = 0;
-            int row = 1;
-            try {
-                for (Item item : CatalogShow) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
-                    AnchorPane anchorPane = fxmlLoader.load();
-                    ItemView itemController = fxmlLoader.getController();
-                    itemController.setItemView(item);
-                    if (column == 3) {
-                        column = 0;
-                        row++;
-                    }
-                    grid.add(anchorPane, column++, row); //(child,column,row)
-                    //set grid width
-                    grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxWidth(Region.USE_PREF_SIZE);
-                    //set grid height
-                    grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxHeight(Region.USE_PREF_SIZE);
-                    GridPane.setMargin(anchorPane, new Insets(10));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
+        LoadList(CatalogShow);
     }
 
     @FXML
     void Yellow(ActionEvent event) {
-        for (Item item : Catalog) {
-            String color = item.getColor();
-            if (color.equals("Yellow")) {
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getColor().equals("Yellow"))
+            {
                 CatalogShow.add(item);
             }
         }
+        LoadList(CatalogShow);
+    }
 
-        grid.getChildren().clear();
-        Platform.runLater(() -> {
-            int column = 0;
-            int row = 1;
-            try {
-                for (Item item : CatalogShow) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
-                    AnchorPane anchorPane = fxmlLoader.load();
-                    ItemView itemController = fxmlLoader.getController();
-                    itemController.setItemView(item);
-                    if (column == 3) {
-                        column = 0;
-                        row++;
-                    }
-                    grid.add(anchorPane, column++, row); //(child,column,row)
-                    //set grid width
-                    grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxWidth(Region.USE_PREF_SIZE);
-                    //set grid height
-                    grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxHeight(Region.USE_PREF_SIZE);
-                    GridPane.setMargin(anchorPane, new Insets(10));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+    @FXML
+    void SFlower(ActionEvent event) {
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getType().equals("Flower"))
+            {
+                CatalogShow.add(item);
             }
+        }
+        LoadList(CatalogShow);
+    }
 
-        });
+    @FXML
+    void SortAZ(ActionEvent event) {
+
+    }
+
+    @FXML
+    void SortHL(ActionEvent event) {
+//        SortLH(null);
+        List<Item> temp=new ArrayList<>();
+        for(int i=CatalogShow.size()-1;i>=0;i--)
+        {
+            temp.add(CatalogShow.get(i));
+        }
+        CatalogShow=temp;
+    }
+
+    @FXML
+    void SortLH(ActionEvent event) {
+        System.out.println("here");
+        CatalogShow.clear();
+        CatalogShow.add(Catalog.get(0));
+        for(Item itemS:Catalog)
+            for(Item itemB:CatalogShow)
+            {
+                if(itemS.getPrice()>itemB.getPrice())
+                {
+                    Item temp=itemS;
+                    itemS=itemB;
+                    itemB=temp;
+                }
+            }
+        LoadList(CatalogShow);
+    }
+
+    @FXML
+    void SortZA(ActionEvent event) {
+
+    }
+
+    @FXML
+    void Vases(ActionEvent event) {
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getType().equals("Vase"))
+            {
+                CatalogShow.add(item);
+            }
+        }
+        LoadList(CatalogShow);
+    }
+
+    @FXML
+    void Weddings(ActionEvent event) {
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getType().equals("Wedding"))
+            {
+                CatalogShow.add(item);
+            }
+        }
+        LoadList(CatalogShow);
+    }
+
+
+
+    @FXML
+    void OnSale(ActionEvent event) {
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getDiscount()>0)
+            {
+                CatalogShow.add(item);
+            }
+        }
+        LoadList(CatalogShow);
+    }
+
+    @FXML
+    void GardeningTools(ActionEvent event) {
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getType().equals("Gardening"))
+            {
+                CatalogShow.add(item);
+            }
+        }
+        LoadList(CatalogShow);
+    }
+
+    @FXML
+    void Bouquets(ActionEvent event) {
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getType().equals("Bouquet"))
+            {
+                CatalogShow.add(item);
+            }
+        }
+        LoadList(CatalogShow);
+    }
+
+    @FXML
+    void Price(ActionEvent event) {
+        Min.setVisible(true);
+        Max.setVisible(true);
+        Filter.setVisible(true);
+    }
+
+    @FXML
+    void FilterByPrices(MouseEvent event) {
+
+        if(Utilities.check_Validate_Price(Min.getText())==false||Utilities.check_Validate_Price(Max.getText())==false) {
+            InvalidPrice.setVisible(true);
+            Min.setText("");
+            Max.setText("");
+            return;
+        }
+        double min=Double.parseDouble(Min.getText()),max=Double.parseDouble(Max.getText());
+        if(min>max)
+        {
+            Min.setText("");
+            Max.setText("");
+            return;
+        }
+
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getPrice()<=max&&item.getPrice()>=min)
+            {
+                CatalogShow.add(item);
+            }
+        }
+        LoadList(CatalogShow);
+
+        Min.setText("");
+        Max.setText("");
+        Min.setVisible(false);
+        Max.setVisible(false);
+        Filter.setVisible(false);
+        InvalidPrice.setVisible(false);
+
+
     }
 
     public void LoadList(List<Item> items)
     {
+        Matched.setVisible(false);
+        scroll.setVisible(true);
+        if(items.size()==0) {
+            scroll.setVisible(false);
+            Matched.setVisible(true);
+        }
+        grid.getChildren().clear();
         try {
             int column = 0;
             int row = 1;
@@ -531,6 +504,9 @@ public class Catalog implements Initializable {
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if(App.getUser()!=null)
+        if(App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()==permissions.WORKER)
+            addItemBtn.setVisible(true);
         try {
             getData();
         } catch (IOException e) {

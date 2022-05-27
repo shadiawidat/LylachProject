@@ -128,18 +128,18 @@ public class Cart implements Initializable {
     }
 
     @FXML
-    void CloseMenu(MouseEvent event) {
-        menu.setVisible(false);
-    }
-
-    @FXML
     void MenuClick(MouseEvent event) {
         menu.setVisible(true);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         items = App.items;
+        scroll.setVisible(true);
+        if(items.size()==0) {
+            scroll.setVisible(false);
+        }
         if (items == null)
             return;
         int column = 0;

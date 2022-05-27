@@ -63,6 +63,7 @@ public class ItemView {
 
     @FXML
     void ShowItem(MouseEvent event) throws Exception {
+        ItemShow.setCaller("Catalog");
         App.setOnscreen(item);
         App.setRoot("ItemShow");
     }
