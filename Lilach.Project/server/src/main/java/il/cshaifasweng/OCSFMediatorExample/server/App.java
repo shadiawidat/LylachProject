@@ -15,7 +15,7 @@ public class App {
         User user= new User("Fole","Noor26","Noor","Abu elfoul","Noorabo7@outlook.com","0528218268",new Date(2000,7,26),"Shefa'amer",permissions.CLIENT );
         server.saveObject(user);
 
-         user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.CLIENT );
+         user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.MANAGER );
         server.saveObject(user);
 
          user= new User("Lili","LilianCs","Lilian","Mansour","Lilianmansour3@gmail.com","0528345268",new Date(2000,8,16),"Haifa",permissions.CLIENT );

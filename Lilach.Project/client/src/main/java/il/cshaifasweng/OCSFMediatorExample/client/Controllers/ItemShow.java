@@ -59,7 +59,13 @@ public class ItemShow implements Initializable {
     @FXML
     private TextField PriceText;
     @FXML
+    private TextField DiscountText;
+    @FXML
     private Button UpdateInfo;
+    @FXML
+    private Button AddToCartBtn;
+    @FXML
+    private Button DeleteItem;
     @FXML
     private Label discount;
     @FXML
@@ -89,12 +95,15 @@ public class ItemShow implements Initializable {
     }
 
     @FXML
-    void GoToAbout(ActionEvent event) {
-
+    void GoToAbout(ActionEvent event) throws IOException {
+        About.setCaller("ItemShow");
+        App.setRoot("About");
     }
 
     @FXML
-    void GoToCart(ActionEvent event) {
+    void GoToCartMN(ActionEvent event) throws IOException {
+        Cart.setCaller("ItemShow");
+        App.setRoot("Cart");
 
     }
 
@@ -113,10 +122,6 @@ public class ItemShow implements Initializable {
 
     }
 
-    @FXML
-    void CloseMenu(MouseEvent event) {
-        menu.setVisible(false);
-    }
 
     @FXML
     void MenuClick(MouseEvent event) {
@@ -130,6 +135,7 @@ public class ItemShow implements Initializable {
 
     @FXML
     public void SetItem(Item item) throws Exception {
+        discount.setVisible(false);
         if (item == null)
             return;
         ITEM = item;
@@ -139,6 +145,9 @@ public class ItemShow implements Initializable {
         color.setText("Color: " + item.getColor());
         Image image = new Image(SimpleClient.class.getResourceAsStream(item.getImagesrc()));
         imgid.setImage(image);
+        discount.setText("Discount: "+item.getDiscount()+"%");
+        if(item.getDiscount()==0.0)
+            discount.setVisible(true);
     }
 
     @FXML
@@ -160,6 +169,7 @@ public class ItemShow implements Initializable {
 
     @FXML
     void GoToCart(MouseEvent event) throws IOException {
+        Cart.setCaller("ItemShow");
         App.setRoot("Cart");
     }
 
@@ -182,11 +192,21 @@ public class ItemShow implements Initializable {
         }
 
         if (App.getUser() != null && App.getUser().getPermission() == permissions.MANAGER) {
+            AddToCartBtn.setVisible(false);
             NameText.setVisible(true);
             PriceText.setVisible(true);
             TypeText.setVisible(true);
             ColorText.setVisible(true);
+            DiscountText.setVisible(true);
             UpdateInfo.setVisible(true);
+            DeleteItem.setVisible(true);
+
+            NameText.setText(ITEM.getName());
+            PriceText.setText(Double.toString(ITEM.getPrice()));
+            TypeText.setText(ITEM.getType());
+            ColorText.setText(ITEM.getColor());
+            DiscountText.setText(Double.toString(ITEM.getDiscount()));
+
         }
 
 

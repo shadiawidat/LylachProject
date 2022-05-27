@@ -97,6 +97,7 @@ public class LogIn implements Initializable {
             if (App.getUser() != null)
             {
                 try {
+                    Catalog.setCaller("LogIn");
                     App.setRoot("Catalog");
                 } catch (IOException e) {
                     e.printStackTrace();

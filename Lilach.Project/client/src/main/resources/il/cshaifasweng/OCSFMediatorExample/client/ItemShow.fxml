@@ -53,7 +53,7 @@
                   </Label>
                </children>
             </HBox>
-            <ImageView fx:id="Cart" fitHeight="50.0" fitWidth="50.0" onKeyPressed="#GoToCart" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+            <ImageView fx:id="Cart" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                <image>
                   <Image url="@../../../../Icons/Cart.png" />
                </image>
@@ -95,19 +95,19 @@
                         <Image url="@../../../../Icons/Close.jpg" />
                      </image>
                   </ImageView>
-                  <Button layoutX="392.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="left_menu_btns" text="Update Info" visible="false">
+                  <Button fx:id="UpdateInfo" layoutX="392.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="left_menu_btns" text="Update Info" visible="false">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Button>
-                  <VBox layoutX="42.0" layoutY="60.0" prefHeight="400.0" prefWidth="215.0">
+                  <VBox layoutX="42.0" layoutY="60.0" prefHeight="405.0" prefWidth="170.0">
                      <children>
                         <Label fx:id="nameid" prefHeight="27.0" prefWidth="214.0" stylesheets="@../../../../Styles/Style.css" text="Name: Orcid">
                            <font>
                               <Font name="Cambria" size="22.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="NameText1" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <TextField fx:id="NameText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
                         <Label fx:id="type" prefHeight="27.0" prefWidth="214.0" text="Type: Flower">
                            <font>
                               <Font name="Cambria" size="22.0" />
@@ -116,7 +116,7 @@
                               <Insets top="35.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="NameText12" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <TextField fx:id="TypeText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
                         <Label fx:id="color" text="Color: Pink">
                            <font>
                               <Font name="Cambria" size="22.0" />
@@ -125,7 +125,7 @@
                               <Insets top="35.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="NameText13" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <TextField fx:id="ColorText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
                         <Label fx:id="price" text="Price: 18.99$">
                            <font>
                               <Font name="Cambria" size="22.0" />
@@ -134,7 +134,7 @@
                               <Insets top="35.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="NameText11" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <TextField fx:id="PriceText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
                         <Label fx:id="discount" text="Discount: 50%">
                            <font>
                               <Font name="Cambria" size="22.0" />
@@ -143,15 +143,15 @@
                               <Insets top="35.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="NameText14" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <TextField fx:id="DiscountText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
                      </children>
                   </VBox>
-                  <Button layoutX="322.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#AddToCart" styleClass="left_menu_btns" text="Add to cart">
+                  <Button fx:id="AddToCartBtn" layoutX="322.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#AddToCart" styleClass="left_menu_btns" text="Add to cart">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="238.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#DeleteItem" styleClass="left_menu_btns" text="Delete Item" visible="false">
+                  <Button fx:id="DeleteItem" layoutX="238.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#DeleteItem" styleClass="left_menu_btns" text="Delete Item" visible="false">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
@@ -181,7 +181,7 @@
             <Insets />
          </opaqueInsets>
          <children>
-            <AnchorPane maxHeight="170.0" maxWidth="170.0" minHeight="157.0" minWidth="157.0" onMouseClicked="#ShowItem" prefHeight="157.0" prefWidth="157.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css">
+            <AnchorPane maxHeight="170.0" maxWidth="170.0" minHeight="157.0" minWidth="157.0" prefHeight="157.0" prefWidth="157.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css">
                <children>
                   <ImageView fx:id="SaleImage" fitHeight="157.0" fitWidth="203.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="13.0">
                      <image>
@@ -251,12 +251,12 @@
             <Font name="Cambria" size="24.0" />
          </font>
       </Button>
-      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="181.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" prefHeight="28.0" prefWidth="181.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
          <menus>
             <Menu mnemonicParsing="false" text="Go to">
                <items>
                   <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUp" text="SignUp" />
-                  <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCart" text="Cart" />
+                  <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCartMN" text="Cart" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Account">
