@@ -91,7 +91,6 @@ public class LogIn implements Initializable {
         Message ms = new Message(null, "#identify " + UserName.getText() + " " + Password.getText());
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().logControl=this;
-
     }
     public void Sign(){
             if (App.getUser() != null)

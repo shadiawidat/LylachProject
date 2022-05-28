@@ -4,6 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.MyListener;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -65,7 +66,21 @@ public class ItemView {
     void ShowItem(MouseEvent event) throws Exception {
         ItemShow.setCaller("Catalog");
         App.setOnscreen(item);
-        App.setRoot("ItemShow");
+        for (Item item:Catalog.Catalog)
+        {
+            if(item.getColor()==this.item.getColor())
+                ItemShow.related.add(item);
+            else if(item.getType().equals("Vase")&&this.item.getType().equals("Flower"))
+                ItemShow.related.add(item);
+        }
+        Platform.runLater(()->{
+            try {
+                App.setRoot("ItemShow");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     public void setItemView(Item item) throws IOException {
