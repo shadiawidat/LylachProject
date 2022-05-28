@@ -16,12 +16,17 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ItemShow implements Initializable {
     public static String Caller = "";
+    public static List<Item> related=new ArrayList<>();
     @FXML
     public Item ITEM;
+
+    private static int ToShow;
     @FXML
     private ImageView CartBtn;
     @FXML
@@ -84,6 +89,23 @@ public class ItemShow implements Initializable {
     private MenuBar menu;
     @FXML
     private AnchorPane ItemPrev;
+
+    @FXML
+    private Label nameside;
+
+    @FXML
+    private Label priceside;
+
+    @FXML
+    private ImageView imageid;
+
+    @FXML
+    private Button NextItembtn;
+
+    @FXML
+    private Button PrevItembtn;
+
+
     private Item item;
 
     public static String getCaller() {
@@ -146,8 +168,8 @@ public class ItemShow implements Initializable {
         Image image = new Image(SimpleClient.class.getResourceAsStream(item.getImagesrc()));
         imgid.setImage(image);
         discount.setText("Discount: "+item.getDiscount()+"%");
-        if(item.getDiscount()==0.0)
-            discount.setVisible(true);
+//        if(item.getDiscount()==0.0)
+//            discount.setVisible(false);
     }
 
     @FXML
@@ -159,6 +181,7 @@ public class ItemShow implements Initializable {
 
     @FXML
     void CloseItem(MouseEvent event) throws IOException {
+        related.clear();
         App.setRoot("catalog");
     }
 
@@ -170,6 +193,7 @@ public class ItemShow implements Initializable {
     @FXML
     void GoToCart(MouseEvent event) throws IOException {
         Cart.setCaller("ItemShow");
+
         App.setRoot("Cart");
     }
 
@@ -179,12 +203,51 @@ public class ItemShow implements Initializable {
     }
 
     @FXML
-    void SearchItem(MouseEvent event) {
+    void SearchItem(MouseEvent event) throws IOException {
 
+    }
+
+    @FXML
+    void NextItem(MouseEvent event) {
+        if(ToShow+1>=related.size())
+            return;
+        ToShow++;
+        nameside.setText(related.get(ToShow).getName());
+        priceside.setText(Double.toString(related.get(ToShow).getPrice())+"$");
+        Image image = new Image(SimpleClient.class.getResourceAsStream(related.get(ToShow).getImagesrc()));
+        imageid.setImage(image);
+        if(ToShow>0)
+            PrevItembtn.setVisible(true);
+        else
+            PrevItembtn.setVisible(false);
+        if(ToShow==related.size()-1)
+            NextItembtn.setVisible(false);
+        else
+            NextItembtn.setVisible(true);
+    }
+
+    @FXML
+    void PrevItem(MouseEvent event) {
+        if(ToShow==0)
+            return;
+        ToShow--;
+        nameside.setText(related.get(ToShow).getName());
+        priceside.setText(Double.toString(related.get(ToShow).getPrice())+"$");
+        Image image = new Image(SimpleClient.class.getResourceAsStream(related.get(ToShow).getImagesrc()));
+        imageid.setImage(image);
+        if(ToShow>0)
+            PrevItembtn.setVisible(true);
+        else
+            PrevItembtn.setVisible(false);
+        if(ToShow==related.size()-1)
+            NextItembtn.setVisible(false);
+        else
+            NextItembtn.setVisible(true);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         try {
             SetItem(App.getOnscreen());
         } catch (Exception e) {
@@ -209,18 +272,24 @@ public class ItemShow implements Initializable {
 
         }
 
+//        try {
+//            FXMLLoader fxmlLoader = new FXMLLoader();
+//            fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
+//
+//            ItemView itemController = fxmlLoader.getController();
+//            itemController.setItemView(related.get(0));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
-            ItemPrev = fxmlLoader.load();
-            ItemView itemController = fxmlLoader.getController();
-            itemController.setItemView(item);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+            nameside.setText(related.get(0).getName());
+            priceside.setText(Double.toString(related.get(0).getPrice())+"$");
+            Image image = new Image(SimpleClient.class.getResourceAsStream(related.get(0).getImagesrc()));
+            imageid.setImage(image);
+            ToShow=0;
+            PrevItembtn.setVisible(false);
+            if(related.size()==1)
+                NextItembtn.setVisible(false);
     }
 
     @FXML
@@ -243,6 +312,7 @@ public class ItemShow implements Initializable {
         if (ColorText.getText() != "") {
 
         }
+        related.clear();
         App.setRoot("Catalog");
     }
 
@@ -259,6 +329,7 @@ public class ItemShow implements Initializable {
 
     @FXML
     void Back(MouseEvent event) throws IOException {
+        related.clear();
         App.setRoot(getCaller());
     }
 

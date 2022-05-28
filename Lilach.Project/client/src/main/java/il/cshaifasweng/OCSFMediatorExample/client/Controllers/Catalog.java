@@ -94,6 +94,8 @@ public class Catalog implements Initializable {
     private Label InvalidPrice;
 
 
+
+
     public static String getCaller() {
         return Caller;
     }
@@ -173,6 +175,14 @@ public class Catalog implements Initializable {
     @FXML
     void MenuClick(MouseEvent event) {
         menu.setVisible(true);
+    }
+
+    public TextField getSearchField() {
+        return SearchField;
+    }
+
+    public void setSearchField(TextField searchField) {
+        SearchField = searchField;
     }
 
     @FXML
