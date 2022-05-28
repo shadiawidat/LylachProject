@@ -75,6 +75,7 @@ public class ItemView {
         }
         Platform.runLater(()->{
             try {
+
                 App.setRoot("ItemShow");
             } catch (IOException e) {
                 e.printStackTrace();
