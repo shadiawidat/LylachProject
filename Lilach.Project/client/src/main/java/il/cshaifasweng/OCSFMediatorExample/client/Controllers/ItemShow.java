@@ -168,8 +168,10 @@ public class ItemShow implements Initializable {
         Image image = new Image(SimpleClient.class.getResourceAsStream(item.getImagesrc()));
         imgid.setImage(image);
         discount.setText("Discount: "+item.getDiscount()+"%");
-//        if(item.getDiscount()==0.0)
-//            discount.setVisible(false);
+
+        if(item.getDiscount()!=0.0)
+            discount.setVisible(true);
+
     }
 
     @FXML
@@ -254,7 +256,7 @@ public class ItemShow implements Initializable {
             throw new RuntimeException(e);
         }
 
-        if (App.getUser() != null && App.getUser().getPermission() == permissions.MANAGER) {
+        if (App.getUser() != null &&( App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.WORKER)) {
             AddToCartBtn.setVisible(false);
             NameText.setVisible(true);
             PriceText.setVisible(true);
@@ -263,13 +265,42 @@ public class ItemShow implements Initializable {
             DiscountText.setVisible(true);
             UpdateInfo.setVisible(true);
             DeleteItem.setVisible(true);
+            discount.setVisible(true);
+            if(!Caller .equals("CatalogNew")) {
+                NameText.setText(ITEM.getName());
+                PriceText.setText(Double.toString(ITEM.getPrice()));
+                TypeText.setText(ITEM.getType());
+                ColorText.setText(ITEM.getColor());
+                DiscountText.setText(Double.toString(ITEM.getDiscount()));
+
+            }else{
+                NameText.setText("");
+                nameid.setText("Name:");
+                PriceText.setText("");
+                price.setText("Price:");
+                TypeText.setText("");
+                type.setText("Type:");
+                ColorText.setText("");
+                color.setText("Color:");
+                DiscountText.setText("");
+                discount.setText("Discount:");
+            }
+        }
+        if (App.getUser() != null && App.getUser().getPermission() == permissions.CLIENT) {
+            AddToCartBtn.setVisible(true);
+            NameText.setVisible(false);
+            PriceText.setVisible(false);
+            TypeText.setVisible(false);
+            ColorText.setVisible(false);
+            DiscountText.setVisible(false);
+            UpdateInfo.setVisible(false);
+            DeleteItem.setVisible(false);
 
             NameText.setText(ITEM.getName());
             PriceText.setText(Double.toString(ITEM.getPrice()));
             TypeText.setText(ITEM.getType());
             ColorText.setText(ITEM.getColor());
             DiscountText.setText(Double.toString(ITEM.getDiscount()));
-
         }
 
 //        try {
@@ -329,7 +360,11 @@ public class ItemShow implements Initializable {
 
     @FXML
     void Back(MouseEvent event) throws IOException {
+
         related.clear();
+        if(Caller.equals("CatalogNew")){
+            Caller ="Catalog";
+   
         App.setRoot(getCaller());
     }
 
