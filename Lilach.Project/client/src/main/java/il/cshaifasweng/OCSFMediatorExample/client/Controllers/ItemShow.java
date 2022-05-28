@@ -21,8 +21,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ItemShow implements Initializable {
+
     public static String Caller = "";
+
     public static List<Item> related=new ArrayList<>();
+
     @FXML
     public Item ITEM;
 
@@ -317,6 +320,7 @@ public class ItemShow implements Initializable {
             priceside.setText(Double.toString(related.get(0).getPrice())+"$");
             Image image = new Image(SimpleClient.class.getResourceAsStream(related.get(0).getImagesrc()));
             imageid.setImage(image);
+            
             ToShow=0;
             PrevItembtn.setVisible(false);
             if(related.size()==1)
@@ -362,10 +366,11 @@ public class ItemShow implements Initializable {
     void Back(MouseEvent event) throws IOException {
 
         related.clear();
-        if(Caller.equals("CatalogNew")){
-            Caller ="Catalog";
-   
-        App.setRoot(getCaller());
-    }
+
+        if (Caller.equals("CatalogNew")) {
+            Caller = "Catalog";
+        }
+            App.setRoot(getCaller());
+        }
 
 }
