@@ -364,7 +364,15 @@ public class ItemShow implements Initializable {
 
     @FXML
     void AddToCart(MouseEvent event) {
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
 
+            a.setContentText("Please sign in first");
+
+            a.showAndWait();
+            return;
+        }
     }
 
     @FXML

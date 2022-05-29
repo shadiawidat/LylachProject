@@ -209,7 +209,7 @@ public class SignUp implements Initializable {
         if(flag)
             return;
         Client nClient=new Client(Username.getText(),Password.getText(),FirstName.getText(),LastName.getText(),Email.getText(),Phone.getText(),Birth,
-                Address.getText(), permissions.CLIENT,AccountTypes.Basic,0.0,false);
+                Address.getText(), permissions.CLIENT,ID.getText(),CreditCard.getText(),AccountTypes.Basic,0.0);
         Message ms = new Message(nClient, "#UserExist " + Username.getText());
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().signUpControl=this;

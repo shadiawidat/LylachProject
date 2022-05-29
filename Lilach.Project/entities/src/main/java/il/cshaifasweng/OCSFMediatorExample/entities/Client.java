@@ -16,16 +16,16 @@ public class Client extends User  {
     private List<Branch> mybranches;
     @OneToMany
     private List<Complain> complains;
-    private Boolean freezed;
 
 
 
 
-    public Client(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard, AccountTypes accounttype, Double amount, Boolean freezed) {
-        super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, creditCard);
+
+    public Client(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard, AccountTypes accounttype, Double amount) {
+        super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, creditCard,false);
         this.accounttype = accounttype;
         this.amount = 0.0;
-        this.freezed = false;
+
     }
 
     public Client() {
@@ -97,11 +97,4 @@ public class Client extends User  {
         this.mybranches = mybranches;
     }
 
-    public Boolean getFreezed() {
-        return freezed;
-    }
-
-    public void setFreezed(Boolean freezed) {
-        this.freezed = freezed;
-    }
 }
