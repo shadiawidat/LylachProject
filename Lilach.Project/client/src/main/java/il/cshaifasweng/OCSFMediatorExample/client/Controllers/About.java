@@ -4,10 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
@@ -96,7 +93,18 @@ public class About implements Initializable {
     }
 
     @FXML
-    void GoToCart(MouseEvent event) throws IOException { // 2olhen
+    void GoToCart(MouseEvent event) throws IOException {
+
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+            a.setContentText("Please sign in first");
+
+            a.showAndWait();
+            return;
+        }
+
         Cart.setCaller("About");
         App.setRoot("Cart");
     }

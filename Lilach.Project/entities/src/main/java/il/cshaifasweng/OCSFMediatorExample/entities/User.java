@@ -18,10 +18,20 @@ public class User implements Serializable{
     private permissions permission;
     private String ID;
     private String CreditCard;
+
+    private boolean Freeze;
     public User() {
     }
 
-    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard) {
+    public boolean isFreeze() {
+        return Freeze;
+    }
+
+    public void setFreeze(boolean freeze) {
+        Freeze = freeze;
+    }
+
+    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard,boolean Freeze) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -33,6 +43,7 @@ public class User implements Serializable{
         this.permission = permission;
         this.ID = ID;
         CreditCard = creditCard;
+        this.Freeze=Freeze;
     }
 
 
