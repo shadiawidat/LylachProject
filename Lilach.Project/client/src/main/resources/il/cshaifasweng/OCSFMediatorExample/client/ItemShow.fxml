@@ -181,7 +181,7 @@
             <Insets />
          </opaqueInsets>
          <children>
-            <AnchorPane maxHeight="170.0" maxWidth="170.0" minHeight="157.0" minWidth="157.0" prefHeight="157.0" prefWidth="157.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css">
+            <AnchorPane fx:id="ItemPrev" maxHeight="170.0" maxWidth="170.0" minHeight="157.0" minWidth="157.0" prefHeight="157.0" prefWidth="157.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css">
                <children>
                   <ImageView fx:id="SaleImage" fitHeight="157.0" fitWidth="203.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="13.0">
                      <image>
@@ -202,12 +202,12 @@
                                     <Image url="@../../../../Icons/Add_to_cart.png" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="nameid1" alignment="CENTER" prefHeight="36.0" prefWidth="78.0" text=" Lavaneder">
+                              <Label fx:id="nameside" alignment="CENTER" prefHeight="36.0" prefWidth="78.0" text=" Lavaneder">
                                  <font>
                                     <Font name="Cambria" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="price1" alignment="CENTER" prefHeight="36.0" prefWidth="43.0" text="\$2.35">
+                              <Label fx:id="priceside" alignment="CENTER" prefHeight="36.0" prefWidth="43.0" text="\$2.35">
                                  <font>
                                     <Font name="Cambria" size="14.0" />
                                  </font>
@@ -226,12 +226,12 @@
             </AnchorPane>
             <HBox fx:id="NextItem" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="PrevItem" maxHeight="20.0" maxWidth="20.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onMouseClicked="#Back" prefHeight="20.0" prefWidth="20.0" styleClass="BackBtn" text="&lt;">
+                  <Button fx:id="PrevItembtn" maxHeight="20.0" maxWidth="20.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onMouseClicked="#PrevItem" prefHeight="20.0" prefWidth="20.0" styleClass="BackBtn" text="&lt;">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Button>
-                  <Button maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onMouseClicked="#Back" prefWidth="43.0" styleClass="BackBtn" text="&gt;">
+                  <Button fx:id="NextItembtn" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onMouseClicked="#NextItem" prefWidth="43.0" styleClass="BackBtn" text="&gt;">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
