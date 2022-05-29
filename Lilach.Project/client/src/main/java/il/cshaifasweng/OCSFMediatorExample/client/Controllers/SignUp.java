@@ -1,10 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
-import il.cshaifasweng.OCSFMediatorExample.entities.AccountTypes;
-import il.cshaifasweng.OCSFMediatorExample.entities.Client;
-import il.cshaifasweng.OCSFMediatorExample.entities.Utilities;
-import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -61,6 +59,9 @@ public class SignUp implements Initializable {
     private MenuItem MenuSignUp;
     @FXML
     private MenuBar menu;
+    @FXML
+    private Menu GoTo;
+
 
     public static String getCaller() {
         return Caller;
@@ -84,6 +85,7 @@ public class SignUp implements Initializable {
 
     @FXML
     private Label InvalidEmail;
+
 
     @FXML
     private Label InvalidFname;
@@ -158,7 +160,11 @@ public class SignUp implements Initializable {
     }
 
     @FXML
-    void SignUp(MouseEvent event) {
+    void SignUp(MouseEvent event) throws IOException {
+        System.out.println("here");
+        InvalidAddress.setVisible(false);
+        InvalidEmail.setVisible(true);
+
         InvalidID.setVisible(false);
         InvalidFname.setVisible(false);
         InvalidLName.setVisible(false);
@@ -169,18 +175,19 @@ public class SignUp implements Initializable {
         InvalidCard.setVisible(false);
         InvalidDate.setVisible(false);
 
-        InvalidAddress.setVisible(false);
-        InvalidEmail.setVisible(false);
+
 
         InvalidID.setVisible(!Utilities.check_Validate_ID(ID.getText()));
-        InvalidFname.setVisible(!Utilities.check_Validate_String(FirstName.getText()) || FirstName.getText() == "");
-        InvalidLName.setVisible(!Utilities.check_Validate_String(LastName.getText()) || LastName.getText() == "");
+        InvalidFname.setVisible(!Utilities.check_Validate_String(FirstName.getText()) || FirstName.getText().equals(""));
+        InvalidLName.setVisible(!Utilities.check_Validate_String(LastName.getText()) || LastName.getText().equals(""));
+        InvalidAddress.setVisible(!Utilities.check_Validate_String(Address.getText()) || Address.getText() == "");
+        InvalidEmail.setVisible((Email.getText().equals("")));
         InvalidPassword.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
         InvalidPhone.setVisible((!Utilities.check_Validate_Phone(Phone.getText())));
 
         InvalidUserName.setVisible(!Utilities.check_Validate_Username(Username.getText()));
 
-        InvalidAccount.setVisible(AccountType.getText() == "");
+        InvalidAccount.setVisible(AccountType.getText().equals(""));
         InvalidCard.setVisible(!Utilities.check_Validate_Card(CreditCard.getText()));
 
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
@@ -188,23 +195,43 @@ public class SignUp implements Initializable {
         InvalidDate.setVisible(!Utilities.checkValidDate(Birth, now));
 
         boolean flag=!Utilities.check_Validate_ID(ID.getText());
-        flag=flag||!Utilities.check_Validate_String(FirstName.getText()) || FirstName.getText() == "";
-        flag=flag||!Utilities.check_Validate_String(LastName.getText()) || LastName.getText() == "";
+        flag=flag||!Utilities.check_Validate_String(FirstName.getText()) || FirstName.getText().equals("");
+        flag=flag||!Utilities.check_Validate_String(LastName.getText()) || LastName.getText().equals("");
+        flag=flag||Email.getText().equals("");
+        flag=flag||!Utilities.check_Validate_String(Address.getText()) || Address.getText().equals("");
         flag=flag||!Utilities.check_Validate_Pass(Password.getText());
         flag=flag||!Utilities.check_Validate_Phone(Phone.getText());
         flag=flag||!Utilities.check_Validate_Pass(Username.getText());
-        flag=flag||AccountType.getText() == "";
+        flag=flag||AccountType.getText().equals("");
         flag=flag||!Utilities.check_Validate_Card(CreditCard.getText());
         flag=flag||!Utilities.checkValidDate(Birth, now);
 
         if(flag)
             return;
-
         Client nClient=new Client(Username.getText(),Password.getText(),FirstName.getText(),LastName.getText(),Email.getText(),Phone.getText(),Birth,
                 Address.getText(), permissions.CLIENT,AccountTypes.Basic,0.0,false);
-
-
+        Message ms = new Message(nClient, "#UserExist " + Username.getText());
+        SimpleClient.getClient().sendToServer(ms);
+        SimpleClient.getClient().signUpControl=this;
     }
+
+    public void NewUser(User user) throws IOException {
+        App.setUser(user);
+        App.setRoot("Catalog");
+        Catalog.setCaller("LogIn");
+    }
+    public void UserExist() {
+        System.out.println("User Already exist");
+        Alert a = new Alert(Alert.AlertType.NONE);
+
+        // set alert type
+        a.setAlertType(Alert.AlertType.ERROR);
+
+        a.setContentText("User already exists!");
+
+        a.showAndWait();
+    }
+
     @FXML
     void Subscription(ActionEvent event) {
         AccountType.setText(AccountTypes.Premium.name());
@@ -213,5 +240,16 @@ public class SignUp implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Birthdate.setValue(java.time.LocalDate.now());
+        if (App.getUser() == null) {
+            MenuSignOut.setVisible(false);
+            MenuProfile.setVisible(false);
+            MenuCart.setVisible(false);
+            GoTo.setVisible(false);
+            UserNameConnected.setText("Welcome guest");
+        }
+        else {
+            MenuSignIn.setVisible(false);
+            UserNameConnected.setText("Welcome " + App.getUser().getFirstname());
+        }
     }
 }
