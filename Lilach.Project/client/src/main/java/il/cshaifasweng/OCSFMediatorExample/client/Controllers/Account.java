@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.entities.AccountTypes;
 import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,17 +12,25 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Account implements Initializable {
 
     public static String Caller = "";
     @FXML
-    private PasswordField AccountType;
+    private TextField AccountType;
+
+    @FXML
+    private ImageView FreezeIcon;
+
+    @FXML
+    private Label FreezeLB;
+
     @FXML
     private TextField Address;
     @FXML
-    private PasswordField BirthDate;
+    private TextField BirthDate;
     @FXML
     private ImageView CartB;
     @FXML
@@ -40,6 +49,12 @@ public class Account implements Initializable {
     private TextField Phone;
     @FXML
     private Label UserName;
+
+    @FXML
+    private Label CreditCardLB;
+
+    @FXML
+    private Label TypeLB;
     @FXML
     private TextField Username;
     @FXML
@@ -164,16 +179,29 @@ public class Account implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        if(!App.getUser().isFreeze())
+        {
+            FreezeIcon.setImage(null);
+            FreezeLB.setVisible(false);
+        }
+
         FirstName.setText(App.getUser().getFirstname());
         LastName.setText(App.getUser().getLastname());
         FirstName.setText(App.getUser().getFirstname());
         ID.setText(App.getUser().getID());
         Username.setText(App.getUser().getUsername());
-        //BirthDate.setText(toString(App.getUser().getBirthday()));
+
+        Date BD=App.getUser().getBirthday();
+
+        BirthDate.setText(BD.getDay()+"/"+BD.getMonth()+"/"+BD.getYear());
         Address.setText(App.getUser().getAddress());
         Phone.setText(App.getUser().getPhonenumber());
         Email.setText(App.getUser().getEmail());
-//        CreditCard.setText();
+
+        if(App.getUser().getClient()!=null)
+            CreditCard.setText(App.getUser().getClient().getCreditCard());
+
 //        AccountType.setText(App.getUser().);
 
 
@@ -184,13 +212,17 @@ public class Account implements Initializable {
             RemoveUser.setVisible(false);
             Search.setVisible(false);
         }
-        else if(App.getUser().getPermission() == permissions.WORKER) {
+        else if(App.getUser().getPermission() == permissions.WORKER||App.getUser().getPermission() == permissions.MANAGER) {
             UpdateUser.setVisible(false);
             FreezeUser.setVisible(false);
             AddUser.setVisible(false);
             RemoveUser.setVisible(false);
             Search.setVisible(false);
             MyOrders.setVisible(false);
+            CreditCard.setVisible(false);
+            AccountType.setVisible(false);
+            TypeLB.setVisible(false);
+            CreditCardLB.setVisible(false);
         }
 
 

@@ -18,6 +18,15 @@ public class User implements Serializable{
     private permissions permission;
     private String ID;
     private String CreditCard;
+    private Client client;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     private boolean Freeze;
     public User() {
