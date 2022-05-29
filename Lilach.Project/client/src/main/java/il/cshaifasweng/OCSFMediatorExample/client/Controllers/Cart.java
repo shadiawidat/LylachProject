@@ -134,6 +134,11 @@ public class Cart implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (App.getUser() == null)
+            UserName.setText("Welcome guest");
+        else
+            UserName.setText("Welcome " + App.getUser().getFirstname());
+
 
         items = App.items;
         scroll.setVisible(true);

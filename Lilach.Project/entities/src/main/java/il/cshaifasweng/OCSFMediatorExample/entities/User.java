@@ -14,12 +14,14 @@ public class User implements Serializable{
     private String email;
     private String phonenumber;
     private Date birthday;
-    private String addres;
+    private String address;
     private permissions permission;
+    private String ID;
+    private String CreditCard;
     public User() {
     }
 
-    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission) {
+    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -27,10 +29,21 @@ public class User implements Serializable{
         this.email = email;
         this.phonenumber = phonenumber;
         this.birthday = birthday;
-        this.addres = address;
+        this.address = address;
         this.permission = permission;
+        this.ID = ID;
+        CreditCard = creditCard;
     }
 
+
+
+    public String getCreditCard() {
+        return CreditCard;
+    }
+
+    public void setCreditCard(String creditCard) {
+        CreditCard = creditCard;
+    }
 
     public User(User guest) {
         this.username = guest.username;
@@ -40,8 +53,15 @@ public class User implements Serializable{
         this.email = guest.email;
         this.phonenumber = guest.phonenumber;
         this.birthday = guest.birthday;
-        this.addres = guest.addres;
+        this.address = guest.address;
         this.permission = guest.permission;
+    }
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String username) {
+        this.ID = ID;
     }
 
     public String getUsername() {
@@ -100,12 +120,12 @@ public class User implements Serializable{
         this.birthday = birthday;
     }
 
-    public String getAddres() {
-        return addres;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setAddress(String addres) {
+        this.address = addres;
     }
 
     public permissions getPermission() {
