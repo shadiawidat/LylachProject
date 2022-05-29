@@ -17,15 +17,11 @@ public class Client extends User  {
     @OneToMany
     private List<Complain> complains;
 
-
-
-
-
     public Client(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard, AccountTypes accounttype, Double amount) {
         super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, creditCard,false);
         this.accounttype = accounttype;
         this.amount = 0.0;
-
+        this.setClient(this);
     }
 
     public Client() {
