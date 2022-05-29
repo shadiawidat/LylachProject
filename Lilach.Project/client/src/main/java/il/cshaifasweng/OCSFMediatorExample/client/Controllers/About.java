@@ -38,6 +38,8 @@ public class About implements Initializable {
     private MenuItem MenuSignUp;
     @FXML
     private MenuBar menu;
+    @FXML
+    private Label UserNameConnected;
 
     public static String getCaller() {
         return Caller;
@@ -88,7 +90,16 @@ public class About implements Initializable {
 
     @FXML
     void GoToAccount(MouseEvent event) throws IOException {
-        Account.setCaller("About");
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+            a.setContentText("Please sign in first");
+
+            a.showAndWait();
+            return;
+        }
+        Account.setCaller("Catalog");
         App.setRoot("Account");
     }
 
@@ -128,12 +139,12 @@ public class About implements Initializable {
             MenuSignOut.setVisible(false);
             MenuProfile.setVisible(false);
             MenuCart.setVisible(false);
-            UserName.setText("Welcome guest");
+            UserNameConnected.setText("Welcome guest");
         }
         else {
             MenuSignIn.setVisible(false);
             MenuSignUp.setVisible(false);
-            UserName.setText("Welcome " + App.getUser().getFirstname());
+            UserNameConnected.setText("Welcome " + App.getUser().getFirstname());
         }    }
 
 
