@@ -1,7 +1,9 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
+import il.cshaifasweng.OCSFMediatorExample.client.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -11,7 +13,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class Shipping {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class Shipping implements Initializable {
 
     @FXML
     private TextField Address;
@@ -153,6 +158,14 @@ public class Shipping {
     @FXML
     void MenuClick(MouseEvent event) {
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (App.getUser() == null)
+            UserName.setText("Welcome guest");
+        else
+            UserName.setText("Welcome " + App.getUser().getFirstname());
     }
 
 }

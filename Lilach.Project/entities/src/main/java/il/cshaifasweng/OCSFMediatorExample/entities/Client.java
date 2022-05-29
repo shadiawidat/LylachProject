@@ -19,8 +19,10 @@ public class Client extends User  {
     private Boolean freezed;
 
 
-    public Client(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, AccountTypes accounttype, Double amount, Boolean freezed) {
-        super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission);
+
+
+    public Client(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard, AccountTypes accounttype, Double amount, Boolean freezed) {
+        super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, creditCard);
         this.accounttype = accounttype;
         this.amount = 0.0;
         this.freezed = false;
