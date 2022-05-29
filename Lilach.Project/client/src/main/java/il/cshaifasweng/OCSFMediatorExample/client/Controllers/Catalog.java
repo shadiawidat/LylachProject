@@ -139,7 +139,8 @@ public class Catalog implements Initializable {
 
     @FXML
     void CloseMenu(MouseEvent event) {
-        menu.setVisible(false);
+
+        //menu.setVisible(false);
     }
 
     @FXML
@@ -520,6 +521,12 @@ public class Catalog implements Initializable {
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+            if (App.getUser() == null)
+                UserName.setText("Welcome guest");
+            else
+                UserName.setText("Welcome " + App.getUser().getFirstname());
+
         if(App.getUser()!=null)
         if(App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()==permissions.WORKER)
             addItemBtn.setVisible(true);
@@ -528,12 +535,7 @@ public class Catalog implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Platform.runLater(() -> {
-            if (App.getUser() == null)
-                UserName.setText("Welcome guest");
-            else
-                UserName.setText("Welcome " + App.getUser().getFirstname());
-        });
+
 
     }
 }

@@ -12,16 +12,16 @@ public class App {
 
     private static void generateUsers() throws Exception {
 
-        User user= new User("Fole","Noor26","Noor","Abu elfoul","Noorabo7@outlook.com","0528218268",new Date(2000,7,26),"Shefa'amer",permissions.CLIENT );
+        User user= new User("Fole","Noor26","Noor","Abu elfoul","Noorabo7@outlook.com","0528218268",new Date(2000,7,26),"Shefa'amer",permissions.CLIENT ,"123456789","123546789");
         server.saveObject(user);
 
-         user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.MANAGER );
+         user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.MANAGER,"123456789","123456789" );
         server.saveObject(user);
 
-         user= new User("Lili","LilianCs","Lilian","Mansour","Lilianmansour3@gmail.com","0528345268",new Date(2000,8,16),"Haifa",permissions.CLIENT );
+         user= new User("Lili","LilianCs","Lilian","Mansour","Lilianmansour3@gmail.com","0528345268",new Date(2000,8,16),"Haifa",permissions.CLIENT,"123456789","123456789" );
         server.saveObject(user);
 
-         user= new User("Shaggy","Shadi123","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.CLIENT );
+         user= new User("Shaggy","Shadi123","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.CLIENT,"123456789","123456789" );
         server.saveObject(user);
     }
     private static void generateItems() throws Exception {

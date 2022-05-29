@@ -1,15 +1,19 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Account {
+public class Account implements Initializable {
 
     public static String Caller = "";
     @FXML
@@ -52,6 +56,19 @@ public class Account {
     private MenuItem MenuSignUp;
     @FXML
     private MenuBar menu;
+    @FXML
+    private Button UpdateUser;
+    @FXML
+    private Button FreezeUser;
+    @FXML
+    private Button AddUser;
+    @FXML
+    private Button RemoveUser;
+    @FXML
+    private Button Search;
+    @FXML
+    private Button MyOrders;
+
 
     public static String getCaller() {
         return Caller;
@@ -107,6 +124,31 @@ public class Account {
     }
 
     @FXML
+    void Search(MouseEvent event) {
+
+    }
+
+    @FXML
+    void UpdateUser(MouseEvent event) {
+
+    }
+
+    @FXML
+    void FreezeUser(MouseEvent event) {
+
+    }
+
+    @FXML
+    void AddUser(MouseEvent event) {
+
+    }
+
+    @FXML
+    void RemoveUser(MouseEvent event) {
+
+    }
+
+    @FXML
     void GoToCart(MouseEvent event) {
 
     }
@@ -117,8 +159,40 @@ public class Account {
     }
 
     @FXML
-    void Myorders(MouseEvent event) {
+    void MyOrders(MouseEvent event) {
 
     }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        FirstName.setText(App.getUser().getFirstname());
+        LastName.setText(App.getUser().getLastname());
+        FirstName.setText(App.getUser().getFirstname());
+        ID.setText(App.getUser().getID());
+        Username.setText(App.getUser().getUsername());
+        //BirthDate.setText(toString(App.getUser().getBirthday()));
+        Address.setText(App.getUser().getAddress());
+        Phone.setText(App.getUser().getPhonenumber());
+        Email.setText(App.getUser().getEmail());
+//        CreditCard.setText();
+//        AccountType.setText(App.getUser().);
 
+
+        if(App.getUser().getPermission() == permissions.CLIENT){
+            UpdateUser.setVisible(false);
+            FreezeUser.setVisible(false);
+            AddUser.setVisible(false);
+            RemoveUser.setVisible(false);
+            Search.setVisible(false);
+        }
+        else if(App.getUser().getPermission() == permissions.WORKER) {
+            UpdateUser.setVisible(false);
+            FreezeUser.setVisible(false);
+            AddUser.setVisible(false);
+            RemoveUser.setVisible(false);
+            Search.setVisible(false);
+            MyOrders.setVisible(false);
+        }
+
+
+        }
 }

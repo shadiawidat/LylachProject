@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
@@ -11,8 +12,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class About {
+public class About implements Initializable {
 
     public static String Caller = "";
 
@@ -48,7 +51,7 @@ public class About {
     }
 
     @FXML
-    void GoToCart(ActionEvent event) throws IOException {
+    void GoToCartMN(ActionEvent event) throws IOException {
         Cart.setCaller("About");
         App.setRoot("Cart");
     }
@@ -66,7 +69,7 @@ public class About {
 
     @FXML
     void CloseMenu(MouseEvent event) {
-        menu.setVisible(false);
+       // menu.setVisible(false);
     }
 
     @FXML
@@ -93,7 +96,7 @@ public class About {
     }
 
     @FXML
-    void GoToCart(MouseEvent event) throws IOException {
+    void GoToCart(MouseEvent event) throws IOException { // 2olhen
         Cart.setCaller("About");
         App.setRoot("Cart");
     }
@@ -104,9 +107,27 @@ public class About {
         App.setRoot("About");
     }
 
+
     @FXML
     void MenuClick(MouseEvent event) {
         menu.setVisible(true);
     }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        if (App.getUser() == null) {
+            MenuSignOut.setVisible(false);
+            MenuProfile.setVisible(false);
+            MenuCart.setVisible(false);
+            UserName.setText("Welcome guest");
+        }
+        else {
+            MenuSignIn.setVisible(false);
+            MenuSignUp.setVisible(false);
+            UserName.setText("Welcome " + App.getUser().getFirstname());
+        }    }
+
+
 
 }
