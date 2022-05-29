@@ -170,6 +170,7 @@ public class Catalog implements Initializable {
     private void getData() throws IOException {
         Message ms = new Message(null, "#LoadCatalog");
         SimpleClient.getClient().sendToServer(ms);
+
         SimpleClient.getClient().catalogControl=this;
     }
 

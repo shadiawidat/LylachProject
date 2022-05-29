@@ -101,11 +101,12 @@ public class About implements Initializable {
         App.setRoot("Cart");
     }
 
-//    @FXML
-//    void GoToAbout(MouseEvent event) throws IOException {
-//
-//
-//    }
+    @FXML
+    void GoToAbout(MouseEvent event) throws IOException {
+        About.setCaller("LogIn");
+        App.setRoot("About");
+    }
+
 
     @FXML
     void MenuClick(MouseEvent event) {

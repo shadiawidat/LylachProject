@@ -140,6 +140,19 @@ public class SimpleServer extends AbstractServer {
 				client.sendToClient(new Message(null,"#Useridentify"));
 
 		}
+		if(request.startsWith("#UserExist"))
+		{
+			String[] msgarray=request.split(" ");
+			User user=session.find(User.class,msgarray[1]);
+			if(user!=null) {
+				client.sendToClient(new Message(user, "#UserExists"));
+			}
+			else {
+				saveObject((User) ms.getObject());
+				client.sendToClient(new Message(ms.getObject(), "#UserCreated"));
+			}
+
+		}
 		if(request.equals("#LoadCatalog"))
 		{
 			CriteriaBuilder builder=session.getCriteriaBuilder();
