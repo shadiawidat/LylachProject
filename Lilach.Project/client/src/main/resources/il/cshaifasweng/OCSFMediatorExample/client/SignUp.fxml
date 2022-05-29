@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.SignUp">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.SignUp">
    <children>
       <Label layoutX="126.0" layoutY="619.0" text="BirthDate" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="619.0">
          <font>
@@ -166,7 +166,7 @@
                         <Font name="Cambria" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="InvalidUserName" text="*Already in use" textFill="RED" visible="false">
+                  <Label fx:id="InvalidUserName" text="*Invalid" textFill="RED" visible="false">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -343,9 +343,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="181.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="120.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
          <menus>
-            <Menu mnemonicParsing="false" text="Go to">
+            <Menu fx:id="GoTo" mnemonicParsing="false" text="Go to">
                <items>
                   <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCart" text="Cart" />
                </items>
