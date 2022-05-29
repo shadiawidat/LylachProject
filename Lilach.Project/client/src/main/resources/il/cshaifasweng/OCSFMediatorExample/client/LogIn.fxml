@@ -4,9 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -47,7 +44,7 @@
                   <Font size="16.0" />
                </font></Label>
             <PasswordField fx:id="Password" layoutX="32.0" layoutY="166.0" prefHeight="50.0" styleClass="textFields" />
-            <Label fx:id="Incorrect" layoutX="40.0" layoutY="219.0"  text="Username or password are incorrect" textFill="#eb0e0e" visible="false">
+            <Label fx:id="Incorrect" layoutX="40.0" layoutY="219.0" text="Username or password are incorrect" textFill="#eb0e0e" visible="false">
                <font>
                   <Font size="16.0" />
                </font>
@@ -63,15 +60,12 @@
       </AnchorPane>
       <HBox alignment="CENTER" layoutX="30.0" layoutY="37.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
-               <image>
-                  <Image url="@../../../../Icons/Menu.png" />
-               </image>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </ImageView>
-            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
+            <Label alignment="CENTER" onMouseClicked="#GoToAbout" prefHeight="30.0" prefWidth="68.0" text="About">
+               <font>
+                  <Font name="Cambria Bold" size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="697.0">
                <children>
                   <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
                      <font>
@@ -84,6 +78,9 @@
                      </font>
                   </Label>
                </children>
+               <HBox.margin>
+                  <Insets right="19.0" />
+               </HBox.margin>
             </HBox>
             <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" visible="false" HBox.hgrow="NEVER">
                <image>
@@ -139,24 +136,5 @@
             </VBox>
          </children>
       </AnchorPane>
-      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0"  prefHeight="28.0" prefWidth="181.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
-         <menus>
-            <Menu mnemonicParsing="false" text="Go to">
-               <items>
-                  <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUpMN" text="SignUp" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Account">
-               <items>
-                  <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="MenuAbout" mnemonicParsing="false" onAction="#GoToAbout" text="About" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
    </children>
 </AnchorPane>
