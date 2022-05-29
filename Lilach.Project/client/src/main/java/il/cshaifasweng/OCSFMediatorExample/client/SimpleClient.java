@@ -9,6 +9,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 import javafx.application.Platform;
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,18 @@ public class SimpleClient extends AbstractClient {
 		{
 			App.setUser((User) ms.getObject());
 			Platform.runLater(()->{logControl.Sign();});
+		}else if (deliver.equals("#UserExists"))
+		{
+			Platform.runLater(()->{signUpControl.UserExist();});
+		}else if (deliver.equals("#UserCreated"))
+		{
+			Platform.runLater(()->{
+				try {
+					signUpControl.NewUser((User) ms.getObject());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
 		}
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
