@@ -32,6 +32,18 @@ public class Shipping {
     private DatePicker Date;
 
     @FXML
+    private Label InvalidAdderss;
+
+    @FXML
+    private Label InvalidDate;
+
+    @FXML
+    private Label InvalidName;
+
+    @FXML
+    private Label InvalidPhoneNumber;
+
+    @FXML
     private MenuItem MenuAbout;
 
     @FXML
