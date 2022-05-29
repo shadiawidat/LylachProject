@@ -100,8 +100,8 @@ public class About {
 
     @FXML
     void GoToAbout(MouseEvent event) throws IOException {
-
-
+        About.setCaller("LogIn");
+        App.setRoot("About");
     }
 
     @FXML

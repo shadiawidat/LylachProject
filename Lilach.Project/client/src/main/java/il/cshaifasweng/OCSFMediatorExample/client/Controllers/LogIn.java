@@ -53,7 +53,8 @@ public class LogIn implements Initializable {
     private MenuBar menu;
 
     @FXML
-    void GoToAbout(ActionEvent event) throws IOException {
+    void GoToAbout(MouseEvent event) throws IOException {
+        System.out.println("here");
         About.setCaller("LogIn");
         App.setRoot("About");
     }
@@ -91,6 +92,7 @@ public class LogIn implements Initializable {
         Message ms = new Message(null, "#identify " + UserName.getText() + " " + Password.getText());
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().logControl=this;
+
     }
     public void Sign(){
             if (App.getUser() != null)
