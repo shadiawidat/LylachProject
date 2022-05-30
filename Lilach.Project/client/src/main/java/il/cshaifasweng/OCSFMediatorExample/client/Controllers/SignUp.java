@@ -124,6 +124,17 @@ public class SignUp implements Initializable {
 
     @FXML
     void GoToCart(MouseEvent event) throws IOException {
+
+            if(App.getUser()==null)
+            {
+                Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+                a.setContentText("Please sign in first");
+
+                a.showAndWait();
+                return;
+            }
+
         Cart.setCaller("SignUp");
         App.setRoot("Cart");
     }
@@ -137,9 +148,25 @@ public class SignUp implements Initializable {
     void OneBranch(ActionEvent event) {
         AccountType.setText(AccountTypes.Basic.name());
     }
+
+    @FXML
+    void GoToAccount(MouseEvent event) throws IOException {
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+            a.setContentText("Please sign in first");
+
+            a.showAndWait();
+            return;
+        }
+        Account.setCaller("SignUp");
+        App.setRoot("Account");
+    }
+
     @FXML
     void GoToAbout(ActionEvent event) throws IOException {
-        About.setCaller("LogIn");
+        About.setCaller("SignUp");
         App.setRoot("About");
     }
 

@@ -4,6 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.MyListener;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -22,6 +23,15 @@ public class ItemView {
     private Item item;
     @FXML
     private ImageView AddCart;
+
+    public ImageView getAddCart() {
+        return AddCart;
+    }
+
+    public void setAddCart(ImageView addCart) {
+        AddCart = addCart;
+    }
+
     @FXML
     private ImageView imageid;
     @FXML
@@ -45,19 +55,26 @@ public class ItemView {
 
     @FXML
     void AddToCart(MouseEvent event) throws IOException {
-        App.items.add(item);
-//        SimpleClient.getClient().sendToServer("#AddtoCart "+item.getId()+" "+SimpleClient.getClient().getUsername());
-//        System.out.println("AddtoCart "+item.getId()+" "+SimpleClient.getClient().getUsername());
-        TilePane r = new TilePane();
+        if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN)
+            return;
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
 
+            a.setContentText("Please sign in first");
+
+            a.showAndWait();
+            return;
+        }
+        App.items.add(item);
+        SimpleClient.getClient().sendToServer("#AddtoCart "+item.getId()+" "+App.getUser().getUsername());
+
+        TilePane r = new TilePane();
         // create a alert
         Alert a = new Alert(Alert.AlertType.NONE);
-
         // set alert type
         a.setAlertType(Alert.AlertType.CONFIRMATION);
-
         a.setContentText("Item was added to Cart.");
-
         a.showAndWait();
 
     }

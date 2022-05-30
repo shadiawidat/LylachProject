@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import net.bytebuddy.asm.Advice;
 
 import java.io.IOException;
 import java.net.URL;
@@ -121,7 +122,6 @@ public class Catalog implements Initializable {
         }
         Cart.setCaller("Catalog");
         App.setRoot("Cart");
-
     }
 
     @FXML
@@ -130,6 +130,7 @@ public class Catalog implements Initializable {
         {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setContentText("Please sign in first");
+
             a.showAndWait();
             return;
         }
@@ -172,6 +173,7 @@ public class Catalog implements Initializable {
         {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setContentText("Please sign in first");
+
             a.showAndWait();
             return;
         }
@@ -181,6 +183,7 @@ public class Catalog implements Initializable {
 
     @FXML
     void GoToCart(MouseEvent event) throws IOException {
+
         if(App.getUser()==null)
         {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
@@ -188,6 +191,7 @@ public class Catalog implements Initializable {
             a.showAndWait();
             return;
         }
+
         Cart.setCaller("Catalog");
         App.setRoot("Cart");
     }
@@ -506,6 +510,9 @@ public class Catalog implements Initializable {
 
     public void LoadList(List<Item> items)
     {
+        if(App.getUser()!=null)
+        if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN)
+            CartB.setImage(null);
         Matched.setVisible(false);
         scroll.setVisible(true);
         if(items.size()==0) {
@@ -523,6 +530,9 @@ public class Catalog implements Initializable {
                 ItemView itemController = fxmlLoader.getController();
 
                 itemController.setItemView(item);
+                if(App.getUser()!=null)
+                if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN)
+                    itemController.getAddCart().setImage(null);
                 if (column == 3) {
                     column = 0;
                     row++;
