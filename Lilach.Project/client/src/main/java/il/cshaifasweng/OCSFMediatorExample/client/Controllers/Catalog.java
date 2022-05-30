@@ -112,6 +112,13 @@ public class Catalog implements Initializable {
 
     @FXML
     void GoToCartMN(ActionEvent event) throws IOException {
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setContentText("Please sign in first");
+            a.showAndWait();
+            return;
+        }
         Cart.setCaller("Catalog");
         App.setRoot("Cart");
 
@@ -120,7 +127,12 @@ public class Catalog implements Initializable {
     @FXML
     void GoToProfile(ActionEvent event) throws IOException {
         if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setContentText("Please sign in first");
+            a.showAndWait();
             return;
+        }
         Account.setCaller("Catalog");
         App.setRoot("Account");
     }
@@ -156,12 +168,26 @@ public class Catalog implements Initializable {
 
     @FXML
     void GoToAccount(MouseEvent event) throws IOException {
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setContentText("Please sign in first");
+            a.showAndWait();
+            return;
+        }
         Account.setCaller("Catalog");
         App.setRoot("Account");
     }
 
     @FXML
     void GoToCart(MouseEvent event) throws IOException {
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setContentText("Please sign in first");
+            a.showAndWait();
+            return;
+        }
         Cart.setCaller("Catalog");
         App.setRoot("Cart");
     }
