@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 @Entity
 @Table(name = "complain")
-public class Complain {
+public class Complain implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

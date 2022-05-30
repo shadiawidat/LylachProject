@@ -20,21 +20,21 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.SignUp">
    <children>
-      <Label layoutX="126.0" layoutY="619.0" text="BirthDate" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="619.0">
+      <Label layoutX="126.0" layoutY="596.0" text="BirthDate" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="596.0">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <TextField editable="false" layoutX="124.0" layoutY="644.0" prefHeight="103.0" styleClass="textFields">
+      <TextField editable="false" layoutX="124.0" layoutY="621.0" prefHeight="103.0" styleClass="textFields">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
-      <Button layoutX="625.0" layoutY="663.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#SignUp" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="SingUp" AnchorPane.leftAnchor="624.0" AnchorPane.topAnchor="654.0">
+      <Button layoutX="395.0" layoutY="652.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#SignUp" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="SingUp" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="652.0">
          <font>
             <Font name="Cambria Bold Italic" size="24.0" />
          </font></Button>
-      <DatePicker fx:id="Birthdate" layoutX="138.0" layoutY="655.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" />
+      <DatePicker fx:id="Birthdate" layoutX="138.0" layoutY="632.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" />
       <Button layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" text="&lt;">
          <font>
             <Font name="Cambria" size="24.0" />
@@ -339,6 +339,34 @@
                   <Font name="Cambria" size="18.0" />
                </font>
             </MenuButton>
+            <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="250.0">
+               <children>
+                  <Label fx:id="Branch" text="Branch" visible="false">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="InvalidBranch" text="*Please choose" textFill="RED" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <MenuButton fx:id="Branches" alignment="CENTER" minHeight="51.0" mnemonicParsing="false" styleClass="textFields" visible="false">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#AllBranches" text="Haifa" />
+               </items>
+               <font>
+                  <Font name="Cambria" size="18.0" />
+               </font>
+            </MenuButton>
          </children>
       </VBox>
       <Label fx:id="InvalidDate" layoutX="261.0" layoutY="622.0" text="*Invalid" textFill="RED" visible="false">
@@ -346,11 +374,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="176.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+
+      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="173.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
          <menus>
             <Menu fx:id="GoTo" mnemonicParsing="false" text="Go to">
                <items>
-                  <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCart" text="Cart" />
+                  <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCartMN" text="Cart" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Account">

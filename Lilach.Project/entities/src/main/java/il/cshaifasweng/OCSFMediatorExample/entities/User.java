@@ -1,7 +1,13 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -17,16 +23,34 @@ public class User implements Serializable{
     private String address;
     private permissions permission;
     private String ID;
-    private String CreditCard;
-    private Client client;
-
-    public Client getClient() {
-        return client;
+    public String getID() {
+        return ID;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
+
+    public List<Branch> getMybranches() {
+        return mybranches;
+    }
+
+    public void setMybranches(List<Branch> mybranches) {
+        this.mybranches = mybranches;
+    }
+
+    @ManyToMany
+    private List<Branch> mybranches=new ArrayList<>();
+//    private Client client;
+//
+//    public Client getClient() {
+//        return client;
+//    }
+//
+//    public void setClient(Client client) {
+//        this.client = client;
+//    }
 
     private boolean Freeze;
     public User() {
@@ -50,21 +74,19 @@ public class User implements Serializable{
         this.birthday = birthday;
         this.address = address;
         this.permission = permission;
-        this.ID = ID;
-        CreditCard = creditCard;
+
         this.Freeze=Freeze;
     }
 
 
 
-    public String getCreditCard() {
-        return CreditCard;
-    }
 
-    public void setCreditCard(String creditCard) {
-        CreditCard = creditCard;
+    public void AddOneBranch(Branch b){
+        mybranches.add(b);
     }
-
+    public void DeleteOneBranch(Branch b){
+        mybranches.remove(b);
+    }
     public User(User guest) {
         this.username = guest.username;
         this.password = guest.password;
@@ -76,13 +98,7 @@ public class User implements Serializable{
         this.address = guest.address;
         this.permission = guest.permission;
     }
-    public String getID() {
-        return ID;
-    }
 
-    public void setID(String username) {
-        this.ID = ID;
-    }
 
     public String getUsername() {
         return username;

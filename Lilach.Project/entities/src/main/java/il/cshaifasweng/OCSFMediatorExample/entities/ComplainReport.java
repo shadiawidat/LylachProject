@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class ComplainReport extends Report {
+public class ComplainReport extends Report implements Serializable{
     @OneToMany
     private List<Complain> complains;
     private int complainsnum;

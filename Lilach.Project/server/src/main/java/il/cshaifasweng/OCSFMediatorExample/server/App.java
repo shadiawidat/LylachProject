@@ -12,7 +12,7 @@ public class App {
 
     private static void generateUsers() throws Exception {
 
-        User user= new User("Fole","Noor26","Noor","Abu elfoul","Noorabo7@outlook.com","0528218268",new Date(2000,7,26),"Shefa'amer",permissions.CLIENT ,"123456789","123546789",false);
+        User user= new User("Fole","Noor26","Noor","Abu elfoul","Noorabo7@outlook.com","0528218268",new Date(2000,7,26),"Shefa'amer",permissions.ADMIN ,"123456789","123546789",false);
         server.saveObject(user);
 
          user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.MANAGER,"123456789","123456789" ,false);
@@ -55,11 +55,11 @@ public class App {
 cache errors.
  */
     private static void generateBranches() throws Exception {
-        Branch b = new Branch();
+        Branch b = new Branch("Haifa");
         server.saveObject(b);
-        b = new Branch();
+        b = new Branch("Nazareth");
         server.saveObject(b);
-        b = new Branch();
+        b = new Branch("Krayot");
         server.saveObject(b);
      }
 
@@ -71,11 +71,9 @@ cache errors.
     public static void main(String[] args) throws Exception {
 
         server=new SimpleServer(3190);
-
         generateUsers();
         generateItems();
-
-        //generateBranches();
+        generateBranches();
         server.listen();
     }
 }

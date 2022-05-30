@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class OrderReport extends Report  {
+public class OrderReport extends Report  implements Serializable{
     @OneToMany
     private List<Cart> orders;
     private int ordersnum;

@@ -1,11 +1,12 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.Controllers.*;
+import il.cshaifasweng.OCSFMediatorExample.client.Controllers.Cart;
+import il.cshaifasweng.OCSFMediatorExample.client.Controllers.Catalog;
+import il.cshaifasweng.OCSFMediatorExample.client.Controllers.Complain;
+import il.cshaifasweng.OCSFMediatorExample.client.Controllers.Report;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Item;
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
-import il.cshaifasweng.OCSFMediatorExample.entities.User;
-import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.application.Platform;
 import org.greenrobot.eventbus.EventBus;
 
@@ -40,6 +41,7 @@ public class SimpleClient extends AbstractClient {
 	protected void handleMessageFromServer(Object msg) {
 		Message ms=(Message)msg;
 		String deliver=ms.getString();
+		System.out.println(deliver);
 		if(deliver.equals("#CatalogReady")) {
 			Catalog.Catalog = (List<Item>) ms.getObject();
 			Platform.runLater(()->{catalogControl.LoadList(Catalog.Catalog);});
@@ -60,6 +62,10 @@ public class SimpleClient extends AbstractClient {
 					e.printStackTrace();
 				}
 			});
+		}else if (deliver.equals("#BranchesReady"))
+		{
+			signUpControl.setBranchesL((List<Branch>) ms.getObject());
+			Platform.runLater(()->{signUpControl.loadBranches();});
 		}
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));

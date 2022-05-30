@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class BranchManager extends User {
+public class BranchManager extends User implements Serializable {
     @OneToOne
     private Branch mybranch;
     public BranchManager() {

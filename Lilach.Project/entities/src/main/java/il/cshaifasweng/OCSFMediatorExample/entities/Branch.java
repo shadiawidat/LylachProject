@@ -6,10 +6,25 @@ import java.util.List;
 
 @Entity
 @Table(name = "branch")
-public class Branch {
+public class Branch implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public Branch(String name) {
+        this.name = name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @OneToOne(mappedBy = "mybranch")
     private BranchManager bmanager;
     @ManyToOne(fetch = FetchType.LAZY)
