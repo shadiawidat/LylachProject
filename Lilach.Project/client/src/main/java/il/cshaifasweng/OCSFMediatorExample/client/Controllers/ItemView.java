@@ -55,7 +55,7 @@ public class ItemView {
 
     @FXML
     void AddToCart(MouseEvent event) throws IOException {
-        System.out.println("here");
+
         if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN)
             return;
         if(App.getUser()==null)
@@ -68,7 +68,7 @@ public class ItemView {
             return;
         }
         App.items.add(item);
-//        SimpleClient.getClient().sendToServer("#AddtoCart "+item.getId()+" "+App.getUser().getUsername());
+
 
         TilePane r = new TilePane();
         // create a alert

@@ -152,6 +152,7 @@ public class SignUp implements Initializable {
                 return;
             }
 
+
         Cart.setCaller("SignUp");
         App.setRoot("Cart");
     }
@@ -196,7 +197,6 @@ public class SignUp implements Initializable {
 
     @FXML
     void GoToAbout(ActionEvent event) throws IOException {
-
         About.setCaller("SignUp");
         App.setRoot("About");
     }

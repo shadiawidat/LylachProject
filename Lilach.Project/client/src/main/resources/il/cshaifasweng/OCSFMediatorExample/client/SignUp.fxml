@@ -374,6 +374,7 @@
             <Font size="14.0" />
          </font>
       </Label>
+
       <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="173.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
          <menus>
             <Menu fx:id="GoTo" mnemonicParsing="false" text="Go to">
