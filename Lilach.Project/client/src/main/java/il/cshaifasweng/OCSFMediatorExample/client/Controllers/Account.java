@@ -2,6 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.entities.AccountTypes;
+import il.cshaifasweng.OCSFMediatorExample.entities.Client;
 import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,13 +95,15 @@ public class Account implements Initializable {
     }
 
     @FXML
-    void GoToAbout(ActionEvent event) {
-
+    void GoToAbout(ActionEvent event) throws IOException {
+        About.setCaller("Account");
+        App.setRoot("About");
     }
 
     @FXML
-    void GoToCart(ActionEvent event) {
-
+    void GoToCartMN(ActionEvent event) throws IOException {
+        Cart.setCaller("Account");
+        App.setRoot("Cart");
     }
 
     @FXML
@@ -114,13 +117,15 @@ public class Account implements Initializable {
     }
 
     @FXML
-    void GoToSignOut(ActionEvent event) {
-
+    void GoToSignOut(ActionEvent event) throws IOException {
+        LogIn.setCaller("Account");
+        App.setRoot("LogIn");
     }
 
     @FXML
-    void GoToSignUp(ActionEvent event) {
-
+    void GoToSignUp(ActionEvent event) throws IOException {
+        SignUp.setCaller("Account");
+        App.setRoot("SignUp");
     }
 
     @FXML
@@ -130,7 +135,7 @@ public class Account implements Initializable {
 
     @FXML
     void CloseMenu(MouseEvent event) {
-        menu.setVisible(false);
+       // menu.setVisible(false);
     }
 
     @FXML
@@ -164,8 +169,9 @@ public class Account implements Initializable {
     }
 
     @FXML
-    void GoToCart(MouseEvent event) {
-
+    void GoToCart(MouseEvent event) throws IOException {
+        Cart.setCaller("Account");
+        App.setRoot("Cart");
     }
 
     @FXML
@@ -180,6 +186,7 @@ public class Account implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        UserName.setText("Welcome " + App.getUser().getFirstname());
         if(!App.getUser().isFreeze())
         {
             FreezeIcon.setImage(null);
@@ -194,25 +201,29 @@ public class Account implements Initializable {
 
         Date BD=App.getUser().getBirthday();
 
-        BirthDate.setText(BD.getDay()+"/"+BD.getMonth()+"/"+BD.getYear());
+        BirthDate.setText(BD.getDate()+"/"+BD.getMonth()+"/"+BD.getYear());
         Address.setText(App.getUser().getAddress());
         Phone.setText(App.getUser().getPhonenumber());
         Email.setText(App.getUser().getEmail());
 
-        if(App.getUser().getClient()!=null)
+        if(App.getUser().getClient()!=null) {
             CreditCard.setText(App.getUser().getClient().getCreditCard());
-
-//        AccountType.setText(App.getUser().);
+        }
+        if(App.getUser().getClient()!=null) {
+            AccountType.setText(App.getUser().getClient().getAccounttype().toString());
+        }
 
 
         if(App.getUser().getPermission() == permissions.CLIENT){
+            CreditCard.setText(((Client)App.getUser()).getCreditCard());
+            AccountType.setText(((Client)App.getUser()).getAccounttype().name());
             UpdateUser.setVisible(false);
             FreezeUser.setVisible(false);
             AddUser.setVisible(false);
             RemoveUser.setVisible(false);
             Search.setVisible(false);
         }
-        else if(App.getUser().getPermission() == permissions.WORKER||App.getUser().getPermission() == permissions.MANAGER) {
+        else if(App.getUser().getPermission() == permissions.WORKER || App.getUser().getPermission() == permissions.MANAGER) {
             UpdateUser.setVisible(false);
             FreezeUser.setVisible(false);
             AddUser.setVisible(false);
@@ -223,6 +234,13 @@ public class Account implements Initializable {
             AccountType.setVisible(false);
             TypeLB.setVisible(false);
             CreditCardLB.setVisible(false);
+        }
+        else if(App.getUser().getPermission() == permissions.ADMIN){
+            CreditCard.setVisible(false);
+            AccountType.setVisible(false);
+            TypeLB.setVisible(false);
+            CreditCardLB.setVisible(false);
+            MyOrders.setVisible(false);
         }
 
 

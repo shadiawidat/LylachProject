@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Account">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Account">
    <children>
       <Button layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;">
          <font>
@@ -207,7 +207,7 @@
             <Font name="Cambria Bold Italic" size="24.0" />
          </font>
       </Button>
-      <HBox alignment="CENTER" layoutX="1.0" layoutY="570.0" prefHeight="83.0" prefWidth="918.0">
+      <HBox alignment="CENTER" layoutX="1.0" layoutY="570.0" prefHeight="83.0" prefWidth="918.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.6000000000000227" AnchorPane.topAnchor="570.0">
          <children>
             <Button fx:id="UpdateUser" maxWidth="180.0" mnemonicParsing="false" onMouseClicked="#UpdateUser" prefHeight="50.0" prefWidth="200.0" text="Update User">
                <font>
@@ -280,14 +280,12 @@
             <Menu mnemonicParsing="false" text="Go to">
                <items>
                   <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUp" text="SignUp" />
-                  <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCart" text="Cart" />
+                  <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCartMN" text="Cart" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Account">
                <items>
-                  <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in" />
                   <MenuItem fx:id="MenuSignOut" mnemonicParsing="false" onAction="#GoToSignOut" text="Sign Out" />
-                  <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
