@@ -5,23 +5,38 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Client extends User  {
+public class Client extends User implements Serializable {
     private AccountTypes accounttype;
     private Double amount;
     @OneToOne
     private Cart order;
     @OneToMany
     private List<Cart> myorders;
-    @ManyToMany
-    private List<Branch> mybranches;
+
     @OneToMany
     private List<Complain> complains;
+
+
+    private String CreditCard;
+
+
+
+
+    public String getCreditCard() {
+        return CreditCard;
+    }
+
+
+    public void setCreditCard(String creditCard) {
+        CreditCard = creditCard;
+    }
 
     public Client(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard, AccountTypes accounttype, Double amount) {
         super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, creditCard,false);
         this.accounttype = accounttype;
         this.amount = 0.0;
-        this.setClient(this);
+        this.CreditCard=creditCard;
+//        this.setClient(this);
     }
 
     public Client() {
@@ -47,12 +62,7 @@ public class Client extends User  {
     public void DeleteOneFromCart(Cart c){
         myorders.remove(c);
     }
-    public void AddOneBranch(Branch b){
-        mybranches.add(b);
-    }
-    public void DeleteOneBranch(Branch b){
-        mybranches.remove(b);
-    }
+
     public AccountTypes getAccounttype() {
         return accounttype;
     }
@@ -85,12 +95,5 @@ public class Client extends User  {
         this.myorders = myorders;
     }
 
-    public List<Branch> getMybranches() {
-        return mybranches;
-    }
-
-    public void setMybranches(List<Branch> mybranches) {
-        this.mybranches = mybranches;
-    }
 
 }

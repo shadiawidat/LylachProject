@@ -4,6 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
@@ -11,8 +12,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class CartItem {
+public class CartItem implements Initializable {
 
     private Item ITEM;
 
@@ -47,6 +50,7 @@ public class CartItem {
     }
 
     public void setItemView(Item item) {
+
         if (item == null)
             return;
         ITEM = item;
@@ -55,6 +59,11 @@ public class CartItem {
         javafx.scene.image.Image image = new Image(SimpleClient.class.getResourceAsStream(item.getImagesrc()));
         Image.setImage(image);
         Subtotal.setText(Double.toString(item.getPrice()) + "$");
+    }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Quantity.setPromptText("0");
     }
 }

@@ -44,7 +44,7 @@
                         <Font name="Cambria" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="UserNameConnected" alignment="CENTER_RIGHT" onMouseClicked="#GoToAccount" prefHeight="25.0" prefWidth="247.0" text="Welcome John Pierre">
+                  <Label fx:id="UserName" alignment="CENTER_RIGHT" onMouseClicked="#GoToAccount" prefHeight="25.0" prefWidth="247.0" text="Welcome John Pierre">
                      <font>
                         <Font name="Cambria" size="14.0" />
                      </font>
@@ -69,7 +69,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <VBox alignment="CENTER" minWidth="250.0" prefHeight="200.0" prefWidth="300.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -94,12 +94,9 @@
                         </Text>
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" minWidth="250.0" prefHeight="170.0" prefWidth="231.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../Media/About/LilIan.jpeg" />
-                           </image></ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lilian Mansour">
                            <font>
                               <Font name="Cambria" size="24.0" />
@@ -125,12 +122,9 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <VBox alignment="CENTER" minWidth="250.0" prefHeight="200.0" prefWidth="300.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../Media/About/Nour.jpeg" />
-                           </image></ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Noor Abu Elfoul">
                            <font>
                               <Font name="Cambria" size="24.0" />
@@ -149,12 +143,9 @@
                         </Text>
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" minWidth="250.0" prefHeight="200.0" prefWidth="300.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../Media/About/Shady.jpeg" />
-                           </image></ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Shadi Awidat">
                            <font>
                               <Font name="Cambria" size="24.0" />
@@ -177,9 +168,6 @@
                      </HBox.margin>
                   </VBox>
                </children>
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
             </HBox>
          </children>
       </VBox>
@@ -202,7 +190,7 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="135.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="127.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
          <menus>
             <Menu mnemonicParsing="false" text="Go to">
                <items>
