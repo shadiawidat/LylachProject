@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.SignUp">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.SignUp">
    <children>
       <Label layoutX="126.0" layoutY="596.0" text="BirthDate" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="596.0">
          <font>
@@ -360,9 +360,6 @@
                </VBox.margin>
             </HBox>
             <MenuButton fx:id="Branches" alignment="CENTER" minHeight="51.0" mnemonicParsing="false" styleClass="textFields" visible="false">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#AllBranches" text="Haifa" />
-               </items>
                <font>
                   <Font name="Cambria" size="18.0" />
                </font>

@@ -222,6 +222,8 @@
                <items>
                   <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUp" text="SignUp" />
                   <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCartMN" text="Cart" />
+                  <MenuItem fx:id="Complains" mnemonicParsing="false" onAction="#GoToComplains" text="Complains" />
+                  <MenuItem fx:id="Reports" mnemonicParsing="false" onAction="#GoToReports" text="Reports" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Account">

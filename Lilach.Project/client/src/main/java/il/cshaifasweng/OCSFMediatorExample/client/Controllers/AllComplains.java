@@ -1,7 +1,9 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
+import il.cshaifasweng.OCSFMediatorExample.client.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
@@ -11,8 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
-public class AllComplains {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class AllComplains implements Initializable {
+    public static String Caller = "";
     @FXML
     private Button Back;
 
@@ -53,13 +59,15 @@ public class AllComplains {
     private ScrollPane scroll;
 
     @FXML
-    void Back(MouseEvent event) {
-
+    void Back(MouseEvent event) throws IOException {
+        App.setRoot(getCaller());
     }
 
-    @FXML
-    void CartClick(MouseEvent event) {
-
+    public static String getCaller() {
+        return Caller;
+    }
+    public static void setCaller(String caller) {
+        Caller = caller;
     }
 
     @FXML
@@ -68,43 +76,45 @@ public class AllComplains {
     }
 
     @FXML
-    void GoToAbout(ActionEvent event) {
-
+    void GoToAbout(ActionEvent event) throws IOException {
+        About.setCaller("AllComplains");
+        App.setRoot("About");
     }
 
     @FXML
-    void GoToAccount(MouseEvent event) {
+    void GoToAccount(MouseEvent event) throws IOException {
+        Account.setCaller("AllComplains");
+        App.setRoot("Account");
+    }
 
+
+
+    @FXML
+    void GoToProfile(ActionEvent event) throws IOException {
+        Account.setCaller("AllComplains");
+        App.setRoot("Account");
+    }
+
+
+    @FXML
+    void GoToSignOut(ActionEvent event) throws IOException {
+        App.setUser(null);
+        App.setRoot("LogIn");
     }
 
     @FXML
-    void GoToCart(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToProfile(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToSignIn(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToSignOut(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToSignUp(ActionEvent event) {
-
+    void GoToSignUp(ActionEvent event) throws IOException {
+        SignUp.setCaller("AllComplains");
+        App.setRoot("SignUp");
     }
 
     @FXML
     void MenuClick(MouseEvent event) {
-
+        menu.setVisible(true);
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }

@@ -89,7 +89,7 @@ public class LogIn implements Initializable {
 
     @FXML
     void SignIn(MouseEvent event) throws IOException, InterruptedException {
-        Message ms = new Message(null, "#identify " + UserName.getText() + " " + Password.getText());
+        Message ms = new Message(null, "#LogIn " + UserName.getText() + " " + Password.getText());
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().logControl=this;
 
@@ -97,6 +97,16 @@ public class LogIn implements Initializable {
     public void Sign(){
             if (App.getUser() != null)
             {
+                if(App.getUser().isLogedIn())
+                {
+                    Alert a = new Alert(Alert.AlertType.ERROR);
+
+                    a.setContentText("You are already signed in.");
+
+                    a.showAndWait();
+                    return;
+                }
+                App.getUser().setLogedIn(true);
                 try {
                     Catalog.setCaller("LogIn");
                     App.setRoot("Catalog");

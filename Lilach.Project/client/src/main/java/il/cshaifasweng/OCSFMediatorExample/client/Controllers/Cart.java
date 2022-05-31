@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -88,43 +89,42 @@ public class Cart implements Initializable {
     }
 
     @FXML
-    void Continue_to_shipping(MouseEvent event) {
-
+    void Continue_to_shipping(MouseEvent event) throws IOException {
+        il.cshaifasweng.OCSFMediatorExample.client.Controllers.Shipping.setCaller("Cart");
+        App.setRoot("Shipping");
     }
 
     @FXML
-    void GoToAbout(ActionEvent event) {
+    void GoToAbout(ActionEvent event) throws IOException {
+        Account.setCaller("Cart");
+        App.setRoot("About");
+    }
 
+
+    @FXML
+    void GoToProfile(ActionEvent event) throws IOException {
+        Account.setCaller("Cart");
+        App.setRoot("Account");
+    }
+
+
+    @FXML
+    void GoToSignOut(ActionEvent event) throws IOException {
+        App.setUser(null);
+        App.setRoot("LogIn");
+        SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
     }
 
     @FXML
-    void GoToCart(ActionEvent event) {
-
+    void GoToSignUp(ActionEvent event) throws IOException {
+        Account.setCaller("Cart");
+        App.setRoot("SignUp");
     }
 
     @FXML
-    void GoToProfile(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToSignIn(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToSignOut(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToSignUp(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GoToAccount(MouseEvent event) {
-
+    void GoToAccount(MouseEvent event) throws IOException {
+        Account.setCaller("Cart");
+        App.setRoot("Account");
     }
 
     @FXML

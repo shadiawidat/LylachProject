@@ -10,23 +10,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="170.0" maxWidth="170.0" minHeight="157.0" minWidth="157.0" onMouseClicked="#ShowItem" prefHeight="157.0" prefWidth="157.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemView">
+<AnchorPane maxHeight="170.0" maxWidth="170.0" minHeight="157.0" minWidth="157.0" prefHeight="157.0" prefWidth="157.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemView">
    <children>
       <VBox alignment="CENTER" maxHeight="160.0" maxWidth="160.0" minHeight="160.0" minWidth="160.0" prefHeight="160.0" prefWidth="160.0">
          <children>
-            <ImageView fx:id="imageid" fitHeight="115.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
+            <ImageView fx:id="imageid" fitHeight="115.0" fitWidth="93.0" onMouseClicked="#ShowItem" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
                <image>
                   <Image url="@../../../../Media/orchid_transparent.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER" maxHeight="35.0" maxWidth="144.0" minHeight="35.0" minWidth="144.0" prefHeight="35.0" prefWidth="144.0">
                <children>
-                  <ImageView fx:id="AddCart" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#AddToCart" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="AddCartBtn" fitHeight="69.0" fitWidth="28.0" onMouseClicked="#AddToCart" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Icons/Add_to_cart.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="nameid" alignment="CENTER" prefHeight="36.0" prefWidth="78.0" text=" Lavaneder">
+                  <Label fx:id="nameid" alignment="CENTER" onMouseClicked="#ShowItem" prefHeight="36.0" prefWidth="78.0" text=" Lavaneder">
                      <font>
                         <Font name="Cambria" size="14.0" />
                      </font>
@@ -46,7 +46,7 @@
             </HBox>
          </children>
       </VBox>
-      <ImageView fx:id="SaleImage" fitHeight="157.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="SaleImage" fitHeight="123.0" fitWidth="130.0" layoutX="34.0" onMouseClicked="#ShowItem" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Media/Sales/SaleItem.png" />
          </image>
