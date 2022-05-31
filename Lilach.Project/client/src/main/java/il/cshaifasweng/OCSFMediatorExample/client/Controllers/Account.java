@@ -1,14 +1,15 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
-import il.cshaifasweng.OCSFMediatorExample.entities.AccountTypes;
-import il.cshaifasweng.OCSFMediatorExample.entities.Client;
-import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -85,6 +86,17 @@ public class Account implements Initializable {
     @FXML
     private Button MyOrders;
 
+    private User user;
+
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public static String getCaller() {
         return Caller;
@@ -94,6 +106,57 @@ public class Account implements Initializable {
         Caller = caller;
     }
 
+    public void fillInfo(User user){
+      UserName.setText("Welcome " + App.getUser().getFirstname());
+      if(user==null){
+          if(!App.getUser().isFreeze())
+          {
+              FreezeIcon.setImage(null);
+              FreezeLB.setVisible(false);
+          }
+
+          FirstName.setText(App.getUser().getFirstname());
+          LastName.setText(App.getUser().getLastname());
+          ID.setText(App.getUser().getID());
+
+
+          Username.setText(App.getUser().getUsername());
+
+          Date BD=App.getUser().getBirthday();
+
+          BirthDate.setText(BD.getDate()+"/"+BD.getMonth()+"/"+BD.getYear());
+          Address.setText(App.getUser().getAddress());
+          Phone.setText(App.getUser().getPhonenumber());
+          Email.setText(App.getUser().getEmail());
+      }
+      else{
+          if(!user.isFreeze())
+          {
+              FreezeIcon.setImage(null);
+              FreezeLB.setVisible(false);
+          }
+          if(user.getPermission()!=permissions.ADMIN)
+          {
+              FreezeUser.setVisible(true);
+          }
+          FirstName.setText(user.getFirstname());
+          LastName.setText(user.getLastname());
+          ID.setText(user.getID());
+          Username.setText(user.getUsername());
+
+          Date BD=user.getBirthday();
+
+          BirthDate.setText(BD.getDate()+"/"+BD.getMonth()+"/"+BD.getYear());
+          Address.setText(user.getAddress());
+          Phone.setText(user.getPhonenumber());
+          Email.setText(user.getEmail());
+      }
+    }
+    @FXML
+    void UserChanges(KeyEvent event) {
+        FreezeUser.setVisible(false);
+        
+    }
     @FXML
     void GoToAbout(ActionEvent event) throws IOException {
         About.setCaller("Account");
@@ -118,7 +181,7 @@ public class Account implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        LogIn.setCaller("Account");
+       // LogIn.setCaller("Account");
         App.setRoot("LogIn");
     }
 
@@ -144,17 +207,25 @@ public class Account implements Initializable {
     }
 
     @FXML
-    void Search(MouseEvent event) {
+    void Search(MouseEvent event) throws IOException {
+
+        Message ms = new Message(null, "#SearchUser " + Username.getText());
+        SimpleClient.getClient().sendToServer(ms);
+        SimpleClient.getClient().accountControl=this;
 
     }
 
     @FXML
-    void UpdateUser(MouseEvent event) {
+    void UpdateUser(MouseEvent event) throws IOException {
 
     }
 
     @FXML
-    void FreezeUser(MouseEvent event) {
+    void FreezeUser(MouseEvent event) throws IOException {
+
+        Message ms = new Message(null, "#FreezeUser " + Username.getText());
+        SimpleClient.getClient().sendToServer(ms);
+        SimpleClient.getClient().accountControl=this;
 
     }
 
@@ -192,11 +263,12 @@ public class Account implements Initializable {
             FreezeIcon.setImage(null);
             FreezeLB.setVisible(false);
         }
-
+        setUser(App.getUser());
         FirstName.setText(App.getUser().getFirstname());
         LastName.setText(App.getUser().getLastname());
-        FirstName.setText(App.getUser().getFirstname());
         ID.setText(App.getUser().getID());
+
+
         Username.setText(App.getUser().getUsername());
 
         Date BD=App.getUser().getBirthday();
@@ -206,12 +278,7 @@ public class Account implements Initializable {
         Phone.setText(App.getUser().getPhonenumber());
         Email.setText(App.getUser().getEmail());
 
-        if(App.getUser().getClient()!=null) {
-            CreditCard.setText(App.getUser().getClient().getCreditCard());
-        }
-        if(App.getUser().getClient()!=null) {
-            AccountType.setText(App.getUser().getClient().getAccounttype().toString());
-        }
+
 
 
         if(App.getUser().getPermission() == permissions.CLIENT){
