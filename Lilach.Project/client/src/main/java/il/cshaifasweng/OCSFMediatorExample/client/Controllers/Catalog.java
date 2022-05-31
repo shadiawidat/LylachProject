@@ -140,12 +140,14 @@ public class Catalog implements Initializable {
 
     @FXML
     void GoToSignIn(ActionEvent event) throws IOException {
+        SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
+        SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
