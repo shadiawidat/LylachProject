@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Report">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Report">
    <children>
       <HBox alignment="CENTER" layoutX="5.0" layoutY="36.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -57,37 +57,12 @@
             </ImageView>
          </children>
       </HBox>
-      <Label layoutX="121.0" layoutY="141.0" text="ReportType">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="121.0" layoutY="246.0" text="FromDate">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
       <TextField fx:id="FirstReportFromWhite" editable="false" layoutX="121.0" layoutY="276.0" prefHeight="103.0" styleClass="textFields">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
-      <Label layoutX="121.0" layoutY="351.0" text="ToDate">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
       <TextField fx:id="FirstReportToWhite" editable="false" layoutX="121.0" layoutY="381.0" prefHeight="103.0" styleClass="textFields">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </TextField>
-      <Label layoutX="121.0" layoutY="456.0" text="Branch">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
-      <TextField fx:id="FirstReportBranch" layoutX="121.0" layoutY="486.0" prefHeight="103.0" styleClass="textFields">
          <font>
             <Font size="24.0" />
          </font>
@@ -111,37 +86,12 @@
       </MenuButton>
       <DatePicker fx:id="FirstReportFrom" layoutX="135.0" layoutY="282.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" />
       <DatePicker fx:id="FirstReportTo" layoutX="137.0" layoutY="389.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" />
-      <Label fx:id="SecondReportTypeLable" layoutX="542.0" layoutY="141.0" text="ReportType" visible="false">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
-      <Label fx:id="SecondReportFromDateLable" layoutX="542.0" layoutY="246.0" text="FromDate" visible="false">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
       <TextField fx:id="SecondReportFromWhite" editable="false" layoutX="542.0" layoutY="276.0" prefHeight="103.0" styleClass="textFields" visible="false">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
-      <Label fx:id="SecondReportToDateLable" layoutX="542.0" layoutY="351.0" text="ToDate" visible="false">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
       <TextField fx:id="SecondReportToWhite" editable="false" layoutX="542.0" layoutY="381.0" prefHeight="103.0" styleClass="textFields" visible="false">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </TextField>
-      <Label fx:id="SecondReportBranchLable" layoutX="542.0" layoutY="456.0" text="Branch" visible="false">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
-      <TextField fx:id="SecondReportBranch" layoutX="542.0" layoutY="486.0" prefHeight="103.0" styleClass="textFields" visible="false">
          <font>
             <Font size="24.0" />
          </font>
@@ -165,12 +115,10 @@
             <Menu mnemonicParsing="false" text="Go to">
                <items>
                   <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUp" text="SignUp" />
-                  <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCart" text="Cart" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Account">
                <items>
-                  <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in" />
                   <MenuItem fx:id="MenuSignOut" mnemonicParsing="false" onAction="#GoToSignOut" text="Sign Out" />
                   <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile" />
                </items>
@@ -182,5 +130,151 @@
             </Menu>
          </menus>
       </MenuBar>
+      <MenuButton fx:id="FirstReportBranch" alignment="CENTER" layoutX="123.0" layoutY="486.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </MenuButton>
+      <MenuButton fx:id="SecondReportBranch" alignment="CENTER" layoutX="540.0" layoutY="486.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields" visible="false">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </MenuButton>
+      <HBox alignment="BOTTOM_LEFT" layoutX="117.0" layoutY="144.0" prefHeight="30.0" prefWidth="222.0">
+         <children>
+            <Label text="ReportType">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="InvalidFRType" alignment="BOTTOM_LEFT" text="*Invalid" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_LEFT" layoutX="117.0" layoutY="246.0" prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <Label text="FromDate">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="InvalidFRFrom" alignment="BOTTOM_LEFT" text="*Invalid" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_LEFT" layoutX="117.0" layoutY="351.0" prefHeight="28.0" prefWidth="200.0">
+         <children>
+            <Label text="ToDate">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="InvalidFRTo" alignment="BOTTOM_LEFT" text="*Invalid" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_LEFT" layoutX="117.0" layoutY="456.0" prefHeight="28.0" prefWidth="200.0">
+         <children>
+            <Label text="Branch">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="InvalidFRBranch" alignment="BOTTOM_LEFT" text="*Invalid" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_LEFT" layoutX="540.0" layoutY="138.0" prefHeight="28.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="SecondReportTypeLable" text="ReportType" visible="false">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="InvalidSRType" alignment="BOTTOM_LEFT" text="*Invalid" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_LEFT" layoutX="542.0" layoutY="246.0" prefHeight="28.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="SecondReportFromDateLable" text="FromDate" visible="false">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="InvalidSRFrom" alignment="BOTTOM_LEFT" text="*Invalid" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_LEFT" layoutX="542.0" layoutY="351.0" prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="SecondReportToDateLable" text="ToDate" visible="false">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="InvalidSRTo" alignment="BOTTOM_LEFT" text="*Invalid" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_LEFT" layoutX="542.0" layoutY="456.0" prefHeight="28.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="SecondReportBranchLable" text="Branch" visible="false">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="InvalidSRBranch" alignment="BOTTOM_LEFT" text="*Invalid" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

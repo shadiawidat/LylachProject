@@ -1,15 +1,21 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Complain {
+public class Complain implements Initializable {
+    private il.cshaifasweng.OCSFMediatorExample.entities.Complain complain;
 
     @FXML
     private Label Branch;
@@ -36,27 +42,32 @@ public class Complain {
     private TextField Reason;
 
     @FXML
+    private TextField Refund;
+
+    @FXML
     private Label Remaining;
 
     @FXML
-    void Approve_refund(MouseEvent event) {
-
+    void Approve_refund(MouseEvent event) throws IOException {
+        SimpleClient.getClient().sendToServer(new Message(complain.getClient(),"Refund "+Refund.getText()));
+        SimpleClient.getClient().complainControl=this;
     }
 
     @FXML
-    void Decide_refund(MouseEvent event) {
-
+    void Decide_refund(MouseEvent event) throws IOException {
+        SimpleClient.getClient().sendToServer(new Message(complain.getClient(),"Refund "+"0"));
+        SimpleClient.getClient().complainControl=this;
     }
 
     @FXML
-    void ViewAccount(MouseEvent event) throws IOException {
-        //Account.setClient(client);
-        App.setRoot("Account");
+    void deleteComplain(MouseEvent event) throws IOException {
+        SimpleClient.getClient().sendToServer(new Message(null,"DeleteComplain "+complain.getId()));
+        SimpleClient.getClient().complainControl=this;
     }
 
-    @FXML
-    void deleteComplain(MouseEvent event) {
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Refund.setText("0");
     }
 
 }

@@ -52,7 +52,7 @@
                         </Label>
                     </children>
                 </HBox>
-                <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#CartClick" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -82,12 +82,10 @@
           <Menu mnemonicParsing="false" text="Go to">
             <items>
                   <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUp" text="SignUp" />
-                  <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCart" text="Cart" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Account">
             <items>
-              <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in" />
                   <MenuItem fx:id="MenuSignOut" mnemonicParsing="false" onAction="#GoToSignOut" text="Sign Out" />
                   <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile" />
             </items>

@@ -94,6 +94,10 @@ public class Catalog implements Initializable {
     @FXML
     private Label InvalidPrice;
 
+    @FXML
+    private MenuItem Reports;
+    @FXML
+    private MenuItem Complains;
 
 
 
@@ -195,7 +199,17 @@ public class Catalog implements Initializable {
         Cart.setCaller("Catalog");
         App.setRoot("Cart");
     }
+    @FXML
+    void GoToComplains(ActionEvent event) throws IOException {
+        AllComplains.setCaller("Catalog");
+        App.setRoot("AllComplains");
+    }
 
+    @FXML
+    void GoToReports(ActionEvent event) throws IOException {
+        Report.setCaller("Catalog");
+        App.setRoot("Report");
+    }
 
     private void getData() throws IOException {
         Message ms = new Message(null, "#LoadCatalog");
@@ -571,6 +585,9 @@ public class Catalog implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+//        if(App.getUser()!=null && App.getUser().getPermission()==permissions.WORKER) {
+//            Complains.setVisible(true);
+//        }
 
 
     }

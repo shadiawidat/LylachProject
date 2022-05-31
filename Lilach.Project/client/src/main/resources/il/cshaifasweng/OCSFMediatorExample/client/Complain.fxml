@@ -20,12 +20,12 @@
             <Font name="Cambria" size="18.0" />
          </font>
       </Button>
-      <Label fx:id="FirstName" layoutX="26.0" layoutY="26.0" onMouseClicked="#ViewAccount" text="John Pierre">
+      <Label fx:id="FirstName" layoutX="26.0" layoutY="26.0" text="John Pierre">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="LastName" layoutX="149.0" layoutY="26.0" onMouseClicked="#ViewAccount" text="Haddad">
+      <Label fx:id="LastName" layoutX="149.0" layoutY="26.0" text="Haddad">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
@@ -90,5 +90,11 @@
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
+      <Label layoutX="160.0" layoutY="114.0" text="Refund : ">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Refund" layoutX="251.0" layoutY="114.0" maxHeight="30.0" maxWidth="100.0" prefHeight="21.0" styleClass="textFields" />
    </children>
 </AnchorPane>
