@@ -1,8 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -181,7 +183,7 @@ public class Account implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-       // LogIn.setCaller("Account");
+
         App.setRoot("LogIn");
     }
 

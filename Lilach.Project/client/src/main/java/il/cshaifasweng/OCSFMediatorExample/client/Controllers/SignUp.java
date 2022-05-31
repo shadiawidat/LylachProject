@@ -279,7 +279,11 @@ public class SignUp implements Initializable {
             return;
         Client nClient=new Client(Username.getText(),Password.getText(),FirstName.getText(),LastName.getText(),Email.getText(),Phone.getText(),Birth,
                 Address.getText(), permissions.CLIENT,ID.getText(),CreditCard.getText(),AccountTypes.Basic,0.0);
+
+
+
         Message ms = new Message(nClient, "#UserExist " + Username.getText());
+
         if(AccountTypes.Basic.name().equals(AccountType.getText()))
         {
             for(Branch branch:BranchesL)
