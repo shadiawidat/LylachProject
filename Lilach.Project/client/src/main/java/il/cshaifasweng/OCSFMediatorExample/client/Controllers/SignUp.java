@@ -4,6 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -12,7 +13,9 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SignUp implements Initializable {
@@ -62,6 +65,14 @@ public class SignUp implements Initializable {
     @FXML
     private Menu GoTo;
 
+    @FXML
+    private Label Branch;
+    @FXML
+    private Label InvalidBranch;
+
+    @FXML
+    private MenuButton Branches;
+
 
     public static String getCaller() {
         return Caller;
@@ -105,6 +116,15 @@ public class SignUp implements Initializable {
     @FXML
     private Label InvalidUserName;
 
+    public List<il.cshaifasweng.OCSFMediatorExample.entities.Branch> getBranchesL() {
+        return BranchesL;
+    }
+
+    public void setBranchesL(List<il.cshaifasweng.OCSFMediatorExample.entities.Branch> branchesL) {
+        BranchesL = branchesL;
+    }
+
+    private List<Branch> BranchesL=new ArrayList<>();
 
     @FXML
     void CloseMenu(MouseEvent event) {
@@ -112,10 +132,7 @@ public class SignUp implements Initializable {
 //        menu.setVisible(false);
     }
 
-    @FXML
-    void AllBranches(ActionEvent event) {
-        AccountType.setText(AccountTypes.Gold.name());
-    }
+
 
     @FXML
     void Back(MouseEvent event) throws IOException {
@@ -135,22 +152,14 @@ public class SignUp implements Initializable {
                 return;
             }
 
+
         Cart.setCaller("SignUp");
         App.setRoot("Cart");
     }
 
     @FXML
-    void MenuClick(MouseEvent event) {
-        menu.setVisible(true);
-    }
+    void GoToCartMN(ActionEvent event) throws IOException {
 
-    @FXML
-    void OneBranch(ActionEvent event) {
-        AccountType.setText(AccountTypes.Basic.name());
-    }
-
-    @FXML
-    void GoToAccount(MouseEvent event) throws IOException {
         if(App.getUser()==null)
         {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
@@ -160,9 +169,31 @@ public class SignUp implements Initializable {
             a.showAndWait();
             return;
         }
+
+        Cart.setCaller("SignUp");
+        App.setRoot("Cart");
+    }
+
+    @FXML
+    void MenuClick(MouseEvent event) {
+        menu.setVisible(true);
+    }
+
+
+
+    @FXML
+    void GoToAccount(MouseEvent event) throws IOException {
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setContentText("Please sign in first");
+            a.showAndWait();
+            return;
+        }
         Account.setCaller("SignUp");
         App.setRoot("Account");
     }
+
 
     @FXML
     void GoToAbout(ActionEvent event) throws IOException {
@@ -177,7 +208,18 @@ public class SignUp implements Initializable {
 
     @FXML
     void GoToProfile(ActionEvent event) throws IOException {
-        About.setCaller("SignUp");
+
+            if(App.getUser()==null)
+            {
+                Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+                a.setContentText("Please sign in first");
+
+                a.showAndWait();
+                return;
+            }
+
+        Account.setCaller("SignUp");
         App.setRoot("Account");
     }
 
@@ -238,6 +280,21 @@ public class SignUp implements Initializable {
         Client nClient=new Client(Username.getText(),Password.getText(),FirstName.getText(),LastName.getText(),Email.getText(),Phone.getText(),Birth,
                 Address.getText(), permissions.CLIENT,ID.getText(),CreditCard.getText(),AccountTypes.Basic,0.0);
         Message ms = new Message(nClient, "#UserExist " + Username.getText());
+        if(AccountTypes.Basic.name().equals(AccountType.getText()))
+        {
+            for(Branch branch:BranchesL)
+            {
+                if(branch.getName().equals(Branches.getText()))
+                {
+                    nClient.AddOneBranch(branch);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            nClient.setMybranches(BranchesL);
+        }
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().signUpControl=this;
     }
@@ -261,11 +318,52 @@ public class SignUp implements Initializable {
 
     @FXML
     void Subscription(ActionEvent event) {
+        Branches.setVisible(false);
+        Branch.setVisible(false);
+        InvalidBranch.setVisible(false);
         AccountType.setText(AccountTypes.Premium.name());
+    }
+
+    @FXML
+    void OneBranch(ActionEvent event) {
+
+        Branches.setVisible(true);
+        Branch.setVisible(true);
+        AccountType.setText(AccountTypes.Basic.name());
+    }
+    public void loadBranches(){
+        Branches.getItems().clear();
+
+        for(Branch branch:BranchesL)
+        {
+            MenuItem mt=new MenuItem(branch.getName());
+
+            mt.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    Branches.setText(branch.getName());
+                }
+            });
+            Branches.getItems().add(mt);
+        }
+    }
+
+    @FXML
+    void AllBranches(ActionEvent event) {
+
+        Branches.setVisible(false);
+        Branch.setVisible(false);
+        InvalidBranch.setVisible(false);
+        AccountType.setText(AccountTypes.Gold.name());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            SimpleClient.getClient().sendToServer(new Message(null,"#getBranches"));
+            SimpleClient.getClient().signUpControl=this;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Birthdate.setValue(java.time.LocalDate.now());
         if (App.getUser() == null) {
             MenuSignOut.setVisible(false);

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class CoroporationManager extends User {
+public class CoroporationManager extends User implements Serializable{
     @OneToMany
     private List<Branch> mybranches;
 

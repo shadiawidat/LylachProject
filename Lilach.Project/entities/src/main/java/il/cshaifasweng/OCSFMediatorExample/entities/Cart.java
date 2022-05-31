@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Cart")
-public class Cart {
+public class Cart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

@@ -160,6 +160,16 @@ public class SimpleServer extends AbstractServer {
 			query.from(Item.class);
 			Message msa=new Message(session.createQuery(query).getResultList(),"#CatalogReady");
 			client.sendToClient(msa);
+			System.out.println("heru");
+		}
+		if(request.equals("#getBranches"))
+		{
+
+			CriteriaBuilder builder=session.getCriteriaBuilder();
+			CriteriaQuery<Branch> query=builder.createQuery(Branch.class);
+			query.from(Branch.class);
+			Message msa=new Message(session.createQuery(query).getResultList(),"#BranchesReady");
+			client.sendToClient(msa);
 		}
 	}
 

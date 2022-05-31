@@ -11,6 +11,7 @@ public class Catalog  implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToMany
+    //Update
     private List<Item> items;
     public Catalog(){
 
