@@ -30,7 +30,6 @@ public class SimpleServer extends AbstractServer {
 		configuration.addAnnotatedClass(Catalog.class);
 		configuration.addAnnotatedClass(Complain.class);
 		configuration.addAnnotatedClass(User.class);
-
 		configuration.addAnnotatedClass(BranchManager.class);
 		configuration.addAnnotatedClass(CoroporationManager.class);
 		configuration.addAnnotatedClass(Client.class);
@@ -153,6 +152,41 @@ public class SimpleServer extends AbstractServer {
 			}
 
 		}
+		if(request.startsWith("#SearchUser"))
+		{
+
+			String[] msgarray=request.split(" ");
+			User user=session.find(User.class,msgarray[1]);
+
+			if(user!=null) {
+				client.sendToClient(new Message(user, "#UserFound"));
+			}
+			else {
+				client.sendToClient(new Message(null, "#UserNotFound"));
+			}
+
+		}
+		if(request.startsWith("#AddToCart"))
+		{
+//			String[] msgarray=request.split(" ");
+//			session.find(Client.class,msgarray[1]).getOrder().AddOneItem((Item)ms.getObject());
+//			System.out.println("Here");
+//			if(order==null)
+//			{System.out.println("NULL");
+//				order=new Cart();
+//
+//				order.AddOneItem((Item)ms.getObject());
+//				System.out.println(order.getItems().size());
+//				session.find(Client.class,msgarray[1]).setOrder(order);
+//			}
+//			else{
+//				session.find(Client.class,msgarray[1]).getOrder().AddOneItem((Item)ms.getObject());
+//			}
+			System.out.println("Here1");
+			client.sendToClient(new Message(null,"#AddedItem"));
+			System.out.println("Here2");
+
+		}
 		if(request.equals("#LoadCatalog"))
 		{
 			CriteriaBuilder builder=session.getCriteriaBuilder();
@@ -160,7 +194,7 @@ public class SimpleServer extends AbstractServer {
 			query.from(Item.class);
 			Message msa=new Message(session.createQuery(query).getResultList(),"#CatalogReady");
 			client.sendToClient(msa);
-			System.out.println("heru");
+
 		}
 		if(request.equals("#getBranches"))
 		{

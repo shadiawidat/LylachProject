@@ -74,7 +74,7 @@ public class User implements Serializable{
         this.birthday = birthday;
         this.address = address;
         this.permission = permission;
-
+        this.ID=ID;
         this.Freeze=Freeze;
     }
 

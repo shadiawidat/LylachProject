@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 import javax.persistence.*;
+import javax.persistence.criteria.Order;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +37,6 @@ public class Client extends User implements Serializable {
         this.accounttype = accounttype;
         this.amount = 0.0;
         this.CreditCard=creditCard;
-//        this.setClient(this);
     }
 
     public Client() {

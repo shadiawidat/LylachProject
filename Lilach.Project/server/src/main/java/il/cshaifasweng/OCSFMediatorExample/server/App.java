@@ -23,6 +23,8 @@ public class App {
 
          user= new User("Shaggy","Shadi123","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.CLIENT,"123456789","123456789" ,false);
         server.saveObject(user);
+        Client nClient=new Client("a","a","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Basic,0.0);
+        server.saveObject(nClient);
     }
     private static void generateItems() throws Exception {
         Item item = new Item("Orchid" , 87, "Flower", "Purple",0);
@@ -70,7 +72,7 @@ cache errors.
 
     public static void main(String[] args) throws Exception {
 
-        server=new SimpleServer(3190);
+        server=new SimpleServer(3100);
         generateUsers();
         generateItems();
         generateBranches();

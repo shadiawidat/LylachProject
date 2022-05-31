@@ -1,7 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
-import il.cshaifasweng.OCSFMediatorExample.entities.AccountTypes;
 import il.cshaifasweng.OCSFMediatorExample.entities.Client;
 import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.event.ActionEvent;
@@ -118,7 +117,7 @@ public class Account implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        LogIn.setCaller("Account");
+
         App.setRoot("LogIn");
     }
 
@@ -206,12 +205,7 @@ public class Account implements Initializable {
         Phone.setText(App.getUser().getPhonenumber());
         Email.setText(App.getUser().getEmail());
 
-        if(App.getUser().getClient()!=null) {
-            CreditCard.setText(App.getUser().getClient().getCreditCard());
-        }
-        if(App.getUser().getClient()!=null) {
-            AccountType.setText(App.getUser().getClient().getAccounttype().toString());
-        }
+
 
 
         if(App.getUser().getPermission() == permissions.CLIENT){
