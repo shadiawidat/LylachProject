@@ -27,7 +27,6 @@ public class Client extends User implements Serializable {
         return CreditCard;
     }
 
-
     public void setCreditCard(String creditCard) {
         CreditCard = creditCard;
     }

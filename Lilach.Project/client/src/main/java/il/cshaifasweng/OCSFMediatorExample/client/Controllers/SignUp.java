@@ -232,7 +232,7 @@ public class SignUp implements Initializable {
     void SignUp(MouseEvent event) throws IOException {
         System.out.println("here");
         InvalidAddress.setVisible(false);
-        InvalidEmail.setVisible(true);
+        InvalidEmail.setVisible(false);
 
         InvalidID.setVisible(false);
         InvalidFname.setVisible(false);
