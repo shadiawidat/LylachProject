@@ -27,9 +27,8 @@ public class SimpleClient extends AbstractClient {
 	public Report reportControl;
 	public ReportHistogram reportHistogramControl;
 	public ReportView reportViewControl;
-	public SignUp	signUpControl;
-
-
+	public SignUp signUpControl;
+	public ItemView itemviewControl;
 
 	private static SimpleClient client = null;
 
@@ -88,7 +87,7 @@ public class SimpleClient extends AbstractClient {
 
 
 
-			client = new SimpleClient("localhost", 3100);
+			client = new SimpleClient("localhost", 3550);
 		}
 		return client;
 	}

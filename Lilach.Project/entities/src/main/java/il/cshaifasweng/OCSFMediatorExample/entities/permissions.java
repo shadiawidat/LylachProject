@@ -4,6 +4,7 @@ public enum permissions {
     CLIENT,
     WORKER,
     MANAGER,
-    ADMIN
+    ADMIN,
+    CorpManager
 }
 

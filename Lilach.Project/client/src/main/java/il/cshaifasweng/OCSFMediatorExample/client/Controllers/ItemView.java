@@ -3,7 +3,9 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.MyListener;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Client;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -22,14 +24,14 @@ public class ItemView {
     public Label nameid;
     private Item item;
     @FXML
-    private ImageView AddCart;
+    private ImageView AddCartBtn;
 
     public ImageView getAddCart() {
-        return AddCart;
+        return AddCartBtn;
     }
 
     public void setAddCart(ImageView addCart) {
-        AddCart = addCart;
+        AddCartBtn = addCart;
     }
 
     @FXML
@@ -38,6 +40,7 @@ public class ItemView {
     private ImageView SaleImage;
     @FXML
     private Label price;
+
     private MyListener myListener;
 
     public ImageView getSaleImage() {
@@ -56,8 +59,7 @@ public class ItemView {
     @FXML
     void AddToCart(MouseEvent event) throws IOException {
 
-        if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN)
-            return;
+
         if(App.getUser()==null)
         {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
@@ -67,9 +69,20 @@ public class ItemView {
             a.showAndWait();
             return;
         }
-        App.items.add(item);
 
+        if(App.getUser().getPermission()!=permissions.CLIENT)
+            return;
 
+//        ((Client) App.getUser()).AddOneToCart(item);
+//        System.out.println(((Client) App.getUser()).getCart().getItems().size());
+        SimpleClient.getClient().sendToServer(new Message(item,"#AddToCart "+App.getUser().getUsername()));
+        SimpleClient.getClient().itemviewControl=this;
+//        App.items.add(item);
+//        System.out.println(App.items.size());
+
+    }
+
+    public void Confirmation(){
         TilePane r = new TilePane();
         // create a alert
         Alert a = new Alert(Alert.AlertType.NONE);
@@ -79,7 +92,6 @@ public class ItemView {
         a.showAndWait();
 
     }
-
     @FXML
     void ShowItem(MouseEvent event) throws Exception {
         ItemShow.setCaller("Catalog");
