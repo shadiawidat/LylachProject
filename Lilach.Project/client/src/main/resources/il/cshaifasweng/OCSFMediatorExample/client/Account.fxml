@@ -116,7 +116,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="Username" prefHeight="103.0" styleClass="textFields" stylesheets="@../../../../Styles/Style.css">
+            <TextField fx:id="Username" onKeyPressed="#UserChanges" prefHeight="103.0" styleClass="textFields" stylesheets="@../../../../Styles/Style.css">
                <font>
                   <Font size="24.0" />
                </font>
