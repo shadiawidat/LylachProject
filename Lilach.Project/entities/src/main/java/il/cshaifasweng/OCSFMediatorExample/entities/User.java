@@ -22,14 +22,34 @@ public class User implements Serializable{
     private String address;
     private permissions permission;
     private String ID;
+
+
     private boolean Freeze;
     private boolean LogedIn;
+
 
     @ManyToMany(mappedBy = "users")
     private List<Branch> mybranches=new ArrayList<>();
 
     public User() {
     }
+
+
+    //Worker's Contructor
+    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID,boolean Freeze) {
+        this.username = username;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phonenumber = phonenumber;
+        this.birthday = birthday;
+        this.address = address;
+        this.permission = permission;
+        this.ID=ID;
+        this.Freeze=Freeze;
+    }
+
 
     public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard,boolean Freeze) {
         this.username = username;

@@ -177,6 +177,50 @@ public class SimpleServer extends AbstractServer {
 				client.sendToClient(new Message(null, "#UserNotFound"));
 			}
 		}
+		if(request.startsWith("#FreezeUser"))
+		{
+
+			String[] msgarray=request.split(" ");
+			User user=session.find(User.class,msgarray[1]);
+
+			if(user!=null) {
+				user.setFreeze(true);
+				client.sendToClient(new Message(user, "#UserFreezed"));
+			}
+//			else {
+//				client.sendToClient(new Message(null, "#UserNotFound"));
+//			}
+
+		}
+		if(request.startsWith("#UpdateUser"))
+		{
+
+			String[] msgarray=request.split(" ");
+			User user=session.find(User.class,msgarray[1]);
+
+			User userrr = (User) ms.getObject();
+
+
+			if(user!=null) {
+				user.setFirstname(userrr.getFirstname());
+				user.setLastname(userrr.getLastname());
+				user.setID(userrr.getID());
+				user.setAddress(userrr.getAddress());
+				user.setPhonenumber(userrr.getPhonenumber());
+				user.setEmail(userrr.getEmail());
+				if(user.getPermission() == permissions.CLIENT){
+					((Client) user).setCreditCard(((Client)userrr).getCreditCard());
+					((Client) user).setAccounttype(((Client)userrr).getAccounttype());
+				}
+
+				client.sendToClient(new Message(user, "#UserUpdated"));
+			}
+//			else {
+//				client.sendToClient(new Message(null, "#UserNotFound"));
+//			}
+
+		}
+
 		if(request.startsWith("#AddToCart"))
 		{
 			String[] msgarray=request.split(" ");

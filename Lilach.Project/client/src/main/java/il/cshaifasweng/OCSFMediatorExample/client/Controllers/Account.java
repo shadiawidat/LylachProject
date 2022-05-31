@@ -22,8 +22,43 @@ import java.util.ResourceBundle;
 public class Account implements Initializable {
 
     public static String Caller = "";
+
     @FXML
-    private TextField AccountType;
+    private Label InvalidPerm;
+
+    @FXML
+    private DatePicker BirthdateMN;
+
+    @FXML
+    private Label InvalidAd;
+
+    @FXML
+    private Label InvalidBD;
+
+    @FXML
+    private Label InvalidEM;
+
+    @FXML
+    private Label InvalidFN;
+
+    @FXML
+    private Label InvalidID;
+
+    @FXML
+    private Label InvalidLN;
+
+    @FXML
+    private Label InvalidPH;
+
+    @FXML
+    private Label InvalidUS;
+
+
+    @FXML
+    private MenuButton AccountType;
+
+    @FXML
+    private MenuButton PermisionsMN;
 
     @FXML
     private ImageView FreezeIcon;
@@ -32,7 +67,12 @@ public class Account implements Initializable {
     private Label FreezeLB;
 
     @FXML
+    private Label PasswordLB;
+
+    @FXML
     private TextField Address;
+    @FXML
+    private TextField Passwrod;
     @FXML
     private TextField BirthDate;
     @FXML
@@ -41,6 +81,7 @@ public class Account implements Initializable {
     private TextField CreditCard;
     @FXML
     private TextField Email;
+
     @FXML
     private TextField FirstName;
     @FXML
@@ -56,6 +97,9 @@ public class Account implements Initializable {
 
     @FXML
     private Label CreditCardLB;
+
+    @FXML
+    private Label PermisionsLB;
 
     @FXML
     private Label TypeLB;
@@ -80,6 +124,8 @@ public class Account implements Initializable {
     @FXML
     private Button FreezeUser;
     @FXML
+    private Button UnFreeze;
+    @FXML
     private Button AddUser;
     @FXML
     private Button RemoveUser;
@@ -87,10 +133,12 @@ public class Account implements Initializable {
     private Button Search;
     @FXML
     private Button MyOrders;
+    @FXML
+    private Button Clear;
 
     private User user;
 
-
+    private permissions perm;
 
     public User getUser() {
         return user;
@@ -111,6 +159,10 @@ public class Account implements Initializable {
     public void fillInfo(User user){
       UserName.setText("Welcome " + App.getUser().getFirstname());
       if(user==null){
+          CreditCardLB.setVisible(false);
+          TypeLB.setVisible(false);
+          CreditCard.setVisible(false);
+          AccountType.setVisible(false);
           if(!App.getUser().isFreeze())
           {
               FreezeIcon.setImage(null);
@@ -132,14 +184,36 @@ public class Account implements Initializable {
           Email.setText(App.getUser().getEmail());
       }
       else{
+          if(user.getPermission()==permissions.CLIENT){
+              CreditCardLB.setVisible(true);
+              TypeLB.setVisible(true);
+              CreditCard.setVisible(true);
+              AccountType.setVisible(true);
+              Client c=(Client)user ;
+              CreditCard.setText(c.getCreditCard());
+              AccountType.setText((c.getAccounttype().name()));
+          }else{
+              CreditCardLB.setVisible(false);
+              TypeLB.setVisible(false);
+              CreditCard.setVisible(false);
+              AccountType.setVisible(false);
+          }
           if(!user.isFreeze())
           {
               FreezeIcon.setImage(null);
               FreezeLB.setVisible(false);
           }
+          else{
+              FreezeLB.setVisible(true);
+          }
           if(user.getPermission()!=permissions.ADMIN)
           {
               FreezeUser.setVisible(true);
+              AddUser.setVisible(true);
+              RemoveUser.setVisible(true);
+              UpdateUser.setVisible(true);
+              Clear.setVisible(true);
+              UnFreeze.setVisible(true);
           }
           FirstName.setText(user.getFirstname());
           LastName.setText(user.getLastname());
@@ -154,11 +228,51 @@ public class Account implements Initializable {
           Email.setText(user.getEmail());
       }
     }
+
+    @FXML
+    void OneBranch(ActionEvent event) {
+        AccountType.setText(AccountTypes.Basic.name());
+    }
+
+    @FXML
+    void AllBranches(ActionEvent event) {
+        AccountType.setText(AccountTypes.Gold.name());
+    }
+
+    @FXML
+    void Subscription(ActionEvent event) {
+        AccountType.setText(AccountTypes.Premium.name());
+    }
+
+    @FXML
+    void ClientItem(ActionEvent event) {
+        perm=permissions.CLIENT;
+        PermisionsMN.setText(permissions.CLIENT.name());
+    }
+
+    @FXML
+    void WorkerItem(ActionEvent event) {
+        perm=permissions.WORKER;
+        PermisionsMN.setText(permissions.WORKER.name());
+    }
+
+    @FXML
+    void ManagerItem(ActionEvent event) {
+        PermisionsMN.setText(permissions.MANAGER.name());
+    }
+
+
+
     @FXML
     void UserChanges(KeyEvent event) {
         FreezeUser.setVisible(false);
-        
+        AddUser.setVisible(false);
+        RemoveUser.setVisible(false);
+        UpdateUser.setVisible(false);
+        Clear.setVisible(false);
+        UnFreeze.setVisible(false);
     }
+
     @FXML
     void GoToAbout(ActionEvent event) throws IOException {
         About.setCaller("Account");
@@ -183,7 +297,6 @@ public class Account implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-
         App.setRoot("LogIn");
     }
 
@@ -209,17 +322,72 @@ public class Account implements Initializable {
     }
 
     @FXML
+    void Clear(MouseEvent event) {
+        UserName.setText("Welcome " + App.getUser().getFirstname());
+        FirstName.setText("");
+        LastName.setText("");
+        ID.setText("");
+        Username.setText("");
+        BirthDate.setText("");
+        Address.setText("");
+        Phone.setText("");
+        Email.setText("");
+        FreezeIcon.setImage(null);
+        FreezeLB.setVisible(false);
+        CreditCard.setVisible(false);
+        CreditCardLB.setVisible(false);
+        AccountType.setVisible(false);
+        TypeLB.setVisible(false);
+        PermisionsLB.setVisible(true);
+        PermisionsMN.setVisible(true);
+        PasswordLB.setVisible(true);
+        Passwrod.setVisible(true);
+
+    }
+
+    @FXML
+    void UnFreeze(MouseEvent event) {
+
+    }
+
+    @FXML
     void Search(MouseEvent event) throws IOException {
 
         Message ms = new Message(null, "#SearchUser " + Username.getText());
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().accountControl=this;
 
+
     }
 
     @FXML
     void UpdateUser(MouseEvent event) throws IOException {
 
+            if(AccountType.isVisible()) {
+                if(AccountType.getText().equals(AccountTypes.Basic.name())) {
+                    System.out.println("BASIC");
+                    Client client = new Client(App.getUser().getUsername(), App.getUser().getPassword(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), App.getUser().getBirthday(), Address.getText(), App.getUser().getPermission(), App.getUser().getID(), CreditCard.getText(), AccountTypes.Basic, 0.0);
+                    Message ms = new Message(client, "#UpdateUser " + Username.getText());
+                    SimpleClient.getClient().sendToServer(ms);
+                    SimpleClient.getClient().accountControl=this;
+                }else if(AccountType.getText().equals(AccountTypes.Gold.name())) {
+                    Client client = new Client(App.getUser().getUsername(), App.getUser().getPassword(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), App.getUser().getBirthday(), Address.getText(), App.getUser().getPermission(), App.getUser().getID(), CreditCard.getText(), AccountTypes.Gold, 0.0);
+                    Message ms = new Message(client, "#UpdateUser " + Username.getText());
+                    SimpleClient.getClient().sendToServer(ms);
+                    SimpleClient.getClient().accountControl=this;
+                }else {
+                    Client client = new Client(App.getUser().getUsername(), App.getUser().getPassword(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), App.getUser().getBirthday(), Address.getText(), App.getUser().getPermission(), App.getUser().getID(), CreditCard.getText(), AccountTypes.Premium, 0.0);
+                    Message ms = new Message(client, "#UpdateUser " + Username.getText());
+                    SimpleClient.getClient().sendToServer(ms);
+                    SimpleClient.getClient().accountControl=this;
+                }
+            }
+        else{
+            User user = new User(App.getUser().getUsername(), App.getUser().getPassword(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), App.getUser().getBirthday(), Address.getText(), App.getUser().getPermission(), App.getUser().getID(), CreditCard.getText(), App.getUser().isFreeze());
+            Message ms = new Message(user, "#UpdateUser " + Username.getText());
+            SimpleClient.getClient().sendToServer(ms);
+            SimpleClient.getClient().accountControl=this;
+        }
     }
 
     @FXML
@@ -233,6 +401,47 @@ public class Account implements Initializable {
 
     @FXML
     void AddUser(MouseEvent event) {
+        InvalidFN.setVisible(false);
+        InvalidLN.setVisible(false);
+        InvalidID.setVisible(false);
+        InvalidUS.setVisible(false);
+        InvalidBD.setVisible(false);
+        InvalidAd.setVisible(false);
+        InvalidPH.setVisible(false);
+        InvalidEM.setVisible(false);
+        InvalidPerm.setVisible(false);
+
+        InvalidID.setVisible(!Utilities.check_Validate_ID(ID.getText()));
+        InvalidFN.setVisible(!Utilities.check_Validate_String(FirstName.getText()) || FirstName.getText().equals(""));
+        InvalidLN.setVisible(!Utilities.check_Validate_String(LastName.getText()) || LastName.getText().equals(""));
+        InvalidAd.setVisible(!Utilities.check_Validate_String(Address.getText()) || Address.getText() == "");
+        InvalidEM.setVisible((Email.getText().equals("")));
+        InvalidPH.setVisible((!Utilities.check_Validate_Phone(Phone.getText())));
+        InvalidUS.setVisible(!Utilities.check_Validate_String(Username.getText()) || Username.getText().equals(""));
+
+        Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
+        Date Birth = new Date(BirthdateMN.getValue().getYear(), BirthdateMN.getValue().getMonthValue(), BirthdateMN.getValue().getDayOfMonth());
+        InvalidBD.setVisible(!Utilities.checkValidDate(Birth, now));
+
+        boolean flag=!Utilities.check_Validate_ID(ID.getText());
+        flag=flag||!Utilities.check_Validate_String(FirstName.getText()) || FirstName.getText().equals("");
+        flag=flag||!Utilities.check_Validate_String(LastName.getText()) || LastName.getText().equals("");
+        flag=flag||Email.getText().equals("");
+        flag=flag||!Utilities.check_Validate_String(Address.getText()) || Address.getText().equals("");
+        flag=flag||!Utilities.check_Validate_Pass(Passwrod.getText());
+        flag=flag||!Utilities.check_Validate_Phone(Phone.getText());
+        flag=flag||!Utilities.check_Validate_Pass(Username.getText());
+        flag=flag||!Utilities.checkValidDate(Birth, now);
+
+        if(flag)
+            return;
+
+        User nuser = new User(Username.getText(), Passwrod.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), perm, ID.getText(), false);
+
+        Message ms = new Message(nuser, "#UserExist " + Username.getText());
+
+
+
 
     }
 
@@ -283,28 +492,34 @@ public class Account implements Initializable {
 
 
 
-        if(App.getUser().getPermission() == permissions.CLIENT){
+        if(App.getUser()!=null&&App.getUser().getPermission() == permissions.CLIENT){
+
             CreditCard.setText(((Client)App.getUser()).getCreditCard());
             AccountType.setText(((Client)App.getUser()).getAccounttype().name());
+
             UpdateUser.setVisible(false);
             FreezeUser.setVisible(false);
             AddUser.setVisible(false);
             RemoveUser.setVisible(false);
             Search.setVisible(false);
+            Clear.setVisible(false);
+            UnFreeze.setVisible(false);
         }
-        else if(App.getUser().getPermission() == permissions.WORKER || App.getUser().getPermission() == permissions.MANAGER) {
+        else if(App.getUser()!=null&&App.getUser().getPermission() == permissions.WORKER || App.getUser().getPermission() == permissions.MANAGER) {
             UpdateUser.setVisible(false);
             FreezeUser.setVisible(false);
             AddUser.setVisible(false);
             RemoveUser.setVisible(false);
             Search.setVisible(false);
+            Clear.setVisible(false);
+            UnFreeze.setVisible(false);
             MyOrders.setVisible(false);
             CreditCard.setVisible(false);
             AccountType.setVisible(false);
             TypeLB.setVisible(false);
             CreditCardLB.setVisible(false);
         }
-        else if(App.getUser().getPermission() == permissions.ADMIN){
+        else if(App.getUser()!=null&&App.getUser().getPermission() == permissions.ADMIN){
             CreditCard.setVisible(false);
             AccountType.setVisible(false);
             TypeLB.setVisible(false);
@@ -314,4 +529,5 @@ public class Account implements Initializable {
 
 
         }
+
 }

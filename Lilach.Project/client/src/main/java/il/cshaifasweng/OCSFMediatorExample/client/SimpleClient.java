@@ -76,7 +76,19 @@ public class SimpleClient extends AbstractClient {
 		{
 			accountControl.setUser(null);
 			Platform.runLater(()->{accountControl.fillInfo(null);});
+		}else if (deliver.equals("#UserFreezed"))
+		{
+			accountControl.setUser((User) ms.getObject());
+			Platform.runLater(()->{accountControl.fillInfo((User) ms.getObject());});
+
 		}
+		else if (deliver.equals("#UserUpdated"))
+		{
+			accountControl.setUser((User) ms.getObject());
+			Platform.runLater(()->{accountControl.fillInfo((User) ms.getObject());});
+
+		}
+
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 		}
