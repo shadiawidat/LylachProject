@@ -6,6 +6,8 @@ import java.util.Date;
 @Entity
 @Table(name = "complain")
 public class Complain implements Serializable{
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -58,5 +60,12 @@ public class Complain implements Serializable{
 
     public void setDate(Date date) {
         this.date = date;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

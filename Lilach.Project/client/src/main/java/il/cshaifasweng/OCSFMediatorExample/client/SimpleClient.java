@@ -21,6 +21,8 @@ public class SimpleClient extends AbstractClient {
 	public Cart cartControl;
 	public CartItem cartitemControl;
 	public Catalog catalogControl;
+	public Shipping shippingControl;
+
 	public Complain complainControl;
 	public ItemShow itemshowControl;
 	public LogIn logControl;
