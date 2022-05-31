@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
 public class User implements Serializable{
     @Id
     private String username;
@@ -23,45 +22,13 @@ public class User implements Serializable{
     private String address;
     private permissions permission;
     private String ID;
-    public String getID() {
-        return ID;
-    }
-
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    public List<Branch> getMybranches() {
-        return mybranches;
-    }
-
-    public void setMybranches(List<Branch> mybranches) {
-        this.mybranches = mybranches;
-    }
-
-    @ManyToMany
-    private List<Branch> mybranches=new ArrayList<>();
-//    private Client client;
-//
-//    public Client getClient() {
-//        return client;
-//    }
-//
-//    public void setClient(Client client) {
-//        this.client = client;
-//    }
-
     private boolean Freeze;
+    private boolean LogedIn;
+
+    @ManyToMany(mappedBy = "users")
+    private List<Branch> mybranches=new ArrayList<>();
+
     public User() {
-    }
-
-    public boolean isFreeze() {
-        return Freeze;
-    }
-
-    public void setFreeze(boolean freeze) {
-        Freeze = freeze;
     }
 
     public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard,boolean Freeze) {
@@ -74,12 +41,10 @@ public class User implements Serializable{
         this.birthday = birthday;
         this.address = address;
         this.permission = permission;
-
+        this.ID=ID;
         this.Freeze=Freeze;
+        this.LogedIn=false;
     }
-
-
-
 
     public void AddOneBranch(Branch b){
         mybranches.add(b);
@@ -87,6 +52,7 @@ public class User implements Serializable{
     public void DeleteOneBranch(Branch b){
         mybranches.remove(b);
     }
+
     public User(User guest) {
         this.username = guest.username;
         this.password = guest.password;
@@ -98,7 +64,6 @@ public class User implements Serializable{
         this.address = guest.address;
         this.permission = guest.permission;
     }
-
 
     public String getUsername() {
         return username;
@@ -160,8 +125,8 @@ public class User implements Serializable{
         return address;
     }
 
-    public void setAddress(String addres) {
-        this.address = addres;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public permissions getPermission() {
@@ -170,5 +135,37 @@ public class User implements Serializable{
 
     public void setPermission(permissions permission) {
         this.permission = permission;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public boolean isFreeze() {
+        return Freeze;
+    }
+
+    public void setFreeze(boolean freeze) {
+        Freeze = freeze;
+    }
+
+    public List<Branch> getMybranches() {
+        return mybranches;
+    }
+
+    public void setMybranches(List<Branch> mybranches) {
+        this.mybranches = mybranches;
+    }
+
+    public boolean isLogedIn() {
+        return LogedIn;
+    }
+
+    public void setLogedIn(boolean logedIn) {
+        LogedIn = logedIn;
     }
 }

@@ -1,6 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 import javax.persistence.*;
+import javax.persistence.criteria.Order;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,24 +10,21 @@ import java.util.List;
 public class Client extends User implements Serializable {
     private AccountTypes accounttype;
     private Double amount;
-    @OneToOne
-    private Cart order;
-    @OneToMany
-    private List<Cart> myorders;
 
-    @OneToMany
-    private List<Complain> complains;
+    @ManyToMany(mappedBy = "clients")
+    private List<Branch> myBranches=new ArrayList<>();
 
+    @OneToMany(mappedBy = "client")
+    private List<Cart> myorders=new ArrayList<>();
+
+    @OneToMany(mappedBy = "client")
+    private List<Complain> complains=new ArrayList<>();
 
     private String CreditCard;
-
-
-
 
     public String getCreditCard() {
         return CreditCard;
     }
-
 
     public void setCreditCard(String creditCard) {
         CreditCard = creditCard;
@@ -36,7 +35,6 @@ public class Client extends User implements Serializable {
         this.accounttype = accounttype;
         this.amount = 0.0;
         this.CreditCard=creditCard;
-//        this.setClient(this);
     }
 
     public Client() {
@@ -65,14 +63,6 @@ public class Client extends User implements Serializable {
 
     public AccountTypes getAccounttype() {
         return accounttype;
-    }
-
-    public Cart getOrder() {
-        return order;
-    }
-
-    public void setOrder(Cart order) {
-        this.order = order;
     }
 
     public void setAccounttype(AccountTypes accounttype) {

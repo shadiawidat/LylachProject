@@ -6,23 +6,15 @@ import il.cshaifasweng.OCSFMediatorExample.entities.*;
 
 import java.security.Permission;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class App {
 
     private static void generateUsers() throws Exception {
 
-        User user= new User("Fole","Noor26","Noor","Abu elfoul","Noorabo7@outlook.com","0528218268",new Date(2000,7,26),"Shefa'amer",permissions.ADMIN ,"123456789","123546789",false);
-        server.saveObject(user);
 
-         user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.MANAGER,"123456789","123456789" ,false);
-        server.saveObject(user);
-
-         user= new User("Lili","LilianCs","Lilian","Mansour","Lilianmansour3@gmail.com","0528345268",new Date(2000,8,16),"Haifa",permissions.CLIENT,"123456789","123456789",false );
-        server.saveObject(user);
-
-         user= new User("Shaggy","Shadi123","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.CLIENT,"123456789","123456789" ,false);
-        server.saveObject(user);
     }
     private static void generateItems() throws Exception {
         Item item = new Item("Orchid" , 87, "Flower", "Purple",0);
@@ -47,6 +39,57 @@ public class App {
         server.saveObject(item);
          item = new Item("Bouquet 4", 11, "Bouquet", "MultiColor",0);
         server.saveObject(item);
+        Branch b1 = new Branch("Haifa");
+        server.saveObject(b1);
+        Branch b2 = new Branch("Nazareth");
+        server.saveObject(b2);
+        Branch b3 = new Branch("Krayot");
+        server.saveObject(b3);
+
+        User user= new User("Fole","Noor26","Noor","Abu elfoul","Noorabo7@outlook.com","0528218268",new Date(2000,7,26),"Shefa'amer",permissions.ADMIN ,"123456789","123546789",false);
+        user.getMybranches().add(b1);
+        b1.getUsers().add(user);
+        server.saveObject(user);
+
+        user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.MANAGER,"123456789","123456789" ,false);
+        user.getMybranches().add(b2);
+        b2.getUsers().add(user);
+        server.saveObject(user);
+
+        user= new User("Lili","LilianCs","Lilian","Mansour","Lilianmansour3@gmail.com","0528345268",new Date(2000,8,16),"Haifa",permissions.CLIENT,"123456789","123456789",false );
+        user.getMybranches().add(b3);
+        b3.getUsers().add(user);
+        server.saveObject(user);
+
+        user= new User("Shaggy","Shadi123","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.CLIENT,"123456789","123456789" ,false);
+        user.getMybranches().add(b1);
+        b1.getUsers().add(user);
+        server.saveObject(user);
+        Client nClient=new Client("a","a","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Basic,0.0);
+        nClient.getMybranches().add(b2);
+        b2.AddOneClient(nClient);
+        server.saveObject(nClient);
+
+
+        BranchManager Manager=new BranchManager("ProfMalki","Grossman","Malki","Grossman","malkigr@gmail.com","0549999999",new Date(1960,10,18),"Haifa",permissions.MANAGER,"321551287","4580160005429090",false,b1);
+        server.saveObject(Manager);
+        b1.setBmanager(Manager);
+        List<Branch> branches=new ArrayList<>();
+        branches.add(b1);
+        branches.add(b2);
+        branches.add(b3);
+        CoroporationManager Manager1=new CoroporationManager("MsSneh","Shir","Shir","Sneh","shirsneh.uni@gmail.com","0548888888",new Date(1998,10,18),"Haifa",permissions.CorpManager,"321654127","4580160005429090",false,branches);
+        server.saveObject(Manager1);
+        b1.setCmanager(Manager1);
+        b2.setCmanager(Manager1);
+        b3.setCmanager(Manager1);
+        b2.setBmanager(Manager);
+
+        Manager=new BranchManager("eli","albyan","Elias","Haddad","Info@albyan.net","0548888888",new Date(1960,7,16),"Haifa",permissions.MANAGER,"321654127","4580160005429090",false,b3);
+        server.saveObject(Manager);
+        b3.setBmanager(Manager);
+
+
     }
  /*
  * The call to session.flush() updates the DB immediately without ending the transaction.
@@ -55,12 +98,7 @@ public class App {
 cache errors.
  */
     private static void generateBranches() throws Exception {
-        Branch b = new Branch("Haifa");
-        server.saveObject(b);
-        b = new Branch("Nazareth");
-        server.saveObject(b);
-        b = new Branch("Krayot");
-        server.saveObject(b);
+
      }
 
 
@@ -70,8 +108,8 @@ cache errors.
 
     public static void main(String[] args) throws Exception {
 
-        server=new SimpleServer(3190);
-        generateUsers();
+        server=new SimpleServer(3550);
+//        generateUsers();
         generateItems();
         generateBranches();
         server.listen();

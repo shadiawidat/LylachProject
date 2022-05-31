@@ -2,6 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,16 +13,50 @@ public class Cart implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToMany
-    private List<Item> items;
-    @OneToOne
-    private User client;
+    @JoinTable(
+            name = "Cart_Item",
+            joinColumns = { @JoinColumn(name = "cart_id") },
+            inverseJoinColumns = { @JoinColumn(name = "item_id") }
+    )
+    private List<Item> items=new ArrayList<>();
+
+    @ManyToOne
+    @JoinTable(
+            name = "Cart_Client",
+            joinColumns = { @JoinColumn(name = "cart_id") },
+            inverseJoinColumns = { @JoinColumn(name = "Client_id") }
+    )
+    private Client client;
+
     private Date date;
     private String blessingticket;
     private Double price;
     private Boolean delivery;
     private String address;
+    private String paymentmethod;
+    private boolean Payed;
 
-    public Cart(Date date, String blessingticket, Double price, Boolean delivery, String address, String paymentmethod) {
+    public Cart() {
+
+    }
+
+    public boolean isPayed() {
+        return Payed;
+    }
+
+    public void setPayed(boolean payed) {
+        Payed = payed;
+    }
+
+    public Cart(Client client) {
+        this.client = client;
+        client.AddOneToCart(this);
+        this.date = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
+        ;
+        Payed = false;
+    }
+
+    public Cart(Date date, String blessingticket, Double price, Boolean delivery, String address, String paymentmethod, Client client) {
         super();
         this.date = date;
         this.blessingticket = blessingticket;
@@ -29,17 +64,10 @@ public class Cart implements Serializable {
         this.delivery = delivery;
         this.address = address;
         this.paymentmethod = paymentmethod;
+        this.client=client;
+        this.Payed=false;
     }
 
-    public Cart() {
-
-    }
-    public void AddOneItem(Item i){
-        items.add(i);
-    }
-    public void DeleteOneItem(Item i){
-        items.remove(i);
-    }
     public List<Item> getItems() {
         return items;
     }
@@ -48,11 +76,11 @@ public class Cart implements Serializable {
         this.items = items;
     }
 
-    public User getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public void setClient(User client) {
+    public void setClient(Client client) {
         this.client = client;
     }
 
@@ -104,5 +132,11 @@ public class Cart implements Serializable {
         this.paymentmethod = paymentmethod;
     }
 
-    private String paymentmethod;
+    public void DropInCart(Item item)
+    {
+        items.add(item);
+    }
+    public void GetOutCart(Item item){
+        items.remove(item);
+    }
 }

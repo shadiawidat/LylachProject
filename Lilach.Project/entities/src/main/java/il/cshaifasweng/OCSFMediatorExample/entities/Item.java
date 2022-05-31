@@ -3,6 +3,8 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "item")
@@ -12,37 +14,25 @@ public class Item implements Serializable {
     private int id;
     private String name;
     private double price;
-
-    public double getDiscount() {
-        return Discount;
-    }
-
-    public void setDiscount(double discount) {
-        Discount = discount;
-    }
-
     private double Discount;
     private String type;
     private String color;
     private String imagesrc;
 
+    @ManyToMany(mappedBy = "items")
+    private List<Cart> carts =new ArrayList<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Item() {
     }
 
-
-    public String getImagesrc() {
-        return imagesrc;
-    }
-
-    public void setImagesrc(String imagesrc) {
-        this.imagesrc = imagesrc;
-    }
-
-
-
-
-
-    //private Picture picture;
     public Item(String name, double price,String type,String color,double discount){
         this.name=name;
         this.price=price;
@@ -51,14 +41,6 @@ public class Item implements Serializable {
         this.imagesrc="/Media/"+type+"/"+name+".png";
         this.Discount=discount;
 
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -77,6 +59,14 @@ public class Item implements Serializable {
         this.price = price;
     }
 
+    public double getDiscount() {
+        return Discount;
+    }
+
+    public void setDiscount(double discount) {
+        Discount = discount;
+    }
+
     public String getType() {
         return type;
     }
@@ -91,6 +81,30 @@ public class Item implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getImagesrc() {
+        return imagesrc;
+    }
+
+    public void setImagesrc(String imagesrc) {
+        this.imagesrc = imagesrc;
+    }
+
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
+
+    public void EngageCart(Cart cart){
+        carts.add(cart);
+    }
+
+    public void DisEngageCart(Cart cart){
+        carts.remove(cart);
     }
 }
 

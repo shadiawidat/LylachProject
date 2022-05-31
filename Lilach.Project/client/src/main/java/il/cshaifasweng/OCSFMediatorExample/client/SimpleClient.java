@@ -29,9 +29,8 @@ public class SimpleClient extends AbstractClient {
 	public Report reportControl;
 	public ReportHistogram reportHistogramControl;
 	public ReportView reportViewControl;
-	public SignUp	signUpControl;
-
-
+	public SignUp signUpControl;
+	public ItemView itemviewControl;
 
 	private static SimpleClient client = null;
 
@@ -68,16 +67,29 @@ public class SimpleClient extends AbstractClient {
 		{
 			signUpControl.setBranchesL((List<Branch>) ms.getObject());
 			Platform.runLater(()->{signUpControl.loadBranches();});
+		}else if (deliver.equals("#UserFound"))
+		{
+			accountControl.setUser((User) ms.getObject());
+			Platform.runLater(()->{accountControl.fillInfo((User) ms.getObject());});
+
+		}else if (deliver.equals("#UserNotFound"))
+		{
+			accountControl.setUser(null);
+			Platform.runLater(()->{accountControl.fillInfo(null);});
 		}
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 		}
 
+
 	}
 
 	public static SimpleClient getClient() {
 		if (client == null) {
-			client = new SimpleClient("localhost", 3190);
+
+
+
+			client = new SimpleClient("localhost", 3550);
 		}
 		return client;
 	}
