@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.User;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -15,6 +16,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.System.exit;
 
 public class App extends Application {
 
@@ -85,6 +88,8 @@ public class App extends Application {
     @Override
     public void stop() throws Exception {
         // TODO Auto-generated method stub
+        SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        exit(0);
         EventBus.getDefault().unregister(this);
         super.stop();
 
