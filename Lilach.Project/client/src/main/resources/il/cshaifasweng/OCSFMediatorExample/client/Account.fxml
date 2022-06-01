@@ -175,7 +175,7 @@
       </HBox>
       <MenuButton fx:id="PermisionsMN" alignment="CENTER" layoutX="574.0" layoutY="444.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields" visible="false">
          <items>
-            <MenuItem mnemonicParsing="false" onAction="#ClientItem" text="CLIENT" />
+            <MenuItem mnemonicParsing="false" onAction="#CorpManagerItem" text="CorpManager" />
             <MenuItem mnemonicParsing="false" onAction="#WorkerItem" text="WORKER" />
             <MenuItem mnemonicParsing="false" onAction="#ManagerItem" text="MANAGER" />
          </items>
@@ -308,7 +308,7 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <DatePicker fx:id="BirthdateMN" layoutX="91.0" layoutY="555.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" visible="false" />
+      <DatePicker fx:id="BirthdateMN" layoutX="77.0" layoutY="555.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" visible="false" />
       <Label fx:id="PasswordLB" layoutX="574.0" layoutY="514.0" text="Password" visible="false">
          <font>
             <Font name="Cambria" size="24.0" />
@@ -331,23 +331,11 @@
                   <Image url="@../../../../Icons/Freeze.png" />
                </image>
             </ImageView>
-            <Label fx:id="FreezeLB" text="Freezed" textFill="#3700ff">
+            <Label fx:id="FreezeLB" text="Freezed" textFill="#25069e">
                <font>
                   <Font name="Cambria" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="Search" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#Search" prefHeight="50.0" prefWidth="200.0" text="Search">
-               <font>
-                  <Font name="Cambria Bold Italic" size="24.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="btns" />
-                  <String fx:value="left_menu_btns" />
-               </styleClass>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
             <Button fx:id="Clear" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#Clear" prefHeight="50.0" prefWidth="200.0" text="Clear">
                <font>
                   <Font name="Cambria Bold Italic" size="24.0" />
@@ -360,7 +348,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="FreezeUser" maxWidth="180.0" mnemonicParsing="false" onMouseClicked="#FreezeUser" prefHeight="50.0" prefWidth="200.0" text="Freeze User">
+            <Button fx:id="Search" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#Search" prefHeight="50.0" prefWidth="200.0" text="Search">
                <font>
                   <Font name="Cambria Bold Italic" size="24.0" />
                </font>
@@ -384,6 +372,18 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
+            <Button fx:id="RemoveUser" maxWidth="180.0" mnemonicParsing="false" onMouseClicked="#RemoveUser" prefHeight="50.0" prefWidth="200.0" text="Remove User">
+               <font>
+                  <Font name="Cambria Bold Italic" size="24.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="btns" />
+                  <String fx:value="left_menu_btns" />
+               </styleClass>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
             <Button fx:id="UpdateUser" maxWidth="180.0" mnemonicParsing="false" onMouseClicked="#UpdateUser" prefHeight="50.0" prefWidth="200.0" text="Update User">
                <font>
                   <Font name="Cambria Bold Italic" size="24.0" />
@@ -396,7 +396,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="RemoveUser" maxWidth="180.0" mnemonicParsing="false" onMouseClicked="#RemoveUser" prefHeight="50.0" prefWidth="200.0" text="Remove User">
+            <Button fx:id="FreezeUser" maxWidth="180.0" mnemonicParsing="false" onMouseClicked="#FreezeUser" prefHeight="50.0" prefWidth="200.0" text="Freeze User">
                <font>
                   <Font name="Cambria Bold Italic" size="24.0" />
                </font>
@@ -404,9 +404,6 @@
                   <String fx:value="btns" />
                   <String fx:value="left_menu_btns" />
                </styleClass>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
             </Button>
             <Button fx:id="UnFreeze" maxWidth="197.0" mnemonicParsing="false" onMouseClicked="#UnFreezeUser" prefHeight="46.0" prefWidth="188.0" text="UnFreeze User">
                <font>
@@ -430,5 +427,10 @@
             </Button>
          </children>
       </VBox>
+      <Label fx:id="InvalidPass" layoutX="728.0" layoutY="520.0" text="*Invalid" textFill="RED" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -37,6 +37,8 @@ public class Account implements Initializable {
 
     @FXML
     private Label InvalidEM;
+    @FXML
+    private Label InvalidPass;
 
     @FXML
     private Label InvalidFN;
@@ -71,8 +73,7 @@ public class Account implements Initializable {
 
     @FXML
     private TextField Address;
-    @FXML
-    private TextField Passwrod;
+
     @FXML
     private TextField BirthDate;
     @FXML
@@ -105,6 +106,8 @@ public class Account implements Initializable {
     private Label TypeLB;
     @FXML
     private TextField Username;
+    @FXML
+    private TextField Password;
     @FXML
     private MenuItem MenuAbout;
     @FXML
@@ -159,6 +162,9 @@ public class Account implements Initializable {
     public void fillInfo(User user){
       UserName.setText("Welcome " + App.getUser().getFirstname());
       if(user==null){
+          Alert a = new Alert(Alert.AlertType.WARNING);
+          a.setContentText("User Does'nt Exist");
+          a.showAndWait();
           CreditCardLB.setVisible(false);
           TypeLB.setVisible(false);
           CreditCard.setVisible(false);
@@ -245,9 +251,9 @@ public class Account implements Initializable {
     }
 
     @FXML
-    void ClientItem(ActionEvent event) {
-        perm=permissions.CLIENT;
-        PermisionsMN.setText(permissions.CLIENT.name());
+    void CorpManagerItem(ActionEvent event) {
+        perm=permissions.CorpManager;
+        PermisionsMN.setText(permissions.CorpManager.name());
     }
 
     @FXML
@@ -258,6 +264,7 @@ public class Account implements Initializable {
 
     @FXML
     void ManagerItem(ActionEvent event) {
+        perm=permissions.MANAGER;
         PermisionsMN.setText(permissions.MANAGER.name());
     }
 
@@ -266,7 +273,7 @@ public class Account implements Initializable {
     @FXML
     void UserChanges(KeyEvent event) {
         FreezeUser.setVisible(false);
-        AddUser.setVisible(false);
+        //AddUser.setVisible(false);
         RemoveUser.setVisible(false);
         UpdateUser.setVisible(false);
         Clear.setVisible(false);
@@ -341,11 +348,12 @@ public class Account implements Initializable {
         CreditCardLB.setVisible(false);
         AccountType.setVisible(false);
         TypeLB.setVisible(false);
+        BirthDate.setVisible(false);
         PermisionsLB.setVisible(true);
         PermisionsMN.setVisible(true);
         PasswordLB.setVisible(true);
-        Passwrod.setVisible(true);
-
+        Password.setVisible(true);
+        BirthdateMN.setVisible(true);
     }
 
     @FXML
@@ -403,7 +411,7 @@ public class Account implements Initializable {
     }
 
     @FXML
-    void AddUser(MouseEvent event) {
+    void AddUser(MouseEvent event) throws IOException {
         InvalidFN.setVisible(false);
         InvalidLN.setVisible(false);
         InvalidID.setVisible(false);
@@ -413,6 +421,8 @@ public class Account implements Initializable {
         InvalidPH.setVisible(false);
         InvalidEM.setVisible(false);
         InvalidPerm.setVisible(false);
+        InvalidPass.setVisible(false);
+
 
         InvalidID.setVisible(!Utilities.check_Validate_ID(ID.getText()));
         InvalidFN.setVisible(!Utilities.check_Validate_String(FirstName.getText()) || FirstName.getText().equals(""));
@@ -420,6 +430,7 @@ public class Account implements Initializable {
         InvalidAd.setVisible(!Utilities.check_Validate_String(Address.getText()) || Address.getText() == "");
         InvalidEM.setVisible((Email.getText().equals("")));
         InvalidPH.setVisible((!Utilities.check_Validate_Phone(Phone.getText())));
+        InvalidPass.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
         InvalidUS.setVisible(!Utilities.check_Validate_String(Username.getText()) || Username.getText().equals(""));
 
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
@@ -431,21 +442,44 @@ public class Account implements Initializable {
         flag=flag||!Utilities.check_Validate_String(LastName.getText()) || LastName.getText().equals("");
         flag=flag||Email.getText().equals("");
         flag=flag||!Utilities.check_Validate_String(Address.getText()) || Address.getText().equals("");
-        flag=flag||!Utilities.check_Validate_Pass(Passwrod.getText());
+        InvalidPass.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
         flag=flag||!Utilities.check_Validate_Phone(Phone.getText());
         flag=flag||!Utilities.check_Validate_Pass(Username.getText());
         flag=flag||!Utilities.checkValidDate(Birth, now);
 
         if(flag)
             return;
+        System.out.println("here");
+//        User nuser = new User(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), perm, ID.getText(), false);
+//        BranchManager branchManager=new BranchManager(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), perm, ID.getText(), false,new Branch());
+        CoroporationManager coroporationManager=new CoroporationManager(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), perm, ID.getText(), false,null);
+//
+        Message ms = new Message(coroporationManager, "#AddUser " + Username.getText());
+        SimpleClient.getClient().sendToServer(ms);
+//        SimpleClient.getClient().accountControl=this;
 
-        User nuser = new User(Username.getText(), Passwrod.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), perm, ID.getText(), false);
+    }
+    public void UserAlreadyExist() {
 
-        Message ms = new Message(nuser, "#UserExist " + Username.getText());
+        Alert a = new Alert(Alert.AlertType.NONE);
 
+        // set alert type
+        a.setAlertType(Alert.AlertType.ERROR);
 
+        a.setContentText("User Already Exist!");
 
+        a.showAndWait();
+    }
+    public void UserAdded() {
 
+        Alert a = new Alert(Alert.AlertType.NONE);
+
+        // set alert type
+        a.setAlertType(Alert.AlertType.ERROR);
+
+        a.setContentText("User Was added successfully!");
+
+        a.showAndWait();
     }
 
     @FXML
