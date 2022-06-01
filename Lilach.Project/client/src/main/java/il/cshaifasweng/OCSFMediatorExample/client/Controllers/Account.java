@@ -315,7 +315,10 @@ public class Account implements Initializable {
     void CloseMenu(MouseEvent event) {
        // menu.setVisible(false);
     }
+    @FXML
+    void UnFreezeUser(MouseEvent event) {
 
+    }
     @FXML
     void GoToAccount(MouseEvent event) {
 
