@@ -39,6 +39,14 @@ public class App {
         server.saveObject(item);
          item = new Item("Bouquet 4", 11, "Bouquet", "MultiColor",0);
         server.saveObject(item);
+
+
+        //Admin
+
+        User user= new User("Fole","Noor26","Noor","Abu elfoul","Noorabo7@outlook.com","0528218268",new Date(2000,7,26),"Shefa'amer",permissions.ADMIN ,"123456789","123546789",false);
+        server.saveObject(user);
+
+        //Branches
         Branch b1 = new Branch("Haifa");
         server.saveObject(b1);
         Branch b2 = new Branch("Nazareth");
@@ -46,34 +54,20 @@ public class App {
         Branch b3 = new Branch("Krayot");
         server.saveObject(b3);
 
-        User user= new User("Fole","Noor26","Noor","Abu elfoul","Noorabo7@outlook.com","0528218268",new Date(2000,7,26),"Shefa'amer",permissions.ADMIN ,"123456789","123546789",false);
-        user.getMybranches().add(b1);
-        b1.getUsers().add(user);
-        server.saveObject(user);
-
-        user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.MANAGER,"123456789","123456789" ,false);
-        user.getMybranches().add(b2);
-        b2.getUsers().add(user);
-        server.saveObject(user);
-
-        user= new User("Lili","LilianCs","Lilian","Mansour","Lilianmansour3@gmail.com","0528345268",new Date(2000,8,16),"Haifa",permissions.CLIENT,"123456789","123456789",false );
-        user.getMybranches().add(b3);
-        b3.getUsers().add(user);
-        server.saveObject(user);
-
-        user= new User("Shaggy","Shadi123","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.CLIENT,"123456789","123456789" ,false);
-        user.getMybranches().add(b1);
-        b1.getUsers().add(user);
-        server.saveObject(user);
-        Client nClient=new Client("a","a","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Basic,0.0);
-        nClient.getMybranches().add(b2);
-        b2.AddOneClient(nClient);
-        server.saveObject(nClient);
-
-
-        BranchManager Manager=new BranchManager("ProfMalki","Grossman","Malki","Grossman","malkigr@gmail.com","0549999999",new Date(1960,10,18),"Haifa",permissions.MANAGER,"321551287","4580160005429090",false,b1);
+        //Branch Managers
+        BranchManager Manager=new BranchManager("Moshe","Grossman","Moshe","Grossman","malkigr@gmail.com","0549999999",new Date(1960,10,18),"Haifa",permissions.MANAGER,"321551287","4580160005429090",false,b1);
         server.saveObject(Manager);
         b1.setBmanager(Manager);
+
+        Manager=new BranchManager("ProfMalki","Grossman","Malki","Grossman","malkigr@gmail.com","0549999999",new Date(1960,10,18),"Haifa",permissions.MANAGER,"321551287","4580160005429090",false,b2);
+        server.saveObject(Manager);
+        b2.setBmanager(Manager);
+
+        Manager=new BranchManager("eli","albyan","Elias","Haddad","Info@albyan.net","0548888888",new Date(1960,7,16),"Haifa",permissions.MANAGER,"321654127","4580160005429090",false,b3);
+        server.saveObject(Manager);
+        b3.setBmanager(Manager);
+
+        //Corporation
         List<Branch> branches=new ArrayList<>();
         branches.add(b1);
         branches.add(b2);
@@ -83,11 +77,44 @@ public class App {
         b1.setCmanager(Manager1);
         b2.setCmanager(Manager1);
         b3.setCmanager(Manager1);
-        b2.setBmanager(Manager);
 
-        Manager=new BranchManager("eli","albyan","Elias","Haddad","Info@albyan.net","0548888888",new Date(1960,7,16),"Haifa",permissions.MANAGER,"321654127","4580160005429090",false,b3);
-        server.saveObject(Manager);
-        b3.setBmanager(Manager);
+        //Worker
+        user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.WORKER,"123456789","123456789" ,false);
+        user.getMybranches().add(b2);
+        b2.getUsers().add(user);
+        server.saveObject(user);
+
+        user= new User("Lili","LilianCs","Lilian","Mansour","Lilianmansour3@gmail.com","0528345268",new Date(2000,8,16),"Haifa",permissions.WORKER,"123456789","123456789",false );
+        user.getMybranches().add(b3);
+        b3.getUsers().add(user);
+        server.saveObject(user);
+
+        user= new User("Shaggy","Shadi123","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.WORKER,"123456789","123456789" ,false);
+        user.getMybranches().add(b1);
+        b1.getUsers().add(user);
+        server.saveObject(user);
+
+        Client nClient=new Client("lana31","Lana3182!","Lana","Shehab","lana.shehab0111@gmail.com","0522481844",new Date(2000,2,8),"Haifa",permissions.CLIENT,"206539199","4580404032194023" ,AccountTypes.Premium,0.0);
+        nClient.setMybranches(branches);
+        b1.AddOneClient(nClient);
+        b2.AddOneClient(nClient);
+        b3.AddOneClient(nClient);
+        server.saveObject(nClient);
+
+        nClient=new Client("Ramkh","ramkh","Ram","Khoury","Ramkh2000@gmail.com","0528020276",new Date(2001,10,18),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Gold,0.0);
+        nClient.setMybranches(branches);
+        b1.AddOneClient(nClient);
+        b2.AddOneClient(nClient);
+        b3.AddOneClient(nClient);
+        server.saveObject(nClient);
+
+        nClient=new Client("MuradKh","muradkh","Murad","Khoury","Muradkh@gmail.com","0528020276",new Date(2001,10,18),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Basic,0.0);
+        nClient.getMybranches().add(b2);
+        b2.AddOneClient(nClient);
+        server.saveObject(nClient);
+
+
+
 
 
     }

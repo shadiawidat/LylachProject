@@ -63,7 +63,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         EventBus.getDefault().register(this);
         client = SimpleClient.getClient();
-
+        client.setName("John");
         client.openConnection();
         Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
         stage.setTitle("LyLach");
@@ -88,6 +88,7 @@ public class App extends Application {
     @Override
     public void stop() throws Exception {
         // TODO Auto-generated method stub
+        if(App.getUser()!=null)
         SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
         exit(0);
         EventBus.getDefault().unregister(this);

@@ -31,6 +31,15 @@ public class SimpleClient extends AbstractClient {
 	public ReportView reportViewControl;
 	public SignUp signUpControl;
 	public ItemView itemviewControl;
+	public String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	private static SimpleClient client = null;
 
