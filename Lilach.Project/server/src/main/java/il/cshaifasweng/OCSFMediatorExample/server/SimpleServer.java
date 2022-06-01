@@ -86,13 +86,13 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void clientConnected(ConnectionToClient client) {
 		super.clientConnected(client);
-		System.out.println("Client connected: " + client.getName());
+		System.out.println("Client connected: " + client.getInetAddress());
 	}
 	@Override
 	protected synchronized void clientDisconnected(ConnectionToClient client) {
 		// TODO Auto-generated method stub
 
-		System.out.println("Client disconnected: " + client.getName());
+		System.out.println("Client disconnected.");
 		super.clientDisconnected(client);
 	}
 	protected void saveObjectList(List<Object> list)
@@ -137,6 +137,7 @@ public class SimpleServer extends AbstractServer {
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws IOException {
 		Message ms=(Message) msg;
 		String request=ms.getString();
+		System.out.println(request);
 		if(request.startsWith("#SignOut"))
 		{
 			String[] msgarray=request.split(" ");
@@ -174,6 +175,20 @@ public class SimpleServer extends AbstractServer {
 				client.sendToClient(new Message(ms.getObject(), "#UserCreated"));
 			}
 
+		}
+		if(request.startsWith("#AddUser"))
+		{
+			System.out.println("here2");
+			String[] msgarray=request.split(" ");
+			User user=session.find(User.class,msgarray[1]);
+			if(user!=null) {
+				client.sendToClient(new Message(user, "#AddUserExists"));
+			}
+			else {
+				System.out.println("here1");
+				saveObject((User) ms.getObject());
+				client.sendToClient(new Message(ms.getObject(), "#AddUserCreated"));
+			}
 		}
 		if(request.startsWith("#SearchUser"))
 		{
