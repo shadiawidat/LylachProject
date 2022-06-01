@@ -83,7 +83,18 @@ public class SimpleServer extends AbstractServer {
 		session.getTransaction().commit();
 
 	}
+	@Override
+	protected void clientConnected(ConnectionToClient client) {
+		super.clientConnected(client);
+		System.out.println("Client connected: " + client.getName());
+	}
+	@Override
+	protected synchronized void clientDisconnected(ConnectionToClient client) {
+		// TODO Auto-generated method stub
 
+		System.out.println("Client disconnected: " + client.getName());
+		super.clientDisconnected(client);
+	}
 	protected void saveObjectList(List<Object> list)
 	{
 		session.beginTransaction();
