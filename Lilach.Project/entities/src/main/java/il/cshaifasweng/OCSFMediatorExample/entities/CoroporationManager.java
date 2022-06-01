@@ -19,8 +19,8 @@ public class CoroporationManager extends User implements Serializable{
 
     }
 
-    public CoroporationManager(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard, boolean Freeze, List<Branch> mybranches) {
-        super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, creditCard, Freeze);
+    public CoroporationManager(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, boolean Freeze, List<Branch> mybranches) {
+        super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, Freeze);
         this.mybranches = mybranches;
     }
 

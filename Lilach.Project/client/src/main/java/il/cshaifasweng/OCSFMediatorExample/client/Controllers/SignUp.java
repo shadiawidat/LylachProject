@@ -268,7 +268,7 @@ public class SignUp implements Initializable {
         flag=flag||!Utilities.check_Validate_String(LastName.getText()) || LastName.getText().equals("");
         flag=flag||Email.getText().equals("");
         flag=flag||!Utilities.check_Validate_String(Address.getText()) || Address.getText().equals("");
-        flag=flag||!Utilities.check_Validate_Pass(Password.getText());
+        InvalidPassword.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
         flag=flag||!Utilities.check_Validate_Phone(Phone.getText());
         flag=flag||!Utilities.check_Validate_Pass(Username.getText());
         flag=flag||AccountType.getText().equals("");
