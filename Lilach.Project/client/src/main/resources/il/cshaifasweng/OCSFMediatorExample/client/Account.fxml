@@ -289,7 +289,7 @@
       </TextField>
       <HBox alignment="BOTTOM_LEFT" layoutX="77.0" layoutY="514.0" prefHeight="30.0" prefWidth="200.0">
          <children>
-            <Label text="BirthDate">
+            <Label fx:id="BirthDateLB" text="BirthDate">
                <font>
                   <Font name="Cambria" size="24.0" />
                </font>
@@ -310,11 +310,6 @@
          </font>
       </TextField>
       <DatePicker fx:id="BirthdateMN" layoutX="77.0" layoutY="555.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" visible="false" />
-      <Label fx:id="PasswordLB" layoutX="71.0" layoutY="608.0" text="Password">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
       <Label fx:id="TypeLB" layoutX="574.0" layoutY="515.0" text="Account type">
          <font>
             <Font name="Cambria" size="24.0" />
@@ -423,11 +418,6 @@
             </Button>
          </children>
       </VBox>
-      <Label fx:id="InvalidPass" layoutX="728.0" layoutY="520.0" text="*Invalid" textFill="RED" visible="false">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
       <PasswordField fx:id="Password" layoutX="70.0" layoutY="643.0" minHeight="51.0" prefHeight="50.0" styleClass="textFields" />
       <Label fx:id="BranchLB" layoutX="579.0" layoutY="510.0" text="Branch" visible="false">
          <font>
@@ -444,5 +434,24 @@
             <Font name="Cambria" size="18.0" />
          </font>
       </MenuButton>
+      <Label fx:id="InvalidCrdeitCard" layoutX="695.0" layoutY="422.0" text="*Invalid" textFill="RED" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <HBox layoutX="70.0" layoutY="606.0" prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="PasswordLB" text="Password">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="InvalidPassword" prefHeight="40.0" prefWidth="46.0" text="*Invalid" textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

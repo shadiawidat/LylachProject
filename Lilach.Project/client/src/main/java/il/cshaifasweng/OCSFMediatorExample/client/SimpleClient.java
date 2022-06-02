@@ -82,12 +82,12 @@ public class SimpleClient extends AbstractClient {
 //			Platform.runLater(()->{accountControl.UserAdded();});
 //
 //		}
-		else if (deliver.equals("#BranchesReadyS"))
+		else if (deliver.equals("#BranchesReadyA"))
 		{
 			accountControl.setBranchesL((List<Branch>) ms.getObject());
 			Platform.runLater(()->{accountControl.loadBranches();});
 
-		}else if (deliver.equals("#BranchesReadyA"))
+		}else if (deliver.equals("#BranchesReadyS"))
 		{
 			signUpControl.setBranchesL((List<Branch>) ms.getObject());
 			Platform.runLater(()->{signUpControl.loadBranches();});
@@ -145,7 +145,7 @@ public class SimpleClient extends AbstractClient {
 	public static SimpleClient getClient() {
 		if (client == null) {
 
-			client = new SimpleClient("172.20.10.11", 3040);
+			client = new SimpleClient("localhost", 3040);
 		}
 		return client;
 	}
