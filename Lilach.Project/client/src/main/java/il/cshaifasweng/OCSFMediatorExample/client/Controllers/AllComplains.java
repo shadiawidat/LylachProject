@@ -1,6 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -98,6 +100,8 @@ public class AllComplains implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
+        if(App.getUser()!=null)
+            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }

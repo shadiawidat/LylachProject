@@ -4,6 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -131,6 +132,32 @@ public class Report implements Initializable {
     @FXML
     private MenuBar menu;
 
+    public List<il.cshaifasweng.OCSFMediatorExample.entities.Branch> getBranchesL() {
+        return BranchesL;
+    }
+
+    public void setBranchesL(List<il.cshaifasweng.OCSFMediatorExample.entities.Branch> branchesL) {
+        BranchesL = branchesL;
+    }
+
+    private List<Branch> BranchesL=new ArrayList<>();
+    public void loadBranches(){
+        FirstReportBranch.getItems().clear();
+        SecondReportBranch.getItems().clear();
+        for(Branch branch:BranchesL)
+        {
+            MenuItem mt=new MenuItem(branch.getName());
+
+            mt.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    FirstReportBranch.setText(branch.getName());
+                    SecondReportBranch.setText(branch.getName());
+                }
+            });
+            FirstReportBranch.getItems().add(mt);
+            SecondReportBranch.getItems().add(mt);
+        }
+    }
     @FXML
     void Back(MouseEvent event) throws IOException {
         App.setRoot(getCaller());
@@ -177,6 +204,8 @@ public class Report implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
+        if(App.getUser()!=null)
+            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
@@ -321,7 +350,7 @@ public class Report implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        try {
-//            SimpleClient.getClient().sendToServer(new Message(null,"#getBranches")); //checkkkkkkkkkkkkk
+//            SimpleClient.getClient().sendToServer(new Message(null,"#getBranchesForReport"));
 //            SimpleClient.getClient().reportControl=this;
 //        } catch (IOException e) {
 //            e.printStackTrace();
@@ -333,30 +362,3 @@ public class Report implements Initializable {
 
     }
 }
-
-//    @FXML
-//    void TwoReports(MouseEvent event) {
-//        if (CompareTo.isSelected()) {
-//            SecondReportType.setVisible(true);
-//            SecondReportBranch.setVisible(true);
-//            SecondReportFrom.setVisible(true);
-//            SecondReportTo.setVisible(true);
-//            SecondReportFromWhite.setVisible(true);
-//            SecondReportToWhite.setVisible(true);
-//            SecondReportBranchLable.setVisible(true);
-//            SecondReportFromDateLable.setVisible(true);
-//            SecondReportToDateLable.setVisible(true);
-//            SecondReportTypeLable.setVisible(true);
-//        } else {
-//            SecondReportType.setVisible(false);
-//            SecondReportBranch.setVisible(false);
-//            SecondReportFrom.setVisible(false);
-//            SecondReportTo.setVisible(false);
-//            SecondReportFromWhite.setVisible(false);
-//            SecondReportToWhite.setVisible(false);
-//            SecondReportBranchLable.setVisible(false);
-//            SecondReportFromDateLable.setVisible(false);
-//            SecondReportToDateLable.setVisible(false);
-//            SecondReportTypeLable.setVisible(false);
-//        }
-//    }

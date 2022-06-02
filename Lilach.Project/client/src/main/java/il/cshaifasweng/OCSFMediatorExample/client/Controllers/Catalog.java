@@ -49,7 +49,7 @@ public class Catalog implements Initializable {
     private Button SearchBtn;
 
     @FXML
-    private TextField SearchField;
+    public TextField SearchField;
 
     @FXML
     private Label UserName;
@@ -99,6 +99,7 @@ public class Catalog implements Initializable {
     @FXML
     private MenuItem Complains;
 
+    public static String searchin;
 
 
     public static String getCaller() {
@@ -151,7 +152,8 @@ public class Catalog implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if(App.getUser()!=null)
+             SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
@@ -246,7 +248,18 @@ public class Catalog implements Initializable {
         LoadList(CatalogShow);
         SearchField.setText("");
     }
-
+    public void ItemShowSearch(MouseEvent event) {
+        CatalogShow.clear();
+        for(Item item:Catalog)
+        {
+            if(item.getName().toLowerCase().startsWith(SearchField.getText().toLowerCase()))
+            {
+                CatalogShow.add(item);
+            }
+        }
+        LoadList(CatalogShow);
+        SearchField.setText("");
+    }
     @FXML
     void Black(ActionEvent event) {
         CatalogShow.clear();
@@ -289,7 +302,11 @@ public class Catalog implements Initializable {
     @FXML
     void CreateNew(MouseEvent event) {
         ItemShow.setCaller("CatalogNew");
+        System.out.println("here");
+        Item item=new Item("",0.0,"","",0.0);
+        App.setOnscreen(item);
         try {
+            System.out.println("here1");
             App.setRoot("ItemShow");
         } catch (IOException e) {
             e.printStackTrace();
@@ -527,7 +544,7 @@ public class Catalog implements Initializable {
     public void LoadList(List<Item> items)
     {
         if(App.getUser()!=null)
-        if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN)
+        if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN||App.getUser().getPermission()== permissions.CorpManager)
             CartB.setImage(null);
         Matched.setVisible(false);
         scroll.setVisible(true);
@@ -573,12 +590,30 @@ public class Catalog implements Initializable {
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-            if (App.getUser() == null)
-                UserName.setText("Welcome guest");
-            else
-                UserName.setText("Welcome " + App.getUser().getFirstname());
-
+        if(searchin!=null&&searchin.equals("")==false)
+        {
+            SearchField.setText(searchin);
+            ClickSearch(null);
+            return;
+        }
+        if (App.getUser() == null)
+            UserName.setText("Welcome guest");
+        else
+            UserName.setText("Welcome " + App.getUser().getFirstname());
+        if(App.getUser()!=null){
+            if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN||App.getUser().getPermission()== permissions.CorpManager)
+                CartB.setVisible(false);
+            if(App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()==permissions.CorpManager) {
+                Reports.setVisible(true);
+                Complains.setVisible(true);
+            }else{
+                Reports.setVisible(false);
+                Complains.setVisible(false);
+            }
+        }else{
+            Reports.setVisible(false);
+            Complains.setVisible(false);
+        }
         if(App.getUser()!=null)
         if(App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()==permissions.WORKER)
             addItemBtn.setVisible(true);

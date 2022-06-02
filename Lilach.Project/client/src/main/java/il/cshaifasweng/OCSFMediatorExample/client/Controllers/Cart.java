@@ -110,9 +110,10 @@ public class Cart implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
+        if(App.getUser()!=null)
+            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
-        SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
     }
 
     @FXML

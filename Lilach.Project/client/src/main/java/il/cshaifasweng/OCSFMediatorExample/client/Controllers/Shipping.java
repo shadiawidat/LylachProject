@@ -210,6 +210,8 @@ public class Shipping implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
+        if(App.getUser()!=null)
+            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
