@@ -1,8 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import javafx.application.Platform;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
+import javafx.application.Platform;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -252,6 +254,34 @@ public class SimpleServer extends AbstractServer {
 		}
 		if(request.startsWith("#RemoveFromCart"))
 		{
+
+			String[] msgarray=request.split(" ");
+			Client nclient=session.find(Client.class,msgarray[1]);
+			System.out.println(nclient.getFirstname());
+			for(Cart cart:nclient.getMyorders())
+			{
+				if(cart.isPayed()==false) {
+
+					int size=cart.getItems().size();
+
+					for(int i=0;i<cart.getItems().size();i++)
+					{
+						if(cart.getItems().get(i).getId()==((Item)ms.getObject()).getId())
+						{
+							cart.getItems().remove(i);
+							i--;
+
+						}
+					}
+					client.sendToClient(new Message(cart.getItems(), "#CartReady"));
+
+					return;
+				}
+			}
+
+		}
+		if(request.startsWith("#RemoveFromCartOne"))
+		{
 			String[] msgarray=request.split(" ");
 			Client nclient=session.find(Client.class,msgarray[1]);
 			System.out.println(nclient.getFirstname());
@@ -263,9 +293,11 @@ public class SimpleServer extends AbstractServer {
 						if(cart.getItems().get(i).getId()==((Item)ms.getObject()).getId())
 						{
 							cart.getItems().remove(i);
+							break;
 						}
 					}
-					client.sendToClient(new Message(cart.getItems(), "#CartReady"));
+
+					client.sendToClient(new Message(cart.getItems(), "#RemovedOne"));
 					return;
 				}
 			}
@@ -273,12 +305,10 @@ public class SimpleServer extends AbstractServer {
 		}
 		if(request.startsWith("#UpdateUser"))
 		{
-
+			session.beginTransaction();
 			String[] msgarray=request.split(" ");
 			User user=session.find(User.class,msgarray[1]);
-
 			User userrr = (User) ms.getObject();
-
 			if(user!=null) {
 				user.setFirstname(userrr.getFirstname());
 				user.setLastname(userrr.getLastname());
@@ -290,7 +320,8 @@ public class SimpleServer extends AbstractServer {
 					((Client) user).setCreditCard(((Client)userrr).getCreditCard());
 					((Client) user).setAccounttype(((Client)userrr).getAccounttype());
 				}
-
+				session.flush();
+				session.getTransaction().commit();
 				client.sendToClient(new Message(user, "#UserUpdated"));
 			}
 //			else {
@@ -306,8 +337,6 @@ public class SimpleServer extends AbstractServer {
 			boolean added=false;
 			if(myorders.size()==0)
 			{
-
-
 				Cart cartt=new Cart(session.find(Client.class,msgarray[1]));
 				cartt.getItems().add((Item)ms.getObject());
 				App.server.saveObject(cartt);
