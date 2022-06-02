@@ -366,7 +366,7 @@ public class SignUp implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            SimpleClient.getClient().sendToServer(new Message(null,"#getBranches"));
+            SimpleClient.getClient().sendToServer(new Message(null,"#getBranchesS"));
             SimpleClient.getClient().signUpControl=this;
         } catch (IOException e) {
             e.printStackTrace();
