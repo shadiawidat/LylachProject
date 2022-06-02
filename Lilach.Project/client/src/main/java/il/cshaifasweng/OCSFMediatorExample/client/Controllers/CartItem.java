@@ -46,17 +46,9 @@ public class CartItem implements Initializable {
     private Label Subtotal;
 
 
-
     @FXML
     void RemoveItem(MouseEvent event) throws IOException {
         SimpleClient.getClient().sendToServer(new Message(ITEM,"#RemoveFromCart "+App.getUser().getUsername()));
-//        Platform.runLater(()->{
-//            try {
-//                App.setRoot("Cart");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        });
     }
 
     @FXML
@@ -92,10 +84,10 @@ public class CartItem implements Initializable {
             @Override
             public void decrement(int i) {
                 if(this.getValue()>1) {
+
                     this.setValue(this.getValue() - 1);
                     final DecimalFormat df = new DecimalFormat("0.00");
                     Subtotal.setText(Double.toString(ITEM.getPrice() * this.getValue())+"$");
-
                     SimpleClient.getClient().cartControl.subTotalG-=ITEM.getPrice();
                     double temp=SimpleClient.getClient().cartControl.subTotalG;
                     SimpleClient.getClient().cartControl.Total.setText(df.format(temp)+"$");
@@ -103,7 +95,12 @@ public class CartItem implements Initializable {
                     temp=SimpleClient.getClient().cartControl.subTotalD;
                     SimpleClient.getClient().cartControl.Saved.setText(df.format(temp)+"$");
                     SimpleClient.getClient().cartControl.Tax.setText(df.format(((SimpleClient.getClient().cartControl.subTotalG-temp)/1.17)*0.17)+"$");
+                    try {
+                        SimpleClient.getClient().sendToServer(new Message(ITEM,"#RemoveFromCartOne "+App.getUser().getUsername()));
 
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -120,8 +117,13 @@ public class CartItem implements Initializable {
                     SimpleClient.getClient().cartControl.subTotalD+=ITEM.getPrice()*(ITEM.getDiscount())/100;
                     temp=SimpleClient.getClient().cartControl.subTotalD;
                     SimpleClient.getClient().cartControl.Saved.setText(df.format(temp)+"$");
-
                     SimpleClient.getClient().cartControl.Tax.setText(df.format(((SimpleClient.getClient().cartControl.subTotalG-temp)/1.17)*0.17)+"$");
+                    try {
+                        SimpleClient.getClient().sendToServer(new Message(ITEM,"#AddToCart "+App.getUser().getUsername()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         };

@@ -135,7 +135,7 @@ cache errors.
 
     public static void main(String[] args) throws Exception {
 
-        server=new SimpleServer(3040);
+        server=new SimpleServer(3060);
 //        generateUsers();
         generateItems();
 //        generateBranches();

@@ -112,8 +112,6 @@ public class SimpleClient extends AbstractClient {
 		{
 			accountControl.emptyFields();
 			accountControl.ShowNote("User Removed Successfully!");
-
-
 		}
 		else if(deliver.equals("#CartReady"))
 		{
@@ -126,13 +124,15 @@ public class SimpleClient extends AbstractClient {
 		else if (deliver.equals("#RemoveUserNotFound"))
 		{
 			accountControl.ShowNote("The user you select to remove doesn't exist!");
+		}
+		else if (deliver.equals("#RemovedOne"))
+		{
 
 		}
 		else if (deliver.equals("#UserUpdated"))
 		{
 			accountControl.setUser((User) ms.getObject());
 			Platform.runLater(()->{accountControl.fillInfo((User) ms.getObject());});
-
 		}
 
 		if (msg.getClass().equals(Warning.class)) {
@@ -145,7 +145,8 @@ public class SimpleClient extends AbstractClient {
 	public static SimpleClient getClient() {
 		if (client == null) {
 
-			client = new SimpleClient("localhost", 3040);
+
+			client = new SimpleClient("localhost", 3060);
 		}
 		return client;
 	}
