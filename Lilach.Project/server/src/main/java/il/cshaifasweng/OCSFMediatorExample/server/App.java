@@ -72,7 +72,7 @@ public class App {
         branches.add(b1);
         branches.add(b2);
         branches.add(b3);
-        CoroporationManager Manager1=new CoroporationManager("MsSneh","Shir","Shir","Sneh","shirsneh.uni@gmail.com","0548888888",new Date(1998,10,18),"Haifa",permissions.CorpManager,"321654127","4580160005429090",false,branches);
+        CoroporationManager Manager1=new CoroporationManager("MsSneh","Shir","Shir","Sneh","shirsneh.uni@gmail.com","0548888888",new Date(1998,10,18),"Haifa",permissions.CorpManager,"321654127",false,branches);
         server.saveObject(Manager1);
         b1.setCmanager(Manager1);
         b2.setCmanager(Manager1);
@@ -135,10 +135,10 @@ cache errors.
 
     public static void main(String[] args) throws Exception {
 
-        server=new SimpleServer(3550);
+        server=new SimpleServer(3040);
 //        generateUsers();
         generateItems();
-        generateBranches();
+//        generateBranches();
         server.listen();
     }
 }

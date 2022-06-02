@@ -13,6 +13,7 @@ import org.hibernate.service.ServiceRegistry;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -86,13 +87,13 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void clientConnected(ConnectionToClient client) {
 		super.clientConnected(client);
-		System.out.println("Client connected: " + client.getName());
+		System.out.println("Client connected: " + client.getInetAddress());
 	}
 	@Override
 	protected synchronized void clientDisconnected(ConnectionToClient client) {
 		// TODO Auto-generated method stub
 
-		System.out.println("Client disconnected: " + client.getName());
+		System.out.println("Client disconnected.");
 		super.clientDisconnected(client);
 	}
 	protected void saveObjectList(List<Object> list)
@@ -137,14 +138,19 @@ public class SimpleServer extends AbstractServer {
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws IOException {
 		Message ms=(Message) msg;
 		String request=ms.getString();
+		System.out.println(request);
 		if(request.startsWith("#SignOut"))
 		{
 			String[] msgarray=request.split(" ");
 			User user=session.find(User.class,msgarray[1]);
+
 			if(user!=null) {
-				client.sendToClient(new Message(null, "#UserSignOut"));
+
 				session.find(User.class,msgarray[1]).setLogedIn(false);
 				session.flush();
+
+				client.sendToClient(new Message(null, "#UserSignOut"));
+
 			}
 		}
 		if(request.startsWith("#LogIn"))
@@ -175,6 +181,20 @@ public class SimpleServer extends AbstractServer {
 			}
 
 		}
+		if(request.startsWith("#AddUser"))
+		{
+
+			String[] msgarray=request.split(" ");
+			User user=session.find(User.class,msgarray[1]);
+			if(user!=null) {
+				client.sendToClient(new Message(user, "#AddUserExists"));
+			}
+			else {
+
+				saveObject((User) ms.getObject());
+				client.sendToClient(new Message(ms.getObject(), "#AddUserCreated"));
+			}
+		}
 		if(request.startsWith("#SearchUser"))
 		{
 
@@ -190,17 +210,65 @@ public class SimpleServer extends AbstractServer {
 		}
 		if(request.startsWith("#FreezeUser"))
 		{
-
 			String[] msgarray=request.split(" ");
 			User user=session.find(User.class,msgarray[1]);
-
 			if(user!=null) {
-				user.setFreeze(true);
+				user.setFreeze(!user.isFreeze());
 				client.sendToClient(new Message(user, "#UserFreezed"));
 			}
-//			else {
-//				client.sendToClient(new Message(null, "#UserNotFound"));
-//			}
+		}
+		if(request.startsWith("#RemoveUser"))
+		{
+			String[] msgarray=request.split(" ");
+			User user=session.find(User.class,msgarray[1]);
+			if(user!=null) {
+				session.delete(user);
+				client.sendToClient(new Message(user, "#UserRemoved"));
+			}
+			else
+			{
+				client.sendToClient(new Message(user, "#RemoveUserNotFound"));
+			}
+		}
+		if(request.startsWith("#GetCart"))
+		{
+			String[] msgarray=request.split(" ");
+			Client nclient=session.find(Client.class,msgarray[1]);
+			if(nclient!=null) {
+				for(Cart cart:nclient.getMyorders())
+				{
+					if(cart.isPayed()==false) {
+						client.sendToClient(new Message(cart.getItems(), "#CartReady"));
+						return;
+					}
+				}
+				client.sendToClient(new Message(new ArrayList<>(), "#CartReady"));
+				return;
+			}
+			else
+			{
+				client.sendToClient(new Message(null, "#CartUserNotFound"));
+			}
+		}
+		if(request.startsWith("#RemoveFromCart"))
+		{
+			String[] msgarray=request.split(" ");
+			Client nclient=session.find(Client.class,msgarray[1]);
+			System.out.println(nclient.getFirstname());
+			for(Cart cart:nclient.getMyorders())
+			{
+				if(cart.isPayed()==false) {
+					for(int i=0;i<cart.getItems().size();i++)
+					{
+						if(cart.getItems().get(i).getId()==((Item)ms.getObject()).getId())
+						{
+							cart.getItems().remove(i);
+						}
+					}
+					client.sendToClient(new Message(cart.getItems(), "#CartReady"));
+					return;
+				}
+			}
 
 		}
 		if(request.startsWith("#UpdateUser"))
@@ -210,7 +278,6 @@ public class SimpleServer extends AbstractServer {
 			User user=session.find(User.class,msgarray[1]);
 
 			User userrr = (User) ms.getObject();
-
 
 			if(user!=null) {
 				user.setFirstname(userrr.getFirstname());
@@ -239,8 +306,8 @@ public class SimpleServer extends AbstractServer {
 			boolean added=false;
 			if(myorders.size()==0)
 			{
-				System.out.println("*************");
-				System.out.println(((Item)ms.getObject()).getId());
+
+
 				Cart cartt=new Cart(session.find(Client.class,msgarray[1]));
 				cartt.getItems().add((Item)ms.getObject());
 				App.server.saveObject(cartt);
@@ -253,8 +320,8 @@ public class SimpleServer extends AbstractServer {
 
 
 					if(cart.isPayed()==false)
-					{System.out.println("-------------");
-						System.out.println(((Item)ms.getObject()).getId());
+					{
+
 						session.beginTransaction();
 						cart.getItems().add((Item)ms.getObject());
 						session.find(Item.class,((Item)ms.getObject()).getId()).getCarts().add(cart);
@@ -283,12 +350,20 @@ public class SimpleServer extends AbstractServer {
 			client.sendToClient(msa);
 
 		}
-		if(request.equals("#getBranches"))
+		if(request.equals("#getBranchesS"))
 		{
 			CriteriaBuilder builder=session.getCriteriaBuilder();
 			CriteriaQuery<Branch> query=builder.createQuery(Branch.class);
 			query.from(Branch.class);
-			Message msa=new Message(session.createQuery(query).getResultList(),"#BranchesReady");
+			Message msa=new Message(session.createQuery(query).getResultList(),"#BranchesReadyS");
+			client.sendToClient(msa);
+		}
+		if(request.equals("#getBranchesA"))
+		{
+			CriteriaBuilder builder=session.getCriteriaBuilder();
+			CriteriaQuery<Branch> query=builder.createQuery(Branch.class);
+			query.from(Branch.class);
+			Message msa=new Message(session.createQuery(query).getResultList(),"#BranchesReadyA");
 			client.sendToClient(msa);
 		}
 	}

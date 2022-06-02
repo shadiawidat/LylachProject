@@ -89,10 +89,17 @@ public class App extends Application {
     public void stop() throws Exception {
         // TODO Auto-generated method stub
         if(App.getUser()!=null)
-        SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
-        exit(0);
-        EventBus.getDefault().unregister(this);
-        super.stop();
+            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        Platform.runLater(()->{
+            exit(0);
+            EventBus.getDefault().unregister(this);
+            try {
+                super.stop();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
 
     }
 

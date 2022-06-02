@@ -4,6 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,11 +16,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import java.text.DecimalFormat;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static java.lang.Math.round;
 
 public class Cart implements Initializable {
     public static String Caller = "";
@@ -36,13 +40,15 @@ public class Cart implements Initializable {
     @FXML
     private ImageView MenuBtn;
     @FXML
-    private Label Saved;
+    public Label Saved;
     @FXML
     private Button Shipping;
     @FXML
-    private Label Tax;
+    public Label Tax;
     @FXML
-    private Label Total;
+    private Label Matched;
+    @FXML
+    public Label Total;
     @FXML
     private MenuItem MenuAbout;
     @FXML
@@ -63,6 +69,26 @@ public class Cart implements Initializable {
     private MenuBar menu;
     @FXML
     private ScrollPane scroll;
+
+    public double subTotalG;
+
+    public double subTotalD;
+
+    public double getSubTotalD() {
+        return subTotalD;
+    }
+
+    public void setSubTotalD(double subTotalD) {
+        this.subTotalD = subTotalD;
+    }
+
+    public double getSubTotalG() {
+        return subTotalG;
+    }
+
+    public void setSubTotalG(double subTotalG) {
+        this.subTotalG = subTotalG;
+    }
 
     public static String getCaller() {
         return Caller;
@@ -133,38 +159,44 @@ public class Cart implements Initializable {
         menu.setVisible(true);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (App.getUser() == null)
-            UserName.setText("Welcome guest");
-        else
-            UserName.setText("Welcome " + App.getUser().getFirstname());
 
+    public void loadCart(List<Item> Cart)
+    {
 
-        items = App.items;
+        double subTotal=0.0;
+        double TotalDiscount=0.0;
+        final DecimalFormat df = new DecimalFormat("0.00");
+        Matched.setVisible(false);
         scroll.setVisible(true);
-        if(items.size()==0) {
+        if(Cart.size()==0) {
+            Tax.setText(df.format(((subTotal-TotalDiscount)/1.17)*0.17)+"$");
+            Saved.setText(df.format((TotalDiscount))+"$");
+            Total.setText(df.format((subTotal))+"$");
             scroll.setVisible(false);
-        }
-        if (items == null)
+            Matched.setVisible(true);
             return;
-        int column = 0;
-        int row = 1;
-
+        }
+        gridPane.getChildren().clear();
         try {
-            for (int i = 0; i < items.size(); i++) {
+            int column = 0;
+            int row = 1;
+            for (Item item : Cart) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(SimpleClient.class.getResource("ItemCart.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 CartItem CartItemController = fxmlLoader.getController();
+                CartItemController.setItemView(item);
+                subTotal+=item.getPrice();
 
-                CartItemController.setItemView(items.get(i));
+                TotalDiscount+= item.getPrice()*(item.getDiscount()/100);
                 if (column == 1) {
                     column = 0;
                     row++;
                 }
+
                 gridPane.add(anchorPane, column++, row); //(child,column,row)
                 //set grid width
+
                 gridPane.setMinWidth(Region.USE_COMPUTED_SIZE);
                 gridPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
                 gridPane.setMaxWidth(Region.USE_PREF_SIZE);
@@ -177,6 +209,28 @@ public class Cart implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        Tax.setText(df.format(((subTotal-TotalDiscount)/1.17)*0.17)+"$");
+        Saved.setText(df.format((TotalDiscount))+"$");
+        Total.setText(df.format((subTotal))+"$");
+        setSubTotalG(subTotal);
+        setSubTotalD(TotalDiscount);
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (App.getUser() == null)
+            UserName.setText("Welcome guest");
+        else
+            UserName.setText("Welcome " + App.getUser().getFirstname());
+
+        try {
+            SimpleClient.getClient().sendToServer(new Message(App.getUser(),"#GetCart "+App.getUser().getUsername()));
+            SimpleClient.getClient().cartControl=this;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
