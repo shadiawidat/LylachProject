@@ -36,6 +36,14 @@ public class CartItem implements Initializable {
     @FXML
     private Label Name;
 
+    public Spinner<Integer> getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(Spinner<Integer> quantity) {
+        Quantity = quantity;
+    }
+
     @FXML
     private Label Price;
 
@@ -57,7 +65,7 @@ public class CartItem implements Initializable {
         App.setRoot("ItemShow");
     }
 
-    public void setItemView(Item item) {
+    public void setItemView(Item item,int i) {
 
         if (item == null)
             return;
@@ -66,7 +74,7 @@ public class CartItem implements Initializable {
         Price.setText("$" + item.getPrice());
         javafx.scene.image.Image image = new Image(SimpleClient.class.getResourceAsStream(item.getImagesrc()));
         Image.setImage(image);
-        Subtotal.setText(Double.toString(item.getPrice()) + "$");
+        Subtotal.setText(Double.toString(item.getPrice()*i) + "$");
         Discount.setText(item.getDiscount()+"%");
         if(item.getDiscount()==0)
         {
@@ -126,6 +134,8 @@ public class CartItem implements Initializable {
 
                 }
             }
+
+
         };
         valueFactory.setValue(1);
         Quantity.setValueFactory(valueFactory);

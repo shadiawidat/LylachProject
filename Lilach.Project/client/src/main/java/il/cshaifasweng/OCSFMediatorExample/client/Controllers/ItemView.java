@@ -10,6 +10,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class ItemView {
 
@@ -62,13 +64,23 @@ public class ItemView {
 
         if(App.getUser()==null)
         {
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
 
             a.setContentText("Please sign in first");
 
-            a.showAndWait();
-            return;
-        }
+
+
+            Optional<ButtonType> result = a.showAndWait();
+            if(!result.isPresent()) {}
+            else if(result.get() == ButtonType.OK)
+                {
+                    App.setRoot("LogIn");
+                }
+            else if(result.get() == ButtonType.CANCEL) {
+            }
+                return;
+
+            }
         if(App.getUser().getPermission()!=permissions.CLIENT)
             return;
         SimpleClient.getClient().sendToServer(new Message(item,"#AddToCart "+App.getUser().getUsername()));
