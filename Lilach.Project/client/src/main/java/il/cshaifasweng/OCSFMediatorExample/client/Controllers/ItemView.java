@@ -69,17 +69,16 @@ public class ItemView {
             a.showAndWait();
             return;
         }
-
         if(App.getUser().getPermission()!=permissions.CLIENT)
             return;
-
-//        ((Client) App.getUser()).AddOneToCart(item);
-//        System.out.println(((Client) App.getUser()).getCart().getItems().size());
         SimpleClient.getClient().sendToServer(new Message(item,"#AddToCart "+App.getUser().getUsername()));
         SimpleClient.getClient().itemviewControl=this;
-//        App.items.add(item);
-//        System.out.println(App.items.size());
 
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+        a.setContentText("Item Added to Cart");
+
+        a.showAndWait();
     }
 
     public void Confirmation(){
