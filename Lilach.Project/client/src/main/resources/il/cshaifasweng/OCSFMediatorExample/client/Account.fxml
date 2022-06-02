@@ -9,6 +9,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,7 +20,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Account">
    <children>
-      <Button layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;">
+      <Button layoutX="9.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
@@ -112,7 +113,7 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <MenuButton fx:id="AccountType" alignment="CENTER" layoutX="574.0" layoutY="544.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields">
+      <MenuButton fx:id="AccountType" alignment="CENTER" layoutX="570.0" layoutY="555.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields">
          <items>
             <MenuItem mnemonicParsing="false" onAction="#OneBranch" text="Basic - One Branch" />
             <MenuItem mnemonicParsing="false" onAction="#AllBranches" text="Gold -All Branches" />
@@ -175,7 +176,7 @@
       </HBox>
       <MenuButton fx:id="PermisionsMN" alignment="CENTER" layoutX="574.0" layoutY="444.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields" visible="false">
          <items>
-            <MenuItem mnemonicParsing="false" onAction="#CorpManagerItem" text="CorpManager" />
+            <MenuItem mnemonicParsing="false" onAction="#CorpManagerItem" text="CORPORATION MANAGER" />
             <MenuItem mnemonicParsing="false" onAction="#WorkerItem" text="WORKER" />
             <MenuItem mnemonicParsing="false" onAction="#ManagerItem" text="MANAGER" />
          </items>
@@ -309,17 +310,12 @@
          </font>
       </TextField>
       <DatePicker fx:id="BirthdateMN" layoutX="77.0" layoutY="555.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" visible="false" />
-      <Label fx:id="PasswordLB" layoutX="574.0" layoutY="514.0" text="Password" visible="false">
+      <Label fx:id="PasswordLB" layoutX="71.0" layoutY="608.0" text="Password">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="Password" layoutX="566.0" layoutY="544.0" prefHeight="103.0" styleClass="textFields" visible="false">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </TextField>
-      <Label fx:id="TypeLB" layoutX="584.0" layoutY="514.0" text="Account type">
+      <Label fx:id="TypeLB" layoutX="574.0" layoutY="515.0" text="Account type">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
@@ -405,7 +401,7 @@
                   <String fx:value="left_menu_btns" />
                </styleClass>
             </Button>
-            <Button fx:id="UnFreeze" maxWidth="197.0" mnemonicParsing="false" onMouseClicked="#UnFreezeUser" prefHeight="46.0" prefWidth="188.0" text="UnFreeze User">
+            <Button fx:id="UnFreeze" maxWidth="197.0" mnemonicParsing="false" onMouseClicked="#UnFreeze" prefHeight="46.0" prefWidth="188.0" text="UnFreeze User">
                <font>
                   <Font name="Cambria Bold Italic" size="24.0" />
                </font>
@@ -432,5 +428,21 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <PasswordField fx:id="Password" layoutX="70.0" layoutY="643.0" minHeight="51.0" prefHeight="50.0" styleClass="textFields" />
+      <Label fx:id="BranchLB" layoutX="579.0" layoutY="510.0" text="Branch" visible="false">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="InvalidBranch" layoutX="653.0" layoutY="520.0" text="*Please choose" textFill="RED" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <MenuButton fx:id="Branches" alignment="CENTER" layoutX="577.0" layoutY="546.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields" visible="false">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </MenuButton>
    </children>
 </AnchorPane>

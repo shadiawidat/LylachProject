@@ -82,11 +82,18 @@ public class SimpleClient extends AbstractClient {
 //			Platform.runLater(()->{accountControl.UserAdded();});
 //
 //		}
-		else if (deliver.equals("#BranchesReady"))
+		else if (deliver.equals("#BranchesReadyS"))
+		{
+			accountControl.setBranchesL((List<Branch>) ms.getObject());
+			Platform.runLater(()->{accountControl.loadBranches();});
+
+		}else if (deliver.equals("#BranchesReadyA"))
 		{
 			signUpControl.setBranchesL((List<Branch>) ms.getObject());
 			Platform.runLater(()->{signUpControl.loadBranches();});
-		}else if (deliver.equals("#UserFound"))
+
+		}
+		else if (deliver.equals("#UserFound"))
 		{
 			accountControl.setUser((User) ms.getObject());
 			Platform.runLater(()->{accountControl.fillInfo((User) ms.getObject());});
@@ -99,6 +106,26 @@ public class SimpleClient extends AbstractClient {
 		{
 			accountControl.setUser((User) ms.getObject());
 			Platform.runLater(()->{accountControl.fillInfo((User) ms.getObject());});
+
+		}
+		else if (deliver.equals("#UserRemoved"))
+		{
+			accountControl.emptyFields();
+			accountControl.ShowNote("User Removed Successfully!");
+
+
+		}
+		else if(deliver.equals("#CartReady"))
+		{
+			Platform.runLater(()->{cartControl.loadCart((List<Item>) ms.getObject());});
+		}
+		else if(deliver.equals("#CartUserNotFound"))
+		{
+			Platform.runLater(()->{cartControl.loadCart((List<Item>) ms.getObject());});
+		}
+		else if (deliver.equals("#RemoveUserNotFound"))
+		{
+			accountControl.ShowNote("The user you select to remove doesn't exist!");
 
 		}
 		else if (deliver.equals("#UserUpdated"))
@@ -117,8 +144,6 @@ public class SimpleClient extends AbstractClient {
 
 	public static SimpleClient getClient() {
 		if (client == null) {
-
-
 
 			client = new SimpleClient("172.20.10.11", 3040);
 		}
