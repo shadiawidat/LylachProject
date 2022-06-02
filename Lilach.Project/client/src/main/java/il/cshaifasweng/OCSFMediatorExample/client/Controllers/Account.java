@@ -50,7 +50,7 @@ public class Account implements Initializable {
     @FXML
     private Label InvalidEM;
     @FXML
-    private Label InvalidPass;
+    private Label InvalidPassword;
 
     @FXML
     private Label InvalidFN;
@@ -84,6 +84,9 @@ public class Account implements Initializable {
     private Label PasswordLB;
 
     @FXML
+    private Label InvalidCrdeitCard;
+
+    @FXML
     private TextField Address;
 
     @FXML
@@ -113,6 +116,13 @@ public class Account implements Initializable {
 
     @FXML
     private Label PermisionsLB;
+
+    @FXML
+    private Label BirthDateLB;
+
+
+
+
 
     @FXML
     private Label TypeLB;
@@ -193,11 +203,19 @@ public class Account implements Initializable {
         InvalidPH.setVisible(false);
         InvalidEM.setVisible(false);
         InvalidPerm.setVisible(false);
-        InvalidPass.setVisible(false);
+        InvalidPassword.setVisible(false);
+        PermisionsLB.setVisible(false);
+        PermisionsMN.setVisible(false);
+        BranchLB.setVisible(false);
+        Branches.setVisible(false);
+        PasswordLB.setVisible(false);
+        Password.setVisible(false);
+        BirthdateMN.setVisible(false);
+        BirthDate.setVisible(true);
       UserName.setText("Welcome " + App.getUser().getFirstname());
       if(user==null){
           Alert a = new Alert(Alert.AlertType.WARNING);
-          a.setContentText("User Does'nt Exist");
+          a.setContentText("User Doesn't Exist");
           a.showAndWait();
           CreditCardLB.setVisible(false);
           TypeLB.setVisible(false);
@@ -314,18 +332,24 @@ public class Account implements Initializable {
     void CorpManagerItem(ActionEvent event) {
         perm=permissions.CorpManager;
         PermisionsMN.setText(permissions.CorpManager.name());
+        BranchLB.setVisible(false);
+        Branches.setVisible(false);
     }
 
     @FXML
     void WorkerItem(ActionEvent event) {
         perm=permissions.WORKER;
         PermisionsMN.setText(permissions.WORKER.name());
+        BranchLB.setVisible(true);
+        Branches.setVisible(true);
     }
 
     @FXML
     void ManagerItem(ActionEvent event) {
         perm=permissions.MANAGER;
         PermisionsMN.setText(permissions.MANAGER.name());
+        BranchLB.setVisible(true);
+        Branches.setVisible(true);
     }
 
 
@@ -338,6 +362,7 @@ public class Account implements Initializable {
         UpdateUser.setVisible(false);
         Clear.setVisible(false);
         UnFreeze.setVisible(false);
+        Clear.setVisible(true);
     }
 
     @FXML
@@ -401,7 +426,7 @@ public class Account implements Initializable {
         InvalidPH.setVisible(false);
         InvalidEM.setVisible(false);
         InvalidPerm.setVisible(false);
-        InvalidPass.setVisible(false);
+        InvalidPassword.setVisible(false);
         UserName.setText("Welcome " + App.getUser().getFirstname());
         FirstName.setText("");
         LastName.setText("");
@@ -423,6 +448,7 @@ public class Account implements Initializable {
         PasswordLB.setVisible(false);
         Password.setVisible(false);
         BirthdateMN.setVisible(false);
+        BirthDateLB.setVisible(true);
     }
 
     @FXML
@@ -436,7 +462,7 @@ public class Account implements Initializable {
         InvalidPH.setVisible(false);
         InvalidEM.setVisible(false);
         InvalidPerm.setVisible(false);
-        InvalidPass.setVisible(false);
+        InvalidPassword.setVisible(false);
         UserName.setText("Welcome " + App.getUser().getFirstname());
         FirstName.setText("");
         LastName.setText("");
@@ -446,6 +472,10 @@ public class Account implements Initializable {
         Address.setText("");
         Phone.setText("");
         Email.setText("");
+        PermisionsMN.setText("");
+        Branches.setText("");
+        BirthdateMN.setAccessibleText("");
+        Password.setText("");
         FreezeIcon.setImage(null);
         FreezeLB.setVisible(false);
         CreditCard.setVisible(false);
@@ -458,8 +488,8 @@ public class Account implements Initializable {
         PasswordLB.setVisible(true);
         Password.setVisible(true);
         BirthdateMN.setVisible(true);
-        BranchLB.setVisible(true);
-        Branches.setVisible(true);
+        BranchLB.setVisible(false);
+        Branches.setVisible(false);
 
        // resetFields();
 
@@ -532,7 +562,9 @@ public class Account implements Initializable {
         InvalidPH.setVisible(false);
         InvalidEM.setVisible(false);
         InvalidPerm.setVisible(false);
-        InvalidPass.setVisible(false);
+        InvalidPassword.setVisible(false);
+        BranchLB.setVisible(false);
+        Branches.setVisible(false);
 
 
         InvalidID.setVisible(!Utilities.check_Validate_ID(ID.getText()));
@@ -541,7 +573,7 @@ public class Account implements Initializable {
         InvalidAd.setVisible(!Utilities.check_Validate_String(Address.getText()) || Address.getText() == "");
         InvalidEM.setVisible((Email.getText().equals("")));
         InvalidPH.setVisible((!Utilities.check_Validate_Phone(Phone.getText())));
-        InvalidPass.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
+        InvalidPassword.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
         InvalidUS.setVisible(!Utilities.check_Validate_String(Username.getText()) || Username.getText().equals(""));
 
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
@@ -553,42 +585,56 @@ public class Account implements Initializable {
         flag=flag||!Utilities.check_Validate_String(LastName.getText()) || LastName.getText().equals("");
         flag=flag||Email.getText().equals("");
         flag=flag||!Utilities.check_Validate_String(Address.getText()) || Address.getText().equals("");
-        InvalidPass.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
+        InvalidPassword.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
         flag=flag||!Utilities.check_Validate_Phone(Phone.getText());
         flag=flag||!Utilities.check_Validate_Pass(Username.getText());
         flag=flag||!Utilities.checkValidDate(Birth, now);
 
+        if(flag)
+            return;
 
-        CoroporationManager coroporationManager=new CoroporationManager(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), perm, ID.getText(), false,null);
-        Message ms = new Message(coroporationManager, "#AddUser " + Username.getText());
-
-        if(AccountTypes.Basic.name().equals(AccountType.getText()))
-        {
+        if(PermisionsMN.getText().equals(permissions.WORKER)){
+            BranchLB.setVisible(true);
+            Branches.setVisible(true);
+            User nuser = new User(Username.getText(), Password.getText(),FirstName.getText(),LastName.getText(),Email.getText(),Phone.getText(),Birth,Address.getText(),permissions.WORKER,ID.getText(),false);
             BranchLB.setVisible(true);
             Branches.setVisible(true);
             for(Branch branch:BranchesL)
             {
                 if(branch.getName().equals(Branches.getText()))
                 {
-                    coroporationManager.AddOneBranch(branch);
+                    nuser.AddOneBranch(branch);
                     break;
                 }
             }
+            Message ms = new Message(nuser, "#AddUser " + Username.getText());
+            SimpleClient.getClient().sendToServer(ms);
+            SimpleClient.getClient().accountControl=this;
         }
-        else
-        {
-            coroporationManager.setMybranches(BranchesL);
+        else if(PermisionsMN.getText().equals(permissions.MANAGER)) {
+            BranchLB.setVisible(true);
+            Branches.setVisible(true);
+            BranchManager branchManager = new BranchManager(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), permissions.MANAGER, ID.getText(), false, null);
+            BranchLB.setVisible(true);
+            Branches.setVisible(true);
+            for(Branch branch:BranchesL)
+            {
+                if(branch.getName().equals(Branches.getText()))
+                {
+                    branchManager.AddOneBranch(branch);
+                    break;
+                }
+            }
+            Message ms = new Message(branchManager, "#AddUser " + Username.getText());
+            SimpleClient.getClient().sendToServer(ms);
+            SimpleClient.getClient().accountControl=this;
         }
-        SimpleClient.getClient().sendToServer(ms);
-//        SimpleClient.getClient().accountControl=this;
-        if(flag)
-            return;
-        System.out.println("here");
-//        User nuser = new User(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), perm, ID.getText(), false);
-//        BranchManager branchManager=new BranchManager(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), perm, ID.getText(), false,new Branch());
-//
-        SimpleClient.getClient().sendToServer(ms);
-//        SimpleClient.getClient().accountControl=this;
+        else {
+            CoroporationManager coroporationManager=new CoroporationManager(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), permissions.CorpManager, ID.getText(), false,null);
+            Message ms = new Message(coroporationManager, "#AddUser " + Username.getText());
+            SimpleClient.getClient().sendToServer(ms);
+            SimpleClient.getClient().accountControl=this;
+        }
 
     }
 
@@ -682,8 +728,6 @@ public class Account implements Initializable {
             Password.setVisible(false);
             CreditCard.setText(((Client) App.getUser()).getCreditCard());
             AccountType.setText(((Client) App.getUser()).getAccounttype().name());
-            System.out.println("dsds");
-            System.out.println(AccountType.getText());
             UpdateUser.setVisible(false);
             FreezeUser.setVisible(false);
             AddUser.setVisible(false);
@@ -708,8 +752,8 @@ public class Account implements Initializable {
             CreditCardLB.setVisible(false);
             Password.setVisible(false);
             PasswordLB.setVisible(false);
-            PermisionsLB.setVisible(false);
-            PermisionsMN.setVisible(false);
+            PermisionsLB.setVisible(true);
+            PermisionsMN.setVisible(true);
         }
         else if (App.getUser() != null && App.getUser().getPermission() == permissions.ADMIN) {
             Password.setVisible(false);
@@ -721,6 +765,7 @@ public class Account implements Initializable {
             MyOrders.setVisible(false);
             PermisionsLB.setVisible(false);
             PermisionsMN.setVisible(false);
+
         }
     }
 
