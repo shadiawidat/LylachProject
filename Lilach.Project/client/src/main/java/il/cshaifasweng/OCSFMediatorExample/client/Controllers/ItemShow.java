@@ -14,9 +14,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -371,11 +376,12 @@ public class ItemShow implements Initializable {
         InvalidPrice.setVisible(!Utilities.check_Validate_Price(PriceText.getText())||PriceText.getText().equals(""));
         InvalidType.setVisible(TypeText.getText().equals(""));
         InvalidDiscount.setVisible(!Utilities.check_Validate_Discount(DiscountText.getText())||DiscountText.getText().equals(""));
-     ///////////////////////////////   InvalidImage.setVisible(ColorText.getText().equals(""));
+        InvalidImage.setVisible(imgid.getImage()==null);
         flag=!Utilities.check_Validate_String(NameText.getText())||NameText.getText().equals("");
         flag=flag||!Utilities.check_Validate_String(ColorText.getText())||ColorText.getText().equals("");
         flag=flag||!Utilities.check_Validate_Price(PriceText.getText())||PriceText.getText().equals("");
         flag=flag||TypeText.getText().equals("");
+        flag=flag||imgid.getImage()==null;
         flag=flag||!Utilities.check_Validate_Discount(DiscountText.getText())||DiscountText.getText().equals("");
         if(flag)
             return;
@@ -427,6 +433,23 @@ public class ItemShow implements Initializable {
         if(App.getUser()!=null)
             if (!App.getUser().getPermission().equals(permissions.CLIENT))
                 sideAddCart.setVisible(false);
+    }
+    @FXML
+    void HandleDrop(DragEvent event) throws FileNotFoundException {
+        if(Caller.equals("CatalogNew")&&(App.getUser()!=null&&App.getUser().getPermission()==permissions.CorpManager||App.getUser().getPermission()==permissions.WORKER||App.getUser().getPermission()==permissions.MANAGER) ){
+            List<File> files = event.getDragboard().getFiles();
+            Image img = new Image(new FileInputStream(files.get(0)));
+            imgid.setImage(img);
+        }
+    }
+
+    @FXML
+    void HandleOver(DragEvent event) {
+        if(Caller.equals("CatalogNew")&&(App.getUser()!=null&&App.getUser().getPermission()==permissions.CorpManager||App.getUser().getPermission()==permissions.WORKER||App.getUser().getPermission()==permissions.MANAGER) ){
+            if(event.getDragboard().hasFiles()) {
+                event.acceptTransferModes(TransferMode.ANY);
+            }
+        }
     }
 
     @Override
@@ -592,7 +615,7 @@ public class ItemShow implements Initializable {
     }
 
     @FXML
-    void AddToCart(MouseEvent event) {
+    void SideAddToCart(MouseEvent event) throws IOException {
         if(App.getUser()==null)
         {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
@@ -602,6 +625,37 @@ public class ItemShow implements Initializable {
             a.showAndWait();
             return;
         }
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+        a.setContentText("Item added to cart");
+
+        a.showAndWait();
+        if(App.getUser().getPermission()!=permissions.CLIENT)
+            return;
+
+        SimpleClient.getClient().sendToServer(new Message(related.get(ToShow),"#AddToCart "+App.getUser().getUsername()));
+        SimpleClient.getClient().itemshowControl=this;
+    }
+    @FXML
+    void AddToCart(MouseEvent event) throws IOException {
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+            a.setContentText("Please sign in first");
+
+            a.showAndWait();
+            return;
+        }
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+        a.setContentText("Item added to cart");
+
+        a.showAndWait();
+        if(App.getUser().getPermission()!=permissions.CLIENT)
+            return;
+        SimpleClient.getClient().sendToServer(new Message(ITEM,"#AddToCart "+App.getUser().getUsername()));
+        SimpleClient.getClient().itemshowControl=this;
     }
 
     @FXML
