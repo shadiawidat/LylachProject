@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ public class About implements Initializable {
     private Button Back;
     @FXML
     private ImageView CartB;
+
     @FXML
     private ImageView MenuBtn;
     @FXML
@@ -149,7 +151,14 @@ public class About implements Initializable {
             MenuSignIn.setVisible(false);
             MenuSignUp.setVisible(false);
             UserNameConnected.setText("Welcome " + App.getUser().getFirstname());
-        }    }
+        }
+        if(!App.getUser().getPermission().equals(permissions.CLIENT)) {
+            CartB.setVisible(false);
+            MenuCart.setVisible(false);
+        }
+
+    }
+
 
 
 

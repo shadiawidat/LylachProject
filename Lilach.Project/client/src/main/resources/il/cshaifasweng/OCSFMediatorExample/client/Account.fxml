@@ -178,7 +178,7 @@
          <items>
             <MenuItem mnemonicParsing="false" onAction="#CorpManagerItem" text="CORPORATION MANAGER" />
             <MenuItem mnemonicParsing="false" onAction="#WorkerItem" text="WORKER" />
-            <MenuItem mnemonicParsing="false" onAction="#ManagerItem" text="MANAGER" />
+            <MenuItem mnemonicParsing="false" onAction="#ManagerItem" text="BRANCH MANAGER" />
          </items>
          <font>
             <Font name="Cambria" size="18.0" />
@@ -395,6 +395,9 @@
                   <String fx:value="btns" />
                   <String fx:value="left_menu_btns" />
                </styleClass>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </Button>
             <Button fx:id="UnFreeze" maxWidth="197.0" mnemonicParsing="false" onMouseClicked="#UnFreeze" prefHeight="46.0" prefWidth="188.0" text="UnFreeze User">
                <font>
