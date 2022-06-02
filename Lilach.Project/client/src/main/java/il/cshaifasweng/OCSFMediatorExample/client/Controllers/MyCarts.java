@@ -5,8 +5,8 @@ import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
@@ -15,36 +15,41 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class ReportView implements Initializable {
-
+public class MyCarts {
     public static String Caller = "";
     @FXML
     private Button Back;
+
     @FXML
     private ImageView CartButton;
-    @FXML
-    private ImageView MenuBtn;
-    @FXML
-    private GridPane grid;
-    @FXML
-    private ScrollPane scroll;
+
     @FXML
     private MenuItem MenuAbout;
+
     @FXML
-    private MenuItem MenuCart;
+    private ImageView MenuBtn;
+
     @FXML
     private MenuItem MenuProfile;
-    @FXML
-    private MenuItem MenuSignIn;
+
     @FXML
     private MenuItem MenuSignOut;
+
     @FXML
     private MenuItem MenuSignUp;
+
+    @FXML
+    private Label UserName;
+
+    @FXML
+    private GridPane gridPane;
+
     @FXML
     private MenuBar menu;
+
+    @FXML
+    private ScrollPane scroll;
 
     public static String getCaller() {
         return Caller;
@@ -55,23 +60,32 @@ public class ReportView implements Initializable {
     }
 
     @FXML
-    void GoToAbout(ActionEvent event) {
+    void Back(MouseEvent event) throws IOException {
+        App.setRoot(getCaller());
+    }
+
+
+    @FXML
+    void CloseMenu(MouseEvent event) {
 
     }
 
     @FXML
-    void GoToCart(ActionEvent event) {
-
+    void GoToAbout(ActionEvent event) throws IOException {
+        About.setCaller("MyCarts");
+        App.setRoot("About");
     }
 
     @FXML
-    void GoToProfile(ActionEvent event) {
-
+    void GoToAccount(MouseEvent event) throws IOException {
+        About.setCaller("MyCarts");
+        App.setRoot("Account");
     }
 
     @FXML
-    void GoToSignIn(ActionEvent event) {
-
+    void GoToProfile(ActionEvent event) throws IOException {
+        About.setCaller("MyCarts");
+        App.setRoot("Account");
     }
 
     @FXML
@@ -83,33 +97,12 @@ public class ReportView implements Initializable {
     }
 
     @FXML
-    void CloseMenu(MouseEvent event) {
-        menu.setVisible(false);
+    void GoToSignUp(ActionEvent event) throws IOException {
+        About.setCaller("MyCarts");
+        App.setRoot("SignUp");
     }
-
-    @FXML
-    void GoToSignUp(ActionEvent event) {
-
-    }
-
-    @FXML
-    void Back(MouseEvent event) throws IOException {
-        App.setRoot(getCaller());
-    }
-
-    @FXML
-    void GoToCart(MouseEvent event) {
-
-    }
-
-
     @FXML
     void MenuClick(MouseEvent event) {
         menu.setVisible(true);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }

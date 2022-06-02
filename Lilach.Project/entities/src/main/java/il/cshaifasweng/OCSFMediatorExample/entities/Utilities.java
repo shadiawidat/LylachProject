@@ -20,17 +20,56 @@ public class Utilities {
     }
 
     public static boolean check_Validate_Price(String price){
-        if(price.charAt(0) == '-'){
+        boolean flag = false;
+        if(price.length()==0){
+            return false;
+        }
+        if(price.charAt(0) == '-'||price.charAt(0) == '.'){
             return false;
         }
         for(int i = 0; i < price.length(); i++){
-            if(price.charAt(i) < '0' || price.charAt(i) > '9'){
-                return false;
+            if(price.charAt(i) == '.') {
+                if(flag)
+                    return false;
+                flag = true;
             }
+            if(price.charAt(i) < '0' || price.charAt(i) > '9'){
+                if(price.charAt(i) != '.')
+                    return false;
+            }
+        }
+        if(price.charAt(price.length()-1)=='.'){
+            return false;
         }
         return true;
     }
+    public static boolean check_Validate_Discount(String discount){
+        boolean flag = false;
 
+        if(discount.length()==0){
+            return false;
+        }
+        if(discount.charAt(0) == '-'||discount.charAt(0) == '.'){
+            return false;
+        }
+        for(int i = 0; i < discount.length(); i++){
+            if(discount.charAt(i) == '.') {
+                if(flag)
+                    return false;
+                flag = true;
+            }
+            if(discount.charAt(i) < '0' || discount.charAt(i) > '9'){
+                if(discount.charAt(i) != '.')
+                    return false;
+            }
+        }
+        if(discount.charAt(discount.length()-1)=='.'){
+            return false;
+        }
+        if(Double.parseDouble(discount)>100)
+            return false;
+        return true;
+    }
     public static boolean check_Validate_Phone(String Phone){
         if(Phone.length()!=10||Phone.length()==0)
             return false;

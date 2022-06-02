@@ -75,7 +75,8 @@ public class About implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if(App.getUser()!=null)
+            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("Login");
     }
