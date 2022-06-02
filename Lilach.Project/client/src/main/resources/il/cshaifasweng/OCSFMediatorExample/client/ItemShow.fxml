@@ -87,7 +87,7 @@
          <children>
             <AnchorPane prefHeight="530.0" prefWidth="534.0">
                <children>
-                  <ImageView fx:id="imgid" fitHeight="249.0" fitWidth="250.0" layoutX="257.0" layoutY="123.0" pickOnBounds="true">
+                  <ImageView fx:id="imgid" fitHeight="249.0" fitWidth="250.0" layoutX="257.0" layoutY="123.0" onDragDropped="#HandleDrop" onDragOver="#HandleOver" pickOnBounds="true">
                      <image>
                         <Image url="@../../../../Media/Flower/Orchid.png" />
                      </image></ImageView>
@@ -101,7 +101,7 @@
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Button>
-                  <VBox layoutX="42.0" layoutY="60.0" prefHeight="405.0" prefWidth="247.0">
+                  <VBox layoutX="42.0" layoutY="60.0" onDragOver="#HandleOver" prefHeight="405.0" prefWidth="247.0">
                      <children>
                         <HBox prefHeight="23.0" prefWidth="181.0">
                            <children>
@@ -141,7 +141,7 @@
                               <MenuItem mnemonicParsing="false" onAction="#Gardening" text="Gardening" />
                           </items>
                         </MenuButton>
-                        <HBox prefHeight="32.0" prefWidth="181.0">
+                        <HBox onDragDropped="#HandleDrop" prefHeight="32.0" prefWidth="181.0">
                            <children>
                               <Label fx:id="color" prefHeight="27.0" prefWidth="170.0" text="Color: Pink">
                                  <font>
@@ -244,7 +244,7 @@
                         </ImageView>
                         <HBox alignment="CENTER" maxHeight="35.0" maxWidth="144.0" minHeight="35.0" minWidth="144.0" prefHeight="35.0" prefWidth="144.0">
                            <children>
-                              <ImageView fx:id="sideAddCart" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#AddToCart" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="sideAddCart" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#SideAddToCart" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../../Icons/Add_to_cart.png" />
                                  </image>
