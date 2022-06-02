@@ -106,6 +106,15 @@ public class LogIn implements Initializable {
                     a.showAndWait();
                     return;
                 }
+                if(App.getUser().isFreeze())
+                {
+                    Alert a = new Alert(Alert.AlertType.ERROR);
+
+                    a.setContentText("User is freezed.");
+
+                    a.showAndWait();
+                    return;
+                }
                 App.getUser().setLogedIn(true);
                 try {
                     Catalog.setCaller("LogIn");

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="400.0" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.CartItem">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="400.0" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.CartItem">
    <children>
       <ImageView fx:id="Image" fitHeight="130.0" fitWidth="130.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#ShowItem" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -51,7 +51,7 @@
             <Font name="Cambria" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="338.0" layoutY="103.0" text="Discount:">
+      <Label fx:id="DiscountLB" layoutX="338.0" layoutY="103.0" text="Discount:">
          <font>
             <Font name="Cambria" size="18.0" />
          </font>

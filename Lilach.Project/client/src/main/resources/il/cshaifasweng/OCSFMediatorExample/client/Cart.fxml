@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Cart">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Cart">
     <children>
         <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
@@ -64,7 +64,7 @@
                 </ImageView>
             </children>
         </HBox>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="649.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="62.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Icons/Cards.png" />
          </image>
@@ -74,7 +74,7 @@
             <Font name="Cambria Bold Italic" size="18.0" />
          </font>
       </Button>
-          <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="20.0" layoutY="104.0" prefHeight="539.0" prefWidth="550.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
+          <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="329.0" layoutY="115.0" prefHeight="539.0" prefWidth="550.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
               <content>
                   <GridPane fx:id="gridPane" minHeight="13.0" minWidth="14.0" prefHeight="13.0" prefWidth="14.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css">
                       <rowConstraints>
@@ -88,12 +88,12 @@
             <Font name="Cambria" size="24.0" />
          </font>
       </Button>
-      <ImageView fitHeight="300.0" fitWidth="275.0" layoutX="606.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs">
+      <ImageView fitHeight="300.0" fitWidth="275.0" layoutX="19.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs">
          <image>
             <Image url="@../../../../Icons/FreeShipping.png" />
          </image>
       </ImageView>
-      <HBox layoutX="621.0" layoutY="439.0" maxHeight="200.0" prefHeight="244.0" prefWidth="200.0" styleClass="menubox">
+      <HBox layoutX="34.0" layoutY="426.0" maxHeight="200.0" prefHeight="244.0" prefWidth="200.0" styleClass="menubox">
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="125.0">
                <children>
@@ -125,7 +125,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="125.0">
                <children>
-                  <Label fx:id="Tax" text="23.7$">
+                  <Label fx:id="Tax">
                      <font>
                         <Font name="Cambria" size="24.0" />
                      </font>
@@ -133,7 +133,7 @@
                         <Insets left="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="Saved" text="23.5$">
+                  <Label fx:id="Saved">
                      <font>
                         <Font name="Cambria" size="24.0" />
                      </font>
@@ -141,7 +141,7 @@
                         <Insets left="20.0" top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="Total" text="64.8$">
+                  <Label fx:id="Total">
                      <font>
                         <Font name="Cambria" size="24.0" />
                      </font>
@@ -173,5 +173,10 @@
           </Menu>
         </menus>
       </MenuBar>
+      <Label fx:id="Matched" layoutX="438.0" layoutY="362.0" text="Cart is empty" visible="false">
+         <font>
+            <Font name="Cambria" size="48.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
