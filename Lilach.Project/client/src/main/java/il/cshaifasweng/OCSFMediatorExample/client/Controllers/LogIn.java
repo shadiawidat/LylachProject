@@ -135,6 +135,14 @@ public class LogIn implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(App.getUser()!=null) {
+            try {
+                SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         App.setUser(null);
     }
 }

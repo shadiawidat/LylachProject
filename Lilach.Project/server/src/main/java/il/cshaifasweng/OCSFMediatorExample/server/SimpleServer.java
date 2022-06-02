@@ -1,10 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import javafx.application.Platform;
+
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
-import javafx.application.Platform;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -143,6 +143,7 @@ public class SimpleServer extends AbstractServer {
 		System.out.println(request);
 		if(request.startsWith("#SignOut"))
 		{
+			session.beginTransaction();
 			String[] msgarray=request.split(" ");
 			User user=session.find(User.class,msgarray[1]);
 
@@ -150,7 +151,7 @@ public class SimpleServer extends AbstractServer {
 
 				session.find(User.class,msgarray[1]).setLogedIn(false);
 				session.flush();
-
+				session.getTransaction().commit();
 				client.sendToClient(new Message(null, "#UserSignOut"));
 
 			}

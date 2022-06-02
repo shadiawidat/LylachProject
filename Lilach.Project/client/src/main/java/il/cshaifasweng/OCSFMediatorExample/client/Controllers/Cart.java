@@ -20,7 +20,9 @@ import java.text.DecimalFormat;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import static java.lang.Math.round;
@@ -162,6 +164,16 @@ public class Cart implements Initializable {
 
     public void loadCart(List<Item> Cart)
     {
+        Map<Integer,Integer> map=new HashMap<>();
+        for (Item item : Cart)
+        {
+            if(map.containsKey(item.getId())) {
+
+                map.put(item.getId(), map.get(item.getId()) + 1);
+            }
+            else
+                map.put(item.getId(),1);
+        }
 
         double subTotal=0.0;
         double TotalDiscount=0.0;
@@ -181,14 +193,18 @@ public class Cart implements Initializable {
             int column = 0;
             int row = 1;
             for (Item item : Cart) {
+                if(map.get(item.getId())==0)
+                    continue;
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(SimpleClient.class.getResource("ItemCart.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 CartItem CartItemController = fxmlLoader.getController();
-                CartItemController.setItemView(item);
-                subTotal+=item.getPrice();
+                CartItemController.setItemView(item,map.get(item.getId()));
+                subTotal+=map.get(item.getId())*item.getPrice();
+                TotalDiscount+= map.get(item.getId())*item.getPrice()*(item.getDiscount()/100);
+                CartItemController.getQuantity().getValueFactory().setValue(map.get(item.getId()));
 
-                TotalDiscount+= item.getPrice()*(item.getDiscount()/100);
+                map.put(item.getId(), 0);
                 if (column == 1) {
                     column = 0;
                     row++;
