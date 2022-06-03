@@ -14,9 +14,11 @@ import org.hibernate.service.ServiceRegistry;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 public class SimpleServer extends AbstractServer {
@@ -396,6 +398,34 @@ public class SimpleServer extends AbstractServer {
 			Message msa=new Message(session.createQuery(query).getResultList(),"#BranchesReadyA");
 			client.sendToClient(msa);
 		}
+		if(request.equals("#getBranchesR"))
+		{
+			CriteriaBuilder builder=session.getCriteriaBuilder();
+			CriteriaQuery<Branch> query=builder.createQuery(Branch.class);
+			query.from(Branch.class);
+			Message msa=new Message(session.createQuery(query).getResultList(),"#BranchesReadyR");
+			client.sendToClient(msa);
+		}else if(request.startsWith("#PrepReports1")){
+
+
+
+			String[] msgarray=request.split(" ");
+			if(msgarray[1].equals("Order")){
+
+			}else if(msgarray[1].equals("Income")) {
+
+			}else if(msgarray[1].equals("Complain")){
+
+			}
+
+		}else if(request.startsWith("#PrepReports2")){
+
+		}
 	}
 
+	private Boolean BetweenDates(Date date,Date date1, Date date2){
+		if(date.before(date1)||date.after(date2))
+			return false;
+		return true;
+	}
 }
