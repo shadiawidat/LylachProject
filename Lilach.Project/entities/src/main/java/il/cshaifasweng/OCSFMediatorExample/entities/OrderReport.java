@@ -13,9 +13,10 @@ public class OrderReport extends Report  implements Serializable{
     public OrderReport() {
     }
 
-    public OrderReport(int ordersnum) {
+    public OrderReport(List<Cart> orders,int ordersnum) {
         super();
         this.ordersnum = ordersnum;
+        this.orders=orders;
     }
 
     public void AddOneCart(Cart c){
