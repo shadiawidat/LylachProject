@@ -113,16 +113,6 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <MenuButton fx:id="AccountType" alignment="CENTER" layoutX="570.0" layoutY="555.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields">
-         <items>
-            <MenuItem mnemonicParsing="false" onAction="#OneBranch" text="Basic - One Branch" />
-            <MenuItem mnemonicParsing="false" onAction="#AllBranches" text="Gold -All Branches" />
-            <MenuItem mnemonicParsing="false" onAction="#Subscription" text="Premium - All Branches + Discount 10% -100$" />
-         </items>
-         <font>
-            <Font name="Cambria" size="18.0" />
-         </font>
-      </MenuButton>
       <HBox alignment="BOTTOM_LEFT" layoutX="574.0" layoutY="108.0" prefHeight="28.0" prefWidth="200.0">
          <children>
             <Label text="Address">
@@ -309,7 +299,7 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <DatePicker fx:id="BirthdateMN" layoutX="77.0" layoutY="555.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" visible="false" />
+      <DatePicker fx:id="BirthdateMN" layoutX="90.0" layoutY="555.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" />
       <Label fx:id="TypeLB" layoutX="574.0" layoutY="515.0" text="Account type">
          <font>
             <Font name="Cambria" size="24.0" />
@@ -442,6 +432,11 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <TextField fx:id="NewBranch" layoutX="570.0" layoutY="555.0" prefHeight="103.0" styleClass="textFields" visible="false">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
       <HBox layoutX="70.0" layoutY="606.0" prefHeight="30.0" prefWidth="200.0">
          <children>
             <Label fx:id="PasswordLB" text="Password">
@@ -456,5 +451,15 @@
             </Label>
          </children>
       </HBox>
+      <MenuButton fx:id="AccountType" alignment="CENTER" layoutX="570.0" layoutY="555.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields">
+         <items>
+            <MenuItem mnemonicParsing="false" onAction="#OneBranch" text="Basic - One Branch" />
+            <MenuItem mnemonicParsing="false" onAction="#AllBranches" text="Gold -All Branches" />
+            <MenuItem mnemonicParsing="false" onAction="#Subscription" text="Premium - All Branches + Discount 10% -100$" />
+         </items>
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </MenuButton>
    </children>
 </AnchorPane>

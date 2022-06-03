@@ -14,7 +14,6 @@ public class Branch implements Serializable{
 
     private String name;
 
-
     public Branch(String name) {
         this.name = name;
     }
@@ -26,7 +25,20 @@ public class Branch implements Serializable{
     private CoroporationManager cmanager;
 
     @ManyToMany
+    @JoinTable(
+            name = "User_Branch",
+            joinColumns = { @JoinColumn(name = "User_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "Branch_ID") }
+    )
     private List<User> users=new ArrayList<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @ManyToMany
     @JoinTable(
