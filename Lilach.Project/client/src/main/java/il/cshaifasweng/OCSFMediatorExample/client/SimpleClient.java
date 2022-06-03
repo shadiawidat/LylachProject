@@ -85,7 +85,8 @@ public class SimpleClient extends AbstractClient {
 		else if (deliver.equals("#BranchesReadyA"))
 		{
 			accountControl.setBranchesL((List<Branch>) ms.getObject());
-			Platform.runLater(()->{accountControl.loadBranches();});
+			Platform.runLater(()->{accountControl.resetFields();
+				accountControl.loadBranches();});
 
 		}else if (deliver.equals("#BranchesReadyS"))
 		{

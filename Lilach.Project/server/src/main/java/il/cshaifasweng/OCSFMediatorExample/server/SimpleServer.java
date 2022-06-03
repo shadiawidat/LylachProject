@@ -189,14 +189,24 @@ public class SimpleServer extends AbstractServer {
 
 			String[] msgarray=request.split(" ");
 			User user=session.find(User.class,msgarray[1]);
+			Branch b=session.find(Branch.class,Integer.parseInt(msgarray[2]));
+			System.out.println(b.getName());
 			if(user!=null) {
 				client.sendToClient(new Message(user, "#AddUserExists"));
 			}
 			else {
 
-				saveObject((User) ms.getObject());
+				App.server.saveObject((User)ms.getObject());
+				b.getUsers().add(user);
+//				App.server.saveObject((User)ms.getObject());
+//				user=session.find(User.class,((User)ms.getObject()).getID());
+//
+//				user.AddOneBranch(b);
+
 				client.sendToClient(new Message(ms.getObject(), "#AddUserCreated"));
 			}
+
+
 		}
 		if(request.startsWith("#SearchUser"))
 		{
@@ -216,6 +226,9 @@ public class SimpleServer extends AbstractServer {
 			String[] msgarray=request.split(" ");
 			User user=session.find(User.class,msgarray[1]);
 			if(user!=null) {
+				if(user.getPermission().equals(permissions.ADMIN)){
+					return;
+				}
 				user.setFreeze(!user.isFreeze());
 				client.sendToClient(new Message(user, "#UserFreezed"));
 			}
@@ -347,11 +360,8 @@ public class SimpleServer extends AbstractServer {
 			else{
 				for(Cart cart:myorders)
 				{
-
-
 					if(cart.isPayed()==false)
 					{
-
 						session.beginTransaction();
 						cart.getItems().add((Item)ms.getObject());
 						session.find(Item.class,((Item)ms.getObject()).getId()).getCarts().add(cart);

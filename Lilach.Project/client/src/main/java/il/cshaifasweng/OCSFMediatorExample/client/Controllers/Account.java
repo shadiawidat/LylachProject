@@ -5,6 +5,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import org.hibernate.Session;
 
 import java.io.IOException;
 import java.net.URL;
@@ -195,6 +197,7 @@ public class Account implements Initializable {
         UpdateUser.setVisible(true);
         Clear.setVisible(true);
         UnFreeze.setVisible(true);
+        MyOrders.setVisible(false);
         InvalidFN.setVisible(false);
         InvalidLN.setVisible(false);
         InvalidID.setVisible(false);
@@ -228,7 +231,7 @@ public class Account implements Initializable {
           AccountType.setVisible(false);
           if(!App.getUser().isFreeze())
           {
-              FreezeIcon.setVisible(true);
+              FreezeIcon.setVisible(false);
               FreezeLB.setVisible(false);
           }
 
@@ -252,6 +255,7 @@ public class Account implements Initializable {
 
       }
       else{
+
           if(user.getPermission()==permissions.CLIENT){
               CreditCard.setVisible(true);
               CreditCardLB.setVisible(true);
@@ -270,16 +274,23 @@ public class Account implements Initializable {
               PermisionsMN.setVisible(true);
               if(user.getPermission()==permissions.MANAGER){
                   PermisionsMN.setText("BRANCH MANAGER");
+                  BranchLB.setVisible(true);
+                  Branches.setVisible(true);
+                  Branches.setText(((BranchManager)App.getUser()).getMybranch().getName());
               }else if(user.getPermission()==permissions.CorpManager){
                   PermisionsMN.setText("CORPORATION MANAGER");
               }else if(user.getPermission()==permissions.WORKER){
                   PermisionsMN.setText("WORKER");
+                  BranchLB.setVisible(true);
+                  Branches.setVisible(true);
+//                  Branches.setText(((BranchManager)App.getUser()).getMybranch().getName()); ///worker branch...! kef dktla2e
+
               }
 
           }
           if(!user.isFreeze())
           {
-              FreezeIcon.setVisible(true);
+              FreezeIcon.setVisible(false);
               FreezeLB.setVisible(false);
           }
           else{
@@ -383,13 +394,14 @@ public class Account implements Initializable {
     @FXML
     void UserChanges(KeyEvent event) {
         FreezeUser.setVisible(false);
-        //AddUser.setVisible(false);
         RemoveUser.setVisible(false);
         UpdateUser.setVisible(false);
         Clear.setVisible(false);
         UnFreeze.setVisible(false);
         if(App.getUser().getPermission().equals(permissions.ADMIN))
         Clear.setVisible(true);
+        Search.setVisible(true);
+        AddUser.setVisible(true);
     }
 
     @FXML
@@ -493,6 +505,7 @@ public class Account implements Initializable {
         InvalidPerm.setVisible(false);
         InvalidPassword.setVisible(false);
         InvalidCrdeitCard.setVisible(false);
+        MyOrders.setVisible(false);
         UserName.setText("Welcome " + App.getUser().getFirstname());
         FirstName.setText("");
         LastName.setText("");
@@ -512,14 +525,23 @@ public class Account implements Initializable {
         CreditCardLB.setVisible(false);
         AccountType.setVisible(false);
         TypeLB.setVisible(false);
-        BirthDate.setVisible(false);
         PermisionsLB.setVisible(true);
         PermisionsMN.setVisible(true);
         PasswordLB.setVisible(true);
         Password.setVisible(true);
         BirthdateMN.setVisible(true);
+        BirthDate.setVisible(false);
+        BirthdateMN.setValue(java.time.LocalDate.now());
         BranchLB.setVisible(false);
         Branches.setVisible(false);
+        FreezeIcon.setVisible(false);
+        FreezeLB.setVisible(false);
+        AddUser.setVisible(false);
+        RemoveUser.setVisible(false);
+        FreezeUser.setVisible(false);
+        UnFreeze.setVisible(false);
+        UpdateUser.setVisible(false);
+        Search.setVisible(false);
 
        // resetFields();
 
@@ -594,6 +616,7 @@ public class Account implements Initializable {
         InvalidPerm.setVisible(false);
         InvalidPassword.setVisible(false);
         InvalidCrdeitCard.setVisible(false);
+        InvalidBranch.setVisible(false);
         BranchLB.setVisible(false);
         Branches.setVisible(false);
 
@@ -607,6 +630,7 @@ public class Account implements Initializable {
         InvalidPassword.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
         InvalidUS.setVisible(!Utilities.check_Validate_String(Username.getText()) || Username.getText().equals(""));
         InvalidPerm.setVisible(!Utilities.check_Validate_String(PermisionsMN.getText()) || PermisionsMN.getText() == "");
+        InvalidBranch.setVisible(Branches.getText().equals(""));
 
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
         Date Birth = new Date(BirthdateMN.getValue().getYear(), BirthdateMN.getValue().getMonthValue(), BirthdateMN.getValue().getDayOfMonth());
@@ -622,41 +646,48 @@ public class Account implements Initializable {
         flag=flag||!Utilities.check_Validate_Pass(Username.getText());
         flag=flag||!Utilities.checkValidDate(Birth, now);
         flag=flag||!Utilities.check_Validate_String(PermisionsMN.getText()) || PermisionsMN.getText().equals("");
-//        if(PermisionsMN.getText().equals(permissions.MANAGER) || PermisionsMN.getText().equals(permissions.WORKER)){
-//            BranchLB.setVisible(true);
-//            Branches.setVisible(true);
-//            InvalidBranch.setVisible(!Utilities.check_Validate_String(Branches.getText()) || PermisionsMN.getText() == "");
+        flag =flag||Branches.getText().equals("");
+        if(PermisionsMN.getText().equals("BRANCH MANAGER") || PermisionsMN.getText().equals("WORKER")){
+            BranchLB.setVisible(true);
+            Branches.setVisible(true);
+            InvalidBranch.setVisible(Branches.getText() == "");
 //            if(Branches.getText().equals("")){
 //                return;
 //            }
+        }
+//        if(Branches.isVisible())
+//        {
+//            return;
 //        }
-        if(Branches.isVisible())
-        {
+
+        if(flag){
             return;
         }
 
-        if(flag)
-            return;
-
-        if(PermisionsMN.getText().equals(permissions.WORKER)){
+        if(PermisionsMN.getText().equals("WORKER")){
+            System.out.println("wow");
             BranchLB.setVisible(true);
             Branches.setVisible(true);
             User nuser = new User(Username.getText(), Password.getText(),FirstName.getText(),LastName.getText(),Email.getText(),Phone.getText(),Birth,Address.getText(),permissions.WORKER,ID.getText(),false);
             BranchLB.setVisible(true);
             Branches.setVisible(true);
+            Branch bebe=BranchesL.get(0);
             for(Branch branch:BranchesL)
             {
                 if(branch.getName().equals(Branches.getText()))
-                {
+                {bebe=branch;
+                    System.out.println("Hello");
                     nuser.AddOneBranch(branch);
+                    branch.getUsers().add(nuser);
                     break;
                 }
             }
-            Message ms = new Message(nuser, "#AddUser " + Username.getText());
+            Message ms = new Message(nuser, "#AddUser " + Username.getText()+" "+bebe.getId());
             SimpleClient.getClient().sendToServer(ms);
             SimpleClient.getClient().accountControl=this;
+
         }
-        else if(PermisionsMN.getText().equals(permissions.MANAGER)) {
+        else if(PermisionsMN.getText().equals("BRANCH MANAGER")) {
             BranchLB.setVisible(true);
             Branches.setVisible(true);
             BranchManager branchManager = new BranchManager(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), permissions.MANAGER, ID.getText(), false, null);
@@ -828,6 +859,25 @@ public class Account implements Initializable {
             }
 
         }
+
+        if(!App.getUser().getPermission().equals(permissions.CLIENT)){
+            CartB.setVisible(false);
+            MenuSignUp.setVisible(false);
+            MenuCart.setVisible(false);
+            MyOrders.setVisible(true);
+        }
+        if(App.getUser().getPermission().equals(permissions.MANAGER)) {
+            BranchLB.setVisible(true);
+            Branches.setVisible(true);
+            Branches.setText(((BranchManager)App.getUser()).getMybranch().getName());
+        }
+        if(App.getUser().getPermission().equals(permissions.WORKER)) {
+            BranchLB.setVisible(true);
+            Branches.setVisible(true);
+            System.out.println(App.getUser().getFirstname());
+            System.out.println(App.getUser().getMybranches().size());
+//                Branches.setText(App.getUser().getMybranches().get(0).getName());
+        }
     }
 
 
@@ -847,17 +897,13 @@ public class Account implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        resetFields();
-        if(!App.getUser().getPermission().equals(permissions.CLIENT)){
-            CartB.setVisible(false);
-            MenuSignUp.setVisible(false);
-            MenuCart.setVisible(false);
-        }
-        if(App.getUser().getPermission().equals(permissions.MANAGER)) {
-            BranchLB.setVisible(true);
-            Branches.setVisible(true);
-            Branches.setText(((BranchManager)App.getUser()).getMybranch().getName());
-        }
+
+        Platform.runLater(()->{
+
+            resetFields();
+
+        });
+
 
         }
 
