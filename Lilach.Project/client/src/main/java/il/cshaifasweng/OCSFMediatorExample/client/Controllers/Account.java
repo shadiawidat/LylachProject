@@ -301,8 +301,6 @@ public class Account implements Initializable {
                 else if (user.getPermission() == permissions.WORKER) {
                     BranchLB.setVisible(true);
                     Branches.setVisible(true);
-                    System.out.println(user.getMybranches().size());
-//                    Branches.setText(user.getMybranches().size());
                 }
             }
 
@@ -582,7 +580,6 @@ public class Account implements Initializable {
 
         if (AccountType.isVisible()) {
             if (AccountType.getText().equals(AccountTypes.Basic.name())) {
-                System.out.println("BASIC");
                 Client client = new Client(App.getUser().getUsername(), App.getUser().getPassword(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), App.getUser().getBirthday(), Address.getText(), App.getUser().getPermission(), App.getUser().getID(), CreditCard.getText(), AccountTypes.Basic, 0.0);
                 Message ms = new Message(client, "#UpdateUser " + Username.getText());
                 SimpleClient.getClient().sendToServer(ms);
@@ -692,7 +689,6 @@ public class Account implements Initializable {
         }
 
         if (PermisionsMN.getText().equals("WORKER")) {
-            System.out.println("wow");
             BranchLB.setVisible(true);
             Branches.setVisible(true);
             User nuser = new User(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), permissions.WORKER, ID.getText(), false);
@@ -702,7 +698,6 @@ public class Account implements Initializable {
             for (Branch branch : BranchesL) {
                 if (branch.getName().equals(Branches.getText())) {
                     bebe = branch;
-                    System.out.println("Hello");
                     nuser.AddOneBranch(branch);
                     branch.getUsers().add(nuser);
                     break;
@@ -728,10 +723,10 @@ public class Account implements Initializable {
             SimpleClient.getClient().sendToServer(ms);
             SimpleClient.getClient().accountControl = this;
         } else {
-            CoroporationManager coroporationManager = new CoroporationManager(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), permissions.CorpManager, ID.getText(), false, null);
-            Message ms = new Message(coroporationManager, "#AddUser " + Username.getText());
-            SimpleClient.getClient().sendToServer(ms);
-            SimpleClient.getClient().accountControl = this;
+//            CoroporationManager coroporationManager = new CoroporationManager(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), permissions.CorpManager, ID.getText(), false, null);
+//            Message ms = new Message(coroporationManager, "#AddUser " + Username.getText());
+//            SimpleClient.getClient().sendToServer(ms);
+//            SimpleClient.getClient().accountControl = this;
         }
 
     }
@@ -897,9 +892,7 @@ public class Account implements Initializable {
         if (App.getUser().getPermission().equals(permissions.WORKER)) {
             BranchLB.setVisible(true);
             Branches.setVisible(true);
-            System.out.println(App.getUser().getFirstname());
             System.out.println(App.getUser().getMybranches().size());
-//                Branches.setText(App.getUser().getMybranches().get(0).getName());
         }
     }
 
@@ -921,11 +914,11 @@ public class Account implements Initializable {
             e.printStackTrace();
         }
 
-        Platform.runLater(() -> {
-
-            resetFields();
-
-        });
+//        Platform.runLater(() -> {
+//
+//            resetFields();
+//
+//        });
 
 
     }

@@ -8,6 +8,7 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -161,9 +162,11 @@ public class SimpleServer extends AbstractServer {
 		if(request.startsWith("#LogIn"))
 		{
 			String[] msgarray=request.split(" ");
-			User user=session.find(User.class,msgarray[1]);
-			if(user!=null&&user.getPassword().equals(msgarray[2])) {
+			session.beginTransaction();
+			User user=session.load(User.class,msgarray[1]);
 
+			if(user!=null&&user.getPassword().equals(msgarray[2])) {
+				System.out.println(user.getMybranches().size());
 
 				client.sendToClient(new Message(user, "#Useridentify"));
 				session.find(User.class,msgarray[1]).setLogedIn(true);
@@ -215,7 +218,8 @@ public class SimpleServer extends AbstractServer {
 
 			String[] msgarray=request.split(" ");
 			User user=session.find(User.class,msgarray[1]);
-
+			System.out.println(user.getUsername());
+			System.out.println((session.find(Branch.class,"Haifa").getUsers().size()));
 			if(user!=null) {
 				client.sendToClient(new Message(user, "#UserFound"));
 			}
@@ -432,7 +436,100 @@ public class SimpleServer extends AbstractServer {
 
 		}
 	}
+	public void makeitwork(){
+		User johnny=session.find(User.class,"Johnny");
+		User Lili=session.find(User.class,"Lili");
+		User Shaggy=session.find(User.class,"Shaggy");
 
+		Branch Haifa=session.find(Branch.class,"Haifa");
+		Branch Nazareth=session.find(Branch.class,"Nazareth");
+		Branch Krayot=session.find(Branch.class,"Krayot");
+
+		BranchManager Moshe=session.find(BranchManager.class,"Moshe");
+		BranchManager ProfMalki=session.find(BranchManager.class,"ProfMalki");
+		BranchManager eli=session.find(BranchManager.class,"eli");
+
+		CoroporationManager MsSneh=session.find(CoroporationManager.class,"MsSneh");
+
+		Client lana31=session.find(Client.class,"lana31");
+		Client Ramkh=session.find(Client.class,"Ramkh");
+		Client MuradKh=session.find(Client.class,"MuradKh");
+
+		Transaction tx=session.beginTransaction();
+
+		johnny.getMybranches().add(Haifa);
+		Haifa.getUsers().add(johnny);
+		session.flush();
+		tx.commit();
+
+		tx=session.beginTransaction();
+		Lili.getMybranches().add(Krayot);
+		Krayot.getUsers().add(Lili);
+		session.flush();
+		tx.commit();
+
+		tx=session.beginTransaction();
+		Shaggy.getMybranches().add(Nazareth);
+		Nazareth.getUsers().add(Shaggy);
+		session.flush();
+		tx.commit();
+
+		tx=session.beginTransaction();
+		Moshe.setMybranch(Krayot);
+		Krayot.setBmanager(Moshe);
+		session.flush();
+		tx.commit();
+
+		tx=session.beginTransaction();
+		ProfMalki.setMybranch(Haifa);
+		Haifa.setBmanager(ProfMalki);
+		session.flush();
+		tx.commit();
+
+		tx=session.beginTransaction();
+		eli.setMybranch(Nazareth);
+		Nazareth.setBmanager(eli);
+		session.flush();
+		tx.commit();
+
+		tx=session.beginTransaction();
+		MsSneh.AddOneBranch(Haifa);
+		MsSneh.AddOneBranch(Nazareth);
+		MsSneh.AddOneBranch(Krayot);
+		Haifa.setCmanager(MsSneh);
+		Nazareth.setCmanager(MsSneh);
+		Krayot.setCmanager(MsSneh);
+		session.flush();
+		tx.commit();
+
+		tx=session.beginTransaction();
+		Ramkh.AddOneBranch(Haifa);
+		Ramkh.AddOneBranch(Nazareth);
+		Ramkh.AddOneBranch(Krayot);
+		Haifa.getUsers().add(Ramkh);
+		Nazareth.getUsers().add(Ramkh);
+		Krayot.getUsers().add(Ramkh);
+		session.flush();
+		tx.commit();
+
+		tx=session.beginTransaction();
+		lana31.AddOneBranch(Haifa);
+		lana31.AddOneBranch(Nazareth);
+		lana31.AddOneBranch(Krayot);
+		Haifa.getUsers().add(lana31);
+		Nazareth.getUsers().add(lana31);
+		Krayot.getUsers().add(lana31);
+		session.flush();
+		tx.commit();
+
+		tx=session.beginTransaction();
+		MuradKh.AddOneBranch(Krayot);
+		Krayot.getUsers().add(MuradKh);
+		session.flush();
+		tx.commit();
+
+
+	}
 	private Boolean BetweenDates(Date date,Date date1, Date date2){
 		if(date.before(date1)||date.after(date2))
 			return false;

@@ -8,17 +8,15 @@ import java.util.List;
 
 @Entity
 public class Client extends User implements Serializable {
-    private AccountTypes accounttype;
-    private Double amount;
-
-    @ManyToMany(mappedBy = "clients")
-    private List<Branch> myBranches=new ArrayList<>();
 
     @OneToMany(mappedBy = "client")
     private List<Cart> myorders=new ArrayList<>();
 
     @OneToMany(mappedBy = "client")
     private List<Complain> complains=new ArrayList<>();
+
+    private AccountTypes accounttype;
+    private Double amount;
 
     private String CreditCard;
 
@@ -84,6 +82,5 @@ public class Client extends User implements Serializable {
     public void setMyorders(List<Cart> myorders) {
         this.myorders = myorders;
     }
-
 
 }

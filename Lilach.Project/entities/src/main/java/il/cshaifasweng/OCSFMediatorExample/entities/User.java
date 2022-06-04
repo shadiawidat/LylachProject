@@ -20,17 +20,19 @@ public class User implements Serializable{
     private permissions permission;
     private String ID;
 
-
     private boolean Freeze;
     private boolean LogedIn;
 
-
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany
+    @JoinTable(
+            name = "User_Branch",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "branch_id") }
+    )
     private List<Branch> mybranches=new ArrayList<>();
 
     public User() {
     }
-
 
     //Worker's Contructor
     public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID,boolean Freeze) {
@@ -76,8 +78,6 @@ public class User implements Serializable{
         this.ID=ID;
         this.Freeze=Freeze;
         this.LogedIn=false;
-        this.getMybranches().add(b);
-        b.getUsers().add(this);
 
     }
 
