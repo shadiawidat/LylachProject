@@ -24,6 +24,8 @@ public class SignUp implements Initializable {
     private MenuButton AccountType;
     @FXML
     private TextField Address;
+
+    private AccountTypes type;
     @FXML
     private DatePicker Birthdate;
     @FXML
@@ -156,7 +158,11 @@ public class SignUp implements Initializable {
         Cart.setCaller("SignUp");
         App.setRoot("Cart");
     }
-
+    @FXML
+    void GoToCatalog(ActionEvent event) throws IOException {
+        Catalog.setCaller("LogIn");
+        App.setRoot("Catalog");
+    }
     @FXML
     void GoToCartMN(ActionEvent event) throws IOException {
 
@@ -273,7 +279,7 @@ public class SignUp implements Initializable {
         flag=flag||!Utilities.check_Validate_String(Address.getText()) || Address.getText().equals("");
         InvalidPassword.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
         flag=flag||!Utilities.check_Validate_Phone(Phone.getText());
-        flag=flag||!Utilities.check_Validate_Pass(Username.getText());
+        flag=flag||!Utilities.check_Validate_Username(Username.getText());
         flag=flag||AccountType.getText().equals("");
         flag=flag||!Utilities.check_Validate_Card(CreditCard.getText());
         flag=flag||!Utilities.checkValidDate(Birth, now);
@@ -281,27 +287,27 @@ public class SignUp implements Initializable {
         if(flag)
             return;
         Client nClient=new Client(Username.getText(),Password.getText(),FirstName.getText(),LastName.getText(),Email.getText(),Phone.getText(),Birth,
-                Address.getText(), permissions.CLIENT,ID.getText(),CreditCard.getText(),AccountTypes.Basic,0.0);
+                Address.getText(), permissions.CLIENT,ID.getText(),CreditCard.getText(),type,0.0);
 
 
 
-        Message ms = new Message(nClient, "#UserExist " + Username.getText());
 
         if(AccountTypes.Basic.name().equals(AccountType.getText()))
         {
+
             for(Branch branch:BranchesL)
             {
                 if(branch.getName().equals(Branches.getText()))
                 {
-                    nClient.AddOneBranch(branch);
-                    break;
+                    Message ms = new Message(nClient, "#UserExist " + Username.getText()+" "+branch.getName());
+                    SimpleClient.getClient().sendToServer(ms);
+                    SimpleClient.getClient().signUpControl=this;
+                    return;
                 }
             }
         }
-        else
-        {
-            nClient.setMybranches(BranchesL);
-        }
+
+        Message ms = new Message(nClient, "#UserExist " + Username.getText()+" -1");
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().signUpControl=this;
     }
@@ -328,6 +334,7 @@ public class SignUp implements Initializable {
         Branches.setVisible(false);
         Branch.setVisible(false);
         InvalidBranch.setVisible(false);
+        type=AccountTypes.Premium;
         AccountType.setText(AccountTypes.Premium.name());
     }
 
@@ -336,6 +343,7 @@ public class SignUp implements Initializable {
 
         Branches.setVisible(true);
         Branch.setVisible(true);
+        type=AccountTypes.Basic;
         AccountType.setText(AccountTypes.Basic.name());
     }
     public void loadBranches(){
@@ -360,6 +368,7 @@ public class SignUp implements Initializable {
         Branches.setVisible(false);
         Branch.setVisible(false);
         InvalidBranch.setVisible(false);
+        type=AccountTypes.Gold;
         AccountType.setText(AccountTypes.Gold.name());
     }
 
@@ -376,7 +385,6 @@ public class SignUp implements Initializable {
             MenuSignOut.setVisible(false);
             MenuProfile.setVisible(false);
             MenuCart.setVisible(false);
-            GoTo.setVisible(false);
             UserNameConnected.setText("Welcome guest");
         }
         else {
