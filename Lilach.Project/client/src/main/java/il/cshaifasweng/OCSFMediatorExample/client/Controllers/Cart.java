@@ -16,6 +16,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import org.hibernate.id.factory.IdentifierGeneratorFactory;
+
 import java.text.DecimalFormat;
 
 import java.io.IOException;
@@ -124,10 +126,15 @@ public class Cart implements Initializable {
 
     @FXML
     void GoToAbout(ActionEvent event) throws IOException {
-        Account.setCaller("Cart");
+        About.setCaller("Cart");
         App.setRoot("About");
     }
 
+    @FXML
+    void GoToCatalog(ActionEvent event) throws IOException {
+        Catalog.setCaller("LogIn");
+        App.setRoot("Catalog");
+    }
 
     @FXML
     void GoToProfile(ActionEvent event) throws IOException {
@@ -146,7 +153,7 @@ public class Cart implements Initializable {
 
     @FXML
     void GoToSignUp(ActionEvent event) throws IOException {
-        Account.setCaller("Cart");
+        SignUp.setCaller("Cart");
         App.setRoot("SignUp");
     }
 
@@ -239,12 +246,13 @@ public class Cart implements Initializable {
             UserName.setText("Welcome guest");
         else
             UserName.setText("Welcome " + App.getUser().getFirstname());
-
-        try {
-            SimpleClient.getClient().sendToServer(new Message(App.getUser(),"#GetCart "+App.getUser().getUsername()));
-            SimpleClient.getClient().cartControl=this;
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(App.getUser()!=null) {
+            try {
+                SimpleClient.getClient().sendToServer(new Message(App.getUser(), "#GetCart " + App.getUser().getUsername()));
+                SimpleClient.getClient().cartControl = this;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }

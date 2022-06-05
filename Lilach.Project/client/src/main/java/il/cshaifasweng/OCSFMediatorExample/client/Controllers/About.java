@@ -24,6 +24,7 @@ public class About implements Initializable {
     @FXML
     private ImageView CartB;
 
+
     @FXML
     private ImageView MenuBtn;
     @FXML
@@ -35,6 +36,8 @@ public class About implements Initializable {
     @FXML
     private MenuItem MenuProfile;
     @FXML
+    private MenuItem CatalogBtn;
+    @FXML
     private MenuItem MenuSignIn;
     @FXML
     private MenuItem MenuSignOut;
@@ -43,7 +46,11 @@ public class About implements Initializable {
     @FXML
     private MenuBar menu;
     @FXML
-    private Label UserNameConnected;
+    private Label UserNameConnected; @FXML
+    private MenuItem Reports;
+    @FXML
+    private MenuItem Complains;
+
 
     public static String getCaller() {
         return Caller;
@@ -55,6 +62,14 @@ public class About implements Initializable {
 
     @FXML
     void GoToCartMN(ActionEvent event) throws IOException {
+        if (App.getUser() == null) {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+            a.setContentText("Please sign in first");
+
+            a.showAndWait();
+            return;
+        }
         Cart.setCaller("About");
         App.setRoot("Cart");
     }
@@ -72,13 +87,13 @@ public class About implements Initializable {
 
     @FXML
     void CloseMenu(MouseEvent event) {
-       // menu.setVisible(false);
+        // menu.setVisible(false);
     }
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        if(App.getUser()!=null)
-            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if (App.getUser() != null)
+            SimpleClient.getClient().sendToServer(new Message(null, "#SignOut " + App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("Login");
     }
@@ -90,14 +105,19 @@ public class About implements Initializable {
     }
 
     @FXML
+    void GoToCatalog(ActionEvent event) throws IOException {
+        Catalog.setCaller("LogIn");
+        App.setRoot("Catalog");
+    }
+
+    @FXML
     void Back(MouseEvent event) throws IOException {
         App.setRoot(getCaller());
     }
 
     @FXML
     void GoToAccount(MouseEvent event) throws IOException {
-        if(App.getUser()==null)
-        {
+        if (App.getUser() == null) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
 
             a.setContentText("Please sign in first");
@@ -111,9 +131,7 @@ public class About implements Initializable {
 
     @FXML
     void GoToCart(MouseEvent event) throws IOException {
-
-        if(App.getUser()==null)
-        {
+        if (App.getUser() == null) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
 
             a.setContentText("Please sign in first");
@@ -125,11 +143,16 @@ public class About implements Initializable {
         Cart.setCaller("About");
         App.setRoot("Cart");
     }
+    @FXML
+    void GoToComplains(ActionEvent event) throws IOException {
+        AllComplains.setCaller("Catalog");
+        App.setRoot("AllComplains");
+    }
 
     @FXML
-    void GoToAbout(MouseEvent event) throws IOException {
-        About.setCaller("LogIn");
-        App.setRoot("About");
+    void GoToReports(ActionEvent event) throws IOException {
+        Report.setCaller("Catalog");
+        App.setRoot("Report");
     }
 
 
@@ -143,23 +166,27 @@ public class About implements Initializable {
 
         if (App.getUser() == null) {
             MenuSignOut.setVisible(false);
-            MenuProfile.setVisible(false);
-            MenuCart.setVisible(false);
             UserNameConnected.setText("Welcome guest");
-        }
-        else {
+        } else {
             MenuSignIn.setVisible(false);
             MenuSignUp.setVisible(false);
+            Reports.setVisible(false);
+            Complains.setVisible(false);
             UserNameConnected.setText("Welcome " + App.getUser().getFirstname());
         }
-        if(!App.getUser().getPermission().equals(permissions.CLIENT)) {
+        if ((App.getUser() != null) && (!App.getUser().getPermission().equals(permissions.CLIENT))) {
             CartB.setVisible(false);
             MenuCart.setVisible(false);
         }
-
+        if ((App.getUser() != null) && ((App.getUser().getPermission().equals(permissions.MANAGER)) || (App.getUser().getPermission().equals(permissions.CorpManager)))) {
+            Reports.setVisible(true);
+            Complains.setVisible(true);
+        }
+        else {
+            Reports.setVisible(false);
+            Complains.setVisible(false);
+        }
+        if((App.getUser()!=null) && (App.getUser().getPermission().equals(permissions.ADMIN)))
+            CatalogBtn.setVisible(false);
     }
-
-
-
-
 }

@@ -106,6 +106,15 @@ public class Item implements Serializable {
     public void DisEngageCart(Cart cart){
         carts.remove(cart);
     }
+
+    public void setinfo(String newinfo){
+        String[] info= newinfo.split(" ");
+        setName(info[0]);
+        setPrice(Double.parseDouble(info[1]));
+        setType(info[2]);
+        setColor(info[3]);
+        setDiscount(Double.parseDouble(info[4]));
+    }
 }
 
 

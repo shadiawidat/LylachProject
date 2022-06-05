@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -45,8 +46,6 @@ public class AllComplains implements Initializable {
     @FXML
     private MenuItem MenuSignOut;
 
-    @FXML
-    private MenuItem MenuSignUp;
 
     @FXML
     private Label UserName;
@@ -97,6 +96,17 @@ public class AllComplains implements Initializable {
         App.setRoot("Account");
     }
 
+    @FXML
+    void GoToCatalog(ActionEvent event) throws IOException {
+        Catalog.setCaller("LogIn");
+        App.setRoot("Catalog");
+    }
+
+    @FXML
+    void GoToReports(ActionEvent event) throws IOException {
+        Report.setCaller("AllComplains");
+        App.setRoot("Report");
+    }
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
@@ -106,11 +116,7 @@ public class AllComplains implements Initializable {
         App.setRoot("LogIn");
     }
 
-    @FXML
-    void GoToSignUp(ActionEvent event) throws IOException {
-        SignUp.setCaller("AllComplains");
-        App.setRoot("SignUp");
-    }
+
 
     @FXML
     void MenuClick(MouseEvent event) {

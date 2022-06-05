@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -95,6 +96,9 @@ public class Report implements Initializable {
 
     @FXML
     private MenuItem MenuSignUp;
+
+    @FXML
+    private MenuItem Complains;
 
     @FXML
     private MenuButton SecondReportBranch;
@@ -203,6 +207,18 @@ public class Report implements Initializable {
     }
 
     @FXML
+    void GoToCatalog(ActionEvent event) throws IOException {
+        Catalog.setCaller("LogIn");
+        App.setRoot("Catalog");
+    }
+
+    @FXML
+    void GoToComplains(ActionEvent event) throws IOException {
+        AllComplains.setCaller("Report");
+        App.setRoot("AllComplains");
+    }
+
+    @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
         if(App.getUser()!=null)
             SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
@@ -210,11 +226,6 @@ public class Report implements Initializable {
         App.setRoot("LogIn");
     }
 
-    @FXML
-    void GoToSignUp(ActionEvent event) throws IOException {
-        SignUp.setCaller("Report");
-        App.setRoot("SignUp");
-    }
 
     @FXML
     void Income(ActionEvent event) {

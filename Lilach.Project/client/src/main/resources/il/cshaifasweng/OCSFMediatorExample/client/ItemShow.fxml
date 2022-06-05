@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="920.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemShow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="920.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemShow">
    <children>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -83,11 +83,11 @@
             <Image url="@../../../../Media/GIFS/FlowerGIF.gif" />
          </image>
       </ImageView>
-      <HBox alignment="CENTER" layoutX="250.0" layoutY="112.0" prefHeight="594.0" prefWidth="650.0">
+      <HBox alignment="CENTER" layoutX="256.0" layoutY="101.0" prefHeight="620.0" prefWidth="650.0">
          <children>
-            <AnchorPane prefHeight="530.0" prefWidth="534.0">
+            <AnchorPane prefHeight="555.0" prefWidth="583.0">
                <children>
-                  <ImageView fx:id="imgid" fitHeight="249.0" fitWidth="250.0" layoutX="257.0" layoutY="123.0" onDragDropped="#HandleDrop" onDragOver="#HandleOver" pickOnBounds="true">
+                  <ImageView fx:id="imgid" fitHeight="249.0" fitWidth="250.0" layoutX="290.0" layoutY="128.0" onDragDropped="#HandleDrop" onDragOver="#HandleOver" pickOnBounds="true">
                      <image>
                         <Image url="@../../../../Media/Flower/Orchid.png" />
                      </image></ImageView>
@@ -96,41 +96,68 @@
                         <Image url="@../../../../Icons/Close.jpg" />
                      </image>
                   </ImageView>
-                  <Button fx:id="UpdateInfo" layoutX="392.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="left_menu_btns" text="Update Info" visible="false">
+                  <Button fx:id="UpdateInfo" layoutX="392.0" layoutY="460.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="left_menu_btns" text="Update Info" visible="false">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Button>
-                  <VBox layoutX="42.0" layoutY="60.0" onDragOver="#HandleOver" prefHeight="405.0" prefWidth="247.0">
+                  <VBox layoutX="42.0" layoutY="54.0" onDragOver="#HandleOver" prefHeight="411.0" prefWidth="247.0">
                      <children>
-                        <HBox prefHeight="23.0" prefWidth="181.0">
+                        <HBox prefHeight="35.0" prefWidth="181.0">
                            <children>
-                              <Label fx:id="nameid" prefHeight="27.0" prefWidth="170.0" stylesheets="@../../../../Styles/Style.css" text="Name: Orcid">
+                              <Label fx:id="nameid" prefHeight="61.0" prefWidth="170.0" stylesheets="@../../../../Styles/Style.css" text="Name: Orcid">
                                  <font>
                                     <Font name="Cambria" size="22.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
                               </Label>
                               <Label fx:id="InvalidName" text="*Invalid" textFill="RED" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
                         </HBox>
-                        <TextField fx:id="NameText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <TextField fx:id="NameText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="-20.0" />
+                           </VBox.margin></TextField>
                         <HBox prefHeight="35.0" prefWidth="181.0">
                            <children>
                               <Label fx:id="type" prefHeight="27.0" prefWidth="170.0" text="Type: Flower">
                                  <font>
                                     <Font name="Cambria" size="22.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
                               </Label>
                               <Label fx:id="InvalidType" text="*Invalid" textFill="RED" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
                         </HBox>
                         <MenuButton fx:id="TypeText" mnemonicParsing="false" styleClass="textFields" visible="false">
                           <items>
@@ -147,58 +174,94 @@
                                  <font>
                                     <Font name="Cambria" size="22.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
                               </Label>
                               <Label fx:id="InvalidColor" text="*Invalid" textFill="RED" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="9.0" />
+                           </VBox.margin>
                         </HBox>
-                        <TextField fx:id="ColorText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <TextField fx:id="ColorText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin></TextField>
                         <HBox prefHeight="30.0" prefWidth="181.0">
                            <children>
                               <Label fx:id="price" prefHeight="27.0" prefWidth="170.0" text="Price: 15$">
                                  <font>
                                     <Font name="Cambria" size="22.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
                               </Label>
                               <Label fx:id="InvalidPrice" prefWidth="53.0" text="*Invalid" textFill="RED" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="-5.0" />
+                           </VBox.margin>
                         </HBox>
-                        <TextField fx:id="PriceText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <TextField fx:id="PriceText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin></TextField>
                         <HBox prefHeight="30.0" prefWidth="181.0">
                            <children>
                               <Label fx:id="discount" prefHeight="27.0" prefWidth="170.0" text="Discount: 50%">
                                  <font>
                                     <Font name="Cambria" size="22.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
                               </Label>
                               <Label fx:id="InvalidDiscount" text="*Invalid" textFill="RED" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="-5.0" />
+                           </VBox.margin>
                         </HBox>
-                        <TextField fx:id="DiscountText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false" />
+                        <TextField fx:id="DiscountText" prefHeight="47.0" prefWidth="247.0" styleClass="textFields" visible="false">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin></TextField>
                      </children>
                   </VBox>
-                  <Button fx:id="AddToCartBtn" layoutX="322.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#AddToCart" styleClass="left_menu_btns" text="Add to cart">
+                  <Button fx:id="AddToCartBtn" layoutX="326.0" layoutY="431.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#AddToCart" styleClass="left_menu_btns" text="Add to cart">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="DeleteItem" layoutX="238.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#DeleteItem" styleClass="left_menu_btns" text="Delete Item" visible="false">
+                  <Button fx:id="DeleteItem" layoutX="238.0" layoutY="460.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#DeleteItem" styleClass="left_menu_btns" text="Delete Item" visible="false">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="AddItembtn" layoutX="321.0" layoutY="410.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#AddItem" styleClass="left_menu_btns" text="Add Item" visible="false">
+                  <Button fx:id="AddItembtn" layoutX="327.0" layoutY="430.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#AddItem" styleClass="left_menu_btns" text="Add Item" visible="false">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
@@ -298,24 +361,25 @@
             <Font name="Cambria" size="24.0" />
          </font>
       </Button>
-      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" prefHeight="28.0" prefWidth="181.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" prefHeight="28.0" prefWidth="169.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
          <menus>
             <Menu mnemonicParsing="false" text="Go to">
                <items>
                   <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUp" text="SignUp" />
                   <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCartMN" text="Cart" />
+                  <MenuItem mnemonicParsing="false" onAction="#GoToCatalog" text="Catalog" />
                   <MenuItem fx:id="Complains" mnemonicParsing="false" onAction="#GoToComplains" text="Complains" />
                   <MenuItem fx:id="Reports" mnemonicParsing="false" onAction="#GoToReports" text="Reports" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Account">
                <items>
+                  <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in" />
                   <MenuItem fx:id="MenuSignOut" mnemonicParsing="false" onAction="#GoToSignOut" text="Sign Out" />
                   <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile" />
-                  <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="About">
+            <Menu mnemonicParsing="false" text="Help">
                <items>
                   <MenuItem fx:id="MenuAbout" mnemonicParsing="false" onAction="#GoToAbout" text="About" />
                </items>
