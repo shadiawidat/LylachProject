@@ -614,8 +614,10 @@ public class Catalog implements Initializable {
 
                 itemController.setItemView(item);
                 if(App.getUser()!=null)
-                    if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN)
-                        itemController.getAddCart().setImage(null);
+                  
+                if(App.getUser().getPermission()!=permissions.CLIENT)
+                    itemController.getAddCart().setImage(null);
+
                 if (column == 3) {
                     column = 0;
                     row++;

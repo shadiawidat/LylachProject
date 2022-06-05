@@ -104,7 +104,7 @@ public class CartItem implements Initializable {
                     SimpleClient.getClient().cartControl.Saved.setText(df.format(temp)+"$");
                     SimpleClient.getClient().cartControl.Tax.setText(df.format(((SimpleClient.getClient().cartControl.subTotalG-temp)/1.17)*0.17)+"$");
                     try {
-                        SimpleClient.getClient().sendToServer(new Message(ITEM,"#RemoveFromCartOne "+App.getUser().getUsername()));
+                        SimpleClient.getClient().sendToServer(new Message(ITEM,"#RemoveOneFromCart "+App.getUser().getUsername()));
 
                     } catch (IOException e) {
                         e.printStackTrace();

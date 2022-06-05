@@ -163,28 +163,48 @@ public class SimpleServer extends AbstractServer {
 		{
 			String[] msgarray=request.split(" ");
 			session.beginTransaction();
-			User user=session.load(User.class,msgarray[1]);
+			User user=session.find(User.class,msgarray[1]);
 
 			if(user!=null&&user.getPassword().equals(msgarray[2])) {
-				System.out.println(user.getMybranches().size());
 
 				client.sendToClient(new Message(user, "#Useridentify"));
 				session.find(User.class,msgarray[1]).setLogedIn(true);
 				session.flush();
+				session.getTransaction().commit();
 			}
 			else
 				client.sendToClient(new Message(null,"#Useridentify"));
+				session.getTransaction().commit();
 
 		}
 		if(request.startsWith("#UserExist"))
 		{
 			String[] msgarray=request.split(" ");
-			User user=session.find(User.class,msgarray[1]);
+			Client user=session.find(Client.class,msgarray[1]);
 			if(user!=null) {
 				client.sendToClient(new Message(user, "#UserExists"));
 			}
 			else {
-				saveObject((User) ms.getObject());
+				saveObject((Client) ms.getObject());
+				session.beginTransaction();
+				user = session.find(Client.class, msgarray[1]);
+				if(!msgarray[2].equals("-1")) {
+					user.AddOneBranch(session.find(Branch.class, msgarray[2]));
+					session.find(Branch.class, msgarray[2]).getUsers().add(user);
+				}else {
+					CriteriaBuilder builder=session.getCriteriaBuilder();
+					CriteriaQuery<Branch> query=builder.createQuery(Branch.class);
+					query.from(Branch.class);
+					List<Branch> branches=session.createQuery(query).getResultList();
+
+					for(Branch branch:branches)
+					{
+						user.AddOneBranch(branch);
+						branch.getUsers().add(user);
+					}
+				}
+				session.flush();
+				session.getTransaction().commit();
 				client.sendToClient(new Message(ms.getObject(), "#UserCreated"));
 			}
 
@@ -217,11 +237,14 @@ public class SimpleServer extends AbstractServer {
 		{
 
 			String[] msgarray=request.split(" ");
+			session.beginTransaction();
 			User user=session.find(User.class,msgarray[1]);
-			System.out.println(user.getUsername());
-			System.out.println((session.find(Branch.class,"Haifa").getUsers().size()));
+
 			if(user!=null) {
+
+				session.flush();
 				client.sendToClient(new Message(user, "#UserFound"));
+				session.getTransaction().commit();
 			}
 			else {
 				client.sendToClient(new Message(null, "#UserNotFound"));
@@ -300,7 +323,7 @@ public class SimpleServer extends AbstractServer {
 			}
 
 		}
-		if(request.startsWith("#RemoveFromCartOne"))
+		if(request.startsWith("#RemoveOneFromCart"))
 		{
 			String[] msgarray=request.split(" ");
 			Client nclient=session.find(Client.class,msgarray[1]);
@@ -473,23 +496,23 @@ public class SimpleServer extends AbstractServer {
 		}
 	}
 	public void makeitwork(){
-		User johnny=session.find(User.class,"Johnny");
-		User Lili=session.find(User.class,"Lili");
-		User Shaggy=session.find(User.class,"Shaggy");
+		User johnny=session.find(User.class,"johnny");
+		User Lili=session.find(User.class,"lili");
+		User Shaggy=session.find(User.class,"shaggy");
 
-		Branch Haifa=session.find(Branch.class,"Haifa");
-		Branch Nazareth=session.find(Branch.class,"Nazareth");
-		Branch Krayot=session.find(Branch.class,"Krayot");
+		Branch Haifa=session.find(Branch.class,"haifa");
+		Branch Nazareth=session.find(Branch.class,"nazareth");
+		Branch Krayot=session.find(Branch.class,"krayot");
 
-		BranchManager Moshe=session.find(BranchManager.class,"Moshe");
-		BranchManager ProfMalki=session.find(BranchManager.class,"ProfMalki");
+		BranchManager Moshe=session.find(BranchManager.class,"moshe");
+		BranchManager ProfMalki=session.find(BranchManager.class,"profmalki");
 		BranchManager eli=session.find(BranchManager.class,"eli");
 
-		CoroporationManager MsSneh=session.find(CoroporationManager.class,"MsSneh");
+		CoroporationManager MsSneh=session.find(CoroporationManager.class,"sneh");
 
 		Client lana31=session.find(Client.class,"lana31");
-		Client Ramkh=session.find(Client.class,"Ramkh");
-		Client MuradKh=session.find(Client.class,"MuradKh");
+		Client Ramkh=session.find(Client.class,"ramkh");
+		Client MuradKh=session.find(Client.class,"muradkh");
 
 		Transaction tx=session.beginTransaction();
 

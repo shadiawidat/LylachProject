@@ -281,6 +281,7 @@ public class Account implements Initializable {
                 BranchLB.setVisible(true);
                 Branches.setVisible(true);
                 int i = c.getMybranches().size();
+                System.out.println(i);
                 if(i == 1){
 
                 Branches.setText(c.getMybranches().get(0).getName());
@@ -591,7 +592,10 @@ public class Account implements Initializable {
 
     @FXML
     void Search(MouseEvent event) throws IOException {
-
+        if(!Utilities.check_Validate_Username(Username.getText())){
+            InvalidUS.setVisible(true);
+            return;
+        }
         Message ms = new Message(null, "#SearchUser " + Username.getText());
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().accountControl = this;
@@ -865,7 +869,8 @@ public class Account implements Initializable {
         MyOrders.setVisible(false);
 
 
-        if (App.getUser() != null && App.getUser().getPermission() == permissions.CLIENT) {
+        if (App.getUser() != null && App.getUser().getPermission() == permissions.CLIENT)
+        {
             Password.setVisible(false);
             PasswordLB.setVisible(false);
             CreditCard.setText(((Client) App.getUser()).getCreditCard());
@@ -926,7 +931,7 @@ public class Account implements Initializable {
             CartB.setVisible(false);
             MenuSignUp.setVisible(false);
             MenuCart.setVisible(false);
-
+            AccountType.setText(((Client)App.getUser()).getAccounttype().name());
         }
         if (App.getUser().getPermission().equals(permissions.MANAGER)) {
             BranchLB.setVisible(true);
@@ -936,7 +941,6 @@ public class Account implements Initializable {
         if (App.getUser().getPermission().equals(permissions.WORKER)) {
             BranchLB.setVisible(true);
             Branches.setVisible(true);
-            System.out.println(App.getUser().getMybranches().size());
         }
     }
 

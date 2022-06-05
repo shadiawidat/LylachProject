@@ -126,6 +126,8 @@ public class Utilities {
                 return false;
             if(User.charAt(i)>'9'&& User.charAt(i)<'A')
                 return false;
+            if(User.charAt(i)>='A'&& User.charAt(i)<='Z')
+                return false;
             if(User.charAt(i)>'Z'&& User.charAt(i)<'a')
                 return false;
         }

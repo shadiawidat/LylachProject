@@ -47,42 +47,42 @@ public class App {
         server.saveObject(user);
 
         //Branches
-        Branch b1 = new Branch("Haifa");
+        Branch b1 = new Branch("haifa");
         server.saveObject(b1);
-        Branch b2 = new Branch("Nazareth");
+        Branch b2 = new Branch("nazareth");
         server.saveObject(b2);
-        Branch b3 = new Branch("Krayot");
+        Branch b3 = new Branch("krayot");
         server.saveObject(b3);
 
         //Branch Managers
-        BranchManager Manager=new BranchManager("Moshe","Grossman","Moshe","Grossman","malkigr@gmail.com","0549999999",new Date(1960,10,18),"Haifa",permissions.MANAGER,"321551287","4580160005429090",false,b1);
+        BranchManager Manager=new BranchManager("moshe","Grossman","Moshe","Grossman","malkigr@gmail.com","0549999999",new Date(1960,10,18),"Haifa",permissions.MANAGER,"321551287","4580160005429090",false,b1);
         server.saveObject(Manager);
 
-        Manager=new BranchManager("ProfMalki","Grossman","Malki","Grossman","malkigr@gmail.com","0549999999",new Date(1960,10,18),"Haifa",permissions.MANAGER,"321551287","4580160005429090",false,b2);
+        Manager=new BranchManager("profmalki","Grossman","Malki","Grossman","malkigr@gmail.com","0549999999",new Date(1960,10,18),"Haifa",permissions.MANAGER,"321551287","4580160005429090",false,b2);
         server.saveObject(Manager);
 
         Manager=new BranchManager("eli","albyan","Elias","Haddad","Info@albyan.net","0548888888",new Date(1960,7,16),"Haifa",permissions.MANAGER,"321654127","4580160005429090",false,b3);
         server.saveObject(Manager);
 
         //Corporation
-        CoroporationManager Manager1=new CoroporationManager("MsSneh","Shir","Shir","Sneh","shirsneh.uni@gmail.com","0548888888",new Date(1998,10,18),"Haifa",permissions.CorpManager,"321654127",false);
+        CoroporationManager Manager1=new CoroporationManager("sneh","Shir","Shir","Sneh","shirsneh.uni@gmail.com","0548888888",new Date(1998,10,18),"Haifa",permissions.CorpManager,"321654127",false);
         server.saveObject(Manager1);
 
         //Worker
-        user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.WORKER,"123456789","123456789" ,false,b1);
+        user= new User("johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.WORKER,"123456789","123456789" ,false,b1);
         server.saveObject(user);
-        user= new User("Lili","LilianCs","Lilian","Mansour","Lilianmansour3@gmail.com","0528345268",new Date(2000,8,16),"Haifa",permissions.WORKER,"123456789","123456789",false,b3 );
+        user= new User("lili","LilianCs","Lilian","Mansour","Lilianmansour3@gmail.com","0528345268",new Date(2000,8,16),"Haifa",permissions.WORKER,"123456789","123456789",false,b3 );
         server.saveObject(user);
-        user= new User("Shaggy","Shadi123","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.WORKER,"123456789","123456789" ,false,b2);
+        user= new User("shaggy","Shadi123","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.WORKER,"123456789","123456789" ,false,b2);
         server.saveObject(user);
 
         Client LClient=new Client("lana31","Lana3182!","Lana","Shehab","lana.shehab0111@gmail.com","0522481844",new Date(2000,2,8),"Haifa",permissions.CLIENT,"206539199","4580404032194023" ,AccountTypes.Premium,0.0);
         server.saveObject(LClient);
 
-        Client RClient=new Client("Ramkh","ramkh","Ram","Khoury","Ramkh2000@gmail.com","0528020276",new Date(2001,10,18),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Gold,0.0);
+        Client RClient=new Client("ramkh","ramkh","Ram","Khoury","Ramkh2000@gmail.com","0528020276",new Date(2001,10,18),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Gold,0.0);
         server.saveObject(RClient);
 
-        Client nClient=new Client("MuradKh","muradkh","Murad","Khoury","Muradkh@gmail.com","0528020276",new Date(2001,10,18),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Basic,0.0);
+        Client nClient=new Client("muradkh","muradkh","Murad","Khoury","Muradkh@gmail.com","0528020276",new Date(2001,10,18),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Basic,0.0);
         server.saveObject(nClient);
 
         server.makeitwork();
