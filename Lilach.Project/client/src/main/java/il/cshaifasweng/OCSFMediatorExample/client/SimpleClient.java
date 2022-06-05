@@ -31,6 +31,7 @@ public class SimpleClient extends AbstractClient {
 	public ReportView reportViewControl;
 	public SignUp signUpControl;
 	public ItemView itemviewControl;
+	public MyCarts myCartsControl;
 	public String name;
 
 	public String getName() {
@@ -73,15 +74,16 @@ public class SimpleClient extends AbstractClient {
 				}
 			});
 		}
-//		else if (deliver.equals("#AddUserExist"))
-//		{
-//			Platform.runLater(()->{accountControl.UserAlreadyExist();});
-//		}
-//		else if (deliver.equals("#AddUserCreated"))
-//		{
-//			Platform.runLater(()->{accountControl.UserAdded();});
-//
-//		}
+		else if(deliver.equals("#ShippmentApproved"))
+		{
+			Platform.runLater(()->{
+				try {
+					shippingControl.Approval();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		}
 		else if (deliver.equals("#BranchesReadyA"))
 		{
 			accountControl.setBranchesL((List<Branch>) ms.getObject());
@@ -89,6 +91,14 @@ public class SimpleClient extends AbstractClient {
 				accountControl.loadBranches();
 				accountControl.resetFields();
 				});
+
+		}
+		else if (deliver.equals("#OrdersReady"))
+		{
+
+			Platform.runLater(()->{
+				myCartsControl.loadOrders((List<il.cshaifasweng.OCSFMediatorExample.entities.Cart>)ms.getObject());
+			});
 
 		}else if (deliver.equals("#BranchesReadyS"))
 		{

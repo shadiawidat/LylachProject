@@ -2,6 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,8 @@ public class Cart implements Serializable {
     )
     private Client client;
 
-    private Date date;
+    private LocalDateTime date;
+    private Date Deliverydate;
     private String blessingticket;
     private Double price;
 
@@ -66,7 +68,6 @@ public class Cart implements Serializable {
 
     private Boolean delivery;
     private String address;
-    private String paymentmethod;
     private boolean Payed;
     private boolean forSomeOne;
     private String someOne;
@@ -84,22 +85,34 @@ public class Cart implements Serializable {
         Payed = payed;
     }
 
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public Date getDeliverydate() {
+        return Deliverydate;
+    }
+
+    public void setDeliverydate(Date deliverydate) {
+        Deliverydate = deliverydate;
+    }
+
     public Cart(Client client) {
         this.client = client;
         client.AddOneToCart(this);
-        this.date = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
+//        this.date = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
         ;
         Payed = false;
     }
 
     public Cart(Date date, String blessingticket, Double price, Boolean delivery, String address, String paymentmethod, Client client) {
         super();
-        this.date = date;
+//        this.date = date;
         this.blessingticket = blessingticket;
         this.price = price;
         this.delivery = delivery;
         this.address = address;
-        this.paymentmethod = paymentmethod;
+
         this.client=client;
         this.Payed=false;
     }
@@ -120,12 +133,8 @@ public class Cart implements Serializable {
         this.client = client;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getBlessingticket() {
@@ -158,14 +167,6 @@ public class Cart implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getPaymentmethod() {
-        return paymentmethod;
-    }
-
-    public void setPaymentmethod(String paymentmethod) {
-        this.paymentmethod = paymentmethod;
     }
 
     public void DropInCart(Item item)

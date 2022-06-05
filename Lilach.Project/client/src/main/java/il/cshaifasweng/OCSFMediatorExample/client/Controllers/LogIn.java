@@ -91,7 +91,7 @@ public class LogIn implements Initializable {
 
     @FXML
     void SignIn(MouseEvent event) throws IOException, InterruptedException {
-        if(!Utilities.check_Validate_Username(UserName.getText()))
+        if(!Utilities.check_Validate_Username(UserName.getText())||!Utilities.check_Validate_Pass(Password.getText()))
         {
             Incorrect.setVisible(true);
             UserName.setText("");

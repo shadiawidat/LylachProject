@@ -819,8 +819,8 @@ public class Account implements Initializable {
     }
 
     @FXML
-    void MyOrders(MouseEvent event) {
-
+    void MyOrders(MouseEvent event) throws IOException {
+        App.setRoot("MyCarts");
     }
 
     public void resetFields() {
@@ -989,5 +989,3 @@ public class Account implements Initializable {
 
     }
 
-
-}

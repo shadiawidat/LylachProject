@@ -135,17 +135,17 @@ public class MyCarts implements Initializable {
         menu.setVisible(true);
     }
 
-    public void loadOrders(List<Cart> orders){
+    public void loadOrders(List<il.cshaifasweng.OCSFMediatorExample.entities.Cart> orders){
         gridPane.getChildren().clear();
         try {
             int column = 0;
             int row = 1;
-            for (Cart cart : orders) {
+            for (il.cshaifasweng.OCSFMediatorExample.entities.Cart cart : orders) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(SimpleClient.class.getResource("CartView.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 CartView cartView = fxmlLoader.getController();
-
+                cartView.
 
                 if (column == 1) {
                     column = 0;
