@@ -159,6 +159,10 @@ public class SimpleServer extends AbstractServer {
 
             }
         }
+        if(request.startsWith("#AddItem"))
+        {
+            saveObject(ms.getObject());
+        }
         if (request.startsWith("#LogIn")) {
             String[] msgarray = request.split(" ");
             session.beginTransaction();

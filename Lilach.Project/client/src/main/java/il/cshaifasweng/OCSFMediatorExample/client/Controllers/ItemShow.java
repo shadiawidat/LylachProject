@@ -18,12 +18,20 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class ItemShow implements Initializable {
@@ -148,8 +156,9 @@ public class ItemShow implements Initializable {
     @FXML
     private MenuItem Complains;
 
+    private Image img;
 
-    private Item item;
+
 
     public static String getCaller() {
         return Caller;
@@ -407,7 +416,8 @@ public class ItemShow implements Initializable {
         if(flag)
             return;
         Item item = new Item(NameText.getText(),Double.parseDouble(PriceText.getText()),TypeText.getText(),ColorText.getText(),Double.parseDouble(DiscountText.getText()));
-        Message ms =new Message(item,"AddItem");
+
+        Message ms =new Message(item,"#AddItem");
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().itemshowControl=this;
     }
@@ -471,10 +481,11 @@ public class ItemShow implements Initializable {
 
     }
     @FXML
-    void HandleDrop(DragEvent event) throws FileNotFoundException {
+    void HandleDrop(DragEvent event) throws IOException {
         if(Caller.equals("CatalogNew")&&(App.getUser()!=null&&App.getUser().getPermission()==permissions.CorpManager||App.getUser().getPermission()==permissions.WORKER||App.getUser().getPermission()==permissions.MANAGER) ){
             List<File> files = event.getDragboard().getFiles();
-            Image img = new Image(new FileInputStream(files.get(0)));
+            img=new Image(new FileInputStream(files.get(0).getPath()));
+
             imgid.setImage(img);
         }
     }
