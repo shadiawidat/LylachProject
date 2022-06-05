@@ -11,7 +11,28 @@ public class Utilities {
         }
         return true;
     }
-
+    public static boolean check_Validate_name(String text){
+        for(int i = 0; i < text.length(); i++){
+            if(text.charAt(i)==' ')
+                continue;
+            if(text.charAt(i) < 'A' || (text.charAt(i) > 'Z' && text.charAt(i) < 'a') ||text.charAt(i) > 'z'){
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean check_Validate_Address(String text){
+        for(int i = 0; i < text.length(); i++){
+            if(text.charAt(i) <= '9' || (text.charAt(i) >= '0'))
+                continue;
+            if(text.charAt(i)==' ')
+                continue;
+            if(text.charAt(i) < 'A' || (text.charAt(i) > 'Z' && text.charAt(i) < 'a') ||text.charAt(i) > 'z'){
+                return false;
+            }
+        }
+        return true;
+    }
     public static boolean checkValidDate(Date Then, Date Now){
         if(Now.after(Then)){ // momken to.after(from)
             return true;

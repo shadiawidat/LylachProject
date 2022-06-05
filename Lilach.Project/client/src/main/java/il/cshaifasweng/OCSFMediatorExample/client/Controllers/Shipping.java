@@ -239,50 +239,35 @@ public class Shipping implements Initializable {
     @FXML
     void ApproveFunc(MouseEvent event) throws IOException {
 
-        boolean flag;
+        boolean flag=false;
         InvalidAdderss.setVisible(false);
         InvalidDate.setVisible(false);
         InvalidPhoneNumber.setVisible(false);
+        InvalidName.setVisible(false);
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
         Date date = new Date(Date.getValue().getYear(), Date.getValue().getMonthValue(), Date.getValue().getDayOfMonth());
         InvalidDate.setVisible(Utilities.checkValidDate(date, now));
         flag = (Utilities.checkValidDate(now, date));
 
         if (deliveryid.isSelected()) {
-            InvalidAdderss.setVisible(Address.getText().equals(""));
+            InvalidAdderss.setVisible(!Utilities.check_Validate_Address(Address.getText())||Address.getText().equals(""));
             flag = flag || Address.getText().equals("");
             if (ForSomeoneId.isSelected()) {
-                InvalidName.setVisible(!Utilities.check_Validate_String(Name.getText()) || Name.getText().equals(""));
-                InvalidPhoneNumber.setVisible(!Utilities.check_Validate_Phone(PhoneNumber.getText()));
-                flag = flag || !Utilities.check_Validate_String(Name.getText()) || Name.getText().equals("");
-                flag = flag || !Utilities.check_Validate_Phone(PhoneNumber.getText());
+                InvalidName.setVisible(!Utilities.check_Validate_name(Name.getText()) || Name.getText().equals(""));
+                InvalidPhoneNumber.setVisible(!Utilities.check_Validate_Phone(PhoneNumber.getText())||PhoneNumber.getText().equals(""));
+                flag = flag || !Utilities.check_Validate_name(Name.getText()) || Name.getText().equals("");
+                flag = flag || !Utilities.check_Validate_Phone(PhoneNumber.getText())||PhoneNumber.getText().equals("");
             }
         }
         if (flag) {
             return;
         }
 
-        String Delviry = "";
-        if (deliveryid.isSelected()) {
-            Delviry = "1";
-        } else {
-            Delviry = "0";
-        }
-        TilePane r = new TilePane();
-        // create a alert
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-
-        a.setContentText("Shipping Approved!");
+        Message ms = new Message(null, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + Date.getValue().getYear() + "±" + Date.getValue().getMonthValue() + "±" + Date.getValue().getDayOfMonth()+"±" + (SimpleClient.getClient().cartControl.subTotalG-SimpleClient.getClient().cartControl.subTotalD));
+        SimpleClient.getClient().sendToServer(ms);
+        SimpleClient.getClient().shippingControl = this;
 
 
-        Optional<ButtonType> result = a.showAndWait();
-        if(!result.isPresent()) {}
-        else if(result.get() == ButtonType.OK)
-        {
-            Message ms = new Message(null, "#ApproveShipping" + " " + App.getUser().getUsername() + " " + Address.getText() + " " + Name.getText() + " " + PhoneNumber.getText() + " " + Blessing.getText() + " " + Delviry + " " + Date.getValue().getYear() + " " + Date.getValue().getMonthValue() + " " + Date.getValue().getDayOfMonth());
-            SimpleClient.getClient().sendToServer(ms);
-            SimpleClient.getClient().shippingControl = this;
-        }
 
     }
 //        if(deliveryid.isSelected()) {
@@ -315,6 +300,21 @@ public class Shipping implements Initializable {
 //    a.showAndWait();
 //}
 
+    public void Approval() throws IOException {
+
+        TilePane r = new TilePane();
+        // create a alert
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+        a.setContentText("Shipping Approved!");
+
+        Optional<ButtonType> result = a.showAndWait();
+        if(!result.isPresent()) {}
+        else if(result.get() == ButtonType.OK)
+        {
+            App.setRoot("Catalog");
+        }
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         MenuCart.setVisible(false);
