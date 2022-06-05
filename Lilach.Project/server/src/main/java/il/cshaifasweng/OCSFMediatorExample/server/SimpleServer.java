@@ -387,6 +387,42 @@ public class SimpleServer extends AbstractServer {
 			}
 			client.sendToClient(new Message(null,"#AddedItem"));
 		}
+		if(request.startsWith("#DeleteItem")) {
+
+			Item item=session.find(Item.class,((Item)ms.getObject()).getId());
+
+			if(item!=null){
+
+				session.beginTransaction();
+				session.delete(item);
+				session.flush();
+				session.getTransaction().commit();
+				client.sendToClient(new Message(null,"#DeleteItemSucceeded"));
+			}
+			else{
+
+				client.sendToClient(new Message(null,"#DeleteItemFailed"));
+
+			}
+		}
+
+		if(request.startsWith("#UpdateItemInfo"))
+		{
+			String[] msgarray= request.split(",");
+			Item item= session.find(Item.class, ((Item)ms.getObject()).getId());
+			if (item == null){
+				client.sendToClient(new Message(null, "#UpdateInfoFailed"));
+			}
+			else{
+				session.beginTransaction();
+				item.setinfo(msgarray[1]);
+				session.flush();
+				session.getTransaction().commit();
+
+				client.sendToClient(new Message(session.find(Item.class, ((Item)ms.getObject()).getId()) , "#UpdateInfoSucceeded"));
+			}
+
+		}
 		if(request.equals("#LoadCatalog"))
 		{
 			CriteriaBuilder builder=session.getCriteriaBuilder();

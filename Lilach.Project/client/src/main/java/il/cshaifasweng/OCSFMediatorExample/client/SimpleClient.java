@@ -144,6 +144,46 @@ public class SimpleClient extends AbstractClient {
 			accountControl.setUser((User) ms.getObject());
 			Platform.runLater(()->{accountControl.fillInfo((User) ms.getObject());});
 		}
+		else if(deliver.equals("#UpdateInfoFailed")){
+			Platform.runLater(()->{
+				try {
+					itemshowControl.Created(false);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+
+		}
+		else if(deliver.equals("#UpdateInfoSucceeded")){
+
+			Platform.runLater(()->{
+				try {
+					itemshowControl.Created(true);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		}
+		else if(deliver.equals("#DeleteItemSucceeded")){
+
+			Platform.runLater(()->{
+				try {
+					itemshowControl.Deleted(true);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		}
+		else if(deliver.equals("#DeleteItemFailed")){
+
+			Platform.runLater(()->{
+				try {
+					itemshowControl.Deleted(false);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		}
 
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));

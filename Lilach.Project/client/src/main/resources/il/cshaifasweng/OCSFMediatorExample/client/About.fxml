@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.About">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.About">
    <children>
       <HBox alignment="CENTER" layoutX="30.0" layoutY="37.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -202,12 +202,15 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="135.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="169.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
          <menus>
             <Menu fx:id="GoToMN" mnemonicParsing="false" text="Go to">
                <items>
                   <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUp" text="SignUp" />
                   <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCartMN" text="Cart" />
+                  <MenuItem fx:id="CatalogBtn" mnemonicParsing="false" onAction="#GoToCatalog" text="Catalog" />
+                  <MenuItem fx:id="Complains" mnemonicParsing="false" onAction="#GoToComplains" text="Complains" />
+                  <MenuItem fx:id="Reports" mnemonicParsing="false" onAction="#GoToReports" text="Reports" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Account">
@@ -217,6 +220,7 @@
                   <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Help" />
          </menus>
       </MenuBar>
    </children>
