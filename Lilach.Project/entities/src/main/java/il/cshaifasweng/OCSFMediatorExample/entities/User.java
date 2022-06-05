@@ -1,9 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,17 +20,19 @@ public class User implements Serializable{
     private permissions permission;
     private String ID;
 
-
     private boolean Freeze;
     private boolean LogedIn;
 
-
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany
+    @JoinTable(
+            name = "User_Branch",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "branch_id") }
+    )
     private List<Branch> mybranches=new ArrayList<>();
 
     public User() {
     }
-
 
     //Worker's Contructor
     public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID,boolean Freeze) {
@@ -64,6 +63,22 @@ public class User implements Serializable{
         this.ID=ID;
         this.Freeze=Freeze;
         this.LogedIn=false;
+    }
+
+    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard,boolean Freeze,Branch b) {
+        this.username = username;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phonenumber = phonenumber;
+        this.birthday = birthday;
+        this.address = address;
+        this.permission = permission;
+        this.ID=ID;
+        this.Freeze=Freeze;
+        this.LogedIn=false;
+
     }
 
     public void AddOneBranch(Branch b){

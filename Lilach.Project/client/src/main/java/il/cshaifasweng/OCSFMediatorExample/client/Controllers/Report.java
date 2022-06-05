@@ -145,20 +145,28 @@ public class Report implements Initializable {
     }
 
     private List<Branch> BranchesL=new ArrayList<>();
-    public void loadBranches(){
+    public void loadBranches1(){
         FirstReportBranch.getItems().clear();
+        for(Branch branch:BranchesL)
+        {
+            MenuItem mt=new MenuItem(branch.getName());
+            mt.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    FirstReportBranch.setText(branch.getName());
+                }
+            });
+            FirstReportBranch.getItems().add(mt);
+        }
+    }public void loadBranches2(){
         SecondReportBranch.getItems().clear();
         for(Branch branch:BranchesL)
         {
             MenuItem mt=new MenuItem(branch.getName());
-
             mt.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-                    FirstReportBranch.setText(branch.getName());
                     SecondReportBranch.setText(branch.getName());
                 }
             });
-            FirstReportBranch.getItems().add(mt);
             SecondReportBranch.getItems().add(mt);
         }
     }
@@ -360,12 +368,12 @@ public class Report implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        try {
-//            SimpleClient.getClient().sendToServer(new Message(null,"#getBranchesForReport"));
-//            SimpleClient.getClient().reportControl=this;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            SimpleClient.getClient().sendToServer(new Message(null,"#getBranchesR"));
+            SimpleClient.getClient().reportControl=this;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         FirstReportFrom.setValue(java.time.LocalDate.now());
         FirstReportTo.setValue(java.time.LocalDate.now());
         SecondReportFrom.setValue(java.time.LocalDate.now());

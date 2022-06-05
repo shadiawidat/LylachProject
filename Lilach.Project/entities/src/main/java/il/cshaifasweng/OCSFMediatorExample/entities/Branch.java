@@ -9,11 +9,10 @@ import java.util.List;
 @Table(name = "branch")
 public class Branch implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String name;
 
+    private int id;
 
     public Branch(String name) {
         this.name = name;
@@ -25,17 +24,16 @@ public class Branch implements Serializable{
     @ManyToOne(fetch = FetchType.LAZY)
     private CoroporationManager cmanager;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "mybranches")
     private List<User> users=new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "Branch_Client",
-            joinColumns = { @JoinColumn(name = "Branch_id") },
-            inverseJoinColumns = { @JoinColumn(name = "Client_id") }
-    )
-    private List<Client> clients=new ArrayList<>();
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @OneToMany(mappedBy = "branch")
     private List<Complain> complains=new ArrayList<>();
@@ -45,18 +43,7 @@ public class Branch implements Serializable{
     public Branch() {
 
     }
-//    public void AddOneClient(Client c){
-//        client.add(c);
-//    }
-//    public void DeleteOneClient(Client c){
-//        client.remove(c);
-//    }
-//    public void AddIOneWorker(User u){
-//        workers.add(u);
-//    }
-//    public void DeleteOneWorker(User u){
-//        workers.remove(u);
-//    }
+
     public void AddOneComplain(Complain c){
         complains.add(c);
     }
@@ -94,39 +81,6 @@ public class Branch implements Serializable{
     public List<User> getUsers() {
         return users;
     }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-    public List<Client> getClients() {
-        return clients;
-    }
-
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
-    }
-
-    public void AddOneClient(Client client){
-        clients.add(client);
-    }
-    public void DeleteOneClient(Client client){
-        clients.remove(client);
-    }
-//    public List<Client> getClient() {
-//        return client;
-//    }
-//
-//    public void setClient(List<Client> client) {
-//        this.client = client;
-//    }
-//
-//    public List<User> getWorkers() {
-//        return workers;
-//    }
-//
-//    public void setWorkers(List<User> workers) {
-//        this.workers = workers;
-//    }
 
     public List<Complain> getComplains() {
         return complains;

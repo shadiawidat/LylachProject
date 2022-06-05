@@ -43,7 +43,7 @@ public class App {
 
         //Admin
 
-        User user= new User("Fole","Noor26","Noor","Abu elfoul","Noorabo7@outlook.com","0528218268",new Date(2000,7,26),"Shefa'amer",permissions.ADMIN ,"123456789","123546789",false);
+        User user= new User("F","f","Noor","Abu elfoul","Noorabo7@outlook.com","0528218268",new Date(2000,7,26),"Shefa'amer",permissions.ADMIN ,"123456789","123546789",false);
         server.saveObject(user);
 
         //Branches
@@ -57,66 +57,35 @@ public class App {
         //Branch Managers
         BranchManager Manager=new BranchManager("Moshe","Grossman","Moshe","Grossman","malkigr@gmail.com","0549999999",new Date(1960,10,18),"Haifa",permissions.MANAGER,"321551287","4580160005429090",false,b1);
         server.saveObject(Manager);
-        b1.setBmanager(Manager);
 
         Manager=new BranchManager("ProfMalki","Grossman","Malki","Grossman","malkigr@gmail.com","0549999999",new Date(1960,10,18),"Haifa",permissions.MANAGER,"321551287","4580160005429090",false,b2);
         server.saveObject(Manager);
-        b2.setBmanager(Manager);
 
         Manager=new BranchManager("eli","albyan","Elias","Haddad","Info@albyan.net","0548888888",new Date(1960,7,16),"Haifa",permissions.MANAGER,"321654127","4580160005429090",false,b3);
         server.saveObject(Manager);
-        b3.setBmanager(Manager);
 
         //Corporation
-        List<Branch> branches=new ArrayList<>();
-        branches.add(b1);
-        branches.add(b2);
-        branches.add(b3);
-        CoroporationManager Manager1=new CoroporationManager("MsSneh","Shir","Shir","Sneh","shirsneh.uni@gmail.com","0548888888",new Date(1998,10,18),"Haifa",permissions.CorpManager,"321654127",false,branches);
+        CoroporationManager Manager1=new CoroporationManager("MsSneh","Shir","Shir","Sneh","shirsneh.uni@gmail.com","0548888888",new Date(1998,10,18),"Haifa",permissions.CorpManager,"321654127",false);
         server.saveObject(Manager1);
-        b1.setCmanager(Manager1);
-        b2.setCmanager(Manager1);
-        b3.setCmanager(Manager1);
 
         //Worker
-        user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.WORKER,"123456789","123456789" ,false);
-        user.getMybranches().add(b2);
-        b2.getUsers().add(user);
+        user= new User("Johnny","CSapple","John Pierre","Haddad","John.pierre.haddad@gmail.com","0547705173",new Date(1997,1,01),"Haifa",permissions.WORKER,"123456789","123456789" ,false,b1);
+        server.saveObject(user);
+        user= new User("Lili","LilianCs","Lilian","Mansour","Lilianmansour3@gmail.com","0528345268",new Date(2000,8,16),"Haifa",permissions.WORKER,"123456789","123456789",false,b3 );
+        server.saveObject(user);
+        user= new User("Shaggy","Shadi123","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.WORKER,"123456789","123456789" ,false,b2);
         server.saveObject(user);
 
-        user= new User("Lili","LilianCs","Lilian","Mansour","Lilianmansour3@gmail.com","0528345268",new Date(2000,8,16),"Haifa",permissions.WORKER,"123456789","123456789",false );
-        user.getMybranches().add(b3);
-        b3.getUsers().add(user);
-        server.saveObject(user);
+        Client LClient=new Client("lana31","Lana3182!","Lana","Shehab","lana.shehab0111@gmail.com","0522481844",new Date(2000,2,8),"Haifa",permissions.CLIENT,"206539199","4580404032194023" ,AccountTypes.Premium,0.0);
+        server.saveObject(LClient);
 
-        user= new User("Shaggy","Shadi123","Shadi","Awidat","Shadiawidat2001@gmail.com","0528020276",new Date(2001,10,18),"Majdal shams",permissions.WORKER,"123456789","123456789" ,false);
-        user.getMybranches().add(b1);
-        b1.getUsers().add(user);
-        server.saveObject(user);
+        Client RClient=new Client("Ramkh","ramkh","Ram","Khoury","Ramkh2000@gmail.com","0528020276",new Date(2001,10,18),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Gold,0.0);
+        server.saveObject(RClient);
 
-        Client nClient=new Client("lana31","Lana3182!","Lana","Shehab","lana.shehab0111@gmail.com","0522481844",new Date(2000,2,8),"Haifa",permissions.CLIENT,"206539199","4580404032194023" ,AccountTypes.Premium,0.0);
-        nClient.setMybranches(branches);
-        b1.AddOneClient(nClient);
-        b2.AddOneClient(nClient);
-        b3.AddOneClient(nClient);
+        Client nClient=new Client("MuradKh","muradkh","Murad","Khoury","Muradkh@gmail.com","0528020276",new Date(2001,10,18),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Basic,0.0);
         server.saveObject(nClient);
 
-        nClient=new Client("Ramkh","ramkh","Ram","Khoury","Ramkh2000@gmail.com","0528020276",new Date(2001,10,18),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Gold,0.0);
-        nClient.setMybranches(branches);
-        b1.AddOneClient(nClient);
-        b2.AddOneClient(nClient);
-        b3.AddOneClient(nClient);
-        server.saveObject(nClient);
-
-        nClient=new Client("MuradKh","muradkh","Murad","Khoury","Muradkh@gmail.com","0528020276",new Date(2001,10,18),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Basic,0.0);
-        nClient.getMybranches().add(b2);
-        b2.AddOneClient(nClient);
-        server.saveObject(nClient);
-
-
-
-
-
+        server.makeitwork();
     }
  /*
  * The call to session.flush() updates the DB immediately without ending the transaction.

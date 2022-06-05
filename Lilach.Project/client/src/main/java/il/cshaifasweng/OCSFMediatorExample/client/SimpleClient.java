@@ -85,15 +85,25 @@ public class SimpleClient extends AbstractClient {
 		else if (deliver.equals("#BranchesReadyA"))
 		{
 			accountControl.setBranchesL((List<Branch>) ms.getObject());
-			Platform.runLater(()->{accountControl.loadBranches();});
+			Platform.runLater(()->{
+				accountControl.loadBranches();
+				accountControl.resetFields();
+				});
 
 		}else if (deliver.equals("#BranchesReadyS"))
 		{
 			signUpControl.setBranchesL((List<Branch>) ms.getObject());
 			Platform.runLater(()->{signUpControl.loadBranches();});
 
-		}
-		else if (deliver.equals("#UserFound"))
+		}else if (deliver.equals("#BranchesReadyR"))
+		{
+			reportControl.setBranchesL((List<Branch>) ms.getObject());
+			Platform.runLater(()->{
+				reportControl.loadBranches1();
+				reportControl.loadBranches2();
+			});
+
+		} else if (deliver.equals("#UserFound"))
 		{
 			accountControl.setUser((User) ms.getObject());
 			Platform.runLater(()->{accountControl.fillInfo((User) ms.getObject());});

@@ -5,6 +5,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,30 +13,30 @@ import java.util.List;
 
 public class CoroporationManager extends User implements Serializable{
 
-    @OneToMany
-    private List<Branch> mybranches;
+    @OneToMany(mappedBy = "cmanager")
+    private List<Branch> corpmybranches=new ArrayList<>();
 
     public CoroporationManager() {
 
     }
 
-    public CoroporationManager(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, boolean Freeze, List<Branch> mybranches) {
+    public CoroporationManager(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, boolean Freeze) {
         super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, Freeze);
-        this.mybranches = mybranches;
+
     }
 
     public void AddOneBranch(Branch b){
-        mybranches.add(b);
+        corpmybranches.add(b);
     }
     public void DeleteOneBranch(Branch b){
-        mybranches.remove(b);
+        corpmybranches.remove(b);
     }
 
-    public List<Branch> getMybranchs() {
-        return mybranches;
+    public List<Branch> getCorpmybranches() {
+        return corpmybranches;
     }
 
-    public void setMybranchs(List<Branch> mybranchs) {
-        this.mybranches = mybranchs;
+    public void setCorpmybranches(List<Branch> corpmybranches) {
+        this.corpmybranches = corpmybranches;
     }
 }

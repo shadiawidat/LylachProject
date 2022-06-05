@@ -15,8 +15,6 @@ public class BranchManager extends User implements Serializable {
 
     public BranchManager(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard, boolean Freeze, Branch mybranch) {
         super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, creditCard, Freeze);
-        this.mybranch = mybranch;
-        this.mybranch.setBmanager(this);
     }
 
     public BranchManager(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, boolean Freeze, Branch mybranch) {
