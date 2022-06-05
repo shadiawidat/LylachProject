@@ -473,7 +473,39 @@ public class SimpleServer extends AbstractServer {
             query.from(Branch.class);
             Message msa = new Message(session.createQuery(query).getResultList(), "#BranchesReadyR");
             client.sendToClient(msa);
-        } else if (request.startsWith("#PrepReports1")) {
+        }
+
+        /////////////////
+//        if (request.startsWith("#RemoveUser")) {
+//            String[] msgarray = request.split(" ");
+//            User user = session.find(User.class, msgarray[1]);
+//            if (user != null) {
+//                session.delete(user);
+//                client.sendToClient(new Message(user, "#UserRemoved"));
+//            } else {
+//                client.sendToClient(new Message(user, "#RemoveUserNotFound"));
+//            }
+//        }
+        if(request.startsWith("#CancelOrder")){
+            String[] msgarray = request.split(" ");
+            Cart cart = session.find(Cart.class, Integer.parseInt(msgarray[1]));
+
+            if (cart != null){
+                session.beginTransaction();
+                session.delete(cart);
+                session.flush();
+                session.getTransaction().commit();
+                client.sendToClient(new Message(null, "#OrderCanceled"));
+            }
+            else{
+                client.sendToClient(new Message(null, "#FailedCancelOrder"));
+            }
+
+
+        }
+        //////////////
+
+        else if (request.startsWith("#PrepReports1")) {
 
 
             String[] msgarray = request.split(" ");

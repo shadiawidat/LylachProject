@@ -32,6 +32,8 @@ public class SimpleClient extends AbstractClient {
 	public SignUp signUpControl;
 	public ItemView itemviewControl;
 	public MyCarts myCartsControl;
+	public CartView cartView;
+
 	public String name;
 
 	public String getName() {
@@ -188,13 +190,34 @@ public class SimpleClient extends AbstractClient {
 
 			Platform.runLater(()->{
 				try {
-					itemshowControl.Deleted(false);
+					itemshowControl.Deleted(true);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			});
 		}
+		//////
+		else if(deliver.equals("#OrderCanceled")){
+			System.out.println("hon");
+			Platform.runLater(()->{
+				try {
+					cartView.Deleted(true);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		}
+		else if(deliver.equals("#FailedCancelOrder")){
 
+			Platform.runLater(()->{
+				try {
+					cartView.Deleted(false);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		}
+////////////
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 		}
