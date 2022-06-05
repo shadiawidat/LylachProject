@@ -31,10 +31,46 @@ public class Cart implements Serializable {
     private Date date;
     private String blessingticket;
     private Double price;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isForSomeOne() {
+        return forSomeOne;
+    }
+
+    public void setForSomeOne(boolean forSomeOne) {
+        this.forSomeOne = forSomeOne;
+    }
+
+    public String getSomeOne() {
+        return someOne;
+    }
+
+    public void setSomeOne(String someOne) {
+        this.someOne = someOne;
+    }
+
+    public String getSomeOnePhone() {
+        return someOnePhone;
+    }
+
+    public void setSomeOnePhone(String someOnePhone) {
+        this.someOnePhone = someOnePhone;
+    }
+
     private Boolean delivery;
     private String address;
     private String paymentmethod;
     private boolean Payed;
+    private boolean forSomeOne;
+    private String someOne;
+    private String someOnePhone;
 
     public Cart() {
 
