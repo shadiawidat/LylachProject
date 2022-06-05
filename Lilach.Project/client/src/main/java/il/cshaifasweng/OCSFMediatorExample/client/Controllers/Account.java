@@ -138,11 +138,17 @@ public class Account implements Initializable {
     @FXML
     private MenuItem MenuProfile;
     @FXML
+    private MenuItem CatalogBtn;
+    @FXML
     private MenuItem MenuSignIn;
     @FXML
     private MenuItem MenuSignOut;
     @FXML
     private MenuItem MenuSignUp;
+    @FXML
+    private MenuItem Reports;
+    @FXML
+    private MenuItem Complains;
     @FXML
     private MenuBar menu;
     @FXML
@@ -428,6 +434,22 @@ public class Account implements Initializable {
     void GoToCartMN(ActionEvent event) throws IOException {
         Cart.setCaller("Account");
         App.setRoot("Cart");
+    }
+    @FXML
+    void GoToCatalog(ActionEvent event) throws IOException {
+        Catalog.setCaller("LogIn");
+        App.setRoot("Catalog");
+    }
+    @FXML
+    void GoToComplains(ActionEvent event) throws IOException {
+        AllComplains.setCaller("Catalog");
+        App.setRoot("AllComplains");
+    }
+
+    @FXML
+    void GoToReports(ActionEvent event) throws IOException {
+        Report.setCaller("Catalog");
+        App.setRoot("Report");
     }
 
     @FXML
@@ -802,11 +824,33 @@ public class Account implements Initializable {
     }
 
     public void resetFields() {
-        UserName.setText("Welcome " + App.getUser().getFirstname());
-        if (!App.getUser().isFreeze()) {
-            //FreezeIcon.setVisible(true);
-            FreezeIcon.setVisible(false);
-            FreezeLB.setVisible(false);
+        if(App.getUser()!=null) {
+            UserName.setText("Welcome " + App.getUser().getFirstname());
+            if (!App.getUser().isFreeze()) {
+                //FreezeIcon.setVisible(true);
+                FreezeIcon.setVisible(false);
+                FreezeLB.setVisible(false);
+            }
+            setUser(App.getUser());
+            FirstName.setText(App.getUser().getFirstname());
+            LastName.setText(App.getUser().getLastname());
+            ID.setText(App.getUser().getID());
+            Username.setText(App.getUser().getUsername());
+            Date BD = App.getUser().getBirthday();
+            BirthDate.setVisible(true);
+            BirthdateMN.setVisible(false);
+            BirthDate.setText(BD.getDate() + "/" + BD.getMonth() + "/" + BD.getYear());
+            Address.setText(App.getUser().getAddress());
+            Phone.setText(App.getUser().getPhonenumber());
+            Email.setText(App.getUser().getEmail());
+        }
+        else {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setContentText("Please sign in first");
+
+
+            a.showAndWait();
+            return;
         }
 
         setUser(App.getUser());
@@ -917,12 +961,30 @@ public class Account implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        resetFields();
+        if(!App.getUser().getPermission().equals(permissions.CLIENT)){
+            CartB.setVisible(false);
+            MenuSignUp.setVisible(false);
+            MenuCart.setVisible(false);
+        }
+        if(App.getUser().getPermission().equals(permissions.MANAGER)) {
+            BranchLB.setVisible(true);
+            Branches.setVisible(true);
+            Branches.setText(((BranchManager)App.getUser()).getMybranch().getName());
+        }
+        if ((App.getUser() != null) && ((App.getUser().getPermission().equals(permissions.MANAGER)) || (App.getUser().getPermission().equals(permissions.CorpManager)))) {
+            Reports.setVisible(true);
+            Complains.setVisible(true);
+        }
+        else {
+            Reports.setVisible(false);
+            Complains.setVisible(false);
+        }
+        if((App.getUser()!=null) && (App.getUser().getPermission().equals(permissions.ADMIN)))
+            CatalogBtn.setVisible(false);
 
-//        Platform.runLater(() -> {
-//
-//            resetFields();
-//
-//        });
+    }
+
 
 
     }

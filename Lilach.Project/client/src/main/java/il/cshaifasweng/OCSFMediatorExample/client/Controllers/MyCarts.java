@@ -5,11 +5,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -87,6 +83,26 @@ public class MyCarts {
         About.setCaller("MyCarts");
         App.setRoot("Account");
     }
+
+    @FXML
+    void GoToCatalog(ActionEvent event) throws IOException {
+        Catalog.setCaller("LogIn");
+        App.setRoot("Catalog");
+    }
+
+    @FXML
+    void GoToCartMN(ActionEvent event) throws IOException {
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setContentText("Please sign in first");
+            a.showAndWait();
+            return;
+        }
+        Cart.setCaller("Catalog");
+        App.setRoot("Cart");
+    }
+
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {

@@ -33,16 +33,13 @@ public class ReportView implements Initializable {
     private ScrollPane scroll;
     @FXML
     private MenuItem MenuAbout;
-    @FXML
-    private MenuItem MenuCart;
+
     @FXML
     private MenuItem MenuProfile;
-    @FXML
-    private MenuItem MenuSignIn;
+
     @FXML
     private MenuItem MenuSignOut;
-    @FXML
-    private MenuItem MenuSignUp;
+
     @FXML
     private MenuBar menu;
 
@@ -59,10 +56,6 @@ public class ReportView implements Initializable {
 
     }
 
-    @FXML
-    void GoToCart(ActionEvent event) {
-
-    }
 
     @FXML
     void GoToProfile(ActionEvent event) {
@@ -70,9 +63,11 @@ public class ReportView implements Initializable {
     }
 
     @FXML
-    void GoToSignIn(ActionEvent event) {
-
+    void GoToCatalog(ActionEvent event) throws IOException {
+        Catalog.setCaller("LogIn");
+        App.setRoot("Catalog");
     }
+
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
@@ -87,20 +82,13 @@ public class ReportView implements Initializable {
         menu.setVisible(false);
     }
 
-    @FXML
-    void GoToSignUp(ActionEvent event) {
-
-    }
 
     @FXML
     void Back(MouseEvent event) throws IOException {
         App.setRoot(getCaller());
     }
 
-    @FXML
-    void GoToCart(MouseEvent event) {
 
-    }
 
 
     @FXML

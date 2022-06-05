@@ -24,10 +24,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ItemShow implements Initializable {
 
@@ -45,6 +42,8 @@ public class ItemShow implements Initializable {
     @FXML
     private Button AddItembtn;
 
+    @FXML
+    private ImageView SaleImage;
     @FXML
     private ImageView CartBtn;
     @FXML
@@ -168,13 +167,34 @@ public class ItemShow implements Initializable {
 
     @FXML
     void GoToCartMN(ActionEvent event) throws IOException {
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setContentText("Please sign in first");
+            a.showAndWait();
+            return;
+        }
+
         Cart.setCaller("Catalog");
         App.setRoot("Cart");
+    }
 
+    @FXML
+    void GoToCatalog(ActionEvent event) throws IOException {
+        Catalog.setCaller("LogIn");
+        App.setRoot("Catalog");
     }
 
     @FXML
     void GoToProfile(ActionEvent event) throws IOException {
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setContentText("Please sign in first");
+
+            a.showAndWait();
+            return;
+        }
         Account.setCaller("Catalog");
         App.setRoot("Account");
     }
@@ -310,17 +330,18 @@ public class ItemShow implements Initializable {
         priceside.setText(Double.toString(related.get(0).getPrice())+"$");
         Image image = new Image(SimpleClient.class.getResourceAsStream(related.get(0).getImagesrc()));
         imageid.setImage(image);
+        priceside.setVisible(true);
+        nameside.setVisible(true);
+        if(related.get(0).getDiscount()!=0)
+            SaleImage.setVisible(true);
         ToShow=0;
-        if(App.getUser()!=null)
+        if(App.getUser()!=null) {
             if (!App.getUser().getPermission().equals(permissions.CLIENT))
                 sideAddCart.setVisible(false);
-
+        }
 
         PrevItembtn.setVisible(false);
-        if(related.size()==1)
-            NextItembtn.setVisible(false);
-        else
-            NextItembtn.setVisible(true);
+        NextItembtn.setVisible(related.size() != 1);
     }
     @FXML
     void Bouquet(ActionEvent event) {
@@ -400,6 +421,12 @@ public class ItemShow implements Initializable {
         priceside.setText(Double.toString(related.get(ToShow).getPrice())+"$");
         Image image = new Image(SimpleClient.class.getResourceAsStream(related.get(ToShow).getImagesrc()));
         imageid.setImage(image);
+        priceside.setVisible(true);
+        nameside.setVisible(true);
+        SaleImage.setVisible(false);
+        if(related.get(ToShow).getDiscount()!=0)
+            SaleImage.setVisible(true);
+
         if(ToShow>0)
             PrevItembtn.setVisible(true);
         else
@@ -408,9 +435,11 @@ public class ItemShow implements Initializable {
             NextItembtn.setVisible(false);
         else
             NextItembtn.setVisible(true);
-        if(App.getUser()!=null)
+        if(App.getUser()!=null) {
             if (!App.getUser().getPermission().equals(permissions.CLIENT))
                 sideAddCart.setVisible(false);
+        }
+
     }
 
     @FXML
@@ -422,6 +451,11 @@ public class ItemShow implements Initializable {
         priceside.setText(Double.toString(related.get(ToShow).getPrice())+"$");
         Image image = new Image(SimpleClient.class.getResourceAsStream(related.get(ToShow).getImagesrc()));
         imageid.setImage(image);
+        priceside.setVisible(true);
+        nameside.setVisible(true);
+        SaleImage.setVisible(false);
+        if(related.get(ToShow).getDiscount()!=0)
+            SaleImage.setVisible(true);
         if(ToShow>0)
             PrevItembtn.setVisible(true);
         else
@@ -430,9 +464,11 @@ public class ItemShow implements Initializable {
             NextItembtn.setVisible(false);
         else
             NextItembtn.setVisible(true);
-        if(App.getUser()!=null)
+        if(App.getUser()!=null) {
             if (!App.getUser().getPermission().equals(permissions.CLIENT))
                 sideAddCart.setVisible(false);
+        }
+
     }
     @FXML
     void HandleDrop(DragEvent event) throws FileNotFoundException {
@@ -464,8 +500,11 @@ public class ItemShow implements Initializable {
             UserName.setText("Welcome " + App.getUser().getFirstname());
 
         if(App.getUser()!=null){
-            if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN||App.getUser().getPermission()== permissions.CorpManager) {
+            MenuSignIn.setVisible(false);
+            if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.CorpManager) {
                 CartB.setVisible(false);
+                MenuSignUp.setVisible(false);
+                MenuCart.setVisible(false);
             }
             if(App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()==permissions.CorpManager) {
                 Reports.setVisible(true);
@@ -476,6 +515,7 @@ public class ItemShow implements Initializable {
             }
 
         }else{
+            MenuSignOut.setVisible(false);
             Reports.setVisible(false);
             Complains.setVisible(false);
         }
@@ -493,6 +533,11 @@ public class ItemShow implements Initializable {
             discount.setText("Discount:");
             imageid.setImage(null);
             imgid.setImage(null);
+            PrevItembtn.setVisible(false);
+            NextItembtn.setVisible(false);
+            SaleImage.setVisible(false);
+            nameside.setVisible(false);
+            priceside.setVisible(false);
             AddItembtn.setVisible(true);
             AddToCartBtn.setVisible(false);
             NameText.setVisible(true);
@@ -513,7 +558,7 @@ public class ItemShow implements Initializable {
             throw new RuntimeException(e);
         }
 
-        if (App.getUser() != null &&( App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.WORKER)) {
+        if (App.getUser() != null &&( App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.WORKER || App.getUser().getPermission() == permissions.CorpManager)) {
             AddToCartBtn.setVisible(false);
             NameText.setVisible(true);
             PriceText.setVisible(true);
@@ -576,42 +621,116 @@ public class ItemShow implements Initializable {
             priceside.setText(Double.toString(related.get(0).getPrice())+"$");
             Image image = new Image(SimpleClient.class.getResourceAsStream(related.get(0).getImagesrc()));
             imageid.setImage(image);
-            
             ToShow=0;
             PrevItembtn.setVisible(false);
-            if(related.size()==1)
-                NextItembtn.setVisible(false);
+            NextItembtn.setVisible(related.size() != 1);
 
     }
 
     @FXML
     void UpdateInfo(MouseEvent event) throws IOException {
 
-        String Name = ITEM.getName();
-        double Price = ITEM.getPrice();
-        String Type = ITEM.getType();
-        String Colot = ITEM.getColor();
+        InvalidColor.setVisible(false);
+        InvalidName.setVisible(false);
+        InvalidType.setVisible(false);
+        InvalidPrice.setVisible(false);
+        InvalidDiscount.setVisible(false);
 
-        if (NameText.getText() != "") {
+        String NName= NameText.getText();
+        String NPrice= PriceText.getText();
+        String NType= TypeText.getText();
+        String NColor= ColorText.getText();
+        String NDiscount = DiscountText.getText();
+        boolean flag=false;
+
+        flag = flag || !Utilities.check_Validate_String(NName) || NName.equals("");
+        flag = flag || !Utilities.check_Validate_Price(PriceText.getText()) || PriceText.getText().equals("");
+        flag = flag || !Utilities.check_Validate_String(NType) || NType.equals("");
+        flag = flag || !Utilities.check_Validate_String(NColor) || NColor.equals("");
+        flag = flag || !Utilities.check_Validate_Price(NDiscount) || NDiscount.equals("");
+
+        InvalidColor.setVisible(!Utilities.check_Validate_String(NColor) || NColor.equals(""));
+        InvalidName.setVisible(!Utilities.check_Validate_String(NName) || NName.equals(""));
+        InvalidType.setVisible(!Utilities.check_Validate_String(NType) || NType.equals(""));
+        InvalidPrice.setVisible(!Utilities.check_Validate_Price(PriceText.getText()) || PriceText.getText().equals(""));
+        InvalidDiscount.setVisible(!Utilities.check_Validate_Price(NDiscount) || NDiscount.equals(""));
+
+        if (flag)
+            return;
+
+        Message ms= new Message(ITEM, "#UpdateItemInfo," + NName + " " + NPrice + " " + NType + " " + NColor + " " + NDiscount);
+        SimpleClient.getClient().sendToServer(ms);
+        SimpleClient.getClient().itemshowControl= this;
+
+
+    }
+
+    public void Created (boolean flag) throws IOException {
+        if(!flag){
+            Alert a = new Alert(Alert.AlertType.ERROR);
+
+            a.setContentText("Updating info failed !");
+
+            a.showAndWait();
+            return;
+        }
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+        a.setContentText("Updating info succeeded");
+
+        Optional<ButtonType> result = a.showAndWait();
+        if(!result.isPresent()) {}
+        else if(result.get() == ButtonType.OK)
+        {
+            Platform.runLater(()->{
+                try {
+                    App.setRoot("Catalog");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
 
         }
-        if (PriceText.getText() != "") {
+        return;
+
+    }
+
+    public void Deleted (boolean flag) throws IOException {
+        if(!flag){
+            Alert a = new Alert(Alert.AlertType.ERROR);
+
+            a.setContentText("Deleting item failed !");
+
+            a.showAndWait();
+            return;
+        }
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+        a.setContentText("Deleting item succeeded");
+
+        Optional<ButtonType> result = a.showAndWait();
+        if(!result.isPresent()) {}
+        else if(result.get() == ButtonType.OK)
+        {
+            Platform.runLater(()->{
+                try {
+                    App.setRoot("Catalog");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
 
         }
-        if (TypeText.getText() != "") {
+        return;
 
-        }
-        if (ColorText.getText() != "") {
-
-        }
-        related.clear();
-        App.setRoot("Catalog");
     }
 
     @FXML
-    void DeleteItem(MouseEvent event) {
-
-
+    void DeleteItem(MouseEvent event) throws IOException {
+        SimpleClient.getClient().sendToServer(new Message(ITEM,"#DeleteItem"));
+        SimpleClient.getClient().itemshowControl=this;
     }
 
     @FXML

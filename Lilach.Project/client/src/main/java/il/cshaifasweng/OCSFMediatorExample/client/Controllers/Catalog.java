@@ -23,16 +23,36 @@ import net.bytebuddy.asm.Advice;
 import java.io.IOException;
 import java.net.URL;
 import java.security.Permission;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+
+
+class SortByPrice implements Comparator<Item> {
+    // Used for sorting in ascending order of ID
+    public int compare(Item a, Item b)
+    {
+        if (a.getPrice() < b.getPrice()) return -1;
+        if (a.getPrice() > b.getPrice()) return 1;
+        return 0;
+    }
+}
+
+class SortByLetters implements Comparator<Item> {
+    // Used for sorting in ascending order of ID
+    public int compare(Item a, Item b)
+    {
+        return a.getName().compareTo(b.getName());
+    }
+}
 
 public class Catalog implements Initializable {
 
     public static String Caller = "";
     public static List<Item> Catalog = new ArrayList<>();
     public static List<Item> CatalogShow = new ArrayList<>();
+
+    @FXML
+    private Button X_button;
+
     @FXML
     private Button Back;
 
@@ -145,7 +165,8 @@ public class Catalog implements Initializable {
 
     @FXML
     void GoToSignIn(ActionEvent event) throws IOException {
-        SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if(App.getUser()!=null)
+            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
@@ -271,6 +292,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -284,6 +306,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -297,6 +320,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -324,6 +348,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -337,6 +362,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -350,6 +376,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -363,6 +390,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -376,6 +404,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -389,45 +418,46 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
-    @FXML
-    void SortAZ(ActionEvent event) {
-
-    }
 
     @FXML
     void SortHL(ActionEvent event) {
-//        SortLH(null);
-        List<Item> temp=new ArrayList<>();
-        for(int i=CatalogShow.size()-1;i>=0;i--)
-        {
-            temp.add(CatalogShow.get(i));
-        }
-        CatalogShow=temp;
+        CatalogShow.clear();
+        CatalogShow.addAll(Catalog);
+        CatalogShow.sort(new SortByPrice());
+        Collections.reverse(CatalogShow);
+        LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
     void SortLH(ActionEvent event) {
-        System.out.println("here");
         CatalogShow.clear();
-        CatalogShow.add(Catalog.get(0));
-        for(Item itemS:Catalog)
-            for(Item itemB:CatalogShow)
-            {
-                if(itemS.getPrice()>itemB.getPrice())
-                {
-                    Item temp=itemS;
-                    itemS=itemB;
-                    itemB=temp;
-                }
-            }
+        CatalogShow.addAll(Catalog);
+        CatalogShow.sort(new SortByPrice());
         LoadList(CatalogShow);
+        X_button.setVisible(true);
+    }
+
+    @FXML
+    void SortAZ(ActionEvent event) {
+        CatalogShow.clear();
+        CatalogShow.addAll(Catalog);
+        CatalogShow.sort(new SortByLetters());
+        LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
     void SortZA(ActionEvent event) {
-
+        CatalogShow.clear();
+        CatalogShow.addAll(Catalog);
+        CatalogShow.sort(new SortByLetters());
+        Collections.reverse(CatalogShow);
+        LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -441,6 +471,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -454,6 +485,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
 
@@ -469,6 +501,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -482,6 +515,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -495,6 +529,7 @@ public class Catalog implements Initializable {
             }
         }
         LoadList(CatalogShow);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -502,6 +537,7 @@ public class Catalog implements Initializable {
         Min.setVisible(true);
         Max.setVisible(true);
         Filter.setVisible(true);
+        X_button.setVisible(true);
     }
 
     @FXML
@@ -513,6 +549,13 @@ public class Catalog implements Initializable {
             Max.setText("");
             return;
         }
+        if(Integer.parseInt(Min.getText()) > Integer.parseInt(Max.getText())){
+            InvalidPrice.setVisible(true);
+            Min.setText("");
+            Max.setText("");
+            return;
+        }
+
         double min=Double.parseDouble(Min.getText()),max=Double.parseDouble(Max.getText());
         if(min>max)
         {
@@ -533,12 +576,19 @@ public class Catalog implements Initializable {
 
         Min.setText("");
         Max.setText("");
+        InvalidPrice.setVisible(false);
+        X_button.setVisible(true);
+
+    }
+
+    @FXML
+    void Cancel_filters(MouseEvent event) {
+        LoadList(Catalog);
         Min.setVisible(false);
         Max.setVisible(false);
         Filter.setVisible(false);
         InvalidPrice.setVisible(false);
-
-
+        X_button.setVisible(false);
     }
 
     public void LoadList(List<Item> items)
@@ -564,8 +614,10 @@ public class Catalog implements Initializable {
 
                 itemController.setItemView(item);
                 if(App.getUser()!=null)
+                  
                 if(App.getUser().getPermission()!=permissions.CLIENT)
                     itemController.getAddCart().setImage(null);
+
                 if (column == 3) {
                     column = 0;
                     row++;
@@ -590,8 +642,7 @@ public class Catalog implements Initializable {
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if(searchin!=null&&searchin.equals("")==false)
-        {
+        if (searchin != null && searchin.equals("") == false) {
             SearchField.setText(searchin);
             ClickSearch(null);
             return;
@@ -600,32 +651,39 @@ public class Catalog implements Initializable {
             UserName.setText("Welcome guest");
         else
             UserName.setText("Welcome " + App.getUser().getFirstname());
-        if(App.getUser()!=null){
-            if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN||App.getUser().getPermission()== permissions.CorpManager)
+        if (App.getUser() != null) {
+            MenuSignIn.setVisible(false);
+            if (App.getUser().getPermission() == permissions.WORKER || App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.CorpManager) {
+                MenuSignUp.setVisible(false);
                 CartB.setVisible(false);
-            if(App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()==permissions.CorpManager) {
+                MenuCart.setVisible(false);
+
+            }
+            if (App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.CorpManager) {
                 Reports.setVisible(true);
                 Complains.setVisible(true);
-            }else{
+            } else {
                 Reports.setVisible(false);
                 Complains.setVisible(false);
             }
-        }else{
+        }
+        else {
+            MenuSignOut.setVisible(false);
             Reports.setVisible(false);
             Complains.setVisible(false);
         }
-        if(App.getUser()!=null)
-        if(App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()==permissions.WORKER)
-            addItemBtn.setVisible(true);
-        try {
-            getData();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        if (App.getUser() != null)
+            if (App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.WORKER || App.getUser().getPermission() == permissions.CorpManager)
+                addItemBtn.setVisible(true);
+            try {
+                getData();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 //        if(App.getUser()!=null && App.getUser().getPermission()==permissions.WORKER) {
 //            Complains.setVisible(true);
 //        }
 
 
-    }
+        }
 }

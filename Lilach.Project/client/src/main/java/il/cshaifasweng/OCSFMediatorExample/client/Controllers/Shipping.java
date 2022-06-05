@@ -10,13 +10,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.text.DecimalFormat;
+import java.util.*;
 
 public class Shipping implements Initializable {
 
@@ -109,6 +108,8 @@ public class Shipping implements Initializable {
     @FXML
     private Label PhoneNumberLB;
 
+    final DecimalFormat df = new DecimalFormat("0.00");
+
 
 
     @FXML
@@ -170,8 +171,10 @@ public class Shipping implements Initializable {
                 PhoneNumber.setVisible(true);
                 PhoneNumberLB.setVisible(true);
             }else{
+                Name.setText("");
                 Name.setVisible(false);
                 NameLB.setVisible(false);
+                PhoneNumber.setText("");
                 PhoneNumber.setVisible(false);
                 PhoneNumberLB.setVisible(false);
             }
@@ -192,21 +195,27 @@ public class Shipping implements Initializable {
 
     @FXML
     void GoToAccount(MouseEvent event) throws IOException {
-        About.setCaller("Shipping");
+        Account.setCaller("Shipping");
         App.setRoot("Account");
     }
 
     @FXML
-    void GoToCart(ActionEvent event) {
-
+    void GoToCart(ActionEvent event) throws IOException {
+        Cart.setCaller("Shipping");
+        App.setRoot("Cart");
     }
 
     @FXML
     void GoToProfile(ActionEvent event) throws IOException {
-        About.setCaller("Shipping");
+        Account.setCaller("Shipping");
         App.setRoot("Account");
     }
 
+    @FXML
+    void GoToCatalog(ActionEvent event) throws IOException {
+        Catalog.setCaller("LogIn");
+        App.setRoot("Catalog");
+    }
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
@@ -226,52 +235,106 @@ public class Shipping implements Initializable {
     void MenuClick(MouseEvent event) {
         menu.setVisible(true);
     }
+
     @FXML
-    void Approve(MouseEvent event) throws IOException {
+    void ApproveFunc(MouseEvent event) throws IOException {
+
         boolean flag;
         InvalidAdderss.setVisible(false);
-        InvalidDate.setVisible(true);
+        InvalidDate.setVisible(false);
         InvalidPhoneNumber.setVisible(false);
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
         Date date = new Date(Date.getValue().getYear(), Date.getValue().getMonthValue(), Date.getValue().getDayOfMonth());
-        InvalidDate.setVisible(!Utilities.checkValidDate(now, date));
-        flag=(!Utilities.checkValidDate(now, date));
-        if(deliveryid.isSelected()){
+        InvalidDate.setVisible(Utilities.checkValidDate(date, now));
+        flag = (Utilities.checkValidDate(now, date));
+
+        if (deliveryid.isSelected()) {
             InvalidAdderss.setVisible(Address.getText().equals(""));
-            flag=flag||Address.getText().equals("");
-            if(ForSomeoneId.isSelected()){
+            flag = flag || Address.getText().equals("");
+            if (ForSomeoneId.isSelected()) {
                 InvalidName.setVisible(!Utilities.check_Validate_String(Name.getText()) || Name.getText().equals(""));
                 InvalidPhoneNumber.setVisible(!Utilities.check_Validate_Phone(PhoneNumber.getText()));
-                flag=flag||!Utilities.check_Validate_String(Name.getText()) || Name.getText().equals("");
-                flag=flag||!Utilities.check_Validate_Phone(PhoneNumber.getText());
+                flag = flag || !Utilities.check_Validate_String(Name.getText()) || Name.getText().equals("");
+                flag = flag || !Utilities.check_Validate_Phone(PhoneNumber.getText());
             }
         }
-        if(flag)
+        if (flag) {
             return;
-        if(deliveryid.isSelected()) {
-            if(ForSomeoneId.isSelected()) {
-                Message ms = new Message(date, "#Deliveryandforsomeone " + Address.getText() + " " + Name.getText() + " " + PhoneNumber.getText()+ " " +Blessing.getText());
-                SimpleClient.getClient().sendToServer(ms);
-                SimpleClient.getClient().shippingControl = this;
-            }else{
-                Message ms = new Message(date, "#Deliveryandnotforsomeone " + Address.getText()+ " " +Blessing.getText());
-                SimpleClient.getClient().sendToServer(ms);
-                SimpleClient.getClient().shippingControl = this;
-            }
-        }else{
-            Message ms = new Message(date,"#NoDelivery "+Blessing.getText());
+        }
+
+        String Delviry = "";
+        if (deliveryid.isSelected()) {
+            Delviry = "1";
+        } else {
+            Delviry = "0";
+        }
+        TilePane r = new TilePane();
+        // create a alert
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+        a.setContentText("Shipping Approved!");
+
+
+        Optional<ButtonType> result = a.showAndWait();
+        if(!result.isPresent()) {}
+        else if(result.get() == ButtonType.OK)
+        {
+            Message ms = new Message(null, "#ApproveShipping" + " " + App.getUser().getUsername() + " " + Address.getText() + " " + Name.getText() + " " + PhoneNumber.getText() + " " + Blessing.getText() + " " + Delviry + " " + Date.getValue().getYear() + " " + Date.getValue().getMonthValue() + " " + Date.getValue().getDayOfMonth());
             SimpleClient.getClient().sendToServer(ms);
             SimpleClient.getClient().shippingControl = this;
         }
+
     }
+//        if(deliveryid.isSelected()) {
+//
+//            if(ForSomeoneId.isSelected()) {
+//                Message ms = new Message(date, "#DeliveryAndForsomeone" + " " + App.getUser().getUsername() + " " + Address.getText() + " " + Name.getText() + " " + PhoneNumber.getText()+ " " +Blessing.getText());
+//                SimpleClient.getClient().sendToServer(ms);
+//                SimpleClient.getClient().shippingControl = this;
+//            }
+//            else{
+//                Message ms = new Message(date, "#DeliveryAndNotForsomeone" + " " + App.getUser().getUsername() + " " + Address.getText()+ " " +Blessing.getText());
+//                SimpleClient.getClient().sendToServer(ms);
+//                SimpleClient.getClient().shippingControl = this;
+//            }
+//        }
+//        else{
+//            System.out.println("WOW");
+//            Message ms = new Message(date,"#PickingFromBranch"  + " " + App.getUser().getUsername() + " " + Blessing.getText());
+//            SimpleClient.getClient().sendToServer(ms);
+//            SimpleClient.getClient().shippingControl = this;
+//        }
+//public void ShowNote(String note) {
+//    Alert a = new Alert(Alert.AlertType.NONE);
+//    System.out.println("sho fe");
+//    // set alert type
+//    a.setAlertType(Alert.AlertType.INFORMATION);
+//
+//    a.setContentText(note);
+//
+//    a.showAndWait();
+//}
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        MenuCart.setVisible(false);
         Date.setValue(java.time.LocalDate.now());
 
-        if (App.getUser() == null)
+        if (App.getUser() == null) {
             UserName.setText("Welcome guest");
-        else
+        }
+        else {
             UserName.setText("Welcome " + App.getUser().getFirstname());
+            Total.setText((Double.toString(SimpleClient.getClient().cartControl.subTotalG))+"$");
+            Saved.setText(df.format(SimpleClient.getClient().cartControl.subTotalD)+"$");
+            double x = (((SimpleClient.getClient().cartControl.subTotalG - SimpleClient.getClient().cartControl.subTotalD)/1.17)*0.17);
+            final DecimalFormat df = new DecimalFormat("0.00");
+            Tax.setText(df.format((x))+"$");
+
+
+        }
+
+
     }
 
 }

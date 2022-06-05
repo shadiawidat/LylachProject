@@ -107,14 +107,15 @@ public class ItemView {
     void ShowItem(MouseEvent event) throws Exception {
         ItemShow.setCaller("Catalog");
         App.setOnscreen(item);
-        for (Item item:Catalog.Catalog)
-        {
-            if(item.getColor()==this.item.getColor())
-                ItemShow.related.add(item);
-            else if(item.getType().equals("Vase")&&this.item.getType().equals("Flower"))
-                ItemShow.related.add(item);
-        }
+        ItemShow.related.clear();
         Platform.runLater(()->{
+            for (Item item:Catalog.Catalog)
+            {
+                if(item.getColor()==this.item.getColor())
+                    ItemShow.related.add(item);
+                else if(item.getType().equals("Vase")&&this.item.getType().equals("Flower"))
+                    ItemShow.related.add(item);
+            }
             try {
 
                 App.setRoot("ItemShow");

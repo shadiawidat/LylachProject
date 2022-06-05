@@ -3,6 +3,8 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.Utilities;
+import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -89,25 +91,22 @@ public class LogIn implements Initializable {
 
     @FXML
     void SignIn(MouseEvent event) throws IOException, InterruptedException {
+        if(!Utilities.check_Validate_Username(UserName.getText()))
+        {
+            Incorrect.setVisible(true);
+            UserName.setText("");
+            Password.setText("");
+            return;
+
+        }
         Message ms = new Message(null, "#LogIn " + UserName.getText() + " " + Password.getText());
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().logControl=this;
 
     }
     public void Sign(){
-            if (App.getUser() != null)
-            {
-                if(App.getUser().isLogedIn())
-                {
-                    Alert a = new Alert(Alert.AlertType.ERROR);
-
-                    a.setContentText("You are already signed in.");
-
-                    a.showAndWait();
-                    return;
-                }
-                if(App.getUser().isFreeze())
-                {
+            if (App.getUser() != null) {
+                if (App.getUser().isFreeze()) {
                     Alert a = new Alert(Alert.AlertType.ERROR);
 
                     a.setContentText("User is freezed.");
@@ -115,12 +114,31 @@ public class LogIn implements Initializable {
                     a.showAndWait();
                     return;
                 }
+                if (App.getUser().isLogedIn()) {
+                    Alert a = new Alert(Alert.AlertType.ERROR);
+
+                    a.setContentText("You are already signed in.");
+
+                    a.showAndWait();
+                    return;
+                }
                 App.getUser().setLogedIn(true);
-                try {
-                    Catalog.setCaller("LogIn");
-                    App.setRoot("Catalog");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (App.getUser().getPermission() == permissions.ADMIN)
+                {
+                    try {
+                        Account.setCaller("LogIn");
+                        App.setRoot("Account");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    try {
+                        Catalog.setCaller("LogIn");
+                        App.setRoot("Catalog");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             else {
@@ -129,7 +147,6 @@ public class LogIn implements Initializable {
                 UserName.setText("");
                 Password.setText("");
                 return;
-
             }
     }
 

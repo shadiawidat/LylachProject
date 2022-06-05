@@ -153,11 +153,12 @@
             </VBox>
          </children>
       </HBox>
-      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" prefHeight="28.0" prefWidth="181.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" prefHeight="28.0" prefWidth="169.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
         <menus>
           <Menu mnemonicParsing="false" text="Go to">
             <items>
                   <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUp" text="SignUp" />
+                  <MenuItem mnemonicParsing="false" onAction="#GoToCatalog" text="Catalog" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Account">
@@ -166,7 +167,7 @@
                   <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="About">
+          <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem fx:id="MenuAbout" mnemonicParsing="false" onAction="#GoToAbout" text="About" />
             </items>
