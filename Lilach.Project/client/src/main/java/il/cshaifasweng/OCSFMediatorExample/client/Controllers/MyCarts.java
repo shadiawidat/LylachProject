@@ -2,20 +2,36 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-import java.io.IOException;
+import javafx.scene.layout.Region;
 
-public class MyCarts {
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+
+public class MyCarts implements Initializable {
     public static String Caller = "";
     @FXML
     private Button Back;
+
+    @FXML
+    private GridPane gridPane;
 
     @FXML
     private ImageView CartButton;
@@ -37,9 +53,6 @@ public class MyCarts {
 
     @FXML
     private Label UserName;
-
-    @FXML
-    private GridPane gridPane;
 
     @FXML
     private MenuBar menu;
@@ -120,5 +133,54 @@ public class MyCarts {
     @FXML
     void MenuClick(MouseEvent event) {
         menu.setVisible(true);
+    }
+
+    public void loadOrders(List<Cart> orders){
+        gridPane.getChildren().clear();
+        try {
+            int column = 0;
+            int row = 1;
+            for (Cart cart : orders) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(SimpleClient.class.getResource("CartView.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+                CartView cartView = fxmlLoader.getController();
+
+
+                if (column == 1) {
+                    column = 0;
+                    row++;
+                }
+
+                gridPane.add(anchorPane, column++, row); //(child,column,row)
+                //set gridPane width
+                gridPane.setMinWidth(Region.USE_COMPUTED_SIZE);
+                gridPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                gridPane.setMaxWidth(Region.USE_PREF_SIZE);
+                //set gridPane height
+                gridPane.setMinHeight(Region.USE_COMPUTED_SIZE);
+                gridPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                gridPane.setMaxHeight(Region.USE_PREF_SIZE);
+                gridPane.setMargin(anchorPane, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle){
+        UserName.setText("Welcome " + App.getUser().getFirstname());
+        if(App.getUser()!=null) {
+            try {
+                SimpleClient.getClient().sendToServer(new Message(App.getUser(), "#GetOrders " + App.getUser().getUsername()));
+                SimpleClient.getClient().myCartsControl = this;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
