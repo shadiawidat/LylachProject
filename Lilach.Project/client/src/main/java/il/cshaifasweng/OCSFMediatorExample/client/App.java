@@ -14,7 +14,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static java.lang.System.exit;
@@ -70,6 +73,7 @@ public class App extends Application {
         scene=new Scene(root, 920, 720);
         stage.setScene(scene);
         stage.show();
+
     }
 
 
@@ -82,8 +86,6 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
-
-
 
     @Override
     public void stop() throws Exception {
@@ -116,7 +118,7 @@ public class App extends Application {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         launch();
     }
 

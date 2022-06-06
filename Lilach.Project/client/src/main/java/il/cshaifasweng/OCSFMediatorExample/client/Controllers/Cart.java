@@ -2,6 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Client;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
@@ -168,7 +169,10 @@ public class Cart implements Initializable {
         menu.setVisible(true);
     }
 
+    public void setCart(il.cshaifasweng.OCSFMediatorExample.entities.Cart cart, Client client)
+    {
 
+    }
     public void loadCart(List<Item> Cart)
     {
         Map<Integer,Integer> map=new HashMap<>();
@@ -193,8 +197,10 @@ public class Cart implements Initializable {
             Total.setText(df.format((subTotal))+"$");
             scroll.setVisible(false);
             Matched.setVisible(true);
+            Shipping.setVisible(false);
             return;
         }
+        Shipping.setVisible(true);
         gridPane.getChildren().clear();
         try {
             int column = 0;

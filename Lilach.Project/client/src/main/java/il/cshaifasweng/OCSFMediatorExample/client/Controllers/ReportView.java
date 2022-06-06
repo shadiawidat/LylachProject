@@ -2,17 +2,23 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.net.URL;
@@ -89,7 +95,44 @@ public class ReportView implements Initializable {
     }
 
 
-
+    public void loadReports(Report rep1,Report rep2){
+        grid.getChildren().clear();
+        try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(SimpleClient.class.getResource("ReportHistogram.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+                ReportHistogram reportHistogram = fxmlLoader.getController();
+                grid.add(anchorPane, 0, 1); //(child,column,row)
+                //set grid width
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+                //set grid height
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+                GridPane.setMargin(anchorPane, new Insets(10));
+                if(rep2==null)
+                    return;
+                FXMLLoader fxmlLoader1 = new FXMLLoader();
+                fxmlLoader1.setLocation(SimpleClient.class.getResource("ReportHistogram.fxml"));
+                AnchorPane anchorPane1 = fxmlLoader1.load();
+                ReportHistogram reportHistogram1 = fxmlLoader.getController();
+                grid.add(anchorPane1, 0, 2); //(child,column,row)
+                //set grid width
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+                //set grid height
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+         catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void MenuClick(MouseEvent event) {
@@ -98,6 +141,6 @@ public class ReportView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        SimpleClient.getClient().reportViewControl=this;
     }
 }

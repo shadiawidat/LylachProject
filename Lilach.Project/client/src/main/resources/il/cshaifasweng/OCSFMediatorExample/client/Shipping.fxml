@@ -64,7 +64,7 @@
                 </ImageView>
             </children>
         </HBox>
-      <Button fx:id="Approve" layoutX="654.0" layoutY="666.0" mnemonicParsing="false" onMouseClicked="#Approve" style="-fx-background-color: rgb(255,255,255);" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Approve">
+      <Button fx:id="Approve" layoutX="654.0" layoutY="666.0" mnemonicParsing="false" onMouseClicked="#ApproveFunc" style="-fx-background-color: rgb(255,255,255);" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Approve">
          <font>
             <Font name="Cambria Bold Italic" size="18.0" />
          </font>

@@ -9,30 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="549.0" style="-fx-background-color: #FFFFFF;" styleClass="Complain" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.CartView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="549.0" style="-fx-background-color: #FFFFFF;" styleClass="Complain" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.CartView">
    <children>
-      <Button fx:id="CancelOrder" layoutX="327.0" layoutY="244.0" maxWidth="150.0" mnemonicParsing="false" onMouseClicked="#CancelOrder" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Cancel order">
+      <Button fx:id="CancelOrder" layoutX="367.0" layoutY="244.0" maxWidth="150.0" mnemonicParsing="false" onMouseClicked="#CancelOrder" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Cancel order">
          <font>
             <Font name="Cambria" size="18.0" />
          </font>
       </Button>
-      <HBox layoutX="24.0" layoutY="246.0" prefHeight="30.0" prefWidth="251.0">
-         <children>
-            <Label text="Remaining: ">
-               <font>
-                  <Font name="Cambria" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="Remaining" text="23:12">
-               <font>
-                  <Font name="Cambria" size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Label>
-         </children>
-      </HBox>
       <TextField fx:id="Complain" alignment="TOP_LEFT" layoutX="24.0" layoutY="158.0" prefHeight="75.0" prefWidth="494.0" />
       <VBox layoutX="24.0" layoutY="32.0" prefHeight="123.0" prefWidth="264.0">
          <children>

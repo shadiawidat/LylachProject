@@ -43,7 +43,7 @@
             </HBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="2.0" layoutY="94.0" prefHeight="548.0" prefWidth="916.0" styleClass="transparent">
+      <HBox alignment="CENTER" layoutX="70.0" layoutY="94.0" prefHeight="555.0" prefWidth="800.0" styleClass="transparent">
          <children>
             <ScrollPane fx:id="scroll" hbarPolicy="NEVER" prefHeight="641.0" prefWidth="978.0" style="-fx-background-color: #FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
                <content>
