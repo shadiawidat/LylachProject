@@ -293,7 +293,7 @@
          <children>
             <AnchorPane fx:id="ItemPrev" maxHeight="170.0" maxWidth="170.0" minHeight="157.0" minWidth="157.0" prefHeight="157.0" prefWidth="157.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css">
                <children>
-                  <ImageView fx:id="SaleImage" fitHeight="157.0" fitWidth="203.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="13.0">
+                  <ImageView fx:id="SaleImage" fitHeight="157.0" fitWidth="203.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="13.0">
                      <image>
                         <Image url="@../../../../Media/Sales/SaleItem.png" />
                      </image>
