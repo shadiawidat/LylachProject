@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Account">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Account">
    <children>
       <Button layoutX="9.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;">
          <font>
@@ -308,7 +308,7 @@
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <VBox alignment="TOP_CENTER" layoutX="348.0" layoutY="134.0" prefHeight="566.0" prefWidth="215.0">
+      <VBox alignment="TOP_CENTER" layoutX="348.0" layoutY="91.0" prefHeight="623.0" prefWidth="215.0">
          <children>
             <ImageView fx:id="FreezeIcon" fitHeight="65.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -411,6 +411,11 @@
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
+            </Button>
+            <Button fx:id="commplainBTN" maxWidth="150.0" mnemonicParsing="false" onMouseClicked="#complain" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Complain">
+               <font>
+                  <Font name="Cambria Bold Italic" size="24.0" />
+               </font>
             </Button>
          </children>
       </VBox>
