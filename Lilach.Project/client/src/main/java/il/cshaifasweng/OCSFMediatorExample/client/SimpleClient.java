@@ -33,6 +33,9 @@ public class SimpleClient extends AbstractClient {
 	public ItemView itemviewControl;
 	public MyCarts myCartsControl;
 	public CartView cartView;
+	public Complain complain;
+	public AllComplains allComplains;
+	public clientComplain clientComplainControl;
 
 	public String name;
 
@@ -94,6 +97,13 @@ public class SimpleClient extends AbstractClient {
 				accountControl.resetFields();
 				});
 
+		}else if (deliver.equals("#ComplainsReady"))
+		{
+
+			Platform.runLater(()->{
+				allComplains.loadComplains((List<il.cshaifasweng.OCSFMediatorExample.entities.Complain>)ms.getObject());
+			});
+
 		}
 		else if (deliver.equals("#OrdersReady"))
 		{
@@ -101,6 +111,11 @@ public class SimpleClient extends AbstractClient {
 			Platform.runLater(()->{
 				myCartsControl.loadOrders((List<il.cshaifasweng.OCSFMediatorExample.entities.Cart>)ms.getObject());
 			});
+
+		}else if (deliver.equals("#BranchesReadyC"))
+		{
+			clientComplainControl.setBranchesL((List<Branch>) ms.getObject());
+			Platform.runLater(()->{clientComplainControl.loadBranches();});
 
 		}else if (deliver.equals("#BranchesReadyS"))
 		{
@@ -239,6 +254,13 @@ public class SimpleClient extends AbstractClient {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			});
+		}
+
+		else if(deliver.equals("#ComplainSent")){
+
+			Platform.runLater(()->{
+				clientComplain.showNote();
 			});
 		}
 
