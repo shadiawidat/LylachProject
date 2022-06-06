@@ -162,6 +162,7 @@ public class SimpleServer extends AbstractServer {
         if(request.startsWith("#AddItem"))
         {
             saveObject(ms.getObject());
+            client.sendToClient(new Message(null,"#AddNewItem"));
         }
         if (request.startsWith("#LogIn")) {
             String[] msgarray = request.split(" ");
@@ -171,7 +172,8 @@ public class SimpleServer extends AbstractServer {
             if (user != null && user.getPassword().equals(msgarray[2])) {
 
                 client.sendToClient(new Message(user, "#Useridentify"));
-                session.find(User.class, msgarray[1]).setLogedIn(true);
+                if(user.isFreeze()==false)
+                    session.find(User.class, msgarray[1]).setLogedIn(true);
                 session.flush();
                 session.getTransaction().commit();
             } else
@@ -212,19 +214,33 @@ public class SimpleServer extends AbstractServer {
 
             String[] msgarray = request.split(" ");
             User user = session.find(User.class, msgarray[1]);
-            Branch b = session.find(Branch.class, Integer.parseInt(msgarray[2]));
+            Branch b = session.find(Branch.class, msgarray[2]);
             System.out.println(b.getName());
+            System.out.println("hello");
             if (user != null) {
                 client.sendToClient(new Message(user, "#AddUserExists"));
             } else {
 
-                App.server.saveObject((User) ms.getObject());
-                b.getUsers().add(user);
-//				App.server.saveObject((User)ms.getObject());
-//				user=session.find(User.class,((User)ms.getObject()).getID());
-//
-//				user.AddOneBranch(b);
-
+                App.server.saveObject(ms.getObject());
+                User use = session.find(User.class, msgarray[1]);
+                Branch b1 = session.find(Branch.class, msgarray[2]);
+                if(b1!=null) {
+                    session.beginTransaction();
+                    b1.getUsers().add(use);
+                    use.getMybranches().add(b1);
+                    session.flush();
+                    session.getTransaction().commit();
+                }
+                else {
+                    b1=new Branch(msgarray[2]);
+                    App.server.saveObject(b1);
+                    b1 = session.find(Branch.class, msgarray[2]);
+                    session.beginTransaction();
+                    b1.getUsers().add(use);
+                    use.getMybranches().add(b1);
+                    session.flush();
+                    session.getTransaction().commit();
+                }
                 client.sendToClient(new Message(ms.getObject(), "#AddUserCreated"));
             }
 
@@ -233,14 +249,13 @@ public class SimpleServer extends AbstractServer {
         if (request.startsWith("#SearchUser")) {
 
             String[] msgarray = request.split(" ");
-            session.beginTransaction();
             User user = session.find(User.class, msgarray[1]);
 
             if (user != null) {
 
-                session.flush();
+
                 client.sendToClient(new Message(user, "#UserFound"));
-                session.getTransaction().commit();
+
             } else {
                 client.sendToClient(new Message(null, "#UserNotFound"));
             }
@@ -503,13 +518,31 @@ public class SimpleServer extends AbstractServer {
 
 
         }
-        //////////////
 
         else if (request.startsWith("#PrepReports1")) {
 
-
+            client.sendToClient(new Message(null,"#ReportsReady"));
             String[] msgarray = request.split(" ");
             if (msgarray[1].equals("Order")) {
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
+                query.from(Cart.class);
+                List<Cart> carts=session.createQuery(query).getResultList();
+                List<Cart> cartsSend=new ArrayList<>();
+                if(!msgarray[2].equals("All")) {
+                    for (Cart cart : carts) {
+                        if (cart.getClient().getMybranches().get(0).getName().equals(msgarray[2])) {
+                            cartsSend.add(cart);
+                        }
+                    }
+                }
+                else {
+                    for (Cart cart : carts) {
+                        cartsSend.add(cart);
+                    }
+                }
+                IncomeReport rep=new IncomeReport();
+
 
             } else if (msgarray[1].equals("Income")) {
 
@@ -518,7 +551,14 @@ public class SimpleServer extends AbstractServer {
             }
 
         } else if (request.startsWith("#PrepReports2")) {
+            String[] msgarray = request.split(" ");
+            if (msgarray[1].equals("Order")) {
 
+            } else if (msgarray[1].equals("Income")) {
+
+            } else if (msgarray[1].equals("Complain")) {
+
+            }
         }
     }
 

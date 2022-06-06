@@ -305,7 +305,7 @@ public class Report implements Initializable {
 
     @FXML
     void ViewReports(MouseEvent event) throws IOException {
-        System.out.println("here");
+
         boolean flag=false;
         InvalidFRType.setVisible(false);
         InvalidFRFrom.setVisible(true);
@@ -343,15 +343,18 @@ public class Report implements Initializable {
         }
         flag=flag||FirstReportType.getText().equals("");
         flag=flag||FirstReportBranch.getText().equals("");
-        flag=flag||SecondReportType.getText().equals("");
-        flag=flag||SecondReportBranch.getText().equals("");
+        flag=flag||(SecondReportType.getText().equals("")&&CompareTo.isSelected());
+        flag=flag||(SecondReportBranch.getText().equals("")&&CompareTo.isSelected());
         if(flag)
             return;
+
         if(!CompareTo.isSelected()) {
+
             List<Date> DateList = new ArrayList<>();
             DateList.add(From1);
             DateList.add(To1);
             Message ms = new Message(DateList, "#PrepReports1 " + FirstReportType.getText() + " " + FirstReportBranch.getText());
+            App.setRoot("ReportView");
             SimpleClient.getClient().sendToServer(ms);
             SimpleClient.getClient().reportControl=this;
         }else{
@@ -360,10 +363,11 @@ public class Report implements Initializable {
             DateList.add(To1);
             DateList.add(From2);
             DateList.add(To2);
-            Message ms = new Message(DateList, "#PrepReports2 " + FirstReportType.getText() + " " + FirstReportBranch+" "+SecondReportType.getText() + " " + SecondReportBranch.getText());
+            Message ms = new Message(DateList, "#PrepReports2 " + FirstReportType.getText() + " " + FirstReportBranch.getText()+" "+SecondReportType.getText() + " " + SecondReportBranch.getText());
             SimpleClient.getClient().sendToServer(ms);
             SimpleClient.getClient().reportControl=this;
         }
+
     }
 
     @Override
@@ -378,6 +382,15 @@ public class Report implements Initializable {
         FirstReportTo.setValue(java.time.LocalDate.now());
         SecondReportFrom.setValue(java.time.LocalDate.now());
         SecondReportTo.setValue(java.time.LocalDate.now());
+        if(App.getUser().getPermission()==permissions.MANAGER)
+        {
+            FirstReportBranch.setText(((BranchManager)App.getUser()).getMybranch().getName());
+            FirstReportBranch.setDisable(true);
+            FirstReportBranch.setOpacity(300000000);
+            SecondReportBranch.setText(((BranchManager)App.getUser()).getMybranch().getName());
+            SecondReportBranch.setDisable(true);
+            SecondReportBranch.setOpacity(300000000);
+        }
 
     }
 }

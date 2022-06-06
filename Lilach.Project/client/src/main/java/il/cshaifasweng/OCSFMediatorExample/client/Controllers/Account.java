@@ -174,6 +174,8 @@ public class Account implements Initializable {
 
     private List<Branch> BranchesL = new ArrayList<>();
 
+    private boolean addus=false;
+
 
     public User getUser() {
         return user;
@@ -204,8 +206,7 @@ public class Account implements Initializable {
             UnFreeze.setVisible(false);
         }
 
-        RemoveUser.setVisible(true);
-        UpdateUser.setVisible(true);
+
         Clear.setVisible(true);
         AddUser.setVisible(false);
 
@@ -225,8 +226,7 @@ public class Account implements Initializable {
         InvalidBranch.setVisible(false);
         InvalidCrdeitCard.setVisible(false);
 
-        PermisionsLB.setVisible(false);
-        PermisionsMN.setVisible(false);
+
 
         BranchLB.setVisible(false);
         Branches.setVisible(false);
@@ -243,6 +243,8 @@ public class Account implements Initializable {
             Alert a = new Alert(Alert.AlertType.WARNING);
             a.setContentText("User Doesn't Exist");
             a.showAndWait();
+            Search.setVisible(false);
+            UpdateUser.setVisible(false);
             CreditCardLB.setVisible(false);
             TypeLB.setVisible(false);
             CreditCard.setVisible(false);
@@ -254,7 +256,7 @@ public class Account implements Initializable {
             FreezeUser.setVisible(false);
 
             RemoveUser.setVisible(false);
-            UpdateUser.setVisible(true);
+
 
             UnFreeze.setVisible(false);
             MyOrders.setVisible(false);
@@ -270,6 +272,8 @@ public class Account implements Initializable {
         } else
         {
 
+            RemoveUser.setVisible(true);
+            UpdateUser.setVisible(true);
             if (user.getPermission() == permissions.CLIENT) {
                 CreditCard.setVisible(true);
                 CreditCardLB.setVisible(true);
@@ -308,6 +312,10 @@ public class Account implements Initializable {
                 else if (user.getPermission() == permissions.WORKER) {
                     BranchLB.setVisible(true);
                     Branches.setVisible(true);
+                    PermisionsLB.setVisible(true);
+                    PermisionsMN.setVisible(true);
+                    PermisionsMN.setDisable(false);
+                    PermisionsMN.setText(user.getPermission().name());
                 }
             }
 
@@ -391,6 +399,7 @@ public class Account implements Initializable {
         BranchLB.setVisible(false);
         Branches.setVisible(false);
         InvalidBranch.setVisible(false);
+        NewBranch.setVisible(false);
     }
 
     @FXML
@@ -399,20 +408,22 @@ public class Account implements Initializable {
         PermisionsMN.setText(permissions.WORKER.name());
         BranchLB.setVisible(true);
         Branches.setVisible(true);
-
+        NewBranch.setVisible(false);
     }
 
     @FXML
     void ManagerItem(ActionEvent event) {
         perm = permissions.MANAGER;
-        PermisionsMN.setText(permissions.MANAGER.name());
+        PermisionsMN.setText("BRANCH MANAGER");
         BranchLB.setVisible(true);
-        Branches.setVisible(true);
+        Branches.setVisible(false);
+        NewBranch.setVisible(true);
 
     }
 
     @FXML
     void UserChanges(KeyEvent event) {
+
         FreezeUser.setVisible(false);
         RemoveUser.setVisible(false);
         UpdateUser.setVisible(false);
@@ -421,6 +432,7 @@ public class Account implements Initializable {
         if (App.getUser().getPermission().equals(permissions.ADMIN))
             Clear.setVisible(true);
         Search.setVisible(true);
+        if(addus)
         AddUser.setVisible(true);
     }
 
@@ -530,6 +542,7 @@ public class Account implements Initializable {
 
     @FXML
     void Clear(MouseEvent event) {
+        addus=true;
         InvalidFN.setVisible(false);
         InvalidLN.setVisible(false);
         InvalidID.setVisible(false);
@@ -578,6 +591,9 @@ public class Account implements Initializable {
         UnFreeze.setVisible(false);
         UpdateUser.setVisible(false);
         Search.setVisible(false);
+        PermisionsMN.setDisable(false);
+
+        AddUser.setVisible(true);
 
         // resetFields();
 
@@ -669,8 +685,8 @@ public class Account implements Initializable {
         InvalidPH.setVisible((!Utilities.check_Validate_Phone(Phone.getText())));
         InvalidPassword.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
         InvalidUS.setVisible(!Utilities.check_Validate_String(Username.getText()) || Username.getText().equals(""));
-        InvalidPerm.setVisible(!Utilities.check_Validate_String(PermisionsMN.getText()) || PermisionsMN.getText() == "");
-        InvalidBranch.setVisible(Branches.getText().equals(""));
+        InvalidPerm.setVisible(!Utilities.check_Validate_name(PermisionsMN.getText()) || PermisionsMN.getText() == "");
+        InvalidBranch.setVisible(Branches.getText().equals("")&&NewBranch.getText().equals(""));
 
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
         Date Birth = new Date(BirthdateMN.getValue().getYear(), BirthdateMN.getValue().getMonthValue(), BirthdateMN.getValue().getDayOfMonth());
@@ -685,9 +701,10 @@ public class Account implements Initializable {
         flag = flag || !Utilities.check_Validate_Phone(Phone.getText());
         flag = flag || !Utilities.check_Validate_Pass(Username.getText());
         flag = flag || !Utilities.checkValidDate(Birth, now);
-        flag = flag || !Utilities.check_Validate_String(PermisionsMN.getText()) || PermisionsMN.getText().equals("");
-        flag = flag || Branches.getText().equals("");
+        flag = flag || !Utilities.check_Validate_name(PermisionsMN.getText()) || PermisionsMN.getText().equals("");
+        flag = flag || (Branches.getText().equals("")&&NewBranch.getText().equals(""));
         if (PermisionsMN.getText().equals("")) {
+
             InvalidBranch.setVisible(false);
         }
         if (PermisionsMN.getText().equals(permissions.MANAGER)) {
@@ -700,52 +717,37 @@ public class Account implements Initializable {
         if (PermisionsMN.getText().equals("WORKER")) {
             BranchLB.setVisible(true);
             Branches.setVisible(true);
-            InvalidBranch.setVisible(Branches.getText() == "");
-//            if(Branches.getText().equals("")){
-//                return;
-//            }
-        }
-//        if(Branches.isVisible())
-//        {
-//            return;
-//        }
+            InvalidBranch.setVisible(Branches.getText() == "");}
 
         if (flag) {
             return;
         }
-
+        System.out.println("helloasdas");
         if (PermisionsMN.getText().equals("WORKER")) {
-            BranchLB.setVisible(true);
-            Branches.setVisible(true);
+
             User nuser = new User(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), permissions.WORKER, ID.getText(), false);
-            BranchLB.setVisible(true);
-            Branches.setVisible(true);
+
             Branch bebe = BranchesL.get(0);
             for (Branch branch : BranchesL) {
                 if (branch.getName().equals(Branches.getText())) {
-                    bebe = branch;
-                    nuser.AddOneBranch(branch);
-                    branch.getUsers().add(nuser);
                     break;
                 }
             }
-//            Message ms = new Message(nuser, "#AddUser " + Username.getText() + " " + bebe.getId());
-//            SimpleClient.getClient().sendToServer(ms);
-//            SimpleClient.getClient().accountControl = this;
+            Message ms = new Message(nuser, "#AddUser " + Username.getText() + " " + bebe.getName());
+            SimpleClient.getClient().sendToServer(ms);
+            SimpleClient.getClient().accountControl = this;
 
         } else if (PermisionsMN.getText().equals("BRANCH MANAGER")) {
-            BranchLB.setVisible(true);
-            Branches.setVisible(true);
+            System.out.println("helloasdas");
             BranchManager branchManager = new BranchManager(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), permissions.MANAGER, ID.getText(), false, null);
-            BranchLB.setVisible(true);
-            Branches.setVisible(true);
+
+            Branch bebe = BranchesL.get(0);
             for (Branch branch : BranchesL) {
                 if (branch.getName().equals(Branches.getText())) {
-                    branchManager.AddOneBranch(branch);
                     break;
                 }
             }
-            Message ms = new Message(branchManager, "#AddUser " + Username.getText());
+            Message ms = new Message(branchManager, "#AddUser " + Username.getText() + " " + NewBranch.getText());
             SimpleClient.getClient().sendToServer(ms);
             SimpleClient.getClient().accountControl = this;
         } else {
@@ -770,7 +772,7 @@ public class Account implements Initializable {
         Alert a = new Alert(Alert.AlertType.NONE);
 
         // set alert type
-        a.setAlertType(Alert.AlertType.ERROR);
+        a.setAlertType(Alert.AlertType.CONFIRMATION);
 
         a.setContentText("User Already Exist!");
 
@@ -782,7 +784,7 @@ public class Account implements Initializable {
         Alert a = new Alert(Alert.AlertType.NONE);
 
         // set alert type
-        a.setAlertType(Alert.AlertType.ERROR);
+        a.setAlertType(Alert.AlertType.CONFIRMATION);
 
         a.setContentText("User Was added successfully!");
 
@@ -820,39 +822,17 @@ public class Account implements Initializable {
 
     @FXML
     void MyOrders(MouseEvent event) throws IOException {
+        MyCarts.setCaller("Account");
         App.setRoot("MyCarts");
     }
 
     public void resetFields() {
-        if(App.getUser()!=null) {
+
             UserName.setText("Welcome " + App.getUser().getFirstname());
             if (!App.getUser().isFreeze()) {
-                //FreezeIcon.setVisible(true);
                 FreezeIcon.setVisible(false);
                 FreezeLB.setVisible(false);
             }
-            setUser(App.getUser());
-            FirstName.setText(App.getUser().getFirstname());
-            LastName.setText(App.getUser().getLastname());
-            ID.setText(App.getUser().getID());
-            Username.setText(App.getUser().getUsername());
-            Date BD = App.getUser().getBirthday();
-            BirthDate.setVisible(true);
-            BirthdateMN.setVisible(false);
-            BirthDate.setText(BD.getDate() + "/" + BD.getMonth() + "/" + BD.getYear());
-            Address.setText(App.getUser().getAddress());
-            Phone.setText(App.getUser().getPhonenumber());
-            Email.setText(App.getUser().getEmail());
-        }
-        else {
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
-            a.setContentText("Please sign in first");
-
-
-            a.showAndWait();
-            return;
-        }
-
         setUser(App.getUser());
         FirstName.setText(App.getUser().getFirstname());
         LastName.setText(App.getUser().getLastname());
@@ -869,7 +849,7 @@ public class Account implements Initializable {
         MyOrders.setVisible(false);
 
 
-        if (App.getUser() != null && App.getUser().getPermission() == permissions.CLIENT)
+        if (App.getUser().getPermission() == permissions.CLIENT)
         {
             Password.setVisible(false);
             PasswordLB.setVisible(false);
@@ -884,9 +864,9 @@ public class Account implements Initializable {
             UnFreeze.setVisible(false);
             AccountType.setDisable(true);
             MyOrders.setVisible(true);
-            AccountType.setOpacity(100.0);
+            AccountType.setOpacity(3000);
 
-        } else if (App.getUser() != null && App.getUser().getPermission() == permissions.WORKER || App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.CorpManager) {
+        } else if (App.getUser().getPermission() == permissions.WORKER || App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.CorpManager) {
             UpdateUser.setVisible(false);
             FreezeUser.setVisible(false);
             AddUser.setVisible(false);
@@ -902,43 +882,35 @@ public class Account implements Initializable {
             PasswordLB.setVisible(false);
             PermisionsLB.setVisible(true);
             PermisionsMN.setVisible(true);
-            if (App.getUser().getPermission() == permissions.WORKER) {
-                PermisionsMN.setText("WORKER");
-            } else if (App.getUser().getPermission() == permissions.MANAGER) {
-                PermisionsMN.setText("BRANCH MANAGER");
-            } else if (App.getUser().getPermission() == permissions.CorpManager) {
-                PermisionsMN.setText("CORPORATION MANAGER");
-            }
-        } else if (App.getUser() != null && App.getUser().getPermission() == permissions.ADMIN) {
+            PermisionsMN.setText(App.getUser().getPermission().name());
+        } else if (App.getUser().getPermission() == permissions.ADMIN) {
+            System.out.println("hello");
             Password.setVisible(false);
             PasswordLB.setVisible(false);
             CreditCard.setVisible(false);
             CreditCardLB.setVisible(false);
             AccountType.setVisible(false);
             TypeLB.setVisible(false);
-
             PermisionsLB.setVisible(true);
             PermisionsMN.setVisible(true);
-            PermisionsLB.setVisible(true);
-            PermisionsMN.setVisible(true);
-            if (App.getUser().getPermission() == permissions.ADMIN) {
-                PermisionsMN.setText("ADMIN");
-            }
+            PermisionsMN.setText(App.getUser().getPermission().name());
+            PermisionsMN.setDisable(true);
+            PermisionsMN.setOpacity(30000);
 
         }
 
-        if (!App.getUser().getPermission().equals(permissions.CLIENT)) {
+        if (App.getUser().getPermission()==permissions.CLIENT) {
             CartB.setVisible(false);
             MenuSignUp.setVisible(false);
             MenuCart.setVisible(false);
             AccountType.setText(((Client)App.getUser()).getAccounttype().name());
         }
-        if (App.getUser().getPermission().equals(permissions.MANAGER)) {
+        if (App.getUser().getPermission()==permissions.MANAGER) {
             BranchLB.setVisible(true);
             Branches.setVisible(true);
             Branches.setText(((BranchManager) App.getUser()).getMybranch().getName());
         }
-        if (App.getUser().getPermission().equals(permissions.WORKER)) {
+        if (App.getUser().getPermission()==permissions.WORKER) {
             BranchLB.setVisible(true);
             Branches.setVisible(true);
         }
@@ -962,17 +934,46 @@ public class Account implements Initializable {
             e.printStackTrace();
         }
         resetFields();
-        if(!App.getUser().getPermission().equals(permissions.CLIENT)){
+        FreezeUser.setVisible(false);
+        AddUser.setVisible(false);
+        RemoveUser.setVisible(false);
+        UpdateUser.setVisible(false);
+        UnFreeze.setVisible(false);
+        if(App.getUser().getPermission()==permissions.CLIENT){
             CartB.setVisible(false);
             MenuSignUp.setVisible(false);
             MenuCart.setVisible(false);
+            if(((Client)App.getUser()).getAccounttype()==AccountTypes.Basic) {
+                BranchLB.setVisible(true);
+                Branches.setVisible(true);
+                Branches.setText(App.getUser().getMybranches().get(0).getName());
+                Branches.setDisable(true);
+                Branches.setOpacity(3000);
+            }
         }
-        if(App.getUser().getPermission().equals(permissions.MANAGER)) {
+        if(App.getUser().getPermission()==permissions.MANAGER) {
             BranchLB.setVisible(true);
             Branches.setVisible(true);
-            Branches.setText(((BranchManager)App.getUser()).getMybranch().getName());
+            Branches.setText(((BranchManager) App.getUser()).getMybranch().getName());
+            Branches.setDisable(true);
+            Branches.setOpacity(3000);
+            PermisionsMN.setDisable(true);
+            PermisionsMN.setOpacity(3000);
         }
-        if ((App.getUser() != null) && ((App.getUser().getPermission().equals(permissions.MANAGER)) || (App.getUser().getPermission().equals(permissions.CorpManager)))) {
+        if(App.getUser().getPermission()==permissions.WORKER) {
+            BranchLB.setVisible(true);
+            Branches.setVisible(true);
+            Branches.setText( App.getUser().getMybranches().get(0).getName());
+            Branches.setDisable(true);
+            Branches.setOpacity(3000);
+            PermisionsMN.setDisable(true);
+            PermisionsMN.setOpacity(3000);
+        }
+        if(App.getUser().getPermission()==permissions.CorpManager) {
+            PermisionsMN.setDisable(true);
+            PermisionsMN.setOpacity(3000);
+        }
+        if (((App.getUser().getPermission()==permissions.MANAGER)) || (App.getUser().getPermission()==permissions.CorpManager)) {
             Reports.setVisible(true);
             Complains.setVisible(true);
         }
@@ -980,8 +981,10 @@ public class Account implements Initializable {
             Reports.setVisible(false);
             Complains.setVisible(false);
         }
-        if((App.getUser()!=null) && (App.getUser().getPermission().equals(permissions.ADMIN)))
+        if(App.getUser().getPermission()==(permissions.ADMIN)) {
             CatalogBtn.setVisible(false);
+
+        }
 
     }
 
