@@ -40,6 +40,7 @@ public class Branch implements Serializable{
 
     @OneToMany(mappedBy = "branch")
     private List<Report> reports=new ArrayList<>();
+
     public Branch() {
 
     }

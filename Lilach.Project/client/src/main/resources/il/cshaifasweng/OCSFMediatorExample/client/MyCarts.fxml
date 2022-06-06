@@ -99,7 +99,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Label fx:id="Matched" layoutX="334.0" layoutY="328.0" text="Tjere are no orders" visible="false">
+      <Label fx:id="Matched" layoutX="334.0" layoutY="328.0" text="There are no orders" visible="false">
          <font>
             <Font name="Cambria" size="48.0" />
          </font>

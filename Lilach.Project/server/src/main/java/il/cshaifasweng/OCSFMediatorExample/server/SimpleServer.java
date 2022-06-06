@@ -320,6 +320,7 @@ public class SimpleServer extends AbstractServer {
                     cart.setDelivery(msgarray[6].equals("true"));
                     cart.setForSomeOne(!msgarray[3].equals(""));
                     cart.setPrice(Double.parseDouble(msgarray[10]));
+                    //cart.
                     Date d = new Date(Integer.parseInt(msgarray[7]), Integer.parseInt(msgarray[9]), Integer.parseInt(msgarray[8]));
 
                     cart.setDate(LocalDateTime.now());
@@ -354,6 +355,61 @@ public class SimpleServer extends AbstractServer {
             Client nclient = session.find(Client.class, msgarray[1]);
             client.sendToClient(new Message(nclient.getMyorders(), "#OrdersReady"));
         }
+
+
+        if (request.startsWith("#SendingComplain")) {
+            String[] msgarray = request.split("±");
+            Client nclient = session.find(Client.class, msgarray[1]);
+
+            Branch nbranch = session.find(Branch.class, msgarray[3]);
+
+            List<Complain> mycomplains = session.find(Client.class, msgarray[1]).getComplains();
+            Complain complain = new Complain(msgarray[2], null);
+
+            complain.setClient(nclient);
+            complain.setBranch(nclient.getMybranches().get(0));///////get(0)
+            complain.setDate((Date) (ms.getObject()));
+            mycomplains.add(complain);
+            nclient.getMybranches().get(0).AddOneComplain(complain);
+
+
+            App.server.saveObject(complain);
+
+            session.beginTransaction();
+            nbranch.AddOneComplain(complain);
+            session.flush();
+            session.getTransaction().commit();
+
+
+            //session.find(Item.class, ((Item) ms.getObject()).getId()).getCarts().add(cartt);
+
+
+
+            //Client nclient = session.find(Client.class, msgarray[1]);
+            client.sendToClient(new Message(null, "#ComplainSent"));
+        }
+
+
+        if (request.startsWith("#GetComplains")) {
+            String[] msgarray = request.split(" ");
+            List<Complain> complainList=new ArrayList<>();
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Client> query = builder.createQuery(Client.class);
+            query.from(Client.class);
+            List<Client> clients = session.createQuery(query).getResultList();
+
+            for(Client c : clients){
+                for(Complain complain : c.getComplains()){
+                    complainList.add(complain);
+                }
+            }
+            System.out.println(complainList.size());
+
+            client.sendToClient(new Message(complainList, "#ComplainsReady"));
+
+        }
+
         if (request.startsWith("#UpdateUser")) {
             session.beginTransaction();
             String[] msgarray = request.split(" ");
@@ -465,6 +521,13 @@ public class SimpleServer extends AbstractServer {
             CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
             query.from(Branch.class);
             Message msa = new Message(session.createQuery(query).getResultList(), "#BranchesReadyA");
+            client.sendToClient(msa);
+        }
+        if (request.equals("#getBranchesC")) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
+            query.from(Branch.class);
+            Message msa = new Message(session.createQuery(query).getResultList(), "#BranchesReadyC");
             client.sendToClient(msa);
         }
         if (request.equals("#getBranchesR")) {

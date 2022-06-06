@@ -69,6 +69,9 @@ public class Account implements Initializable {
     @FXML
     private Label InvalidUS;
 
+    @FXML
+    private Button commplainBTN;
+
 
     @FXML
     private MenuButton AccountType;
@@ -941,6 +944,16 @@ public class Account implements Initializable {
         if (App.getUser().getPermission().equals(permissions.WORKER)) {
             BranchLB.setVisible(true);
             Branches.setVisible(true);
+        }
+    }
+
+    @FXML
+    void complain(MouseEvent event) {
+        clientComplain.setCaller("Account");
+        try {
+            App.setRoot("clientComplain");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

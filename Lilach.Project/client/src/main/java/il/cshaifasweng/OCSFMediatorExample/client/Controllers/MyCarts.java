@@ -156,6 +156,7 @@ public class MyCarts implements Initializable {
                 controllers.add(cartView);
                 cartView.setInfo(cart);
 
+
                 if (column == 1) {
                     column = 0;
                     row++;
