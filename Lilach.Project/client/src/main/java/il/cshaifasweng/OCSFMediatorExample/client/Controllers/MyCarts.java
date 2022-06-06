@@ -20,10 +20,7 @@ import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MyCarts implements Initializable {
     public static String Caller = "";
@@ -41,6 +38,9 @@ public class MyCarts implements Initializable {
 
     @FXML
     private ImageView MenuBtn;
+
+    @FXML
+    private Label Matched;
 
     @FXML
     private MenuItem MenuProfile;
@@ -135,17 +135,27 @@ public class MyCarts implements Initializable {
         menu.setVisible(true);
     }
 
+
+
     public void loadOrders(List<il.cshaifasweng.OCSFMediatorExample.entities.Cart> orders){
         gridPane.getChildren().clear();
+        Matched.setVisible(false);
+
+        List<CartView> controllers=new ArrayList<>();
         try {
             int column = 0;
             int row = 1;
+            if(orders.size() == 0){
+                Matched.setVisible(true);
+            }
             for (il.cshaifasweng.OCSFMediatorExample.entities.Cart cart : orders) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(SimpleClient.class.getResource("CartView.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 CartView cartView = fxmlLoader.getController();
-                cartView.
+                controllers.add(cartView);
+                cartView.setInfo(cart);
+
 
                 if (column == 1) {
                     column = 0;
@@ -166,6 +176,7 @@ public class MyCarts implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -173,6 +184,7 @@ public class MyCarts implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         UserName.setText("Welcome " + App.getUser().getFirstname());
+
         if(App.getUser()!=null) {
             try {
                 SimpleClient.getClient().sendToServer(new Message(App.getUser(), "#GetOrders " + App.getUser().getUsername()));

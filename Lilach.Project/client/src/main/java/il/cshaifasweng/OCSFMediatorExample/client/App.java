@@ -73,6 +73,7 @@ public class App extends Application {
         scene=new Scene(root, 920, 720);
         stage.setScene(scene);
         stage.show();
+
     }
 
 
@@ -85,8 +86,6 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
-
-
 
     @Override
     public void stop() throws Exception {

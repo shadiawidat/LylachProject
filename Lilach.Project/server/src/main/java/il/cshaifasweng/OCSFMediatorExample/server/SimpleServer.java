@@ -159,6 +159,11 @@ public class SimpleServer extends AbstractServer {
 
             }
         }
+        if(request.startsWith("#AddItem"))
+        {
+            saveObject(ms.getObject());
+            client.sendToClient(new Message(null,"#AddNewItem"));
+        }
         if (request.startsWith("#LogIn")) {
             String[] msgarray = request.split(" ");
             session.beginTransaction();
@@ -167,7 +172,8 @@ public class SimpleServer extends AbstractServer {
             if (user != null && user.getPassword().equals(msgarray[2])) {
 
                 client.sendToClient(new Message(user, "#Useridentify"));
-                session.find(User.class, msgarray[1]).setLogedIn(true);
+                if(user.isFreeze()==false)
+                    session.find(User.class, msgarray[1]).setLogedIn(true);
                 session.flush();
                 session.getTransaction().commit();
             } else
@@ -208,19 +214,33 @@ public class SimpleServer extends AbstractServer {
 
             String[] msgarray = request.split(" ");
             User user = session.find(User.class, msgarray[1]);
-            Branch b = session.find(Branch.class, Integer.parseInt(msgarray[2]));
+            Branch b = session.find(Branch.class, msgarray[2]);
             System.out.println(b.getName());
+            System.out.println("hello");
             if (user != null) {
                 client.sendToClient(new Message(user, "#AddUserExists"));
             } else {
 
-                App.server.saveObject((User) ms.getObject());
-                b.getUsers().add(user);
-//				App.server.saveObject((User)ms.getObject());
-//				user=session.find(User.class,((User)ms.getObject()).getID());
-//
-//				user.AddOneBranch(b);
-
+                App.server.saveObject(ms.getObject());
+                User use = session.find(User.class, msgarray[1]);
+                Branch b1 = session.find(Branch.class, msgarray[2]);
+                if(b1!=null) {
+                    session.beginTransaction();
+                    b1.getUsers().add(use);
+                    use.getMybranches().add(b1);
+                    session.flush();
+                    session.getTransaction().commit();
+                }
+                else {
+                    b1=new Branch(msgarray[2]);
+                    App.server.saveObject(b1);
+                    b1 = session.find(Branch.class, msgarray[2]);
+                    session.beginTransaction();
+                    b1.getUsers().add(use);
+                    use.getMybranches().add(b1);
+                    session.flush();
+                    session.getTransaction().commit();
+                }
                 client.sendToClient(new Message(ms.getObject(), "#AddUserCreated"));
             }
 
@@ -229,14 +249,13 @@ public class SimpleServer extends AbstractServer {
         if (request.startsWith("#SearchUser")) {
 
             String[] msgarray = request.split(" ");
-            session.beginTransaction();
             User user = session.find(User.class, msgarray[1]);
 
             if (user != null) {
 
-                session.flush();
+
                 client.sendToClient(new Message(user, "#UserFound"));
-                session.getTransaction().commit();
+
             } else {
                 client.sendToClient(new Message(null, "#UserNotFound"));
             }
@@ -316,6 +335,7 @@ public class SimpleServer extends AbstractServer {
                     cart.setDelivery(msgarray[6].equals("true"));
                     cart.setForSomeOne(!msgarray[3].equals(""));
                     cart.setPrice(Double.parseDouble(msgarray[10]));
+                    //cart.
                     Date d = new Date(Integer.parseInt(msgarray[7]), Integer.parseInt(msgarray[9]), Integer.parseInt(msgarray[8]));
 
                     cart.setDate(LocalDateTime.now());
@@ -350,6 +370,61 @@ public class SimpleServer extends AbstractServer {
             Client nclient = session.find(Client.class, msgarray[1]);
             client.sendToClient(new Message(nclient.getMyorders(), "#OrdersReady"));
         }
+
+
+        if (request.startsWith("#SendingComplain")) {
+            String[] msgarray = request.split("±");
+            Client nclient = session.find(Client.class, msgarray[1]);
+
+            Branch nbranch = session.find(Branch.class, msgarray[3]);
+
+            List<Complain> mycomplains = session.find(Client.class, msgarray[1]).getComplains();
+            Complain complain = new Complain(msgarray[2], null);
+
+            complain.setClient(nclient);
+            complain.setBranch(nclient.getMybranches().get(0));///////get(0)
+            complain.setDate((Date) (ms.getObject()));
+            mycomplains.add(complain);
+            nclient.getMybranches().get(0).AddOneComplain(complain);
+
+
+            App.server.saveObject(complain);
+
+            session.beginTransaction();
+            nbranch.AddOneComplain(complain);
+            session.flush();
+            session.getTransaction().commit();
+
+
+            //session.find(Item.class, ((Item) ms.getObject()).getId()).getCarts().add(cartt);
+
+
+
+            //Client nclient = session.find(Client.class, msgarray[1]);
+            client.sendToClient(new Message(null, "#ComplainSent"));
+        }
+
+
+        if (request.startsWith("#GetComplains")) {
+            String[] msgarray = request.split(" ");
+            List<Complain> complainList=new ArrayList<>();
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Client> query = builder.createQuery(Client.class);
+            query.from(Client.class);
+            List<Client> clients = session.createQuery(query).getResultList();
+
+            for(Client c : clients){
+                for(Complain complain : c.getComplains()){
+                    complainList.add(complain);
+                }
+            }
+            System.out.println(complainList.size());
+
+            client.sendToClient(new Message(complainList, "#ComplainsReady"));
+
+        }
+
         if (request.startsWith("#UpdateUser")) {
             session.beginTransaction();
             String[] msgarray = request.split(" ");
@@ -463,17 +538,74 @@ public class SimpleServer extends AbstractServer {
             Message msa = new Message(session.createQuery(query).getResultList(), "#BranchesReadyA");
             client.sendToClient(msa);
         }
+        if (request.equals("#getBranchesC")) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
+            query.from(Branch.class);
+            Message msa = new Message(session.createQuery(query).getResultList(), "#BranchesReadyC");
+            client.sendToClient(msa);
+        }
         if (request.equals("#getBranchesR")) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
             query.from(Branch.class);
             Message msa = new Message(session.createQuery(query).getResultList(), "#BranchesReadyR");
             client.sendToClient(msa);
-        } else if (request.startsWith("#PrepReports1")) {
+        }
+
+        /////////////////
+//        if (request.startsWith("#RemoveUser")) {
+//            String[] msgarray = request.split(" ");
+//            User user = session.find(User.class, msgarray[1]);
+//            if (user != null) {
+//                session.delete(user);
+//                client.sendToClient(new Message(user, "#UserRemoved"));
+//            } else {
+//                client.sendToClient(new Message(user, "#RemoveUserNotFound"));
+//            }
+//        }
+        if(request.startsWith("#CancelOrder")){
+            String[] msgarray = request.split(" ");
+            Cart cart = session.find(Cart.class, Integer.parseInt(msgarray[1]));
+
+            if (cart != null){
+                session.beginTransaction();
+                session.delete(cart);
+                session.flush();
+                session.getTransaction().commit();
+                client.sendToClient(new Message(null, "#OrderCanceled"));
+            }
+            else{
+                client.sendToClient(new Message(null, "#FailedCancelOrder"));
+            }
 
 
+        }
+
+        else if (request.startsWith("#PrepReports1")) {
+
+            client.sendToClient(new Message(null,"#ReportsReady"));
             String[] msgarray = request.split(" ");
             if (msgarray[1].equals("Order")) {
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
+                query.from(Cart.class);
+                List<Cart> carts=session.createQuery(query).getResultList();
+                List<Cart> cartsSend=new ArrayList<>();
+                if(!msgarray[2].equals("All")) {
+                    for (Cart cart : carts) {
+                        if (cart.getClient().getMybranches().get(0).getName().equals(msgarray[2])) {
+                            cartsSend.add(cart);
+                        }
+                    }
+                }
+                else {
+                    for (Cart cart : carts) {
+                        cartsSend.add(cart);
+                    }
+                }
+                IncomeReport rep=new IncomeReport();
+
 
             } else if (msgarray[1].equals("Income")) {
 
@@ -482,7 +614,14 @@ public class SimpleServer extends AbstractServer {
             }
 
         } else if (request.startsWith("#PrepReports2")) {
+            String[] msgarray = request.split(" ");
+            if (msgarray[1].equals("Order")) {
 
+            } else if (msgarray[1].equals("Income")) {
+
+            } else if (msgarray[1].equals("Complain")) {
+
+            }
         }
     }
 

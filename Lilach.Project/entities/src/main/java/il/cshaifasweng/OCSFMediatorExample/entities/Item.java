@@ -2,9 +2,11 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 @Table(name = "item")
@@ -18,6 +20,8 @@ public class Item implements Serializable {
     private String type;
     private String color;
     private String imagesrc;
+
+
 
     @ManyToMany(mappedBy = "items")
     private List<Cart> carts =new ArrayList<>();

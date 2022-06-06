@@ -32,6 +32,11 @@ public class SimpleClient extends AbstractClient {
 	public SignUp signUpControl;
 	public ItemView itemviewControl;
 	public MyCarts myCartsControl;
+	public CartView cartView;
+	public Complain complain;
+	public AllComplains allComplains;
+	public clientComplain clientComplainControl;
+
 	public String name;
 
 	public String getName() {
@@ -92,6 +97,13 @@ public class SimpleClient extends AbstractClient {
 				accountControl.resetFields();
 				});
 
+		}else if (deliver.equals("#ComplainsReady"))
+		{
+
+			Platform.runLater(()->{
+				allComplains.loadComplains((List<il.cshaifasweng.OCSFMediatorExample.entities.Complain>)ms.getObject());
+			});
+
 		}
 		else if (deliver.equals("#OrdersReady"))
 		{
@@ -99,6 +111,11 @@ public class SimpleClient extends AbstractClient {
 			Platform.runLater(()->{
 				myCartsControl.loadOrders((List<il.cshaifasweng.OCSFMediatorExample.entities.Cart>)ms.getObject());
 			});
+
+		}else if (deliver.equals("#BranchesReadyC"))
+		{
+			clientComplainControl.setBranchesL((List<Branch>) ms.getObject());
+			Platform.runLater(()->{clientComplainControl.loadBranches();});
 
 		}else if (deliver.equals("#BranchesReadyS"))
 		{
@@ -188,10 +205,62 @@ public class SimpleClient extends AbstractClient {
 
 			Platform.runLater(()->{
 				try {
-					itemshowControl.Deleted(false);
+					itemshowControl.Deleted(true);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			});
+		}
+		else if(deliver.equals("#ReportsReady"))
+		{
+			while(SimpleClient.getClient().reportViewControl==null)
+			{
+
+			}
+			Platform.runLater(()->SimpleClient.getClient().reportViewControl.loadReports(null,null));
+		}
+		else if(deliver.equals("#OrderCanceled")){
+			System.out.println("hon");
+			Platform.runLater(()->{
+				try {
+					cartView.Deleted(true);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		}
+		else if(deliver.equals("#AddNewItem"))
+		{
+			Platform.runLater(()->{
+				try {
+					itemshowControl.additem();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+
+		}
+		else if(deliver.equals("#AddUserExist")){
+			Platform.runLater(()->accountControl.UserAlreadyExist());
+		}
+		else if(deliver.equals("#AddUserCreated")){
+			Platform.runLater(()->accountControl.UserAdded());
+		}
+		else if(deliver.equals("#FailedCancelOrder")){
+
+			Platform.runLater(()->{
+				try {
+					cartView.Deleted(false);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		}
+
+		else if(deliver.equals("#ComplainSent")){
+
+			Platform.runLater(()->{
+				clientComplain.showNote();
 			});
 		}
 
@@ -206,7 +275,7 @@ public class SimpleClient extends AbstractClient {
 		if (client == null) {
 
 
-			client = new SimpleClient("localhost", 3080);
+			client = new SimpleClient("localhost", 3101);
 		}
 		return client;
 	}

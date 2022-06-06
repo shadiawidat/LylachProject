@@ -6,7 +6,9 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.Utilities;
 import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
+import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,12 +20,18 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.lang.reflect.Type;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class ItemShow implements Initializable {
@@ -118,6 +126,8 @@ public class ItemShow implements Initializable {
     @FXML
     private Label InvalidName;
 
+    private Image imgs;
+
     @FXML
     private Label InvalidPrice;
 
@@ -148,8 +158,9 @@ public class ItemShow implements Initializable {
     @FXML
     private MenuItem Complains;
 
+    private Image img;
 
-    private Item item;
+
 
     public static String getCaller() {
         return Caller;
@@ -406,10 +417,51 @@ public class ItemShow implements Initializable {
         flag=flag||!Utilities.check_Validate_Discount(DiscountText.getText())||DiscountText.getText().equals("");
         if(flag)
             return;
+        String s=SimpleClient.class.getResource("/Media/").toString();
+
+        String[] a=s.split("/");
+        s="";
+        a[0]="";
+        String t="";
+        for(String b:a)
+        {
+            t=t+b+"//";
+            if(b.equals("target"))
+                b="src//main";
+            if(b.equals("classes"))
+                b="resources";
+            s=s+b+"//";
+
+        }
+        s=s+TypeText.getText()+"//"+NameText.getText()+".png";
+        t=t+TypeText.getText()+"//"+NameText.getText()+".png";
+        ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(),null),"png",new File(s));
+        ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(),null),"png",new File(t));
         Item item = new Item(NameText.getText(),Double.parseDouble(PriceText.getText()),TypeText.getText(),ColorText.getText(),Double.parseDouble(DiscountText.getText()));
-        Message ms =new Message(item,"AddItem");
+
+        Message ms =new Message(item,"#AddItem");
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().itemshowControl=this;
+
+    }
+
+    public void additem() throws IOException {
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+
+        a.setContentText("Item was added.");
+
+
+
+        Optional<ButtonType> result = a.showAndWait();
+        if(!result.isPresent()) {}
+        else if(result.get() == ButtonType.OK)
+        {
+            App.setRoot("Catalog");
+        }
+        else if(result.get() == ButtonType.CANCEL) {
+        }
+        return;
+
     }
 
     @FXML
@@ -471,13 +523,12 @@ public class ItemShow implements Initializable {
 
     }
     @FXML
-    void HandleDrop(DragEvent event) throws FileNotFoundException {
+    void HandleDrop(DragEvent event) throws IOException {
         if(Caller.equals("CatalogNew")&&(App.getUser()!=null&&App.getUser().getPermission()==permissions.CorpManager||App.getUser().getPermission()==permissions.WORKER||App.getUser().getPermission()==permissions.MANAGER) ){
             List<File> files = event.getDragboard().getFiles();
-            Image img = new Image(new FileInputStream(files.get(0)));
-            imgid.setImage(img);
-        }
-    }
+            img=new Image(new FileInputStream(files.get(0).getPath()));
+           imgid.setImage(img);
+           }}
 
     @FXML
     void HandleOver(DragEvent event) {

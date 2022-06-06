@@ -21,7 +21,7 @@ public class Cart implements Serializable {
     )
     private List<Item> items=new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(
             name = "Cart_Client",
             joinColumns = { @JoinColumn(name = "cart_id") },
@@ -33,6 +33,15 @@ public class Cart implements Serializable {
     private Date Deliverydate;
     private String blessingticket;
     private Double price;
+    private Boolean canceled=false;
+
+    public Boolean getCanceled() {
+        return canceled;
+    }
+
+    public void setCanceled(Boolean canceled) {
+        this.canceled = canceled;
+    }
 
     public int getId() {
         return id;

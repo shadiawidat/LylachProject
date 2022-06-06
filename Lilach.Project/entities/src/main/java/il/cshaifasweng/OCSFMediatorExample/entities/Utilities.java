@@ -1,8 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Utilities {
+
     public static boolean check_Validate_String(String text){
         for(int i = 0; i < text.length(); i++){
             if(text.charAt(i) < 'A' || (text.charAt(i) > 'Z' && text.charAt(i) < 'a') ||text.charAt(i) > 'z'){

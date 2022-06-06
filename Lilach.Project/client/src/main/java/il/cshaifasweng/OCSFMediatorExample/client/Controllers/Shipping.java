@@ -246,6 +246,7 @@ public class Shipping implements Initializable {
         InvalidName.setVisible(false);
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
         Date date = new Date(Date.getValue().getYear(), Date.getValue().getMonthValue(), Date.getValue().getDayOfMonth());
+        Date d = new Date(2022,6,6);
         InvalidDate.setVisible(Utilities.checkValidDate(date, now));
         flag = (Utilities.checkValidDate(now, date));
 
@@ -262,6 +263,7 @@ public class Shipping implements Initializable {
         if (flag) {
             return;
         }
+
 
         Message ms = new Message(null, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + Date.getValue().getYear() + "±" + Date.getValue().getMonthValue() + "±" + Date.getValue().getDayOfMonth()+"±" + (SimpleClient.getClient().cartControl.subTotalG-SimpleClient.getClient().cartControl.subTotalD));
         SimpleClient.getClient().sendToServer(ms);
