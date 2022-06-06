@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import org.hibernate.type.LocalDateTimeType;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,41 +21,12 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
-class LeftTime implements Runnable{
-
-    LocalDateTime time;
-    CartView controller;
-    int count=0;
-    public LeftTime(CartView contorller,LocalDateTime time)
-    {
-        this.time=time;
-        this.controller=contorller;
-        run();
-    }
-    @Override
-    public void run() {
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            private int i;
-            @Override
-            public void run() {
-                controller.setRemaining(count++);
-
-            }
-        }, 0, 100);
-
-    }
-}
-
 public class CartView implements Initializable {
     public Label getRemaining() {
         return Remaining;
     }
 
-    public void setRemaining(int s){
-        Remaining.setText(String.valueOf(s));
-    }
+
 
     @FXML
     private Button CancelOrder;
@@ -80,13 +52,14 @@ public class CartView implements Initializable {
     @FXML
     private Label Total;
 
-    private LeftTime leftTime;
-    public void setInfo(Cart cart){
-//        leftTime=new LeftTime(this,cart.getDate());
-//        leftTime.run();
-//        int count=0;
+    public Cart cartt;
 
+    public static int i=0;
+
+    public void setInfo(Cart cart){
+        cartt=cart;
         final DecimalFormat df = new DecimalFormat("0.00");
+
 
         FirstName.setText(App.getUser().getFirstname());
         LastName.setText(App.getUser().getLastname());
@@ -116,7 +89,7 @@ public class CartView implements Initializable {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
 
         a.setContentText("Canceling Order Succeeded!");
-        System.out.println("anm7a");
+
         Optional<ButtonType> result = a.showAndWait();
         if(!result.isPresent()) {}
         else if(result.get() == ButtonType.OK)
@@ -138,12 +111,19 @@ public class CartView implements Initializable {
     @FXML
     void CancelOrder(MouseEvent event) throws IOException {
 
+        LocalDateTime dd=LocalDateTime.now();
+        Date d=new Date(dd.getYear(),dd.getMonth().getValue(),dd.getDayOfMonth(),dd.getHour(),dd.getMinute());
+        if(cartt.getDeliverydate().after(d))
+        {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText("Canceling time expired!");
+            a.showAndWait();
+            return;
+        }
         Message ms = new Message(null, "#CancelOrder " + OrderID.getText());
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().cartView = this;
-
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

@@ -175,18 +175,7 @@ public class MyCarts implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            private int i=0;
-            @Override
-            public void run() {
-                for(CartView view:controllers)
-                {
-                    view.setRemaining(i++);
-                }
-            }
-        }, 0, 100);
-        System.out.println("hello");
+
     }
 
 
