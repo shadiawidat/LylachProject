@@ -24,7 +24,7 @@ public class Branch implements Serializable{
     @ManyToOne(fetch = FetchType.LAZY)
     private CoroporationManager cmanager;
 
-    @ManyToMany(mappedBy = "mybranches",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "mybranches",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<User> users=new ArrayList<>();
 
     public int getId() {

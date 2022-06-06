@@ -610,7 +610,7 @@ public class Catalog implements Initializable {
                 fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 ItemView itemController = fxmlLoader.getController();
-                System.out.println(item.getImagesrc());
+
                 itemController.setItemView(item);
                 if(App.getUser()!=null)
                 if(App.getUser().getPermission()!=permissions.CLIENT)

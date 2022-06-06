@@ -425,16 +425,16 @@ public class ItemShow implements Initializable {
         String t="";
         for(String b:a)
         {
+            t=t+b+"//";
             if(b.equals("target"))
                 b="src//main";
             if(b.equals("classes"))
                 b="resources";
             s=s+b+"//";
-            t=t+b+"//";
+
         }
         s=s+TypeText.getText()+"//"+NameText.getText()+".png";
         t=t+TypeText.getText()+"//"+NameText.getText()+".png";
-        System.out.println(s);
         ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(),null),"png",new File(s));
         ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(),null),"png",new File(t));
         Item item = new Item(NameText.getText(),Double.parseDouble(PriceText.getText()),TypeText.getText(),ColorText.getText(),Double.parseDouble(DiscountText.getText()));
@@ -442,7 +442,26 @@ public class ItemShow implements Initializable {
         Message ms =new Message(item,"#AddItem");
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().itemshowControl=this;
-        App.setRoot("LogIn");
+
+    }
+
+    public void additem() throws IOException {
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+
+        a.setContentText("Item was added.");
+
+
+
+        Optional<ButtonType> result = a.showAndWait();
+        if(!result.isPresent()) {}
+        else if(result.get() == ButtonType.OK)
+        {
+            App.setRoot("Catalog");
+        }
+        else if(result.get() == ButtonType.CANCEL) {
+        }
+        return;
+
     }
 
     @FXML

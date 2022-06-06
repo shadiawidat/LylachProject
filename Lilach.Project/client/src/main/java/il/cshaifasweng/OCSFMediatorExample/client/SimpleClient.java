@@ -211,7 +211,14 @@ public class SimpleClient extends AbstractClient {
 				}
 			});
 		}
-		//////
+		else if(deliver.equals("#ReportsReady"))
+		{
+			while(SimpleClient.getClient().reportViewControl==null)
+			{
+
+			}
+			Platform.runLater(()->SimpleClient.getClient().reportViewControl.loadReports(null,null));
+		}
 		else if(deliver.equals("#OrderCanceled")){
 			System.out.println("hon");
 			Platform.runLater(()->{
@@ -221,6 +228,23 @@ public class SimpleClient extends AbstractClient {
 					e.printStackTrace();
 				}
 			});
+		}
+		else if(deliver.equals("#AddNewItem"))
+		{
+			Platform.runLater(()->{
+				try {
+					itemshowControl.additem();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+
+		}
+		else if(deliver.equals("#AddUserExist")){
+			Platform.runLater(()->accountControl.UserAlreadyExist());
+		}
+		else if(deliver.equals("#AddUserCreated")){
+			Platform.runLater(()->accountControl.UserAdded());
 		}
 		else if(deliver.equals("#FailedCancelOrder")){
 
@@ -232,13 +256,14 @@ public class SimpleClient extends AbstractClient {
 				}
 			});
 		}
+
 		else if(deliver.equals("#ComplainSent")){
 
 			Platform.runLater(()->{
 				clientComplain.showNote();
 			});
 		}
-////////////
+
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 		}
@@ -250,7 +275,7 @@ public class SimpleClient extends AbstractClient {
 		if (client == null) {
 
 
-			client = new SimpleClient("localhost", 3090);
+			client = new SimpleClient("localhost", 3101);
 		}
 		return client;
 	}
