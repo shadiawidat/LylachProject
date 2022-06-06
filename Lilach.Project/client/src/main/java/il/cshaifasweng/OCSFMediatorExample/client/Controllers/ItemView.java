@@ -132,7 +132,10 @@ public class ItemView {
         this.item = item;
         nameid.setText(item.getName());
         price.setText("$" + item.getPrice());
-        Image image = new Image(SimpleClient.class.getResourceAsStream(item.getImagesrc()));
+
+
+//        System.out.println(String.valueOf(SimpleClient.class.getResource(item.getImagesrc())));
+        Image image = new Image(String.valueOf(SimpleClient.class.getResource(item.getImagesrc())));
         imageid.setImage(image);
 
     }

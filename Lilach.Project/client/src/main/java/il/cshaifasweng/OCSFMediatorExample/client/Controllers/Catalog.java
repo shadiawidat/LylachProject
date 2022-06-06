@@ -239,7 +239,6 @@ public class Catalog implements Initializable {
     private void getData() throws IOException {
         Message ms = new Message(null, "#LoadCatalog");
         SimpleClient.getClient().sendToServer(ms);
-
         SimpleClient.getClient().catalogControl=this;
     }
 
@@ -611,10 +610,9 @@ public class Catalog implements Initializable {
                 fxmlLoader.setLocation(SimpleClient.class.getResource("ItemView.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 ItemView itemController = fxmlLoader.getController();
-
+                System.out.println(item.getImagesrc());
                 itemController.setItemView(item);
                 if(App.getUser()!=null)
-                  
                 if(App.getUser().getPermission()!=permissions.CLIENT)
                     itemController.getAddCart().setImage(null);
 
