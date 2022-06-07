@@ -268,8 +268,8 @@ public class SignUp implements Initializable {
         InvalidAccount.setVisible(AccountType.getText().equals(""));
         InvalidCard.setVisible(!Utilities.check_Validate_Card(CreditCard.getText()));
 
-        Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
-        Date Birth = new Date(Birthdate.getValue().getYear(), Birthdate.getValue().getMonthValue(), Birthdate.getValue().getDayOfMonth());
+        Date now = new Date(java.time.LocalDate.now().getYear()-1900, java.time.LocalDate.now().getMonthValue()-1, java.time.LocalDate.now().getDayOfMonth()+1);
+        Date Birth = new Date(Birthdate.getValue().getYear()-1900, Birthdate.getValue().getMonthValue()-1, Birthdate.getValue().getDayOfMonth()+1);
         InvalidDate.setVisible(!Utilities.checkValidDate(Birth, now));
 
         boolean flag=!Utilities.check_Validate_ID(ID.getText());

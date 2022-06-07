@@ -5,6 +5,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,7 @@ import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class MyCarts implements Initializable {
@@ -59,6 +61,54 @@ public class MyCarts implements Initializable {
 
     @FXML
     private ScrollPane scroll;
+
+    public boolean isRunning=false;
+
+    public Thread timerthread=new Thread(this::handleThread);
+    public Thread onOff=new Thread(this::handleThreadonOff);
+
+    List<CartView> controllers=new ArrayList<>();
+
+    final DecimalFormat df = new DecimalFormat("0.00");
+
+
+    public void handleThread()
+    {
+
+        while(isRunning)
+        {
+            String timeleft=("left: "+df.format(new Date().getTime()));
+            Platform.runLater(()->{
+                for (CartView cartView:controllers)
+                {
+                    cartView.tickRemaining(0);
+                }
+            });
+            try{
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void handleThreadonOff()
+    {
+
+        while(isRunning)
+        {
+            Platform.runLater(()->{
+                for (CartView cartView:controllers)
+                {
+                    cartView.setOnOff();
+                }
+            });
+            try{
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public static String getCaller() {
         return Caller;
@@ -140,15 +190,20 @@ public class MyCarts implements Initializable {
     public void loadOrders(List<il.cshaifasweng.OCSFMediatorExample.entities.Cart> orders){
         gridPane.getChildren().clear();
         Matched.setVisible(false);
+        scroll.setVisible(true);
+        int i=0;
 
-        List<CartView> controllers=new ArrayList<>();
         try {
             int column = 0;
             int row = 1;
             if(orders.size() == 0){
+                scroll.setVisible(false);
                 Matched.setVisible(true);
             }
             for (il.cshaifasweng.OCSFMediatorExample.entities.Cart cart : orders) {
+                if(cart.getCanceled())
+                    continue;
+                i++;
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(SimpleClient.class.getResource("CartView.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
@@ -176,6 +231,10 @@ public class MyCarts implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if(i == 0){
+            scroll.setVisible(false);
+            Matched.setVisible(true);
+        }
 
     }
 
@@ -183,8 +242,12 @@ public class MyCarts implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        UserName.setText("Welcome " + App.getUser().getFirstname());
+        isRunning=true;
+        timerthread.start();
+        onOff.start();
 
+        UserName.setText("Welcome " + App.getUser().getFirstname());
+        isRunning=true;
         if(App.getUser()!=null) {
             try {
                 SimpleClient.getClient().sendToServer(new Message(App.getUser(), "#GetOrders " + App.getUser().getUsername()));

@@ -54,10 +54,67 @@ public class CartView implements Initializable {
 
     public Cart cartt;
 
-    public static int i=0;
+    public int day,hour,minutes,sec;
+
+    final DecimalFormat df = new DecimalFormat("00");
+
+    boolean onOff=false;
+
+    public int i=0;
+
+    public void setOnOff()
+    {
+        if(onOff)
+        {
+            Remaining.setVisible(true);
+            onOff=false;
+        }
+        else
+        {
+            Remaining.setVisible(false);
+            onOff=true;
+        }
+    }
+    public void tickRemaining(int remaining) {
+
+        if(sec>0)
+        {
+            sec--;
+        }
+        else if(minutes>0)
+        {
+            minutes--;
+            sec=59;
+        }
+        else if(hour>0)
+        {
+            hour--;
+            minutes=59;
+            sec=59;
+        }
+        else if(day>0)
+        {
+            day--;
+            hour=23;
+            minutes=59;
+            sec=59;
+        }
+        else
+        {
+            day=0;
+            hour=0;
+            minutes=0;
+            sec=0;
+        }
+        Remaining.setText(day+":"+df.format(hour)+":"+df.format(minutes)+":"+df.format(sec));
+    }
 
     public void setInfo(Cart cart){
-        cartt=cart;
+
+        sec=30;
+        minutes=1;
+        hour=1;
+        day=2;
         final DecimalFormat df = new DecimalFormat("0.00");
 
 
@@ -72,6 +129,9 @@ public class CartView implements Initializable {
         {
             Total.setText(String.valueOf(df.format((cart.getPrice()))) + "$");
         }
+
+
+        cartt=cart;
         OrderID.setText(String.valueOf(cart.getId()));
 
     }
@@ -111,18 +171,55 @@ public class CartView implements Initializable {
     @FXML
     void CancelOrder(MouseEvent event) throws IOException {
 
-        LocalDateTime dd=LocalDateTime.now();
-        Date d=new Date(dd.getYear(),dd.getMonth().getValue(),dd.getDayOfMonth(),dd.getHour(),dd.getMinute());
-        if(cartt.getDeliverydate().after(d))
+
+        double timeleft=(((((double)sec/60.0)+minutes)/60) +hour)+day*24;
+
+        if(timeleft>=3)
         {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setContentText("Canceling time expired!");
-            a.showAndWait();
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setContentText("You will be refunded 100%");
+
+            Optional<ButtonType> result = a.showAndWait();
+            if(!result.isPresent()) {}
+            else if(result.get() == ButtonType.OK)
+            {
+                Message ms = new Message(null, "#CancelOrder " + App.getUser().getUsername()+" "+OrderID.getText()+" 100");
+                SimpleClient.getClient().sendToServer(ms);
+                SimpleClient.getClient().cartView = this;
+                return;
+            }
             return;
         }
-        Message ms = new Message(null, "#CancelOrder " + OrderID.getText());
-        SimpleClient.getClient().sendToServer(ms);
-        SimpleClient.getClient().cartView = this;
+        else if(timeleft>=1)
+        {
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setContentText("You will be refunded 50%");
+
+            Optional<ButtonType> result = a.showAndWait();
+            if(!result.isPresent()) {}
+            else if(result.get() == ButtonType.OK)
+            {
+                Message ms = new Message(null, "#CancelOrder " +App.getUser().getUsername()+" "+OrderID.getText()+" 50");
+                SimpleClient.getClient().sendToServer(ms);
+                SimpleClient.getClient().cartView = this;
+                return;
+            }
+            return;
+        }
+        else {
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setContentText("Canceling time expired!");
+            Optional<ButtonType> result = a.showAndWait();
+            if(!result.isPresent()) {}
+            else if(result.get() == ButtonType.OK)
+            {
+                Message ms = new Message(null, "#CancelOrder " + App.getUser().getUsername()+" "+OrderID.getText()+" 0");
+                SimpleClient.getClient().sendToServer(ms);
+                SimpleClient.getClient().cartView = this;
+                return;
+            }
+            return;
+        }
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

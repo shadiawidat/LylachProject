@@ -566,18 +566,23 @@ public class SimpleServer extends AbstractServer {
 //        }
         if(request.startsWith("#CancelOrder")){
             String[] msgarray = request.split(" ");
-            Cart cart = session.find(Cart.class, Integer.parseInt(msgarray[1]));
 
-            if (cart != null){
-                session.beginTransaction();
-                session.delete(cart);
+            Client client1=session.find(Client.class,msgarray[1]);
+            Cart ncart=session.find(Cart.class,Integer.parseInt((msgarray[2])));
+            if(client1==null||ncart==null)
+            {
+                client.sendToClient(new Message(null,"#CancelOrderFailed"));
+                return;
+            }
+            double refund=ncart.getPrice()*Integer.parseInt((msgarray[3]))/100;
+
+            session.beginTransaction();
+                client1.setAmount(client1.getAmount()+refund);
+                ncart.setCanceled(true);
                 session.flush();
                 session.getTransaction().commit();
-                client.sendToClient(new Message(null, "#OrderCanceled"));
-            }
-            else{
-                client.sendToClient(new Message(null, "#FailedCancelOrder"));
-            }
+            client.sendToClient(new Message(null,"#CanceledOrder"));
+            return;
 
 
         }

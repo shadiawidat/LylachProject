@@ -219,8 +219,7 @@ public class SimpleClient extends AbstractClient {
 			}
 			Platform.runLater(()->SimpleClient.getClient().reportViewControl.loadReports(null,null));
 		}
-		else if(deliver.equals("#OrderCanceled")){
-			System.out.println("hon");
+		else if(deliver.equals("#CanceledOrder")){
 			Platform.runLater(()->{
 				try {
 					cartView.Deleted(true);
@@ -246,7 +245,7 @@ public class SimpleClient extends AbstractClient {
 		else if(deliver.equals("#AddUserCreated")){
 			Platform.runLater(()->accountControl.UserAdded());
 		}
-		else if(deliver.equals("#FailedCancelOrder")){
+		else if(deliver.equals("#CancelOrderFailed")){
 
 			Platform.runLater(()->{
 				try {

@@ -64,7 +64,7 @@
                 </ImageView>
             </children>
         </HBox>
-          <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="23.0" layoutY="106.0" prefHeight="534.0" prefWidth="567.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
+          <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="310.0" layoutY="109.0" prefHeight="534.0" prefWidth="567.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
               <content>
                   <GridPane fx:id="gridPane" minHeight="13.0" minWidth="14.0" prefHeight="13.0" prefWidth="14.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css">
                       <rowConstraints>
@@ -101,23 +101,25 @@
         </menus>
       </MenuBar>
       <Label fx:id="Matched" layoutX="334.0" layoutY="328.0" text="There are no orders" visible="false">
+
+
          <font>
             <Font name="Cambria" size="48.0" />
          </font>
       </Label>
-      <Label layoutX="628.0" layoutY="151.0" text="Canceling Policy:">
+      <Label layoutX="57.0" layoutY="113.0" text="Canceling Policy">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <VBox layoutX="648.0" layoutY="195.0" prefHeight="200.0" prefWidth="233.0">
+      <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="148.0" maxHeight="450.0" prefHeight="200.0" prefWidth="233.0" styleClass="menubox" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="148.0">
          <children>
             <Label text="Up to 1 Hours -&gt; no refund">
                <font>
                   <Font name="Cambria" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets />
+                  <Insets top="20.0" />
                </VBox.margin>
             </Label>
             <Label text="Up to 3 Hours -&gt; 50% refund">
@@ -125,7 +127,7 @@
                   <Font name="Cambria" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets top="20.0" />
                </VBox.margin>
             </Label>
             <Label text="Otherwise -&gt; 100% refund">
@@ -133,7 +135,7 @@
                   <Font name="Cambria" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets top="20.0" />
                </VBox.margin>
             </Label>
             <Label text="All times refers to ">
@@ -141,14 +143,22 @@
                   <Font name="Cambria" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets top="20.0" />
                </VBox.margin>
             </Label>
             <Label text="the time left till delivery">
                <font>
                   <Font name="Cambria" size="18.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
             </Label>
+            <ImageView fitHeight="221.0" fitWidth="247.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Media/GIFS/Thanku.jpg" />
+               </image>
+            </ImageView>
          </children>
       </VBox>
     </children>
