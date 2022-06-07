@@ -1,14 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Branch;
-import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 
-import java.security.Permission;
-import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class App {
 
@@ -40,6 +34,25 @@ public class App {
          item = new Item("Bouquet 4", 11, "Bouquet", "MultiColor",0);
         server.saveObject(item);
 
+        item = new Item("Garden Gloves", 18, "Gardening", "Yellow",10);
+        server.saveObject(item);
+        item = new Item("Hoe", 15, "Gardening", "Black",0);
+        server.saveObject(item);
+        item = new Item("Shovel", 15, "Gardening", "Black",0);
+        server.saveObject(item);
+        item = new Item("Hedge Shears", 12, "Gardening", "Orange",0);
+        server.saveObject(item);
+        item = new Item("Gardening Set", 38, "Gardening", "Black",30);
+        server.saveObject(item);
+
+        item = new Item("White Bouquet", 85, "Wedding", "White",0);
+        server.saveObject(item);
+        item = new Item("Purple Bouquet", 90, "Wedding", "Purple",15);
+        server.saveObject(item);
+        item = new Item("Pink Bouquet", 80, "Wedding", "Pink",0);
+        server.saveObject(item);
+        item = new Item("Red Bouquet", 90, "Wedding", "Red",0);
+        server.saveObject(item);
 
         //Admin
 
@@ -104,7 +117,7 @@ cache errors.
 
     public static void main(String[] args) throws Exception {
 
-        server=new SimpleServer(3101);
+        server=new SimpleServer(3213);
 //        generateUsers();
         generateItems();
 //        generateBranches();

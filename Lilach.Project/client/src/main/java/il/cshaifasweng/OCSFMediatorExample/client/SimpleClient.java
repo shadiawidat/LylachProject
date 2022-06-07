@@ -1,17 +1,15 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import il.cshaifasweng.OCSFMediatorExample.client.Controllers.*;
 import il.cshaifasweng.OCSFMediatorExample.client.Controllers.Cart;
-import il.cshaifasweng.OCSFMediatorExample.client.Controllers.Catalog;
 import il.cshaifasweng.OCSFMediatorExample.client.Controllers.Complain;
 import il.cshaifasweng.OCSFMediatorExample.client.Controllers.Report;
+import il.cshaifasweng.OCSFMediatorExample.client.Controllers.*;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.application.Platform;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleClient extends AbstractClient {
@@ -278,7 +276,7 @@ public class SimpleClient extends AbstractClient {
 		if (client == null) {
 
 
-			client = new SimpleClient("localhost", 3101);
+			client = new SimpleClient("localhost", 3213);
 		}
 		return client;
 	}
