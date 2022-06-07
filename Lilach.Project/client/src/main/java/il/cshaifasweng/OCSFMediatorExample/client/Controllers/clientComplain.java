@@ -2,10 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.AccountTypes;
-import il.cshaifasweng.OCSFMediatorExample.entities.Branch;
-import il.cshaifasweng.OCSFMediatorExample.entities.Client;
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -151,7 +148,7 @@ public class clientComplain implements Initializable {
         }
         else
         {
-            java.util.Date d = new Date(java.time.LocalDateTime.now().getDayOfYear(), java.time.LocalDateTime.now().getMonthValue(), java.time.LocalDateTime.now().getDayOfMonth());
+            java.util.Date d = new Date(java.time.LocalDateTime.now().getYear()-1900, java.time.LocalDateTime.now().getMonthValue(), java.time.LocalDateTime.now().getDayOfMonth());
             Message ms = new Message(d, "#SendingComplain±" + App.getUser().getUsername() + "±" + complainBox.getText() + "±" + Branches.getText());
             try {
                 SimpleClient.getClient().sendToServer(ms);
@@ -249,9 +246,27 @@ public class clientComplain implements Initializable {
         LastName.setText(App.getUser().getLastname());
         ID.setText(App.getUser().getID());
         PhoneNumber.setText(App.getUser().getPhonenumber());
-        Date.setText(String.valueOf(java.time.LocalDateTime.now()));
+        String[]s = String.valueOf(java.time.LocalDateTime.now()).split("T");
+        s=s[0].split("-");
+        Date.setText(s[2]+"/"+s[1]+"/"+s[0]);
+        UserName.setDisable(true);
+        UserName.setOpacity(50000000);
+        FirstName.setDisable(true);
+        FirstName.setOpacity(50000000);
+        LastName.setDisable(true);
+        LastName.setOpacity(50000000);
+        ID.setDisable(true);
+        ID.setOpacity(50000000);
+        PhoneNumber.setDisable(true);
+        PhoneNumber.setOpacity(50000000);
+        Date.setDisable(true);
+        Date.setOpacity(50000000);
         InvalidReason.setVisible(false);
         InvalidBranch.setVisible(false);
-
+        if(((Client)App.getUser()).getAccounttype()==AccountTypes.Basic){
+            Branches.setText(App.getUser().getMybranches().get(0).getName());
+            Branches.setDisable(true);
+            Branches.setOpacity(50000000);
+        }
     }
 }
