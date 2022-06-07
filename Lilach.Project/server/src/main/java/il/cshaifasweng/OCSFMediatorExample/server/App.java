@@ -4,6 +4,9 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Branch;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 
+
+
+import java.net.InetAddress;
 import java.security.Permission;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -95,16 +98,13 @@ cache errors.
  */
     private static void generateBranches() throws Exception {
 
-     }
-
-
-
+    }
 
     public static SimpleServer server;
 
     public static void main(String[] args) throws Exception {
 
-        server=new SimpleServer(3121);
+        server=new SimpleServer(Integer.parseInt(args[0]));
 //        generateUsers();
         generateItems();
 //        generateBranches();
