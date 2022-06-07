@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -17,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Shipping">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Shipping">
     <children>
         <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
@@ -114,7 +115,7 @@
          </font>
       </CheckBox>
       <DatePicker fx:id="Date" layoutX="368.0" layoutY="216.0" prefHeight="25.0" prefWidth="214.0" />
-      <VBox layoutX="348.0" layoutY="275.0" prefHeight="89.0" prefWidth="341.0" AnchorPane.leftAnchor="348.0">
+      <VBox layoutX="348.0" layoutY="309.0" prefHeight="89.0" prefWidth="341.0" AnchorPane.leftAnchor="348.0">
          <children>
             <Label prefHeight="27.0" prefWidth="347.0" text="We will start prepaing your order">
                <font>
@@ -230,11 +231,6 @@
             <Image url="@../../../../Icons/Cards.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="300.0" fitWidth="275.0" layoutX="25.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs">
-         <image>
-            <Image url="@../../../../Icons/FreeShipping.png" />
-         </image>
-      </ImageView>
       <HBox layoutX="34.0" layoutY="426.0" maxHeight="200.0" prefHeight="244.0" prefWidth="200.0" styleClass="menubox">
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="125.0">
@@ -295,5 +291,46 @@
             </VBox>
          </children>
       </HBox>
+      <MenuButton fx:id="Hr" layoutX="452.0" layoutY="269.0" maxHeight="30.0" maxWidth="60.0" mnemonicParsing="false" styleClass="textFields" text="Hr">
+        <items>
+          <MenuItem mnemonicParsing="false" text="9" />
+          <MenuItem mnemonicParsing="false" text="10" />
+            <MenuItem mnemonicParsing="false" text="11" />
+            <MenuItem mnemonicParsing="false" text="12" />
+            <MenuItem mnemonicParsing="false" text="13" />
+            <MenuItem mnemonicParsing="false" text="14" />
+            <MenuItem mnemonicParsing="false" text="15" />
+            <MenuItem mnemonicParsing="false" text="16" />
+            <MenuItem mnemonicParsing="false" text="17" />
+            <MenuItem mnemonicParsing="false" text="18" />
+        </items>
+         <font>
+            <Font name="Cambria" size="14.0" />
+         </font>
+      </MenuButton>
+      <MenuButton fx:id="Mn" layoutX="528.0" layoutY="269.0" maxHeight="30.0" maxWidth="60.0" mnemonicParsing="false" styleClass="textFields" text="Mn">
+         <items>
+            <MenuItem mnemonicParsing="false" text="00" />
+            <MenuItem mnemonicParsing="false" text="30" />
+         </items>
+         <font>
+            <Font name="Cambria" size="14.0" />
+         </font>
+      </MenuButton>
+      <ImageView fitHeight="300.0" fitWidth="275.0" layoutX="25.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs" AnchorPane.leftAnchor="19.0" AnchorPane.topAnchor="202.0">
+         <image>
+            <Image url="@../../../../Icons/FreeShipping.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="517.0" layoutY="266.0" text=":">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="InvalidHour" layoutX="385.0" layoutY="276.0" text="*Invalid" textFill="RED" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

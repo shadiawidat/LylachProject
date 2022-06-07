@@ -41,7 +41,12 @@ public class Utilities {
         }
         return false;
     }
-
+    public static boolean checkAfterValidDate(Date Now, Date Then){
+        if(Then.after(Now)||Then.equals(Now)){ // momken to.after(from)
+            return true;
+        }
+        return false;
+    }
     public static boolean check_Validate_Price(String price){
         boolean flag = false;
         if(price.length()==0){
