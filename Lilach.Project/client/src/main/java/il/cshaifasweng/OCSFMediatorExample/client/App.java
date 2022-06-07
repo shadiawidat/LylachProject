@@ -25,6 +25,9 @@ import static java.lang.System.exit;
 public class App extends Application {
 
 
+    private Thread fxThread;
+
+
     private void SetItemShowCon(Item item){
 
     }
@@ -73,6 +76,10 @@ public class App extends Application {
         scene=new Scene(root, 920, 720);
         stage.setScene(scene);
         stage.show();
+//        Platform.runLater(() -> {
+//
+//            fxThread = Thread.currentThread();
+//        });
 
     }
 

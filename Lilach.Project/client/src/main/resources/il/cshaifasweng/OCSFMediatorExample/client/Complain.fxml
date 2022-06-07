@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="347.0" prefWidth="588.0" style="-fx-background-color: #FFFFFF;" styleClass="Complain" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Complain">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="-Infinity" prefHeight="292.0" prefWidth="549.0" style="-fx-background-color: #FFFFFF;" styleClass="Complain" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Complain">
+
    <children>
       <ImageView fitHeight="43.0" fitWidth="36.0" layoutX="499.0" layoutY="14.0" onMouseClicked="#deleteComplain" pickOnBounds="true" preserveRatio="true" styleClass="itemviewicon">
          <image>
