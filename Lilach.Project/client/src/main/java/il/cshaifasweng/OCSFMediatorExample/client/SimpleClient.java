@@ -133,6 +133,8 @@ public class SimpleClient extends AbstractClient {
 		} else if (deliver.equals("#UserFound"))
 		{
 			accountControl.setUser((User) ms.getObject());
+			System.out.println("asmo");
+			System.out.println(((User) ms.getObject()).getUsername());
 			Platform.runLater(()->{accountControl.fillInfo((User) ms.getObject());});
 
 		}else if (deliver.equals("#UserNotFound"))
@@ -148,7 +150,7 @@ public class SimpleClient extends AbstractClient {
 		else if (deliver.equals("#UserRemoved"))
 		{
 			Platform.runLater(()->{
-				accountControl.emptyFields();
+				accountControl.fillInfo(App.getUser());
 				accountControl.ShowNote("User Removed Successfully!");
 			});
 
@@ -278,7 +280,7 @@ public class SimpleClient extends AbstractClient {
 		if (client == null) {
 
 
-			client = new SimpleClient("localhost", 3101);
+			client = new SimpleClient("localhost", 3121);
 		}
 		return client;
 	}
