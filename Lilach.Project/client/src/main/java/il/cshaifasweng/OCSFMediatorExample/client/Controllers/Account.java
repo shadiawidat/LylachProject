@@ -367,6 +367,7 @@ public class Account implements Initializable {
 
                 }
                 else if (user.getPermission() == permissions.WORKER) {
+
                     BranchLB.setVisible(true);
                     PermisionsLB.setVisible(true);
                     PermisionsMN.setVisible(true);
@@ -374,14 +375,20 @@ public class Account implements Initializable {
                     PermisionsMN.setText(user.getPermission().name());
                     NewBranch.setVisible(true);
 
-                    for(Branch b : BranchesL){
-                        System.out.println(b.getUsers().size());
-                        for(User u : b.getUsers()){
-                            if(user.getUsername().equals(u.getUsername())) {
-                                NewBranch.setText(b.getName());
-                            }
-                        }
-                    }
+                    NewBranch.setText(user.getMybranches().get(0).getName());
+
+//                    for(Branch b : BranchesL){
+//                        for(User u : b.getUsers()){
+//                            System.out.println(user.getMybranches().get(0).getName());
+//                            if(user.getUsername().equals(u.getUsername())) {
+////                                System.out.println("t3 nana");
+////                                System.out.println(u.getUsername());
+////                                System.out.println(b.getName());
+////                                System.out.println("t3 nana");
+//                                NewBranch.setText(b.getName());
+//                            }
+//                        }
+//                    }
 
                 }
             }
@@ -426,12 +433,13 @@ public class Account implements Initializable {
 
         Date BD = user.getBirthday();
 
-        BirthDate.setText(BD.getDate() + "/" + BD.getMonth() + "/" + BD.getYear());
+        BirthDate.setText((BD.getDate()-1) + "/" +( BD.getMonth()+1) + "/" + (BD.getYear()+1900));
         Address.setText(user.getAddress());
         Phone.setText(user.getPhonenumber());
         Email.setText(user.getEmail());
 
-
+        PermisionsMN.getItems().get(0).setVisible(true);
+        PermisionsMN.getItems().get(2).setVisible(true);
     }
 
     @FXML
@@ -465,6 +473,7 @@ public class Account implements Initializable {
             });
             Branches.getItems().add(mt);
         }
+        
     }
 
     @FXML
@@ -617,10 +626,15 @@ public class Account implements Initializable {
         BranchLB.setVisible(false);
         Branches.setVisible(false);
         NewBranch.setVisible(false);
+        PermisionsMN.getItems().get(0).setVisible(true);
+        PermisionsMN.getItems().get(2).setVisible(true);
     }
 
     @FXML
     void Clear(MouseEvent event) {
+        PermisionsMN.getItems().get(0).setVisible(false);
+        PermisionsMN.getItems().get(2).setVisible(false);
+        
         addus=true;
         InvalidFN.setVisible(false);
         InvalidLN.setVisible(false);
@@ -658,7 +672,6 @@ public class Account implements Initializable {
         PasswordLB.setVisible(true);
         Password.setVisible(true);
         BirthdateMN.setVisible(true);
-        BirthDate.setVisible(false);
         BirthdateMN.setValue(java.time.LocalDate.now());
         BranchLB.setVisible(false);
         Branches.setVisible(false);
@@ -674,6 +687,9 @@ public class Account implements Initializable {
 
         AddUser.setVisible(true);
 
+        BranchLB.setVisible(false);
+        NewBranch.setVisible(false);
+
         // resetFields();
 
     }
@@ -687,6 +703,8 @@ public class Account implements Initializable {
 
     @FXML
     void Search(MouseEvent event) throws IOException {
+        PermisionsMN.getItems().get(0).setVisible(true);
+        PermisionsMN.getItems().get(2).setVisible(true);
         if(!Utilities.check_Validate_Username(Username.getText())){
             InvalidUS.setVisible(true);
             return;
@@ -698,6 +716,7 @@ public class Account implements Initializable {
 
     @FXML
     void UpdateUser(MouseEvent event) throws IOException {
+        
         System.out.println(PermisionsMN.getText());
         System.out.println(App.getUser().getUsername());
 //        if(PermisionsMN.getText() == permissions.CorpManager){
@@ -751,6 +770,8 @@ public class Account implements Initializable {
 
     @FXML
     void AddUser(MouseEvent event) throws IOException {
+
+
         InvalidFN.setVisible(false);
         InvalidLN.setVisible(false);
         InvalidID.setVisible(false);
@@ -784,7 +805,7 @@ public class Account implements Initializable {
         InvalidBranch.setVisible(Branches.getText().equals("")&&NewBranch.getText().equals(""));
 
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
-        Date Birth = new Date(BirthdateMN.getValue().getYear(), BirthdateMN.getValue().getMonthValue(), BirthdateMN.getValue().getDayOfMonth());
+        Date Birth = new Date(BirthdateMN.getValue().getYear()-1900, BirthdateMN.getValue().getMonthValue()-1, BirthdateMN.getValue().getDayOfMonth()+1);
         InvalidBD.setVisible(!Utilities.checkValidDate(Birth, now));
 
         boolean flag = !Utilities.check_Validate_ID(ID.getText());
@@ -822,12 +843,17 @@ public class Account implements Initializable {
 
             User nuser = new User(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth, Address.getText(), permissions.WORKER, ID.getText(), false);
 
-            Branch bebe = BranchesL.get(0);
+            //Branch bebe = BranchesL.get(0);
+            System.out.println(BranchesL.size());
+            System.out.println(Branches.getText());
+            Branch bebe = new Branch();
             for (Branch branch : BranchesL) {
                 if (branch.getName().equals(Branches.getText())) {
+                    bebe = branch;
                     break;
                 }
             }
+            System.out.println(bebe.getName());
             Message ms = new Message(nuser, "#AddUser " + Username.getText() + " " + bebe.getName());
             SimpleClient.getClient().sendToServer(ms);
             SimpleClient.getClient().accountControl = this;
@@ -857,9 +883,10 @@ public class Account implements Initializable {
     @FXML
     void Subscription(ActionEvent event) {
         Branches.setVisible(false);
-        BranchLB.setVisible(false);
+        BranchLB.setVisible(true);
         InvalidBranch.setVisible(false);
         AccountType.setText(AccountTypes.Premium.name());
+
     }
 
     public void UserAlreadyExist() {
@@ -940,7 +967,7 @@ public class Account implements Initializable {
         Date BD = App.getUser().getBirthday();
         BirthDate.setVisible(true);
         BirthdateMN.setVisible(false);
-        BirthDate.setText(BD.getDate() + "/" + BD.getMonth() + "/" + BD.getYear());
+        BirthDate.setText((BD.getDate()-1) + "/" +( BD.getMonth()+1) + "/" + (BD.getYear()+1900));
         Address.setText(App.getUser().getAddress());
         Phone.setText(App.getUser().getPhonenumber());
         Email.setText(App.getUser().getEmail());
@@ -1050,6 +1077,35 @@ public class Account implements Initializable {
             e.printStackTrace();
         }
         resetFields();
+        if(App.getUser().getPermission()!=permissions.CLIENT)
+        {
+            CartB.setVisible(false);
+        }
+        if (App.getUser().getPermission()!=permissions.ADMIN)
+        {
+            FirstName.setDisable(true);
+            FirstName.setOpacity(50000000);
+            LastName.setDisable(true);
+            LastName.setOpacity(50000000);
+            ID.setDisable(true);
+            ID.setOpacity(50000000);
+            Username.setDisable(true);
+            Username.setOpacity(50000000);
+            BirthDate.setDisable(true);
+            BirthDate.setOpacity(50000000);
+            Address.setDisable(true);
+            Address.setOpacity(50000000);
+            Phone.setDisable(true);
+            Phone.setOpacity(50000000);
+            Email.setDisable(true);
+            Email.setOpacity(50000000);
+            AccountType.setDisable(true);
+            AccountType.setOpacity(50000000);
+            PermisionsMN.setDisable(true);
+            PermisionsMN.setOpacity(50000000);
+            Branches.setDisable(true);
+            Branches.setOpacity(50000000);
+        }
         FreezeUser.setVisible(false);
         AddUser.setVisible(false);
         RemoveUser.setVisible(false);
