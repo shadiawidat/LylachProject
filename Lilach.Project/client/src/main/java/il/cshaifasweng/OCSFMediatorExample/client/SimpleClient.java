@@ -60,7 +60,9 @@ public class SimpleClient extends AbstractClient {
 		System.out.println(deliver);
 		if(deliver.equals("#CatalogReady")) {
 			Catalog.Catalog = (List<Item>) ms.getObject();
-			Platform.runLater(()->{catalogControl.LoadList(Catalog.Catalog);});
+			Platform.runLater(()->{catalogControl.LoadList(Catalog.Catalog);
+			catalogControl.resetShow();
+			});
 		}
 		else if (deliver.equals("#Useridentify"))
 		{

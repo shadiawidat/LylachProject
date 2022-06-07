@@ -99,6 +99,15 @@ public class Cart implements Serializable {
     private boolean forSomeOne;
     private String someOne;
     private String someOnePhone;
+    private PaymentMethod paymentMethod;
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
 
     public Cart() {
 

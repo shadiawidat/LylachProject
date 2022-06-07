@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Shipping">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Shipping">
     <children>
         <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
@@ -102,8 +102,11 @@
             <Font name="Cambria" size="18.0" />
          </font>
       </CheckBox>
-      <TextField fx:id="Blessing" alignment="TOP_LEFT" layoutX="347.0" layoutY="475.0" prefHeight="161.0" prefWidth="541.0" />
-      <Label layoutX="348.0" layoutY="433.0" prefHeight="17.0" prefWidth="121.0" text="Blessing:" AnchorPane.leftAnchor="348.0">
+      <TextField fx:id="Blessing" alignment="TOP_LEFT" layoutX="347.0" layoutY="475.0" minHeight="160.0" minWidth="540.0" prefHeight="161.0" prefWidth="541.0" promptText="Write your blessing here . . ." styleClass="textFields">
+         <font>
+            <Font size="24.0" />
+         </font></TextField>
+      <Label layoutX="348.0" layoutY="437.0" prefHeight="17.0" prefWidth="121.0" text="Blessing:" AnchorPane.leftAnchor="348.0">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
@@ -115,22 +118,14 @@
          </font>
       </CheckBox>
       <DatePicker fx:id="Date" layoutX="368.0" layoutY="216.0" prefHeight="25.0" prefWidth="214.0" />
-      <VBox layoutX="348.0" layoutY="309.0" prefHeight="89.0" prefWidth="341.0" AnchorPane.leftAnchor="348.0">
+      <VBox layoutX="350.0" layoutY="340.0" prefHeight="89.0" prefWidth="341.0" AnchorPane.leftAnchor="350.0">
          <children>
-            <Label prefHeight="27.0" prefWidth="347.0" text="We will start prepaing your order">
+            <Label prefHeight="27.0" prefWidth="347.0" text="We will begin proccessing your order">
                <font>
                   <Font name="Cambria" size="18.0" />
                </font>
             </Label>
-            <Label prefHeight="27.0" prefWidth="262.0" text="as soon as you finish paying">
-               <font>
-                  <Font name="Cambria" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="we will make sure it will be">
+            <Label prefHeight="27.0" prefWidth="262.0" text="once your payment is received">
                <font>
                   <Font name="Cambria" size="18.0" />
                </font>
@@ -138,7 +133,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
-            <Label text="ready in time.">
+            <Label text="We sure you a delivery on schedule">
                <font>
                   <Font name="Cambria" size="18.0" />
                </font>
@@ -291,7 +286,7 @@
             </VBox>
          </children>
       </HBox>
-      <MenuButton fx:id="Hr" layoutX="452.0" layoutY="269.0" maxHeight="30.0" maxWidth="60.0" mnemonicParsing="false" styleClass="textFields" text="Hr">
+      <MenuButton fx:id="Hr" layoutX="346.0" layoutY="269.0" maxHeight="30.0" maxWidth="60.0" mnemonicParsing="false" styleClass="textFields" text="Hr">
         <items>
           <MenuItem mnemonicParsing="false" text="9" />
           <MenuItem mnemonicParsing="false" text="10" />
@@ -308,7 +303,7 @@
             <Font name="Cambria" size="14.0" />
          </font>
       </MenuButton>
-      <MenuButton fx:id="Mn" layoutX="528.0" layoutY="269.0" maxHeight="30.0" maxWidth="60.0" mnemonicParsing="false" styleClass="textFields" text="Mn">
+      <MenuButton fx:id="Mn" layoutX="422.0" layoutY="269.0" maxHeight="30.0" maxWidth="60.0" mnemonicParsing="false" styleClass="textFields" text="Mn">
          <items>
             <MenuItem mnemonicParsing="false" text="00" />
             <MenuItem mnemonicParsing="false" text="30" />
@@ -322,15 +317,25 @@
             <Image url="@../../../../Icons/FreeShipping.png" />
          </image>
       </ImageView>
-      <Label layoutX="517.0" layoutY="266.0" text=":">
+      <Label layoutX="411.0" layoutY="266.0" text=":">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="InvalidHour" layoutX="385.0" layoutY="276.0" text="*Invalid" textFill="RED" visible="false">
+      <Label fx:id="InvalidHour" layoutX="492.0" layoutY="276.0" text="*Invalid" textFill="RED">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <CheckBox fx:id="Cash" layoutX="352.0" layoutY="313.0" mnemonicParsing="false" onMouseClicked="#Cash" prefHeight="27.0" prefWidth="121.0" text="Cash">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="Credit" layoutX="469.0" layoutY="313.0" mnemonicParsing="false" onMouseClicked="#Credit" prefHeight="27.0" prefWidth="121.0" text="Credit">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </CheckBox>
     </children>
 </AnchorPane>
