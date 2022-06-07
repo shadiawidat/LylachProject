@@ -18,13 +18,13 @@ public class Branch implements Serializable{
         this.name = name;
     }
 
-    @OneToOne(mappedBy = "mybranch")
+    @OneToOne(mappedBy = "mybranch",cascade = CascadeType.REMOVE)
     private BranchManager bmanager;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private CoroporationManager cmanager;
 
-    @ManyToMany(mappedBy = "mybranches",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "mybranches",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private List<User> users=new ArrayList<>();
 
     public int getId() {
