@@ -117,7 +117,11 @@ cache errors.
 
     public static void main(String[] args) throws Exception {
 
+<<<<<<< HEAD
         server=new SimpleServer(3213);
+=======
+        server=new SimpleServer(3121);
+>>>>>>> main
 //        generateUsers();
         generateItems();
 //        generateBranches();

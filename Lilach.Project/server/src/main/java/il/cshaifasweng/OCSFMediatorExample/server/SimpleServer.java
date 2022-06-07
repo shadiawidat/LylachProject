@@ -186,7 +186,7 @@ public class SimpleServer extends AbstractServer {
             if (user != null && user.getPassword().equals(msgarray[2])) {
                 if(user.getPermission()==permissions.CLIENT)
                 {
-                    if(((Client)user).getMemberShipt().plusSeconds(30).isBefore(LocalDateTime.now()))
+                    if(((Client)user).getMemberShipt().plusYears(1).isBefore(LocalDateTime.now()))
                     {
                         ((Client) user).setAccounttype(AccountTypes.Gold);
                     }
@@ -248,9 +248,12 @@ public class SimpleServer extends AbstractServer {
             } else {
 
                 App.server.saveObject(ms.getObject());
+                System.out.println(msgarray[1]);
+                System.out.println(msgarray[2]);
                 User use = session.find(User.class, msgarray[1]);
                 Branch b1 = session.find(Branch.class, msgarray[2]);
                 if(b1!=null) {
+                    System.out.println("hon");
                     session.beginTransaction();
                     b1.getUsers().add(use);
                     use.getMybranches().add(b1);
@@ -258,6 +261,7 @@ public class SimpleServer extends AbstractServer {
                     session.getTransaction().commit();
                 }
                 else {
+                    System.out.println("mesh hon");
                     b1=new Branch(msgarray[2]);
                     App.server.saveObject(b1);
                     b1 = session.find(Branch.class, msgarray[2]);
@@ -484,18 +488,35 @@ public class SimpleServer extends AbstractServer {
                     ((Client) user).setAccounttype(((Client) userrr).getAccounttype());
                     if(((Client) userrr).getAccounttype() == AccountTypes.Basic){
                         user.getMybranches().clear();
-                        Branch b = session.find(Branch.class, msgarray[2]);
-                        System.out.println(msgarray[2] + " #00" + b.getName());
-                        if(b != null) {
-                            user.getMybranches().add(b);
+                        Branch branch = session.find(Branch.class, msgarray[2]);
+                        System.out.println(msgarray[2] + " #00" + branch.getName());
+                        if(branch != null) {
+                            user.getMybranches().add(branch);
                         }
-                        b.getUsers().add(user);
+                        branch.getUsers().add(user);
+                    }
+                    else if(((Client) userrr).getAccounttype() == AccountTypes.Premium || ((Client) userrr).getAccounttype() == AccountTypes.Gold){
+                        System.out.println("nana");
+                        user.getMybranches().clear();
+
+                        CriteriaBuilder builder = session.getCriteriaBuilder();
+                        CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
+                        query.from(Branch.class);
+                        user.setMybranches(session.createQuery(query).getResultList());
+
+
+                        for(Branch branch : session.createQuery(query).getResultList()){
+
+                            branch.getUsers().add(user);
+                            System.out.println(branch.getName());
+                        }
                     }
                 }
-                System.out.println(msgarray[2] + " #00" );
+                //System.out.println(msgarray[2] + " #00" );
                 user.setPermission(userrr.getPermission());
                 session.flush();
                 session.getTransaction().commit();
+                //System.out.println("nana");
                 client.sendToClient(new Message(user, "#UserUpdated"));
             }
         }

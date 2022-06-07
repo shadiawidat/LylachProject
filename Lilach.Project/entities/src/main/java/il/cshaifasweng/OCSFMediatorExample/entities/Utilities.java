@@ -41,6 +41,13 @@ public class Utilities {
         }
         return false;
     }
+    public static boolean checkValidDatebeforequalnow(Date Then, Date Now){
+        if(Now.after(Then)){ // momken to.after(from)
+            return true;
+        }else if(Now.equals(Then))
+            return true;
+        return false;
+    }
     public static boolean checkAfterValidDate(Date Now, Date Then){
         if(Then.after(Now)||Then.equals(Now)){ // momken to.after(from)
             return true;

@@ -325,18 +325,48 @@ public class Report implements Initializable {
             InvalidSRType.setVisible(false);
             InvalidSRBranch.setVisible(false);
         }
+        Date now = new Date(java.time.LocalDate.now().getYear()-1900, java.time.LocalDate.now().getMonthValue()-1, java.time.LocalDate.now().getDayOfMonth());
 
-        Date From1 = new Date(FirstReportFrom.getValue().getYear(), FirstReportFrom.getValue().getMonthValue(), FirstReportFrom.getValue().getDayOfMonth());
-        Date To1 = new Date(FirstReportTo.getValue().getYear(), FirstReportTo.getValue().getMonthValue(), FirstReportTo.getValue().getDayOfMonth());
-        InvalidFRFrom.setVisible(!Utilities.checkValidDate(From1, To1));
-        InvalidFRTo.setVisible(!Utilities.checkValidDate(From1, To1));
-        Date From2 = new Date(SecondReportFrom.getValue().getYear(), SecondReportFrom.getValue().getMonthValue(), SecondReportFrom.getValue().getDayOfMonth());
-        Date To2 = new Date(SecondReportTo.getValue().getYear(), SecondReportTo.getValue().getMonthValue(), SecondReportTo.getValue().getDayOfMonth());
+        Date From1 = new Date(FirstReportFrom.getValue().getYear()-1900, FirstReportFrom.getValue().getMonthValue()-1, FirstReportFrom.getValue().getDayOfMonth());
+        Date To1 = new Date(FirstReportTo.getValue().getYear()-1900, FirstReportTo.getValue().getMonthValue()-1, FirstReportTo.getValue().getDayOfMonth());
+        System.out.println(now);
+        System.out.println(From1);
+        System.out.println(To1);
+        InvalidFRFrom.setVisible(!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(From1, now));
+        InvalidFRTo.setVisible(!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(To1, now));
+        if(From1.equals(To1)){
+            InvalidFRFrom.setVisible(!Utilities.checkValidDatebeforequalnow(From1, now));
+            InvalidFRTo.setVisible(!Utilities.checkValidDatebeforequalnow(To1, now));
+            flag=flag||!Utilities.checkValidDatebeforequalnow(From1, now);
+            flag=flag||!Utilities.checkValidDatebeforequalnow(To1, now);
+        }else{
+            flag=flag||!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(From1, now);
+            flag=flag||!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(To1, now);
+        }
+
+        Date From2 = new Date(SecondReportFrom.getValue().getYear()-1900, SecondReportFrom.getValue().getMonthValue()-1, SecondReportFrom.getValue().getDayOfMonth());
+        Date To2 = new Date(SecondReportTo.getValue().getYear()-1900, SecondReportTo.getValue().getMonthValue()-1, SecondReportTo.getValue().getDayOfMonth());
         if(CompareTo.isSelected()) {
-            InvalidSRFrom.setVisible(!Utilities.checkValidDate(From2, To2));
-            InvalidSRTo.setVisible(!Utilities.checkValidDate(From2, To2));
-            flag=flag||!Utilities.checkValidDate(From1, To1);
-            flag=flag||!Utilities.checkValidDate(From2, To2);
+            InvalidSRFrom.setVisible(!Utilities.checkValidDate(From2, To2)||!Utilities.checkValidDatebeforequalnow(From2, now));
+            InvalidSRTo.setVisible(!Utilities.checkValidDate(From2, To2)||!Utilities.checkValidDatebeforequalnow(To2, now));
+            if(From1.equals(To1)){
+                InvalidFRFrom.setVisible(!Utilities.checkValidDatebeforequalnow(From1, now));
+                InvalidFRTo.setVisible(!Utilities.checkValidDatebeforequalnow(To1, now));
+                flag=flag||!Utilities.checkValidDatebeforequalnow(From1, now);
+                flag=flag||!Utilities.checkValidDatebeforequalnow(To1, now);
+            }else{
+                flag=flag||!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(From1, now);
+                flag=flag||!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(To1, now);
+            }
+            if(From2.equals(To2)){
+                InvalidSRFrom.setVisible(!Utilities.checkValidDatebeforequalnow(From2, now));
+                InvalidSRTo.setVisible(!Utilities.checkValidDatebeforequalnow(To2, now));
+                flag=flag||!Utilities.checkValidDatebeforequalnow(From2, now);
+                flag=flag||!Utilities.checkValidDatebeforequalnow(To2, now);
+            }else{
+                flag=flag||!Utilities.checkValidDate(From2, To2)||!Utilities.checkValidDatebeforequalnow(From2, now);
+                flag=flag||!Utilities.checkValidDate(From2, To2)||!Utilities.checkValidDatebeforequalnow(To2, now);
+            }
         }else{
             InvalidSRFrom.setVisible(false);
             InvalidSRTo.setVisible(false);
@@ -384,6 +414,7 @@ public class Report implements Initializable {
         SecondReportTo.setValue(java.time.LocalDate.now());
         if(App.getUser().getPermission()==permissions.MANAGER)
         {
+            CompareTo.setVisible(false);
             FirstReportBranch.setText(((BranchManager)App.getUser()).getMybranch().getName());
             FirstReportBranch.setDisable(true);
             FirstReportBranch.setOpacity(300000000);

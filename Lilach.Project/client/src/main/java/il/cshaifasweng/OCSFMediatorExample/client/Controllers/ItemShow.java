@@ -403,13 +403,13 @@ public class ItemShow implements Initializable {
         InvalidDiscount.setVisible(false);
         InvalidImage.setVisible(false);
 
-        InvalidName.setVisible(!Utilities.check_Validate_String(NameText.getText())||NameText.getText().equals(""));
+        InvalidName.setVisible(!Utilities.check_Validate_name(NameText.getText())||NameText.getText().equals(""));
         InvalidColor.setVisible(!Utilities.check_Validate_String(ColorText.getText())||ColorText.getText().equals(""));
         InvalidPrice.setVisible(!Utilities.check_Validate_Price(PriceText.getText())||PriceText.getText().equals(""));
         InvalidType.setVisible(TypeText.getText().equals(""));
         InvalidDiscount.setVisible(!Utilities.check_Validate_Discount(DiscountText.getText())||DiscountText.getText().equals(""));
         InvalidImage.setVisible(imgid.getImage()==null);
-        flag=!Utilities.check_Validate_String(NameText.getText())||NameText.getText().equals("");
+        flag=!Utilities.check_Validate_name(NameText.getText())||NameText.getText().equals("");
         flag=flag||!Utilities.check_Validate_String(ColorText.getText())||ColorText.getText().equals("");
         flag=flag||!Utilities.check_Validate_Price(PriceText.getText())||PriceText.getText().equals("");
         flag=flag||TypeText.getText().equals("");
@@ -524,7 +524,7 @@ public class ItemShow implements Initializable {
     }
     @FXML
     void HandleDrop(DragEvent event) throws IOException {
-        if(Caller.equals("CatalogNew")&&(App.getUser()!=null&&App.getUser().getPermission()==permissions.CorpManager||App.getUser().getPermission()==permissions.WORKER||App.getUser().getPermission()==permissions.MANAGER) ){
+        if((App.getUser()!=null&&App.getUser().getPermission()==permissions.CorpManager||App.getUser().getPermission()==permissions.WORKER||App.getUser().getPermission()==permissions.MANAGER) ){
             List<File> files = event.getDragboard().getFiles();
             img=new Image(new FileInputStream(files.get(0).getPath()));
            imgid.setImage(img);
@@ -532,7 +532,7 @@ public class ItemShow implements Initializable {
 
     @FXML
     void HandleOver(DragEvent event) {
-        if(Caller.equals("CatalogNew")&&(App.getUser()!=null&&App.getUser().getPermission()==permissions.CorpManager||App.getUser().getPermission()==permissions.WORKER||App.getUser().getPermission()==permissions.MANAGER) ){
+        if((App.getUser()!=null&&App.getUser().getPermission()==permissions.CorpManager||App.getUser().getPermission()==permissions.WORKER||App.getUser().getPermission()==permissions.MANAGER) ){
             if(event.getDragboard().hasFiles()) {
                 event.acceptTransferModes(TransferMode.ANY);
             }
@@ -708,11 +708,29 @@ public class ItemShow implements Initializable {
 
         if (flag)
             return;
+        String s=SimpleClient.class.getResource("/Media/").toString();
 
+        String[] a=s.split("/");
+        s="";
+        a[0]="";
+        String t="";
+        for(String b:a)
+        {
+            t=t+b+"//";
+            if(b.equals("target"))
+                b="src//main";
+            if(b.equals("classes"))
+                b="resources";
+            s=s+b+"//";
+
+        }
+        s=s+TypeText.getText()+"//"+NameText.getText()+".png";
+        t=t+TypeText.getText()+"//"+NameText.getText()+".png";
+        ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(),null),"png",new File(s));
+        ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(),null),"png",new File(t));
         Message ms= new Message(ITEM, "#UpdateItemInfo," + NName + " " + NPrice + " " + NType + " " + NColor + " " + NDiscount);
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().itemshowControl= this;
-
 
     }
 

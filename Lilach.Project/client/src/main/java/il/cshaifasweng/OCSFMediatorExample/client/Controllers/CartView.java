@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.*;
 
 public class CartView implements Initializable {
@@ -111,29 +112,55 @@ public class CartView implements Initializable {
 
     public void setInfo(Cart cart){
 
-        sec=30;
-        minutes=1;
-        hour=1;
-        day=2;
+        Date d1=cart.getDeliverydate();
+
+        int hr=cart.getHour(),mn=cart.getMinute();
+        d1.setHours(hr);
+        d1.setMinutes(mn);
+        d1.setSeconds(0);
+        LocalDateTime d2=LocalDateTime.now();
+        Date d3=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
+        d3.setHours(d2.getHour());
+        d3.setMinutes(d2.getMinute());
+        d3.setSeconds(d2.getSecond());
+        d1.setDate(d1.getDate()-1);
+        System.out.println(d1);
+        System.out.println(d3);
+        int secs=0;
+        if(d1.before(d3))
+        {
+            day=0;
+            hour=0;
+            minutes=0;
+            sec=0;
+        }
+        else
+        {
+
+            while(d1.after(d3))
+            {
+                secs++;
+                d3.setSeconds(d3.getSeconds()+1);
+            }
+        }
+        sec=secs%60;
+        minutes=(secs/60)%60;
+        hour=(secs/60/60)%24;
+        day=(secs/60/60/24);
         final DecimalFormat df = new DecimalFormat("0.00");
-
-
         FirstName.setText(App.getUser().getFirstname());
         LastName.setText(App.getUser().getLastname());
         ItemsNumber.setText(String.valueOf(cart.getItems().size()));
         Client c = (Client) (App.getUser());
         if(c.getAccounttype().equals(AccountTypes.Premium) && cart.getPrice() > 50) {
-            Total.setText(String.valueOf(df.format((cart.getPrice()*0.9))) + "$");
+            Total.setText(df.format((cart.getPrice() * 0.9)) + "$");
         }
         else
         {
-            Total.setText(String.valueOf(df.format((cart.getPrice()))) + "$");
+            Total.setText(df.format((cart.getPrice())) + "$");
         }
-
-
         cartt=cart;
         OrderID.setText(String.valueOf(cart.getId()));
-
     }
 
     public void Deleted (boolean flag) throws IOException {

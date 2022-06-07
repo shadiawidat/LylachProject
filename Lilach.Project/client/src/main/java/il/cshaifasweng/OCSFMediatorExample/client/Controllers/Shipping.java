@@ -261,7 +261,7 @@ public class Shipping implements Initializable {
 
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
         Date date = new Date(Date.getValue().getYear(), Date.getValue().getMonthValue(), Date.getValue().getDayOfMonth());
-        Date d = new Date(2022,6,6);
+
         InvalidDate.setVisible(!Utilities.checkAfterValidDate(now, date));
         flag = (!Utilities.checkAfterValidDate(now, date));
         InvalidHour.setVisible(Hr.getText().equals("Hr")||Mn.getText().equals("Mn"));
