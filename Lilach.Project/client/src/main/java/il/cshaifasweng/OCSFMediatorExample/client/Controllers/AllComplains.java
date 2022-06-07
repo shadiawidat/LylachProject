@@ -2,9 +2,11 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.BranchManager;
 import il.cshaifasweng.OCSFMediatorExample.entities.Cart;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +25,9 @@ import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -68,6 +72,48 @@ public class AllComplains implements Initializable {
 
     @FXML
     private ScrollPane scroll;
+
+    public boolean isRunning=false;
+    List<Complain> controllers=new ArrayList<>();
+    public Thread timerthread=new Thread(this::handleThread);
+    final DecimalFormat df = new DecimalFormat("00");
+    public Thread onOff=new Thread(this::handleThreadonOff);
+
+    public void handleThread()
+    {
+        while(isRunning)
+        {
+            Platform.runLater(()->{
+                for (Complain complain:controllers)
+                {
+                    complain.tickRemaining(0);
+                }
+            });
+            try{
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void handleThreadonOff()
+    {
+
+        while(isRunning)
+        {
+            Platform.runLater(()->{
+                for (Complain complain:controllers)
+                {
+                    complain.setOnOff();
+                }
+            });
+            try{
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @FXML
     void Back(MouseEvent event) throws IOException {
@@ -129,8 +175,6 @@ public class AllComplains implements Initializable {
     public void loadComplains(List<il.cshaifasweng.OCSFMediatorExample.entities.Complain> complains){
         gridPane.getChildren().clear();
         Matched.setVisible(false);
-
-        List<Complain> controllers=new ArrayList<>();
         try {
             int column = 0;
             int row = 1;
@@ -138,6 +182,22 @@ public class AllComplains implements Initializable {
                 Matched.setVisible(true);
             }
             for (il.cshaifasweng.OCSFMediatorExample.entities.Complain complain : complains) {
+                if(complain.isHandled())
+                    continue;
+                if(App.getUser().getPermission()==permissions.MANAGER){
+                    System.out.println(((BranchManager)App.getUser()).getMybranch().getName());
+                    System.out.println(complain.getBranch().getName());
+                    if(!(((BranchManager)App.getUser()).getMybranch().getName().equals(complain.getBranch().getName()))){
+                        continue;
+                    }
+                }else if(App.getUser().getPermission()==permissions.WORKER){
+                    if(App.getUser().getMybranches().size()==1) {
+                        if (!(App.getUser().getMybranches().get(0).getName() .equals( complain.getBranch().getName()))) {
+                            continue;
+                        }
+                    }
+                }
+
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(SimpleClient.class.getResource("Complain.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
@@ -174,8 +234,12 @@ public class AllComplains implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
+        isRunning=true;
+        timerthread.start();
+        onOff.start();
         UserName.setText("Welcome " + App.getUser().getFirstname());
-
+        if(App.getUser().getPermission()!=permissions.MANAGER||App.getUser().getPermission()!=permissions.CorpManager)
+            menu.getMenus().get(0).getItems().get(1).setVisible(false);
         if(App.getUser()!=null) {
             try {
                 SimpleClient.getClient().sendToServer(new Message(App.getUser(), "#GetComplains "));

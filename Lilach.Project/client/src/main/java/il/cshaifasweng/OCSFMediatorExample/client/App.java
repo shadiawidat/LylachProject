@@ -14,10 +14,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static java.lang.System.exit;
@@ -53,7 +50,15 @@ public class App extends Application {
         App.items = (List<Item>)msg;
     }
 
-    private SimpleClient client;
+    public static SimpleClient getClient() {
+        return client;
+    }
+
+    public static void setClient(SimpleClient client) {
+        App.client = client;
+    }
+
+    private static SimpleClient client;
 
     public static User getUser() {
         return user;
@@ -64,24 +69,28 @@ public class App extends Application {
     }
 
     private static User user;
+    private static Stage theStage;
+
+    public static Stage getTheStage() {
+        return theStage;
+    }
+
+    public static void setTheStage(Stage theStage) {
+        App.theStage = theStage;
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
-        EventBus.getDefault().register(this);
-        client = SimpleClient.getClient();
-        client.setName("John");
-        client.openConnection();
-        Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
+
+        Parent root = FXMLLoader.load(getClass().getResource("Connect.fxml"));
         stage.setTitle("LyLach");
-        scene=new Scene(root, 920, 720);
+        scene=new Scene(root, 350, 150);
         stage.setScene(scene);
         stage.show();
-//        Platform.runLater(() -> {
-//
-//            fxThread = Thread.currentThread();
-//        });
+        setTheStage(stage);
 
     }
+
 
 
     public static void setRoot(String fxml) throws IOException {

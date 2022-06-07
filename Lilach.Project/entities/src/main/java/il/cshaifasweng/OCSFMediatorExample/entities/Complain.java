@@ -19,7 +19,26 @@ public class Complain implements Serializable{
 
     private String reason;
     private Date date;
+    private boolean handled;
+    private int Hour=0;
 
+    public int getHour() {
+        return Hour;
+    }
+
+    public void setHour(int hour) {
+        Hour = hour;
+    }
+
+    public int getMinute() {
+        return Minute;
+    }
+
+    public void setMinute(int minute) {
+        Minute = minute;
+    }
+
+    private int Minute=0;
     public Complain(String reason, Date date) {
         super();
         this.reason = reason;
@@ -28,6 +47,14 @@ public class Complain implements Serializable{
 
     public Complain() {
 
+    }
+
+    public boolean isHandled() {
+        return handled;
+    }
+
+    public void setHandled(boolean handled) {
+        this.handled = handled;
     }
 
     public Client getClient() {

@@ -2,6 +2,12 @@ package il.cshaifasweng.OCSFMediatorExample.server;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 
+
+import java.net.InetAddress;
+import java.security.Permission;
+import java.sql.Time;
+import java.util.ArrayList;
+
 import java.util.Date;
 
 public class App {
@@ -108,20 +114,13 @@ cache errors.
  */
     private static void generateBranches() throws Exception {
 
-     }
-
-
-
+    }
 
     public static SimpleServer server;
 
     public static void main(String[] args) throws Exception {
 
-<<<<<<< HEAD
-        server=new SimpleServer(3213);
-=======
-        server=new SimpleServer(3121);
->>>>>>> main
+        server=new SimpleServer(Integer.parseInt(args[0]));
 //        generateUsers();
         generateItems();
 //        generateBranches();

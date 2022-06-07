@@ -426,11 +426,15 @@ public class SimpleServer extends AbstractServer {
             Complain complain = new Complain(msgarray[2], null);
 
             complain.setClient(nclient);
-            complain.setBranch(nclient.getMybranches().get(0));///////get(0)
+            complain.setBranch(nbranch);
             complain.setDate((Date) (ms.getObject()));
-            mycomplains.add(complain);
-            nclient.getMybranches().get(0).AddOneComplain(complain);
+            complain.setHandled(false);
+            complain.setHour(LocalDateTime.now().getHour());
+            complain.setMinute(LocalDateTime.now().getMinute());
 
+            System.out.println(LocalDateTime.now().getHour());
+            System.out.println(LocalDateTime.now().getMinute());
+            mycomplains.add(complain);
 
             App.server.saveObject(complain);
 
@@ -700,6 +704,19 @@ public class SimpleServer extends AbstractServer {
             } else if (msgarray[1].equals("Complain")) {
 
             }
+        }else if(request.startsWith("#Refund")){
+            String[] msgarray = request.split("±");
+            Client c=session.find(Client.class,((Client) ms.getObject()).getUsername());
+            session.beginTransaction();
+            c.setAmount(c.getAmount()+Double.parseDouble(msgarray[1]));
+            session.flush();
+            session.getTransaction().commit();
+            Complain complain=session.find(Complain.class,Integer.parseInt(msgarray[2]));
+            session.beginTransaction();
+            complain.setHandled(true);
+            session.flush();
+            session.getTransaction().commit();
+
         }
     }
 
