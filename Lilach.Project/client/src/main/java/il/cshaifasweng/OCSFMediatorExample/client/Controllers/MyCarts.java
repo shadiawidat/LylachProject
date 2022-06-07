@@ -64,20 +64,19 @@ public class MyCarts implements Initializable {
 
     public boolean isRunning=false;
 
-    public Thread timerthread=new Thread(this::handleThread);
-    public Thread onOff=new Thread(this::handleThreadonOff);
+
 
     List<CartView> controllers=new ArrayList<>();
 
     final DecimalFormat df = new DecimalFormat("0.00");
-
+    public Thread timerthread=new Thread(this::handleThread);
+    public Thread onOff=new Thread(this::handleThreadonOff);
 
     public void handleThread()
     {
 
         while(isRunning)
         {
-            String timeleft=("left: "+df.format(new Date().getTime()));
             Platform.runLater(()->{
                 for (CartView cartView:controllers)
                 {
