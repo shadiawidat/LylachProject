@@ -655,7 +655,6 @@ public class Catalog implements Initializable {
                 MenuSignUp.setVisible(false);
                 CartB.setVisible(false);
                 MenuCart.setVisible(false);
-
             }
             if (App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.CorpManager) {
                 Reports.setVisible(true);
@@ -663,6 +662,9 @@ public class Catalog implements Initializable {
             } else {
                 Reports.setVisible(false);
                 Complains.setVisible(false);
+            }
+            if(App.getUser().getPermission()==permissions.WORKER){
+                Complains.setVisible(true);
             }
         }
         else {
