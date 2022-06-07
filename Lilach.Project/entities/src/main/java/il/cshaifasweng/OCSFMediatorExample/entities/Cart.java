@@ -21,7 +21,7 @@ public class Cart implements Serializable {
     )
     private List<Item> items=new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinTable(
             name = "Cart_Client",
             joinColumns = { @JoinColumn(name = "cart_id") },
