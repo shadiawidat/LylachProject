@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Client extends User implements Serializable {
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE)
     private List<Cart> myorders=new ArrayList<>();
 
     @OneToMany(mappedBy = "client")
