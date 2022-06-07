@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 public class BranchManager extends User implements Serializable {
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Branch mybranch;
 
     public BranchManager() {

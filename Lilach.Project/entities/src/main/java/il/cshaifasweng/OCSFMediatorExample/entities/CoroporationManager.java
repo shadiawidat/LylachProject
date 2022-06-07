@@ -1,9 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +10,7 @@ import java.util.List;
 
 public class CoroporationManager extends User implements Serializable{
 
-    @OneToMany(mappedBy = "cmanager")
+    @OneToMany(mappedBy = "cmanager",cascade = CascadeType.REMOVE)
     private List<Branch> corpmybranches=new ArrayList<>();
 
     public CoroporationManager() {

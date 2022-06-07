@@ -147,8 +147,11 @@ public class SimpleClient extends AbstractClient {
 		}
 		else if (deliver.equals("#UserRemoved"))
 		{
-			accountControl.emptyFields();
-			accountControl.ShowNote("User Removed Successfully!");
+			Platform.runLater(()->{
+				accountControl.emptyFields();
+				accountControl.ShowNote("User Removed Successfully!");
+			});
+
 		}
 		else if(deliver.equals("#CartReady"))
 		{
@@ -220,6 +223,7 @@ public class SimpleClient extends AbstractClient {
 			Platform.runLater(()->SimpleClient.getClient().reportViewControl.loadReports(null,null));
 		}
 		else if(deliver.equals("#CanceledOrder")){
+
 			Platform.runLater(()->{
 				try {
 					cartView.Deleted(true);
