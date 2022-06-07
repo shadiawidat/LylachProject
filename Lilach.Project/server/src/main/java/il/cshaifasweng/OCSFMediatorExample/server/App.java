@@ -98,7 +98,7 @@ public class App {
         Client LClient=new Client("lana31","Lana3182!","Lana","Shehab","lana.shehab0111@gmail.com","0522481844",new Date(2000-1900,2-1,8+1),"Haifa",permissions.CLIENT,"206539199","4580404032194023" ,AccountTypes.Premium,0.0);
         server.saveObject(LClient);
 
-        Client RClient=new Client("ramkh","ramkh","Ram","Khoury","Ramkh2000@gmail.com","0528020276",new Date(2001-1900,10-1,18+1),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Gold,0.0);
+        Client RClient=new Client("ramkh","ramkh","Ram","Khoury","Ramkh2000@gmail.com","0528020276",new Date(2001-1900,10-1,18+1),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Gold,100.0);
         server.saveObject(RClient);
 
         Client nClient=new Client("muradkh","muradkh","Murad","Khoury","Muradkh@gmail.com","0528020276",new Date(2001-1900,10-1,18+1),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Basic,0.0);

@@ -257,16 +257,18 @@ public class Catalog implements Initializable {
 
     @FXML
     void ClickSearch(MouseEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getName().toLowerCase().startsWith(SearchField.getText().toLowerCase()))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
-        SearchField.setText("");
+        CatalogShow=tempo;
+        LoadList(tempo);
+        X_button.setVisible(true);
     }
     public void ItemShowSearch(MouseEvent event) {
         CatalogShow.clear();
@@ -282,43 +284,46 @@ public class Catalog implements Initializable {
     }
     @FXML
     void Black(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getColor().equals("Black"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Multicolor(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getColor().equals("MultiColor"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Orange(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getColor().equals("Orange"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
@@ -338,93 +343,99 @@ public class Catalog implements Initializable {
 
     @FXML
     void Pink(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getColor().equals("Pink"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Purple(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getColor().equals("Purple"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Red(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getColor().equals("Red"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void White(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getColor().equals("White"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Yellow(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getColor().equals("Yellow"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void SFlower(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getType().equals("Flower"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
 
     @FXML
     void SortHL(ActionEvent event) {
-        CatalogShow.clear();
-        CatalogShow.addAll(Catalog);
+//        CatalogShow.clear();
+//        CatalogShow.addAll(Catalog);
         CatalogShow.sort(new SortByPrice());
         Collections.reverse(CatalogShow);
         LoadList(CatalogShow);
@@ -433,8 +444,8 @@ public class Catalog implements Initializable {
 
     @FXML
     void SortLH(ActionEvent event) {
-        CatalogShow.clear();
-        CatalogShow.addAll(Catalog);
+//        CatalogShow.clear();
+//        CatalogShow.addAll(Catalog);
         CatalogShow.sort(new SortByPrice());
         LoadList(CatalogShow);
         X_button.setVisible(true);
@@ -442,8 +453,8 @@ public class Catalog implements Initializable {
 
     @FXML
     void SortAZ(ActionEvent event) {
-        CatalogShow.clear();
-        CatalogShow.addAll(Catalog);
+//        CatalogShow.clear();
+//        CatalogShow.addAll(Catalog);
         CatalogShow.sort(new SortByLetters());
         LoadList(CatalogShow);
         X_button.setVisible(true);
@@ -451,8 +462,8 @@ public class Catalog implements Initializable {
 
     @FXML
     void SortZA(ActionEvent event) {
-        CatalogShow.clear();
-        CatalogShow.addAll(Catalog);
+//        CatalogShow.clear();
+//        CatalogShow.addAll(Catalog);
         CatalogShow.sort(new SortByLetters());
         Collections.reverse(CatalogShow);
         LoadList(CatalogShow);
@@ -461,29 +472,31 @@ public class Catalog implements Initializable {
 
     @FXML
     void Vases(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getType().equals("Vase"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Weddings(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getType().equals("Wedding"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
@@ -491,43 +504,46 @@ public class Catalog implements Initializable {
 
     @FXML
     void OnSale(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getDiscount()>0)
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void GardeningTools(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getType().equals("Gardening"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Bouquets(ActionEvent event) {
-        CatalogShow.clear();
-        for(Item item:Catalog)
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getType().equals("Bouquet"))
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
         X_button.setVisible(true);
     }
 
@@ -563,15 +579,17 @@ public class Catalog implements Initializable {
             return;
         }
 
-        CatalogShow.clear();
-        for(Item item:Catalog)
+
+        List<Item> tempo=new ArrayList<>();
+        for(Item item:CatalogShow)
         {
             if(item.getPrice()<=max&&item.getPrice()>=min)
             {
-                CatalogShow.add(item);
+                tempo.add(item);
             }
         }
-        LoadList(CatalogShow);
+        CatalogShow=tempo;
+        LoadList(tempo);
 
         Min.setText("");
         Max.setText("");
@@ -582,14 +600,19 @@ public class Catalog implements Initializable {
 
     @FXML
     void Cancel_filters(MouseEvent event) {
+        resetShow();
         LoadList(Catalog);
+        CatalogShow=Catalog;
         Min.setVisible(false);
         Max.setVisible(false);
         Filter.setVisible(false);
         InvalidPrice.setVisible(false);
         X_button.setVisible(false);
     }
-
+    public void resetShow()
+    {
+        CatalogShow=Catalog;
+    }
     public void LoadList(List<Item> items)
     {
         if(App.getUser()!=null)
