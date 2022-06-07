@@ -2,9 +2,9 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
-import il.cshaifasweng.OCSFMediatorExample.entities.Utilities;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -15,6 +15,7 @@ import javafx.scene.layout.TilePane;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Shipping implements Initializable {
@@ -47,12 +48,17 @@ public class Shipping implements Initializable {
 
     @FXML
     private Label InvalidName;
-
+    @FXML
+    private Label InvalidHour;
     @FXML
     private Label InvalidPhoneNumber;
 
     @FXML
     private MenuItem MenuAbout;
+    @FXML
+    private MenuButton Mn;
+    @FXML
+    private MenuButton Hr;
 
     @FXML
     private ImageView MenuBtn;
@@ -152,6 +158,10 @@ public class Shipping implements Initializable {
                 PhoneNumberLB.setVisible(false);
             }
         }else{
+            InvalidAdderss.setVisible(false);
+            InvalidDate.setVisible(false);
+            InvalidPhoneNumber.setVisible(false);
+            InvalidName.setVisible(false);
             ForSomeoneId.setVisible(false);
             Address.setVisible(false);
             AddressLB.setVisible(false);
@@ -179,6 +189,9 @@ public class Shipping implements Initializable {
                 PhoneNumberLB.setVisible(false);
             }
         }else{
+            InvalidAdderss.setVisible(false);
+            InvalidPhoneNumber.setVisible(false);
+            InvalidName.setVisible(false);
             Name.setVisible(false);
             NameLB.setVisible(false);
             PhoneNumber.setVisible(false);
@@ -240,16 +253,28 @@ public class Shipping implements Initializable {
     void ApproveFunc(MouseEvent event) throws IOException {
 
         boolean flag=false;
+        InvalidHour.setVisible(false);
         InvalidAdderss.setVisible(false);
         InvalidDate.setVisible(false);
         InvalidPhoneNumber.setVisible(false);
         InvalidName.setVisible(false);
+
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
         Date date = new Date(Date.getValue().getYear(), Date.getValue().getMonthValue(), Date.getValue().getDayOfMonth());
         Date d = new Date(2022,6,6);
-        InvalidDate.setVisible(Utilities.checkValidDate(date, now));
-        flag = (Utilities.checkValidDate(now, date));
-
+        InvalidDate.setVisible(!Utilities.checkAfterValidDate(now, date));
+        flag = (!Utilities.checkAfterValidDate(now, date));
+        InvalidHour.setVisible(Hr.getText().equals("Hr")||Mn.getText().equals("Mn"));
+        flag=flag||Hr.getText().equals("Hr")||Mn.getText().equals("Mn");
+        if(date.equals(now)&&!InvalidHour.isVisible()&& Utilities.checkAfterValidDate(now, date)){
+            InvalidHour.setVisible(LocalDateTime.now().getHour()>Integer.parseInt(Hr.getText()));
+            flag=flag||LocalDateTime.now().getHour()>Integer.parseInt(Hr.getText());
+            if(!InvalidHour.isVisible()) {
+                InvalidHour.setVisible(LocalDateTime.now().getMinute()>Integer.parseInt(Mn.getText()));
+                flag=flag||LocalDateTime.now().getMinute()>Integer.parseInt(Mn.getText());
+            }
+        }
+        flag=flag||Hr.getText().equals("Hr")||Mn.getText().equals("Mn");
         if (deliveryid.isSelected()) {
             InvalidAdderss.setVisible(!Utilities.check_Validate_Address(Address.getText())||Address.getText().equals(""));
             flag = flag || Address.getText().equals("");
@@ -263,44 +288,15 @@ public class Shipping implements Initializable {
         if (flag) {
             return;
         }
+        double lastprice=SimpleClient.getClient().cartControl.subTotalG;
 
-
-        Message ms = new Message(null, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + Date.getValue().getYear() + "±" + Date.getValue().getMonthValue() + "±" + Date.getValue().getDayOfMonth()+"±" + (SimpleClient.getClient().cartControl.subTotalG-SimpleClient.getClient().cartControl.subTotalD));
+        Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + Date.getValue().getYear() + "±" + Date.getValue().getMonthValue() + "±" + Date.getValue().getDayOfMonth()+"±" + lastprice+ "±" +Hr.getText()+ "±" +Mn.getText());
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().shippingControl = this;
 
 
 
     }
-//        if(deliveryid.isSelected()) {
-//
-//            if(ForSomeoneId.isSelected()) {
-//                Message ms = new Message(date, "#DeliveryAndForsomeone" + " " + App.getUser().getUsername() + " " + Address.getText() + " " + Name.getText() + " " + PhoneNumber.getText()+ " " +Blessing.getText());
-//                SimpleClient.getClient().sendToServer(ms);
-//                SimpleClient.getClient().shippingControl = this;
-//            }
-//            else{
-//                Message ms = new Message(date, "#DeliveryAndNotForsomeone" + " " + App.getUser().getUsername() + " " + Address.getText()+ " " +Blessing.getText());
-//                SimpleClient.getClient().sendToServer(ms);
-//                SimpleClient.getClient().shippingControl = this;
-//            }
-//        }
-//        else{
-//            System.out.println("WOW");
-//            Message ms = new Message(date,"#PickingFromBranch"  + " " + App.getUser().getUsername() + " " + Blessing.getText());
-//            SimpleClient.getClient().sendToServer(ms);
-//            SimpleClient.getClient().shippingControl = this;
-//        }
-//public void ShowNote(String note) {
-//    Alert a = new Alert(Alert.AlertType.NONE);
-//    System.out.println("sho fe");
-//    // set alert type
-//    a.setAlertType(Alert.AlertType.INFORMATION);
-//
-//    a.setContentText(note);
-//
-//    a.showAndWait();
-//}
 
     public void Approval() throws IOException {
 
@@ -319,6 +315,29 @@ public class Shipping implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
+        for(MenuItem menuItem : Mn.getItems())
+        {
+            menuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Mn.setText(menuItem.getText());
+                }
+            });
+        }
+
+
+        for(MenuItem menuItem : Hr.getItems())
+        {
+            menuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Hr.setText(menuItem.getText());
+                }
+            });
+        }
+        final DecimalFormat df = new DecimalFormat("0.00");
         MenuCart.setVisible(false);
         Date.setValue(java.time.LocalDate.now());
 
@@ -327,11 +346,19 @@ public class Shipping implements Initializable {
         }
         else {
             UserName.setText("Welcome " + App.getUser().getFirstname());
-            Total.setText((Double.toString(SimpleClient.getClient().cartControl.subTotalG))+"$");
-            Saved.setText(df.format(SimpleClient.getClient().cartControl.subTotalD)+"$");
+
+//                if(((Client) App.getUser()).getAccounttype()==(AccountTypes.Premium)){
+//                    Saved.setText(df.format((SimpleClient.getClient().cartControl.subTotalD)+0.10*(SimpleClient.getClient().cartControl.subTotalG))+"$");
+//                    Total.setText(df.format((SimpleClient.getClient().cartControl.subTotalG)*0.90)+"$");
+//                }
+//            else
+//            {
+                Total.setText(df.format(SimpleClient.getClient().cartControl.subTotalG) + "$");
+                Saved.setText(df.format(SimpleClient.getClient().cartControl.subTotalD) + "$");
+         //   }
             double x = (((SimpleClient.getClient().cartControl.subTotalG - SimpleClient.getClient().cartControl.subTotalD)/1.17)*0.17);
-            final DecimalFormat df = new DecimalFormat("0.00");
-            Tax.setText(df.format((x))+"$");
+
+            Tax.setText(df.format(SimpleClient.getClient().cartControl.subTotalT)+"$");
 
 
         }

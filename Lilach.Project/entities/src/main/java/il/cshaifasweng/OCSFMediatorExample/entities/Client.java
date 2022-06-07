@@ -2,6 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import javax.persistence.*;
 import javax.persistence.criteria.Order;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,8 @@ public class Client extends User implements Serializable {
 
     private String CreditCard;
 
+    private LocalDateTime MemberShipt;
+
     public String getCreditCard() {
         return CreditCard;
     }
@@ -33,10 +36,19 @@ public class Client extends User implements Serializable {
         this.accounttype = accounttype;
         this.amount = 0.0;
         this.CreditCard=creditCard;
+        MemberShipt=LocalDateTime.now();
+    }
+
+    public LocalDateTime getMemberShipt() {
+        return MemberShipt;
+    }
+
+    public void setMemberShipt(LocalDateTime memberShipt) {
+        MemberShipt = memberShipt;
     }
 
     public Client() {
-
+        MemberShipt=LocalDateTime.now();
     }
     public List<Complain> getComplains() {
         return complains;

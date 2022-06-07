@@ -33,7 +33,25 @@ public class Cart implements Serializable {
     private Date Deliverydate;
     private String blessingticket;
     private Double price;
+    private int Hour;
+    private int Minute;
     private Boolean canceled=false;
+
+    public int getHour() {
+        return Hour;
+    }
+
+    public void setHour(int hour) {
+        Hour = hour;
+    }
+
+    public int getMinute() {
+        return Minute;
+    }
+
+    public void setMinute(int minute) {
+        Minute = minute;
+    }
 
     public Boolean getCanceled() {
         return canceled;

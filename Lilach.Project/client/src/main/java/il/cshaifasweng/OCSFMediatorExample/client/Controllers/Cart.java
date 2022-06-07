@@ -2,10 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Client;
-import il.cshaifasweng.OCSFMediatorExample.entities.Item;
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
-import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,6 +75,15 @@ public class Cart implements Initializable {
     public double subTotalG;
 
     public double subTotalD;
+    public double subTotalT;
+
+    public double getSubTotalT() {
+        return subTotalT;
+    }
+
+    public void setSubTotalT(double subTotalT) {
+        this.subTotalT = subTotalT;
+    }
 
     public double getSubTotalD() {
         return subTotalD;
@@ -146,8 +152,8 @@ public class Cart implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        if(App.getUser()!=null)
-            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if (App.getUser() != null)
+            SimpleClient.getClient().sendToServer(new Message(null, "#SignOut " + App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
@@ -169,32 +175,29 @@ public class Cart implements Initializable {
         menu.setVisible(true);
     }
 
-    public void setCart(il.cshaifasweng.OCSFMediatorExample.entities.Cart cart, Client client)
-    {
+    public void setCart(il.cshaifasweng.OCSFMediatorExample.entities.Cart cart, Client client) {
 
     }
-    public void loadCart(List<Item> Cart)
-    {
-        Map<Integer,Integer> map=new HashMap<>();
-        for (Item item : Cart)
-        {
-            if(map.containsKey(item.getId())) {
+
+    public void loadCart(List<Item> Cart) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (Item item : Cart) {
+            if (map.containsKey(item.getId())) {
 
                 map.put(item.getId(), map.get(item.getId()) + 1);
-            }
-            else
-                map.put(item.getId(),1);
+            } else
+                map.put(item.getId(), 1);
         }
 
-        double subTotal=0.0;
-        double TotalDiscount=0.0;
+        double subTotal = 0.0;
+        double TotalDiscount = 0.0;
         final DecimalFormat df = new DecimalFormat("0.00");
         Matched.setVisible(false);
         scroll.setVisible(true);
-        if(Cart.size()==0) {
-            Tax.setText(df.format(((subTotal-TotalDiscount)/1.17)*0.17)+"$");
-            Saved.setText(df.format((TotalDiscount))+"$");
-            Total.setText(df.format((subTotal))+"$");
+        if (Cart.size() == 0) {
+            Tax.setText(df.format(((subTotal - TotalDiscount) / 1.17) * 0.17) + "$");
+            Saved.setText(df.format((TotalDiscount)) + "$");
+            Total.setText(df.format((subTotal)) + "$");
             scroll.setVisible(false);
             Matched.setVisible(true);
             Shipping.setVisible(false);
@@ -206,15 +209,15 @@ public class Cart implements Initializable {
             int column = 0;
             int row = 1;
             for (Item item : Cart) {
-                if(map.get(item.getId())==0)
+                if (map.get(item.getId()) == 0)
                     continue;
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(SimpleClient.class.getResource("ItemCart.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 CartItem CartItemController = fxmlLoader.getController();
-                CartItemController.setItemView(item,map.get(item.getId()));
-                subTotal+=map.get(item.getId())*item.getPrice();
-                TotalDiscount+= map.get(item.getId())*item.getPrice()*(item.getDiscount()/100);
+                CartItemController.setItemView(item, map.get(item.getId()));
+                subTotal += map.get(item.getId()) * item.getPrice();
+                TotalDiscount += map.get(item.getId()) * item.getPrice() * (item.getDiscount() / 100);
                 CartItemController.getQuantity().getValueFactory().setValue(map.get(item.getId()));
 
                 map.put(item.getId(), 0);
@@ -240,19 +243,35 @@ public class Cart implements Initializable {
         }
 
 
-        Tax.setText(df.format(((subTotal-TotalDiscount)/1.17)*0.17)+"$");
-        Saved.setText(df.format((TotalDiscount))+"$");
-        Total.setText(df.format((subTotal))+"$");
+        if (((Client) App.getUser()).getAccounttype() == (AccountTypes.Premium) && (subTotal - TotalDiscount) > 50) {
+
+            double temp = subTotal - TotalDiscount;
+            subTotal = 0.9 * (temp);
+
+            Saved.setText(df.format(TotalDiscount + (temp) * 0.1) + "$");
+            Total.setText(df.format((subTotal)) + "$");
+            Tax.setText(df.format(((subTotal) / 1.17) * 0.17) + "$");
+            setSubTotalD(TotalDiscount + (temp) * 0.1);
+        } else {
+            Saved.setText(df.format((TotalDiscount)) + "$");
+            subTotal -= Double.parseDouble(df.format((TotalDiscount)));
+            Total.setText(df.format((subTotal)) + "$");
+            Tax.setText(df.format(((subTotal) / 1.17) * 0.17) + "$");
+
+            setSubTotalD(TotalDiscount);
+        }
         setSubTotalG(subTotal);
-        setSubTotalD(TotalDiscount);
+
+        setSubTotalT(Double.parseDouble(df.format(((subTotal) / 1.17) * 0.17)));
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (App.getUser() == null)
             UserName.setText("Welcome guest");
         else
             UserName.setText("Welcome " + App.getUser().getFirstname());
-        if(App.getUser()!=null) {
+        if (App.getUser() != null) {
             try {
                 SimpleClient.getClient().sendToServer(new Message(App.getUser(), "#GetCart " + App.getUser().getUsername()));
                 SimpleClient.getClient().cartControl = this;

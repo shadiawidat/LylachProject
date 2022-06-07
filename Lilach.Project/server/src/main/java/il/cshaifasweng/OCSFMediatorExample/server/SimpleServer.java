@@ -170,7 +170,13 @@ public class SimpleServer extends AbstractServer {
             User user = session.find(User.class, msgarray[1]);
 
             if (user != null && user.getPassword().equals(msgarray[2])) {
-
+                if(user.getPermission()==permissions.CLIENT)
+                {
+                    if(((Client)user).getMemberShipt().plusSeconds(30).isBefore(LocalDateTime.now()))
+                    {
+                        ((Client) user).setAccounttype(AccountTypes.Gold);
+                    }
+                }
                 client.sendToClient(new Message(user, "#Useridentify"));
                 if(user.isFreeze()==false)
                     session.find(User.class, msgarray[1]).setLogedIn(true);
@@ -322,22 +328,43 @@ public class SimpleServer extends AbstractServer {
 
         }
         if (request.startsWith("#ApproveShipping")) {
+            System.out.println("here1");
             String[] msgarray = request.split("±");
             session.beginTransaction();
+            System.out.println("here2");
             List<Cart> myorders = session.find(Client.class, msgarray[1]).getMyorders();
+            System.out.println("here3");
             for (Cart cart : myorders) {
+                System.out.println("here4");
                 if (cart.isPayed() == false) {
+
                     cart.setPayed(true);
                     cart.setAddress(msgarray[2]);
                     cart.setSomeOne(msgarray[3]);
                     cart.setSomeOnePhone(msgarray[4]);
                     cart.setBlessingticket(msgarray[5]);
-                    cart.setDelivery(msgarray[6].equals("true"));
-                    cart.setForSomeOne(!msgarray[3].equals(""));
-                    cart.setPrice(Double.parseDouble(msgarray[10]));
-                    //cart.
-                    Date d = new Date(Integer.parseInt(msgarray[7]), Integer.parseInt(msgarray[9]), Integer.parseInt(msgarray[8]));
 
+                    cart.setDelivery(msgarray[6].equals("true"));
+                    System.out.println("here6");
+                    cart.setForSomeOne(!msgarray[3].equals(""));
+                    System.out.println("here7");
+                    System.out.println(msgarray[10]);
+                    cart.setPrice(Double.parseDouble(msgarray[10]));
+                    System.out.println("1");
+                    cart.setHour(Integer.parseInt(msgarray[11]));
+                    cart.setMinute(Integer.parseInt(msgarray[12]));
+                    System.out.println("2");
+                    //cart.
+                    int year =Integer.parseInt(msgarray[7]);
+                    int month=Integer.parseInt(msgarray[8]);
+                    int day=Integer.parseInt(msgarray[9]);
+                    Date d = new Date(Integer.parseInt(msgarray[7])-1900, Integer.parseInt(msgarray[8])-1, Integer.parseInt(msgarray[9])+1);
+                    Date date1 = (Date) ms.getObject();
+                    System.out.println(year);
+                    System.out.println(month);
+                    System.out.println(day);
+                    System.out.println(d);
+                    cart.setDeliverydate(d);
                     cart.setDate(LocalDateTime.now());
                     session.flush();
                     session.getTransaction().commit();
