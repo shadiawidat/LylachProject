@@ -111,7 +111,7 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <TextField fx:id="CreditCard" layoutX="574.0" layoutY="444.0" prefHeight="103.0" styleClass="textFields">
+      <TextField fx:id="CreditCard" layoutX="90.0" layoutY="643.0" prefHeight="103.0" styleClass="textFields" visible="false">
          <font>
             <Font size="24.0" />
          </font>
@@ -182,7 +182,7 @@
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="CreditCardLB" layoutX="574.0" layoutY="416.0" text="Credit Card">
+      <Label fx:id="CreditCardLB" layoutX="89.0" layoutY="608.0" text="Credit Card" visible="false">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
@@ -303,12 +303,12 @@
          </font>
       </TextField>
       <DatePicker fx:id="BirthdateMN" layoutX="104.0" layoutY="553.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" />
-      <Label fx:id="TypeLB" layoutX="574.0" layoutY="515.0" text="Account type">
+      <Label fx:id="TypeLB" layoutX="567.0" layoutY="410.0" text="Account type">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <VBox alignment="TOP_CENTER" layoutX="348.0" layoutY="91.0" prefHeight="623.0" prefWidth="215.0">
+      <VBox alignment="TOP_CENTER" layoutX="348.0" layoutY="100.0" prefHeight="625.0" prefWidth="215.0">
          <children>
             <ImageView fx:id="FreezeIcon" fitHeight="65.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -412,10 +412,13 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="commplainBTN" maxWidth="150.0" mnemonicParsing="false" onMouseClicked="#complain" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Complain">
+            <Button fx:id="commplainBTN" maxWidth="150.0" mnemonicParsing="false" onMouseClicked="#complain" prefWidth="150.0" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Complain" visible="false">
                <font>
                   <Font name="Cambria Bold Italic" size="24.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </Button>
          </children>
       </VBox>
@@ -430,7 +433,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <MenuButton fx:id="Branches" alignment="CENTER" layoutX="577.0" layoutY="630.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields" visible="false">
+      <MenuButton fx:id="Branches" alignment="CENTER" layoutX="576.0" layoutY="551.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields" visible="false">
          <font>
             <Font name="Cambria" size="18.0" />
          </font>
@@ -440,26 +443,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="NewBranch" layoutX="570.0" layoutY="650.0" prefHeight="103.0" styleClass="textFields" visible="false">
+      <TextField fx:id="NewBranch" layoutX="577.0" layoutY="553.0" prefHeight="103.0" styleClass="textFields" visible="false">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
-      <HBox layoutX="90.0" layoutY="606.0" prefHeight="30.0" prefWidth="200.0">
-         <children>
-            <Label fx:id="PasswordLB" layoutX="90.0" text="Password">
-               <font>
-                  <Font name="Cambria" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="InvalidPassword" prefHeight="40.0" prefWidth="46.0" text="*Invalid" textFill="RED" visible="false">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <MenuButton fx:id="AccountType" alignment="CENTER" layoutX="570.0" layoutY="555.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields">
+      <MenuButton fx:id="AccountType" alignment="CENTER" layoutX="563.0" layoutY="450.0" minHeight="51.0" mnemonicParsing="false" styleClass="textFields">
          <items>
             <MenuItem mnemonicParsing="false" onAction="#OneBranch" text="Basic - One Branch" />
             <MenuItem mnemonicParsing="false" onAction="#AllBranches" text="Gold -All Branches" />
@@ -469,5 +458,15 @@
             <Font name="Cambria" size="18.0" />
          </font>
       </MenuButton>
+      <Label fx:id="PasswordLB" layoutX="90.0" layoutY="608.0" text="Password">
+         <font>
+            <Font name="Cambria" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="InvalidPassword" layoutX="191.0" layoutY="608.0" prefHeight="40.0" prefWidth="46.0" text="*Invalid" textFill="RED" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
