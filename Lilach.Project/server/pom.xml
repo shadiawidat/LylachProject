@@ -53,7 +53,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>win</version>
+            <version>17-ea+8</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
