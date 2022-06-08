@@ -15,6 +15,7 @@ import org.hibernate.service.ServiceRegistry;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.io.IOException;
+import java.security.Permission;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -213,6 +214,14 @@ public class SimpleServer extends AbstractServer {
             if (user != null) {
                 client.sendToClient(new Message(user, "#UserExists"));
             } else {
+
+
+                if(msgarray[2].equals("-1") || ((Client) ms.getObject()).getAccounttype() == AccountTypes.Premium){
+                    double x = ((Client) ms.getObject()).getAmount();
+                    ((Client) ms.getObject()).setAmount(x-100);
+                }
+
+
                 saveObject((Client) ms.getObject());
                 session.beginTransaction();
                 user = session.find(Client.class, msgarray[1]);
@@ -272,6 +281,40 @@ public class SimpleServer extends AbstractServer {
                     session.getTransaction().commit();
 
                 }
+                client.sendToClient(new Message(ms.getObject(), "#AddUserCreated"));
+            }
+
+
+        }
+        if (request.startsWith("#AddServiceWorker")) {
+
+            String[] msgarray = request.split(" ");
+            User user = session.find(User.class, msgarray[1]);
+
+            if (user != null) {
+
+                client.sendToClient(new Message(user, "#AddUserExists"));
+            } else {
+
+                App.server.saveObject(ms.getObject());
+                System.out.println(msgarray[1]);
+
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
+                query.from(Branch.class);
+                List<Branch> branches = session.createQuery(query).getResultList();
+
+                User use = session.find(User.class, msgarray[1]);
+                System.out.println("loz");
+                System.out.println(use.getUsername());
+                session.beginTransaction();
+                for(Branch branch : branches){
+                    branch.getUsers().add(use);
+                    use.getMybranches().add(branch);
+                    session.flush();
+
+                }
+                session.getTransaction().commit();
                 client.sendToClient(new Message(ms.getObject(), "#AddUserCreated"));
             }
 
@@ -470,10 +513,14 @@ public class SimpleServer extends AbstractServer {
         }
 
         if (request.startsWith("#UpdateUser")) {
+
             session.beginTransaction();
             String[] msgarray = request.split(" ");
+            System.out.println("a");
+            System.out.println(msgarray.length);
             User user = session.find(User.class, msgarray[1]);
             User userrr = (User) ms.getObject();
+
             if (user != null) {
                 user.setFirstname(userrr.getFirstname());
                 user.setLastname(userrr.getLastname());
@@ -483,9 +530,10 @@ public class SimpleServer extends AbstractServer {
                 user.setEmail(userrr.getEmail());
 
                 if (user.getPermission() == permissions.CLIENT) {
-                    System.out.println("ss");
+
                     ((Client) user).setCreditCard(((Client) userrr).getCreditCard());
                     ((Client) user).setAccounttype(((Client) userrr).getAccounttype());
+                    ((Client) user).setAmount(((Client) userrr).getAmount());
                     if(((Client) userrr).getAccounttype() == AccountTypes.Basic){
                         user.getMybranches().clear();
                         Branch branch = session.find(Branch.class, msgarray[2]);
@@ -510,6 +558,13 @@ public class SimpleServer extends AbstractServer {
                             branch.getUsers().add(user);
                             System.out.println(branch.getName());
                         }
+                    }
+                }else{
+                    if(user.getPermission() == permissions.WORKER){
+                        user.getMybranches().clear();
+                        Branch branch = session.find(Branch.class, msgarray[2]);
+                        user.getMybranches().add(branch);
+
                     }
                 }
                 //System.out.println(msgarray[2] + " #00" );

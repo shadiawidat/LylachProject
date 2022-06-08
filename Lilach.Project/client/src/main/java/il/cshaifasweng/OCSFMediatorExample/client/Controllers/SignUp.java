@@ -25,6 +25,12 @@ public class SignUp implements Initializable {
     @FXML
     private TextField Address;
 
+    @FXML
+    private Label AmountLB;
+
+    @FXML
+    private TextField Amount;
+
     private AccountTypes type;
     @FXML
     private DatePicker Birthdate;
@@ -86,6 +92,9 @@ public class SignUp implements Initializable {
 
     @FXML
     private Label InvalidAccount;
+
+    @FXML
+    private Label InvalidAmount;
 
     @FXML
     private Label InvalidAddress;
@@ -252,6 +261,10 @@ public class SignUp implements Initializable {
         InvalidAccount.setVisible(false);
         InvalidCard.setVisible(false);
         InvalidDate.setVisible(false);
+        InvalidAmount.setVisible(false);
+        InvalidBranch.setVisible(false);
+
+
 
 
 
@@ -262,6 +275,10 @@ public class SignUp implements Initializable {
         InvalidEmail.setVisible((Email.getText().equals("")));
         InvalidPassword.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
         InvalidPhone.setVisible((!Utilities.check_Validate_Phone(Phone.getText())));
+
+
+        InvalidAmount.setVisible(!Utilities.check_Validate_Amount(Amount.getText()));
+
 
         InvalidUserName.setVisible(!Utilities.check_Validate_Username(Username.getText()));
 
@@ -283,12 +300,26 @@ public class SignUp implements Initializable {
         flag=flag||AccountType.getText().equals("");
         flag=flag||!Utilities.check_Validate_Card(CreditCard.getText());
         flag=flag||!Utilities.checkValidDate(Birth, now);
+        flag=flag||!Utilities.check_Validate_Amount(Amount.getText());
+
+        System.out.println("vvv");
+        System.out.println(AccountType.getText());
+        if(AccountType.getText() == "Basic" && Branches.getText() == ""){
+            InvalidBranch.setVisible(true);
+            flag = true;
+        }
+
+
+
 
         if(flag)
             return;
+        if(Double.parseDouble(Amount.getText()) < 100 && AccountType.getText() != "Basic"){
+            InvalidAmount.setVisible(true);
+            return;
+        }
         Client nClient=new Client(Username.getText(),Password.getText(),FirstName.getText(),LastName.getText(),Email.getText(),Phone.getText(),Birth,
-                Address.getText(), permissions.CLIENT,ID.getText(),CreditCard.getText(),type,0.0);
-
+                Address.getText(), permissions.CLIENT,ID.getText(),CreditCard.getText(),type,Double.parseDouble(Amount.getText()));
 
 
 
@@ -299,6 +330,7 @@ public class SignUp implements Initializable {
             {
                 if(branch.getName().equals(Branches.getText()))
                 {
+
                     Message ms = new Message(nClient, "#UserExist " + Username.getText()+" "+branch.getName());
                     SimpleClient.getClient().sendToServer(ms);
                     SimpleClient.getClient().signUpControl=this;
@@ -306,6 +338,8 @@ public class SignUp implements Initializable {
                 }
             }
         }
+
+
 
         Message ms = new Message(nClient, "#UserExist " + Username.getText()+" -1");
         SimpleClient.getClient().sendToServer(ms);
@@ -333,6 +367,7 @@ public class SignUp implements Initializable {
     void Subscription(ActionEvent event) {
         Branches.setVisible(false);
         Branch.setVisible(false);
+        Branches.setText("");
         InvalidBranch.setVisible(false);
         type=AccountTypes.Premium;
         AccountType.setText(AccountTypes.Premium.name());
@@ -364,7 +399,7 @@ public class SignUp implements Initializable {
 
     @FXML
     void AllBranches(ActionEvent event) {
-
+        Branches.setText("");
         Branches.setVisible(false);
         Branch.setVisible(false);
         InvalidBranch.setVisible(false);

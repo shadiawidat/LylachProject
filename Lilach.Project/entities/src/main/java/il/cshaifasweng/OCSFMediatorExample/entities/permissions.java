@@ -5,6 +5,7 @@ public enum permissions {
     WORKER,
     MANAGER,
     ADMIN,
-    CorpManager
+    CorpManager,
+    CustomerServiceWorker
 }
 

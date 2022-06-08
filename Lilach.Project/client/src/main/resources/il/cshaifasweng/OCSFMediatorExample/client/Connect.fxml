@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Connect">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Connect">
    <children>
       <Button layoutX="236.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#RunIt" text="Run" />
       <VBox layoutX="14.0" layoutY="21.0" prefHeight="102.0" prefWidth="222.0">
@@ -27,7 +27,7 @@
             <HBox prefHeight="17.0" prefWidth="200.0">
                <children>
                   <Label text="Port" />
-                  <TextField fx:id="Port" text="3020">
+                  <TextField fx:id="Port" text="3040">
                      <HBox.margin>
                         <Insets left="23.0" />
                      </HBox.margin>

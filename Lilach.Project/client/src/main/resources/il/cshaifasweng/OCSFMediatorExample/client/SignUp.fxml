@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.SignUp">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.SignUp">
    <children>
       <Label layoutX="126.0" layoutY="596.0" text="BirthDate" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="596.0">
          <font>
@@ -210,7 +210,7 @@
             <PasswordField fx:id="Password" minHeight="51.0" prefHeight="50.0" styleClass="textFields" />
          </children>
       </VBox>
-      <VBox layoutX="574.0" layoutY="106.0" prefHeight="531.0" prefWidth="250.0" AnchorPane.leftAnchor="574.0">
+      <VBox layoutX="574.0" layoutY="109.0" prefHeight="531.0" prefWidth="250.0" AnchorPane.leftAnchor="574.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="12.0" prefWidth="250.0">
                <children>
@@ -394,5 +394,28 @@
             </Menu>
          </menus>
       </MenuBar>
+      <VBox layoutX="384.0" layoutY="108.0" prefHeight="95.0" prefWidth="170.0">
+         <children>
+            <HBox prefHeight="30.0" prefWidth="146.0">
+               <children>
+                  <Label fx:id="AmountLB" text="Amount">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="InvalidAmount" prefHeight="30.0" prefWidth="54.0" text="Invalid" textFill="#ff0015" visible="false">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <TextField fx:id="Amount" prefHeight="93.0" prefWidth="110.0" styleClass="textFields">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
