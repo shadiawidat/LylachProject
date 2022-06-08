@@ -174,7 +174,11 @@ public class SimpleClient extends AbstractClient {
 		else if (deliver.equals("#UserUpdated"))
 		{
 			accountControl.setUser((User) ms.getObject());
-			Platform.runLater(()->{accountControl.fillInfo((User) ms.getObject());});
+			Platform.runLater(()->{
+
+				accountControl.fillInfo((User) ms.getObject());
+				accountControl.ShowNote("User Updated Successfully!");
+			});
 		}
 		else if(deliver.equals("#UpdateInfoFailed")){
 			Platform.runLater(()->{
@@ -255,7 +259,10 @@ public class SimpleClient extends AbstractClient {
 			Platform.runLater(()->accountControl.UserAlreadyExist());
 		}
 		else if(deliver.equals("#AddUserCreated")){
-			Platform.runLater(()->accountControl.UserAdded());
+			Platform.runLater(()->{
+				accountControl.ShowNote("User Added Successfully!");
+
+			});
 		}
 		else if(deliver.equals("#CancelOrderFailed")){
 

@@ -171,4 +171,18 @@ public class Utilities {
         return true;
     }
 
+    public static boolean check_Validate_Amount(String amount){
+        if(amount.equals("") || amount.equals(" ")){
+            return false;
+        }
+        for(int i = 0; i < amount.length(); i++){
+            if(amount.charAt(i) < '0' || amount.charAt(i) > '9'){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
 }

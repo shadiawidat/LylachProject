@@ -16,6 +16,7 @@ import org.hibernate.service.ServiceRegistry;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.io.IOException;
+import java.security.Permission;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -265,7 +266,16 @@ public class SimpleServer extends AbstractServer {
             if (user != null) {
                 client.sendToClient(new Message(user, "#UserExists"));
             } else {
-                saveObject(ms.getObject());
+
+
+                if(msgarray[2].equals("-1") || ((Client) ms.getObject()).getAccounttype() == AccountTypes.Premium){
+                    double x = ((Client) ms.getObject()).getAmount();
+                    ((Client) ms.getObject()).setAmount(x-100);
+                }
+
+
+                saveObject((Client) ms.getObject());
+
                 session.beginTransaction();
                 user = session.find(Client.class, msgarray[1]);
                 if (!msgarray[2].equals("-1")) {
@@ -300,16 +310,20 @@ public class SimpleServer extends AbstractServer {
                 App.server.saveObject(ms.getObject());
                 User use = session.find(User.class, msgarray[1]);
                 Branch b1 = session.find(Branch.class, msgarray[2]);
+
                 if (b1 != null) {
+
 
                     session.beginTransaction();
                     b1.getUsers().add(use);
                     use.getMybranches().add(b1);
                     session.flush();
                     session.getTransaction().commit();
+
                 } else {
 
                     b1 = new Branch(msgarray[2]);
+
                     App.server.saveObject(b1);
                     b1 = session.find(Branch.class, msgarray[2]);
                     session.beginTransaction();
@@ -319,6 +333,40 @@ public class SimpleServer extends AbstractServer {
                     session.getTransaction().commit();
 
                 }
+                client.sendToClient(new Message(ms.getObject(), "#AddUserCreated"));
+            }
+
+
+        }
+        if (request.startsWith("#AddServiceWorker")) {
+
+            String[] msgarray = request.split(" ");
+            User user = session.find(User.class, msgarray[1]);
+
+            if (user != null) {
+
+                client.sendToClient(new Message(user, "#AddUserExists"));
+            } else {
+
+                App.server.saveObject(ms.getObject());
+                System.out.println(msgarray[1]);
+
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
+                query.from(Branch.class);
+                List<Branch> branches = session.createQuery(query).getResultList();
+
+                User use = session.find(User.class, msgarray[1]);
+                System.out.println("loz");
+                System.out.println(use.getUsername());
+                session.beginTransaction();
+                for(Branch branch : branches){
+                    branch.getUsers().add(use);
+                    use.getMybranches().add(branch);
+                    session.flush();
+
+                }
+                session.getTransaction().commit();
                 client.sendToClient(new Message(ms.getObject(), "#AddUserCreated"));
             }
 
@@ -415,14 +463,18 @@ public class SimpleServer extends AbstractServer {
 
                     cart.setPrice(Double.parseDouble(msgarray[10]));
 
-
-                    if (msgarray[13].equals("true")) {
+                    cart.setHour(Integer.parseInt(msgarray[11]));
+                    cart.setMinute(Integer.parseInt(msgarray[12]));
+                    if(msgarray[13].equals("true"))
+                    {
                         System.out.println("hello");
                         cart.setPaymentMethod(PaymentMethod.CASH);
-                    } else {
+                    }
+                    else {
                         cart.setPaymentMethod(PaymentMethod.CREDIT);
-                        Client client1 = session.find(Client.class, msgarray[1]);
-                        client1.setAmount(client1.getAmount() - Double.parseDouble(msgarray[10]));
+                        Client client1=session.find(Client.class, msgarray[1]);
+                        client1.setAmount(client1.getAmount()-Double.parseDouble(msgarray[10]));
+
                     }
 
                     //cart.
@@ -431,10 +483,12 @@ public class SimpleServer extends AbstractServer {
                     int day = Integer.parseInt(msgarray[9]);
                     Date d = new Date(Integer.parseInt(msgarray[7]) - 1900, Integer.parseInt(msgarray[8]) - 1, Integer.parseInt(msgarray[9]) + 1);
                     Date date1 = (Date) ms.getObject();
+
                     cart.setHour(Integer.parseInt(msgarray[11]));
                     cart.setMinute(Integer.parseInt(msgarray[12]));
                     d.setHours(Integer.parseInt(msgarray[11]));
                     d.setMinutes(Integer.parseInt(msgarray[12]));
+
                     cart.setDeliverydate(d);
                     cart.setDate(LocalDateTime.now());
                     session.flush();
@@ -527,10 +581,14 @@ public class SimpleServer extends AbstractServer {
         }
 
         if (request.startsWith("#UpdateUser")) {
+
             session.beginTransaction();
             String[] msgarray = request.split(" ");
+            System.out.println("a");
+            System.out.println(msgarray.length);
             User user = session.find(User.class, msgarray[1]);
             User userrr = (User) ms.getObject();
+
             if (user != null) {
                 user.setFirstname(userrr.getFirstname());
                 user.setLastname(userrr.getLastname());
@@ -543,14 +601,18 @@ public class SimpleServer extends AbstractServer {
 
                     ((Client) user).setCreditCard(((Client) userrr).getCreditCard());
                     ((Client) user).setAccounttype(((Client) userrr).getAccounttype());
-                    if (((Client) userrr).getAccounttype() == AccountTypes.Basic) {
+
+                    ((Client) user).setAmount(((Client) userrr).getAmount());
+                    if(((Client) userrr).getAccounttype() == AccountTypes.Basic){
                         user.getMybranches().clear();
                         Branch branch = session.find(Branch.class, msgarray[2]);
-                        if (branch != null) {
+                        if(branch != null) {
                             user.getMybranches().add(branch);
                         }
                         branch.getUsers().add(user);
-                    } else if (((Client) userrr).getAccounttype() == AccountTypes.Premium || ((Client) userrr).getAccounttype() == AccountTypes.Gold) {
+                    }
+                    else if(((Client) userrr).getAccounttype() == AccountTypes.Premium || ((Client) userrr).getAccounttype() == AccountTypes.Gold){
+
                         user.getMybranches().clear();
 
                         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -564,6 +626,13 @@ public class SimpleServer extends AbstractServer {
                             branch.getUsers().add(user);
 
                         }
+                    }
+                }else{
+                    if(user.getPermission() == permissions.WORKER){
+                        user.getMybranches().clear();
+                        Branch branch = session.find(Branch.class, msgarray[2]);
+                        user.getMybranches().add(branch);
+
                     }
                 }
                 user.setPermission(userrr.getPermission());
