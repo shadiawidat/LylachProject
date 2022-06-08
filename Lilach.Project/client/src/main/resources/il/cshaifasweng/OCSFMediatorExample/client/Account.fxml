@@ -382,7 +382,7 @@
             </AnchorPane>
          </children>
       </VBox>
-      <VBox layoutX="599.0" layoutY="119.0" prefHeight="487.0" prefWidth="262.0">
+      <VBox layoutX="599.0" layoutY="101.0" prefHeight="592.0" prefWidth="266.0">
          <children>
             <HBox alignment="BOTTOM_LEFT" prefHeight="28.0" prefWidth="200.0">
                <children>
@@ -462,6 +462,7 @@
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#CorpManagerItem" text="CORPORATION MANAGER" />
                         <MenuItem mnemonicParsing="false" onAction="#WorkerItem" text="WORKER" />
+                        <MenuItem mnemonicParsing="false" onAction="#CustomerServiceItem" text="Customer Service" />
                         <MenuItem mnemonicParsing="false" onAction="#ManagerItem" text="BRANCH MANAGER" />
                      </items>
                      <font>
@@ -529,6 +530,16 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </AnchorPane>
+            <Label fx:id="AmountLb" text="Amount" visible="false">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="Amount" prefHeight="103.0" styleClass="textFields" visible="false">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
          </children>
       </VBox>
    </children>

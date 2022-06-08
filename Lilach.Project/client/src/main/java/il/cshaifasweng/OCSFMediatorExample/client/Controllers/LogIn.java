@@ -132,6 +132,14 @@ public class LogIn implements Initializable {
                         e.printStackTrace();
                     }
                 }
+                else if(App.getUser().getPermission() == permissions.CustomerServiceWorker){
+                    try {
+                        AllComplains.setCaller("LogIn");
+                        App.setRoot("AllComplains");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 else{
                     try {
                         Catalog.setCaller("LogIn");

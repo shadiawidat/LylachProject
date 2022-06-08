@@ -34,7 +34,8 @@ public class Client extends User implements Serializable {
     public Client(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard, AccountTypes accounttype, Double amount) {
         super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, creditCard,false);
         this.accounttype = accounttype;
-        this.amount =amount;
+        this.amount = amount;
+
         this.CreditCard=creditCard;
         MemberShipt=LocalDateTime.now();
     }
