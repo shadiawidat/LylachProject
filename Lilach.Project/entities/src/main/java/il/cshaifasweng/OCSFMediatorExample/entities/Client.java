@@ -14,10 +14,22 @@ public class Client extends User implements Serializable {
     @OneToMany(mappedBy = "client")
     private List<Complain> complains=new ArrayList<>();
 
-    private Map<String,Boolean> sms=new HashMap<>();
-
     private AccountTypes accounttype;
     private Double amount;
+
+
+    public List<SMStext> getMySMS() {
+        return mySMS;
+    }
+
+    public void setMySMS(List<SMStext> mySMS) {
+        this.mySMS = mySMS;
+    }
+
+    @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE)
+    private List<SMStext> mySMS=new ArrayList<>();
+
+
 
     private String CreditCard;
 

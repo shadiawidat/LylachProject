@@ -82,6 +82,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+        System.out.println(getClass().getResource(""));
         Parent root = FXMLLoader.load(getClass().getResource("Connect.fxml"));
         stage.setTitle("LyLach");
         scene=new Scene(root, 350, 150);

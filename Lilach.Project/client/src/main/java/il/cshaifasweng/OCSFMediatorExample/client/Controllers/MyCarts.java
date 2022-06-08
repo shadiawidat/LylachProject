@@ -64,8 +64,6 @@ public class MyCarts implements Initializable {
 
     public boolean isRunning=false;
 
-
-
     List<CartView> controllers=new ArrayList<>();
 
     final DecimalFormat df = new DecimalFormat("0.00");

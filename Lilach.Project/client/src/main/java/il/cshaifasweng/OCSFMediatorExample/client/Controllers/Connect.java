@@ -3,15 +3,18 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.net.*;
+import java.util.ResourceBundle;
 
-public class Connect {
+public class Connect implements Initializable {
 
     @FXML
     private CheckBox Server;
@@ -20,20 +23,13 @@ public class Connect {
     private CheckBox Client;
 
     @FXML
-    private TextField IP;
+    private MenuButton IP;
 
     @FXML
     private TextField Port;
 
     @FXML
     void RunIt(MouseEvent event) throws Exception {
-        if(Server.isSelected()) {
-            String[] temp = new String[1];
-            temp[0] = Port.getText();
-            il.cshaifasweng.OCSFMediatorExample.server.App.main(temp);
-        }
-        if(Client.isSelected())
-        {
             App.setClient(SimpleClient.getClient());
             App.getClient().setPort(Integer.parseInt(Port.getText()));
             App.getClient().setHost(IP.getText());
@@ -57,7 +53,26 @@ public class Connect {
             App.getTheStage().setX(200);
             App.getTheStage().setY(50);
             App.setRoot("LogIn");
-        }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try(final DatagramSocket socket = new DatagramSocket()){
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            MenuItem item=new MenuItem();
+            item.setText(socket.getLocalAddress().getHostAddress());
+            IP.getItems().add(item);
+
+        } catch (SocketException | UnknownHostException e) {
+            e.printStackTrace();
+        }
+        for(MenuItem menuItem: IP.getItems()){
+            menuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    IP.setText(menuItem.getText());
+                }
+            });
+        }
+    }
 }

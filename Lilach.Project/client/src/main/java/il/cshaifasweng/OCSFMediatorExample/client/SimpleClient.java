@@ -234,6 +234,12 @@ public class SimpleClient extends AbstractClient {
 				}
 			});
 		}
+		else if(deliver.equals("#SMSLOADED")){
+
+			Platform.runLater(()->{
+				catalogControl.loadms((List<SMStext>) ms.getObject());
+			});
+		}
 		else if(deliver.equals("#AddNewItem"))
 		{
 			Platform.runLater(()->{
@@ -278,13 +284,7 @@ public class SimpleClient extends AbstractClient {
 
 	public static SimpleClient getClient() {
 		if (client == null) {
-
-
-<<<<<<< HEAD
-			client = new SimpleClient("localhost", 3213);
-=======
 			client = new SimpleClient("localhost", 3121);
->>>>>>> main
 		}
 		return client;
 	}
