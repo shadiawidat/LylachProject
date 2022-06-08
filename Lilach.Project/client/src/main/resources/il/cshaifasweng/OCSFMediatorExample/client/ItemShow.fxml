@@ -96,7 +96,9 @@
                         <Image url="@../../../../Icons/Close.jpg" />
                      </image>
                   </ImageView>
-                  <VBox layoutX="42.0" layoutY="52.0" onDragOver="#HandleOver" prefHeight="451.0" prefWidth="170.0">
+
+                  <VBox layoutX="42.0" layoutY="52.0" onDragOver="#HandleOver" prefHeight="451.0" prefWidth="213.0">
+
                      <children>
                         <Label fx:id="idtext" maxHeight="37.0" prefHeight="37.0" prefWidth="172.0" stylesheets="@../../../../Styles/Style.css" text="ID: 32029">
                            <font>
@@ -259,12 +261,16 @@
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="UpdateInfo" layoutX="392.0" layoutY="460.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="left_menu_btns" text="Update Info" visible="false">
+
+                  <Button fx:id="UpdateInfo" layoutX="326.0" layoutY="403.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="left_menu_btns" text="Update Info" visible="false">
+
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="DeleteItem" layoutX="238.0" layoutY="460.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#DeleteItem" styleClass="left_menu_btns" text="Delete Item" visible="false">
+
+                  <Button fx:id="DeleteItem" layoutX="326.0" layoutY="458.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#DeleteItem" styleClass="left_menu_btns" text="Delete Item" visible="false">
+
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>

@@ -101,6 +101,17 @@ public class Cart implements Serializable {
     private String someOnePhone;
     private PaymentMethod paymentMethod;
 
+    private boolean SMSED;
+
+    public boolean isSMSED() {
+        return SMSED;
+    }
+
+    public void setSMSED(boolean SMSED) {
+        this.SMSED = SMSED;
+    }
+
+
     public PaymentMethod getPaymentMethod() {
         return paymentMethod;
     }

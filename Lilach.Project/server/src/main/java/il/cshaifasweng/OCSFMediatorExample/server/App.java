@@ -1,6 +1,11 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
 import java.net.InetAddress;
@@ -10,13 +15,16 @@ import java.util.ArrayList;
 
 import java.util.Date;
 
-public class App {
+public class App extends Application {
 
+    private static Scene scene;
+
+    private static Stage theStage;
     private static void generateUsers() throws Exception {
 
 
     }
-    private static void generateItems() throws Exception {
+    public static void generateItems() throws Exception {
         Item item = new Item("Orchid" , 87, "Flower", "Purple",0);
         server.saveObject(item);
          item = new Item("Lily", 15, "Flower", "White",0);
@@ -31,13 +39,13 @@ public class App {
         server.saveObject(item);
          item = new Item("Black Vase", 11, "Vase", "Black",20);
         server.saveObject(item);
-         item = new Item( "Bouquet 1", 7, "Bouquet", "Red",35);
+         item = new Item( "Valentine", 7, "Bouquet", "Red",35);
         server.saveObject(item);
-         item = new Item("Bouquet 2", 9, "Bouquet", "MultiColor",10);
+         item = new Item("Passion", 9, "Bouquet", "MultiColor",10);
         server.saveObject(item);
-         item = new Item("Bouquet 3", 11, "Bouquet", "Yellow",5);
+         item = new Item("Evelyn", 11, "Bouquet", "Yellow",5);
         server.saveObject(item);
-         item = new Item("Bouquet 4", 11, "Bouquet", "MultiColor",0);
+         item = new Item("Amour", 11, "Bouquet", "MultiColor",0);
         server.saveObject(item);
 
         item = new Item("Garden Gloves", 18, "Gardening", "Yellow",10);
@@ -48,7 +56,7 @@ public class App {
         server.saveObject(item);
         item = new Item("Hedge Shears", 12, "Gardening", "Orange",0);
         server.saveObject(item);
-        item = new Item("Gardening Set", 38, "Gardening", "Black",30);
+        item = new Item("Shovel Set", 38, "Gardening", "Black",30);
         server.saveObject(item);
 
         item = new Item("White Bouquet", 85, "Wedding", "White",0);
@@ -120,10 +128,21 @@ cache errors.
 
     public static void main(String[] args) throws Exception {
 
-        server=new SimpleServer(Integer.parseInt(args[0]));
-//        generateUsers();
-        generateItems();
-//        generateBranches();
-        server.listen();
+        launch();
     }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+
+        System.out.println(getClass().getResource(""));
+        Parent root = FXMLLoader.load(getClass().getResource("Connect.fxml"));
+
+        stage.setTitle("LyLach");
+        scene=new Scene(root, 350, 150);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+
 }

@@ -19,6 +19,20 @@ public class Client extends User implements Serializable {
     private AccountTypes accounttype;
     private Double amount;
 
+
+    public List<SMStext> getMySMS() {
+        return mySMS;
+    }
+
+    public void setMySMS(List<SMStext> mySMS) {
+        this.mySMS = mySMS;
+    }
+
+    @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE)
+    private List<SMStext> mySMS=new ArrayList<>();
+
+
+
     private String CreditCard;
 
     private LocalDateTime MemberShipt;
@@ -34,7 +48,8 @@ public class Client extends User implements Serializable {
     public Client(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard, AccountTypes accounttype, Double amount) {
         super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, creditCard,false);
         this.accounttype = accounttype;
-        this.amount = amount;
+
+        this.amount =amount;
 
         this.CreditCard=creditCard;
         MemberShipt=LocalDateTime.now();

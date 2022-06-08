@@ -2,12 +2,10 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Item;
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
-import il.cshaifasweng.OCSFMediatorExample.entities.Utilities;
-import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -55,6 +53,9 @@ public class Catalog implements Initializable {
 
     @FXML
     private Button Back;
+
+    @FXML
+    private MenuButton Messeges;
 
     @FXML
     private Button addItemBtn;
@@ -113,6 +114,9 @@ public class Catalog implements Initializable {
 
     @FXML
     private Label InvalidPrice;
+
+    @FXML
+    private ImageView MesseageIndicator;
 
     @FXML
     private MenuItem Reports;
@@ -660,18 +664,54 @@ public class Catalog implements Initializable {
             e.printStackTrace();
         }
     }
+    public void loadms(List<SMStext> MySMS){
+        if(MySMS.size()>0)
+        {
+            MesseageIndicator.setVisible(true);
+        }
+        for (SMStext smStext : MySMS) {
+            MenuItem menuItem = new MenuItem();
+            menuItem.setText(smStext.getText());
+            menuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    try {
+
+                        SimpleClient.getClient().sendToServer(new Message(null,"#MakeRead,"+menuItem.getText()));
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
+            });
+
+            Messeges.getItems().add(menuItem);
+        }
+    }
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         if (searchin != null && searchin.equals("") == false) {
             SearchField.setText(searchin);
             ClickSearch(null);
             return;
         }
-        if (App.getUser() == null)
+        if (App.getUser() == null) {
             UserName.setText("Welcome guest");
-        else
+
+        }
+        else {
+            if(App.getUser().getPermission()==permissions.CLIENT) {
+                try {
+                    SimpleClient.getClient().sendToServer(new Message(App.getUser(),"#LoadMS"));
+                    SimpleClient.getClient().catalogControl=this;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
             UserName.setText("Welcome " + App.getUser().getFirstname());
+        }
         if (App.getUser() != null) {
             MenuSignIn.setVisible(false);
             if (App.getUser().getPermission() == permissions.WORKER || App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.CorpManager) {
