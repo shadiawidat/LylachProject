@@ -14,10 +14,60 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.AllComplains">
     <children>
+        <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="148.0" maxHeight="450.0" prefHeight="200.0" prefWidth="233.0" styleClass="menubox" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="148.0">
+            <children>
+                <Label text="Complains handling">
+                    <font>
+                        <Font name="Cambria" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Label>
+                <Label text="please make sure that">
+                    <font>
+                        <Font name="Cambria" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Label>
+                <Label text="Complains have to be handled">
+                    <font>
+                        <Font name="Cambria" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Label>
+                <Label text="in 24 hours.">
+                    <font>
+                        <Font name="Cambria" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Label>
+                <Label>
+                    <font>
+                        <Font name="Cambria" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Label>
+                <ImageView fitHeight="221.0" fitWidth="247.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../Media/GIFS/thanksforyourservice.jpg" />
+                    </image>
+                </ImageView>
+            </children>
+        </VBox>
         <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
                 <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
@@ -63,7 +113,7 @@
                 </ImageView>
             </children>
         </HBox>
-          <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="26.0" layoutY="106.0" prefHeight="534.0" prefWidth="869.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
+          <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="26.0" layoutY="106.0" prefHeight="534.0" prefWidth="869.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="109.0">
               <content>
                   <GridPane fx:id="gridPane" minHeight="13.0" minWidth="14.0" prefHeight="13.0" prefWidth="14.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css">
                       <rowConstraints>
@@ -72,7 +122,7 @@
                   </GridPane>
               </content>
           </ScrollPane>
-      <Button fx:id="Back" layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;">
+      <Button fx:id="Back" layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="650.0">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
@@ -103,5 +153,6 @@
             <Font name="Cambria" size="48.0" />
          </font>
       </Label>
+
     </children>
 </AnchorPane>

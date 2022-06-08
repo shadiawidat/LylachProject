@@ -1,17 +1,14 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Branch;
-import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
-
 
 
 import java.net.InetAddress;
 import java.security.Permission;
 import java.sql.Time;
 import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
 
 public class App {
 
@@ -43,6 +40,25 @@ public class App {
          item = new Item("Bouquet 4", 11, "Bouquet", "MultiColor",0);
         server.saveObject(item);
 
+        item = new Item("Garden Gloves", 18, "Gardening", "Yellow",10);
+        server.saveObject(item);
+        item = new Item("Hoe", 15, "Gardening", "Black",0);
+        server.saveObject(item);
+        item = new Item("Shovel", 15, "Gardening", "Black",0);
+        server.saveObject(item);
+        item = new Item("Hedge Shears", 12, "Gardening", "Orange",0);
+        server.saveObject(item);
+        item = new Item("Gardening Set", 38, "Gardening", "Black",30);
+        server.saveObject(item);
+
+        item = new Item("White Bouquet", 85, "Wedding", "White",0);
+        server.saveObject(item);
+        item = new Item("Purple Bouquet", 90, "Wedding", "Purple",15);
+        server.saveObject(item);
+        item = new Item("Pink Bouquet", 80, "Wedding", "Pink",0);
+        server.saveObject(item);
+        item = new Item("Red Bouquet", 90, "Wedding", "Red",0);
+        server.saveObject(item);
 
         //Admin
 
@@ -82,7 +98,7 @@ public class App {
         Client LClient=new Client("lana31","Lana3182!","Lana","Shehab","lana.shehab0111@gmail.com","0522481844",new Date(2000-1900,2-1,8+1),"Haifa",permissions.CLIENT,"206539199","4580404032194023" ,AccountTypes.Premium,0.0);
         server.saveObject(LClient);
 
-        Client RClient=new Client("ramkh","ramkh","Ram","Khoury","Ramkh2000@gmail.com","0528020276",new Date(2001-1900,10-1,18+1),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Gold,0.0);
+        Client RClient=new Client("ramkh","ramkh","Ram","Khoury","Ramkh2000@gmail.com","0528020276",new Date(2001-1900,10-1,18+1),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Gold,100.0);
         server.saveObject(RClient);
 
         Client nClient=new Client("muradkh","muradkh","Murad","Khoury","Muradkh@gmail.com","0528020276",new Date(2001-1900,10-1,18+1),"Haifa",permissions.CLIENT,"123456789","123456789" ,AccountTypes.Basic,0.0);

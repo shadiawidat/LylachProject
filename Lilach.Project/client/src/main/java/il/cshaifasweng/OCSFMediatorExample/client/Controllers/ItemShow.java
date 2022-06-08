@@ -69,6 +69,9 @@ public class ItemShow implements Initializable {
     @FXML
     private Label UserName;
     @FXML
+    private Label idtext;
+
+    @FXML
     private Label color;
     @FXML
     private ImageView imgid;
@@ -256,6 +259,7 @@ public class ItemShow implements Initializable {
         discount.setVisible(false);
         if (item == null)
             return;
+        idtext.setText("ID: " + Integer.toString(item.getId()));
         ITEM = item;
         nameid.setText("Name: " + item.getName());
         price.setText("Price: $" + item.getPrice());

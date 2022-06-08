@@ -3,9 +3,7 @@ import javax.persistence.*;
 import javax.persistence.criteria.Order;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Client extends User implements Serializable {
@@ -15,6 +13,8 @@ public class Client extends User implements Serializable {
 
     @OneToMany(mappedBy = "client")
     private List<Complain> complains=new ArrayList<>();
+
+    private Map<String,Boolean> sms=new HashMap<>();
 
     private AccountTypes accounttype;
     private Double amount;
@@ -35,6 +35,7 @@ public class Client extends User implements Serializable {
         super(username, password, firstname, lastname, email, phonenumber, birthday, address, permission, ID, creditCard,false);
         this.accounttype = accounttype;
         this.amount = amount;
+
         this.CreditCard=creditCard;
         MemberShipt=LocalDateTime.now();
     }

@@ -47,7 +47,13 @@ public class Connect {
 
             }
             App.getTheStage().setWidth(920);
-            App.getTheStage().setHeight(720);
+            App.getTheStage().setMinWidth(920);
+            App.getTheStage().setMaxWidth(920);
+
+            App.getTheStage().setMinHeight(750);
+            App.getTheStage().setHeight(750);
+            App.getTheStage().setMaxHeight(750);
+
             App.getTheStage().setX(200);
             App.getTheStage().setY(50);
             App.setRoot("LogIn");

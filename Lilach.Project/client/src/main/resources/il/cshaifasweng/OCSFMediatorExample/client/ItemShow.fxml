@@ -87,7 +87,7 @@
          <children>
             <AnchorPane prefHeight="555.0" prefWidth="583.0">
                <children>
-                  <ImageView fx:id="imgid" fitHeight="249.0" fitWidth="250.0" layoutX="290.0" layoutY="128.0" onDragDropped="#HandleDrop" onDragOver="#HandleOver" pickOnBounds="true">
+                  <ImageView fx:id="imgid" fitHeight="249.0" fitWidth="250.0" layoutX="267.0" layoutY="128.0" onDragDropped="#HandleDrop" onDragOver="#HandleOver" pickOnBounds="true">
                      <image>
                         <Image url="@../../../../Media/Flower/Orchid.png" />
                      </image></ImageView>
@@ -96,14 +96,17 @@
                         <Image url="@../../../../Icons/Close.jpg" />
                      </image>
                   </ImageView>
-                  <Button fx:id="UpdateInfo" layoutX="392.0" layoutY="460.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="left_menu_btns" text="Update Info" visible="false">
-                     <font>
-                        <Font name="Cambria" size="18.0" />
-                     </font>
-                  </Button>
-                  <VBox layoutX="42.0" layoutY="54.0" onDragOver="#HandleOver" prefHeight="411.0" prefWidth="247.0">
+                  <VBox layoutX="42.0" layoutY="52.0" onDragOver="#HandleOver" prefHeight="451.0" prefWidth="170.0">
                      <children>
-                        <HBox prefHeight="35.0" prefWidth="181.0">
+                        <Label fx:id="idtext" maxHeight="37.0" prefHeight="37.0" prefWidth="172.0" stylesheets="@../../../../Styles/Style.css" text="ID: 32029">
+                           <font>
+                              <Font name="Cambria" size="22.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="43.0" prefWidth="247.0">
                            <children>
                               <Label fx:id="nameid" prefHeight="61.0" prefWidth="170.0" stylesheets="@../../../../Styles/Style.css" text="Name: Orcid">
                                  <font>
@@ -129,7 +132,7 @@
                               <Insets bottom="10.0" />
                            </padding>
                            <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </HBox>
                         <TextField fx:id="NameText" prefHeight="26.0" prefWidth="99.0" styleClass="textFields" visible="false">
@@ -252,6 +255,11 @@
                      </children>
                   </VBox>
                   <Button fx:id="AddToCartBtn" layoutX="326.0" layoutY="431.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#AddToCart" styleClass="left_menu_btns" text="Add to cart">
+                     <font>
+                        <Font name="Cambria" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="UpdateInfo" layoutX="392.0" layoutY="460.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#UpdateInfo" style="-fx-background-color: #FFFFFF;" styleClass="left_menu_btns" text="Update Info" visible="false">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>

@@ -29,6 +29,12 @@ public class Shipping implements Initializable {
     private Button Approve;
 
     @FXML
+    private CheckBox Cash;
+
+    @FXML
+    private CheckBox Credit;
+
+    @FXML
     private Button Back;
 
     @FXML
@@ -117,7 +123,31 @@ public class Shipping implements Initializable {
     final DecimalFormat df = new DecimalFormat("0.00");
 
 
-
+    @FXML
+    void Credit(MouseEvent event) {
+        if(Cash.isSelected())
+        {
+            Cash.setSelected(false);
+            Credit.setSelected(true);
+        }
+        else
+        {       Cash.setSelected(true);
+            Credit.setSelected(false);
+        }
+    }
+    @FXML
+    void Cash(MouseEvent event) {
+        if(Credit.isSelected())
+        {
+            Credit.setSelected(false);
+            Cash.setSelected(true);
+        }
+        else
+        {
+            Credit.setSelected(true);
+            Cash.setSelected(false);
+        }
+    }
     @FXML
     void Back(MouseEvent event) throws IOException {
         App.setRoot(getCaller());
@@ -251,6 +281,17 @@ public class Shipping implements Initializable {
 
     @FXML
     void ApproveFunc(MouseEvent event) throws IOException {
+        System.out.println(((Client)App.getUser()).getAmount());
+        if(Credit.isSelected()&&((Client)App.getUser()).getAmount()<SimpleClient.getClient().cartControl.subTotalG)
+        {
+            Alert a=new Alert(Alert.AlertType.ERROR);
+            a.setContentText("Your total is: "+SimpleClient.getClient().cartControl.subTotalG+"\nYour budget is: "+((Client)App.getUser()).getAmount()+"\nPlease recharge first!");
+            a.showAndWait();
+            return;
+        }
+
+
+
 
         boolean flag=false;
         InvalidHour.setVisible(false);
@@ -290,7 +331,7 @@ public class Shipping implements Initializable {
         }
         double lastprice=SimpleClient.getClient().cartControl.subTotalG;
 
-        Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + Date.getValue().getYear() + "±" + Date.getValue().getMonthValue() + "±" + Date.getValue().getDayOfMonth()+"±" + lastprice+ "±" +Hr.getText()+ "±" +Mn.getText());
+        Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + Date.getValue().getYear() + "±" + Date.getValue().getMonthValue() + "±" + Date.getValue().getDayOfMonth()+"±" + lastprice+ "±" +Hr.getText()+ "±" +Mn.getText()+"±"+Cash.isSelected());
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().shippingControl = this;
 
@@ -316,7 +357,7 @@ public class Shipping implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
+        Cash.setSelected(true);
         for(MenuItem menuItem : Mn.getItems())
         {
             menuItem.setOnAction(new EventHandler<ActionEvent>() {
