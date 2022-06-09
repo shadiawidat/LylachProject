@@ -197,7 +197,8 @@ public class Complain implements Initializable {
         int day=Integer.parseInt(s1[2]);
         String[] s2=complain.getDate().toGMTString().split(" ");
         int month = Integer.parseInt(s2[0]);
-        Date.setText(df.format(day)+"/"+df.format(month)+"/"+year);
+        Date.setText(df.format(d1.getMonth()+1)+"/"+(d1.getDate()-1)+"/"+d1.getYear());
+
 
         ID.setText(complain.getClient().getID());
         Branch.setText(complain.getBranch().getName());///get(0) branches
