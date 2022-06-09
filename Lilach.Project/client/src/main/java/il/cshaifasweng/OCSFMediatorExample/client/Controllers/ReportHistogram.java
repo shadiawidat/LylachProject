@@ -2,9 +2,10 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import com.sun.marlin.stats.Histogram;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.IncomeReport;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.Cart;
+import il.cshaifasweng.OCSFMediatorExample.entities.Complain;
 import il.cshaifasweng.OCSFMediatorExample.entities.Report;
-import il.cshaifasweng.OCSFMediatorExample.entities.ReportType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -36,53 +37,220 @@ public class ReportHistogram implements Initializable {
     final DecimalFormat df = new DecimalFormat("00");
 
     public void setInfo(Report rep){
-        System.out.println(rep.getBranch().getName());
-        DateFrom.setText(df.format(rep.getDatefrom().getDate())+"/"+df.format(rep.getDatefrom().getMonth()+1)+"/"+df.format(rep.getDatefrom().getYear()+1));
+        DateFrom.setText(df.format(rep.getDatefrom().getDate())+"/"+df.format(rep.getDatefrom().getMonth()+1)+"/"+df.format(rep.getDatefrom().getYear()+1900));
         DateTo.setText(df.format(rep.getDateto().getDate())+"/"+df.format(rep.getDateto().getMonth()+1)+"/"+df.format(rep.getDateto().getYear()+1900));
         Type.setText(rep.getReportType().name());
         Branch.setText(rep.getBranch().getName());
-        if(rep.getReportType()== ReportType.ORDER)
+        if(rep.getReportType()== ReportType.INCOME)
         {
             IncomeReport repo=(IncomeReport) rep;
             XYChart.Series<String,Number> series=new XYChart.Series<>();
+
             series.getData().add(new XYChart.Data<>("Net Income",repo.getNetincome()));
             series.getData().add(new XYChart.Data<>("Total",repo.getTotalcount()));
             series.getData().add(new XYChart.Data<>("Ordered",repo.getOrderscount()));
             series.getData().add(new XYChart.Data<>("Canceled",repo.getCanceledcount()));
             Histogram.getData().add(series);
         }
-        if(rep.getReportType()== ReportType.INCOME)
+        if(rep.getReportType()== ReportType.ORDER)
         {
-
             int i=0;
             Date from=rep.getFrom();
-            from.setDate(from.getDate()-1);
-            Date to=rep.getDateto();
-            IncomeReport repo=(IncomeReport) rep;
-            while(from.before(to))
-            {
-                XYChart.Series<String,Number> series=new XYChart.Series<>();
-                
-                series.getData().add(new XYChart.Data<>("Flower",repo.getNetincome()+5));
-                series.getData().add(new XYChart.Data<>("Vase",repo.getTotalcount()+4));
-                series.getData().add(new XYChart.Data<>("Bouquet",repo.getOrderscount()+3));
-                series.getData().add(new XYChart.Data<>("Gardening",repo.getCanceledcount()+1));
-                series.getData().add(new XYChart.Data<>("Wedding",repo.getCanceledcount()+2));
 
-                Histogram.getData().add(series);
-                from.setDate(from.getDate()+1);
+            Date to=rep.getDateto();
+
+            XYChart.Series<String,Number> Flower=new XYChart.Series<>();
+            Flower.setName("Flower");
+
+            XYChart.Series<String,Number> Vase=new XYChart.Series<>();
+            Vase.setName("Vase");
+
+            XYChart.Series<String,Number> Bouquet=new XYChart.Series<>();
+            Bouquet.setName("Bouquet");
+
+            XYChart.Series<String,Number> Gardening=new XYChart.Series<>();
+            Gardening.setName("Gardening");
+
+            XYChart.Series<String,Number> Wedding=new XYChart.Series<>();
+            Wedding.setName("Wedding");
+
+            while (from.before(to))
+            { int Weddingc=0;
+                int Bouquetc=0;
+                int Gardeningc=0;
+                int flowerc=0;
+                int Vasec=0;
+                Flower.getData().add(new XYChart.Data<>(from.toString(),0));
+                Vase.getData().add(new XYChart.Data<>(from.toString(),0));
+                Bouquet.getData().add(new XYChart.Data<>(from.toString(),0));
+                Gardening.getData().add(new XYChart.Data<>(from.toString(),0));
+                Wedding.getData().add(new XYChart.Data<>(from.toString(),0));
+
+                for(Cart cart:(((OrderReport)rep).getOrders()))
+                {
+
+                    if(cart.getDate().getYear()==(from.getYear()+1900))
+                    {
+                        if(cart.getDate().getMonthValue()==(from.getMonth()+1))
+                        {
+                            if(cart.getDate().getDayOfMonth()==(from.getDate()))
+                            {
+
+                                for(Item item:cart.getItems()){
+
+                                    if(item.getType().equals("Flower"))
+                                    {System.out.println("1");
+                                        flowerc++;
+                                        Flower.getData().get(i).setYValue(flowerc);
+                                    }
+                                    if(item.getType().equals("Vase"))
+                                    {System.out.println("2");
+                                        Vasec++;
+                                        Vase.getData().get(i).setYValue(Vasec);
+                                    }
+                                    if(item.getType().equals("Bouquet"))
+                                    {System.out.println("3");
+                                        Bouquetc++;
+                                        Bouquet.getData().get(i).setYValue(Bouquetc);
+                                    }
+                                    if(item.getType().equals("Gardening"))
+                                    {System.out.println("4");
+                                        Gardeningc++;
+                                        Gardening.getData().get(i).setYValue(Gardeningc);
+                                    }
+                                    if(item.getType().equals("Wedding"))
+                                    {System.out.println("5");
+                                        Weddingc++;
+                                        Wedding.getData().get(i).setYValue(Weddingc);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                from.setHours(from.getHours()+24);
+                i++;
             }
+            int Weddingc=0;
+            int Bouquetc=0;
+            int Gardeningc=0;
+            int flowerc=0;
+            int Vasec=0;
+            Flower.getData().add(new XYChart.Data<>(from.toString(),0));
+            Vase.getData().add(new XYChart.Data<>(from.toString(),0));
+            Bouquet.getData().add(new XYChart.Data<>(from.toString(),0));
+            Gardening.getData().add(new XYChart.Data<>(from.toString(),0));
+            Wedding.getData().add(new XYChart.Data<>(from.toString(),0));
+
+            for(Cart cart:(((OrderReport)rep).getOrders()))
+            {
+
+                if(cart.getDate().getYear()==(from.getYear()+1900))
+                {
+                    if(cart.getDate().getMonthValue()==(from.getMonth()+1))
+                    {
+                        if(cart.getDate().getDayOfMonth()==(from.getDate()))
+                        {
+
+                            for(Item item:cart.getItems()){
+
+                                if(item.getType().equals("Flower"))
+                                {System.out.println("1");
+                                    flowerc++;
+                                    Flower.getData().get(i).setYValue(flowerc);
+                                }
+                                if(item.getType().equals("Vase"))
+                                {System.out.println("2");
+                                    Vasec++;
+                                    Vase.getData().get(i).setYValue(Vasec);
+                                }
+                                if(item.getType().equals("Bouquet"))
+                                {System.out.println("3");
+                                    Bouquetc++;
+                                    Bouquet.getData().get(i).setYValue(Bouquetc);
+                                }
+                                if(item.getType().equals("Gardening"))
+                                {System.out.println("4");
+                                    Gardeningc++;
+                                    Gardening.getData().get(i).setYValue(Gardeningc);
+                                }
+                                if(item.getType().equals("Wedding"))
+                                {System.out.println("5");
+                                    Weddingc++;
+                                    Wedding.getData().get(i).setYValue(Weddingc);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            Histogram.getData().add(Flower);
+            Histogram.getData().add(Vase);
+            Histogram.getData().add(Bouquet);
+            Histogram.getData().add(Gardening);
+            Histogram.getData().add(Wedding);
 
         }
         if(rep.getReportType()== ReportType.COMPLAIN)
         {
-            IncomeReport repo=(IncomeReport) rep;
-            XYChart.Series<String,Number> series=new XYChart.Series<>();
-            series.getData().add(new XYChart.Data<>("Net Income",repo.getNetincome()));
-            series.getData().add(new XYChart.Data<>("Total",repo.getTotalcount()));
-            series.getData().add(new XYChart.Data<>("Ordered",repo.getOrderscount()));
-            series.getData().add(new XYChart.Data<>("Canceled",repo.getCanceledcount()));
-            Histogram.getData().add(series);
+            System.out.println("here");
+            int i=0;
+            Date from=rep.getFrom();
+
+            Date to=rep.getDateto();
+
+            XYChart.Series<String,Number> Complain=new XYChart.Series<>();
+            Complain.setName("Complain");
+
+            while (from.before(to))
+            { int comp=0;
+                Complain.getData().add(new XYChart.Data<>(from.toString(),0));
+
+                for(il.cshaifasweng.OCSFMediatorExample.entities.Complain complain:(((ComplainReport)rep).getComplains()))
+                {
+
+                    if(complain.getDate().getYear()==(from.getYear()+1900))
+                    {
+                        System.out.println("here");
+                        if(complain.getDate().getMonth()==(from.getMonth()+1))
+                        {
+                            System.out.println("there");
+                            if(complain.getDate().getDate()==(from.getDate()))
+                            {
+                                System.out.println("helooooo");
+                                comp++;
+                                Complain.getData().get(i).setYValue(comp);
+                            }
+                        }
+                    }
+                }
+                from.setHours(from.getHours()+24);
+                i++;
+            }
+
+            int comp=0;
+            Complain.getData().add(new XYChart.Data<>(from.toString(),0));
+
+            for(il.cshaifasweng.OCSFMediatorExample.entities.Complain complain:(((ComplainReport)rep).getComplains()))
+            {
+
+                if(complain.getDate().getYear()==(from.getYear()+1900))
+                {
+                    System.out.println("here");
+                    if(complain.getDate().getMonth()==(from.getMonth()+1))
+                    {
+                        System.out.println("there");
+                        if(complain.getDate().getDate()==(from.getDate()))
+                        {
+                            System.out.println("helooooo");
+                            comp++;
+                            Complain.getData().get(i).setYValue(comp);
+                        }
+                    }
+                }
+            }
+            Histogram.getData().add(Complain);
         }
 
     }
