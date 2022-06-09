@@ -11,30 +11,48 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.server.Connect">
    <children>
-      <Button fx:id="RunBtn" layoutX="268.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#RunIt" style="-fx-background-color: green;" text="Run" textFill="WHITE">
-         <font>
-            <Font name="Cambria" size="18.0" />
-         </font></Button>
-      <VBox layoutX="14.0" layoutY="21.0" prefHeight="102.0" prefWidth="222.0">
+      <VBox layoutX="14.0" layoutY="21.0" prefHeight="102.0" prefWidth="322.0">
          <children>
-            <HBox prefHeight="26.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="26.0" prefWidth="200.0">
                <children>
-                  <Label text="IP" />
-                  <TextField fx:id="IP" disable="true" text="localhost">
+                  <Label text="IP">
+                     <font>
+                        <Font name="Cambria" size="18.0" />
+                     </font></Label>
+                  <TextField fx:id="IP" disable="true" maxWidth="150.0" styleClass="textFields" stylesheets="@../../../../Styles/Style.css" text="localhost">
                      <HBox.margin>
                         <Insets left="35.0" />
                      </HBox.margin>
                   </TextField>
+                  <Button fx:id="RunBtn" mnemonicParsing="false" onMouseClicked="#RunIt" style="-fx-background-color: green;" text="Run" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="35.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
-            <HBox prefHeight="17.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="17.0" prefWidth="200.0">
                <children>
-                  <Label text="Port" />
-                  <TextField fx:id="Port" text="3020">
+                  <Label text="Port">
+                     <font>
+                        <Font name="Cambria" size="18.0" />
+                     </font></Label>
+                  <TextField fx:id="Port" maxWidth="150.0" styleClass="textFields" stylesheets="@../../../../Styles/Style.css" text="3020">
                      <HBox.margin>
                         <Insets left="23.0" />
                      </HBox.margin>
                   </TextField>
+                  <Button fx:id="StopBtn" mnemonicParsing="false" onMouseClicked="#StopIt" style="-fx-background-color: red;" text="Stop" textFill="WHITE" visible="false">
+                     <font>
+                        <Font name="Cambria" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="35.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -42,10 +60,5 @@
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="StopBtn" layoutX="266.0" layoutY="72.0" mnemonicParsing="false" onMouseClicked="#StopIt" style="-fx-background-color: red;" text="Stop" textFill="WHITE" visible="false">
-         <font>
-            <Font name="Cambria" size="18.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>

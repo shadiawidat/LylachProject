@@ -192,6 +192,26 @@ public class SimpleServer extends AbstractServer {
         Message ms = (Message) msg;
         String request = ms.getString();
         System.out.println(request);
+        if (request.startsWith("#MakeRead")) {
+
+            String[] s = request.split(",");
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<SMStext> query = builder.createQuery(SMStext.class);
+            query.from(SMStext.class);
+            List<SMStext> SMStexts = session.createQuery(query).getResultList();
+
+            for (SMStext stext : SMStexts) {
+                if (stext.getText().equals(s[1])) {
+
+                    session.beginTransaction();
+                    stext.setSMSread(true);
+                    session.flush();
+                    session.getTransaction().commit();
+                    break;
+                }
+            }
+            client.sendToClient(new Message(null, "#ReloadMS"));
+        }
         if (request.startsWith("#RemoveUser")) {
             String[] msgarray = request.split(" ");
             User user = session.find(User.class, msgarray[1]);
@@ -206,11 +226,17 @@ public class SimpleServer extends AbstractServer {
                 client.sendToClient(new Message(user, "#RemoveUserNotFound"));
             }
         }
-        if(request.equals("#LoadMS"))
-        {
-            Client client1=session.find(Client.class,((Client)ms.getObject()).getUsername());
-            client.sendToClient(new Message(client1.getMySMS(),"#SMSLOADED"));
+        if (request.equals("#LoadMS")) {
+            Client client1 = session.find(Client.class, ((Client) ms.getObject()).getUsername());
 
+            List<SMStext> s = new ArrayList<>();
+
+            for (SMStext stext : client1.getMySMS()) {
+                if (stext.isSMSread() == false) {
+                    s.add(stext);
+                }
+            }
+            client.sendToClient(new Message(s, "#SMSLOADED"));
         }
         if (request.startsWith("#SignOut")) {
             session.beginTransaction();
@@ -267,9 +293,9 @@ public class SimpleServer extends AbstractServer {
             } else {
 
 
-                if(msgarray[2].equals("-1") || ((Client) ms.getObject()).getAccounttype() == AccountTypes.Premium){
+                if (msgarray[2].equals("-1") || ((Client) ms.getObject()).getAccounttype() == AccountTypes.Premium) {
                     double x = ((Client) ms.getObject()).getAmount();
-                    ((Client) ms.getObject()).setAmount(x-100);
+                    ((Client) ms.getObject()).setAmount(x - 100);
                 }
 
 
@@ -359,7 +385,7 @@ public class SimpleServer extends AbstractServer {
                 System.out.println("loz");
                 System.out.println(use.getUsername());
                 session.beginTransaction();
-                for(Branch branch : branches){
+                for (Branch branch : branches) {
                     branch.getUsers().add(use);
                     use.getMybranches().add(branch);
                     session.flush();
@@ -464,15 +490,13 @@ public class SimpleServer extends AbstractServer {
 
                     cart.setHour(Integer.parseInt(msgarray[11]));
                     cart.setMinute(Integer.parseInt(msgarray[12]));
-                    if(msgarray[13].equals("true"))
-                    {
+                    if (msgarray[13].equals("true")) {
                         System.out.println("hello");
                         cart.setPaymentMethod(PaymentMethod.CASH);
-                    }
-                    else {
+                    } else {
                         cart.setPaymentMethod(PaymentMethod.CREDIT);
-                        Client client1=session.find(Client.class, msgarray[1]);
-                        client1.setAmount(client1.getAmount()-Double.parseDouble(msgarray[10]));
+                        Client client1 = session.find(Client.class, msgarray[1]);
+                        client1.setAmount(client1.getAmount() - Double.parseDouble(msgarray[10]));
 
                     }
 
@@ -490,6 +514,12 @@ public class SimpleServer extends AbstractServer {
 
                     cart.setDeliverydate(d);
                     cart.setDate(LocalDateTime.now());
+
+                    cart.setMyBranch(session.find(Branch.class,msgarray[14]));
+
+
+                    session.find(Branch.class,msgarray[14]).getMyCarts().add(cart);
+                    System.out.println("heresadas");
                     session.flush();
                     session.getTransaction().commit();
                     client.sendToClient(new Message(null, "#ShippmentApproved"));
@@ -602,15 +632,14 @@ public class SimpleServer extends AbstractServer {
                     ((Client) user).setAccounttype(((Client) userrr).getAccounttype());
 
                     ((Client) user).setAmount(((Client) userrr).getAmount());
-                    if(((Client) userrr).getAccounttype() == AccountTypes.Basic){
+                    if (((Client) userrr).getAccounttype() == AccountTypes.Basic) {
                         user.getMybranches().clear();
                         Branch branch = session.find(Branch.class, msgarray[2]);
-                        if(branch != null) {
+                        if (branch != null) {
                             user.getMybranches().add(branch);
                         }
                         branch.getUsers().add(user);
-                    }
-                    else if(((Client) userrr).getAccounttype() == AccountTypes.Premium || ((Client) userrr).getAccounttype() == AccountTypes.Gold){
+                    } else if (((Client) userrr).getAccounttype() == AccountTypes.Premium || ((Client) userrr).getAccounttype() == AccountTypes.Gold) {
 
                         user.getMybranches().clear();
 
@@ -626,8 +655,8 @@ public class SimpleServer extends AbstractServer {
 
                         }
                     }
-                }else{
-                    if(user.getPermission() == permissions.WORKER){
+                } else {
+                    if (user.getPermission() == permissions.WORKER) {
                         user.getMybranches().clear();
                         Branch branch = session.find(Branch.class, msgarray[2]);
                         user.getMybranches().add(branch);
@@ -745,7 +774,13 @@ public class SimpleServer extends AbstractServer {
             Message msa = new Message(session.createQuery(query).getResultList(), "#BranchesReadyR");
             client.sendToClient(msa);
         }
-
+        if (request.equals("#getBranchesSh")) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
+            query.from(Branch.class);
+            Message msa = new Message(session.createQuery(query).getResultList(), "#BranchesReadySh");
+            client.sendToClient(msa);
+        }
         /////////////////
 //        if (request.startsWith("#RemoveUser")) {
 //            String[] msgarray = request.split(" ");
@@ -779,30 +814,40 @@ public class SimpleServer extends AbstractServer {
 
         } else if (request.startsWith("#PrepReports1")) {
 
-            client.sendToClient(new Message(null, "#ReportsReady"));
             String[] msgarray = request.split(" ");
             if (msgarray[1].equals("Order")) {
+            }
+            else if (msgarray[1].equals("Income")) {
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
                 query.from(Cart.class);
                 List<Cart> carts = session.createQuery(query).getResultList();
-                List<Cart> cartsSend = new ArrayList<>();
-                if (!msgarray[2].equals("All")) {
-                    for (Cart cart : carts) {
-                        if (cart.getClient().getMybranches().get(0).getName().equals(msgarray[2])) {
-                            cartsSend.add(cart);
-                        }
-                    }
-                } else {
-                    for (Cart cart : carts) {
-                        cartsSend.add(cart);
-                    }
-                }
                 IncomeReport rep = new IncomeReport();
 
-
-            } else if (msgarray[1].equals("Income")) {
-
+                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                rep.setDatefrom(d1);
+                rep.setDateto(d3);
+                rep.setBranch(session.find(Branch.class,msgarray[2]));
+                for (Cart cart : carts) {
+                    if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[2]))
+                        continue;
+                    LocalDateTime d2=cart.getDate();
+                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
+                    if(d4.after(d3))
+                        continue;
+                    if(d4.before(d1))
+                        continue;
+                    if (cart.getCanceled()) {
+                        rep.AddOneCanceledCart(cart);
+                        rep.IncCanceled();
+                    } else {
+                        rep.AddOneCart(cart);
+                        rep.IncOrders();
+                        rep.IncNet(cart.getPrice());
+                    }
+                    rep.IncTotal();
+                }
+                client.sendToClient(new Message(rep,"#Rep1Ready"));
             } else if (msgarray[1].equals("Complain")) {
 
             }
@@ -812,6 +857,65 @@ public class SimpleServer extends AbstractServer {
             if (msgarray[1].equals("Order")) {
 
             } else if (msgarray[1].equals("Income")) {
+
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
+                query.from(Cart.class);
+                List<Cart> carts = session.createQuery(query).getResultList();
+                IncomeReport rep1 = new IncomeReport();
+                IncomeReport rep2 = new IncomeReport();
+                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                Date d5=((List<Date>)ms.getObject()).get(1),d6=((List<Date>)ms.getObject()).get(2);
+                rep1.setDatefrom(d1);
+                rep1.setDateto(d3);
+                rep1.setBranch(session.find(Branch.class,msgarray[2]));
+                rep2.setDatefrom(d5);
+                rep2.setDateto(d6);
+                rep2.setBranch(session.find(Branch.class,msgarray[4]));
+                for (Cart cart : carts) {
+                    if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[2]))
+                        continue;
+                    LocalDateTime d2=cart.getDate();
+                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
+                    if(d4.after(d3))
+                        continue;
+                    if(d4.before(d1))
+                        continue;
+                    if (cart.getCanceled()) {
+                        rep1.AddOneCanceledCart(cart);
+                        rep1.IncCanceled();
+                    } else {
+                        rep1.AddOneCart(cart);
+                        rep1.IncOrders();
+                        rep1.IncNet(cart.getPrice());
+                    }
+                    rep1.IncTotal();
+                }
+                System.out.println("1");
+                for (Cart cart : carts) {
+                    if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[4]))
+                        continue;
+                    LocalDateTime d2=cart.getDate();
+                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
+                    if(d4.after(d6))
+                        continue;
+                    if(d4.before(d5))
+                        continue;
+                    if (cart.getCanceled()) {
+                        rep2.AddOneCanceledCart(cart);
+                        rep2.IncCanceled();
+                    } else {
+                        rep2.AddOneCart(cart);
+                        rep2.IncOrders();
+                        rep2.IncNet(cart.getPrice());
+                    }
+                    rep2.IncTotal();
+                }
+                List<Report> reps=new ArrayList<>();
+                reps.add(rep1);
+                reps.add(rep2);
+                System.out.println("2");
+                client.sendToClient(new Message(reps,"#Rep2Ready"));
 
             } else if (msgarray[1].equals("Complain")) {
 

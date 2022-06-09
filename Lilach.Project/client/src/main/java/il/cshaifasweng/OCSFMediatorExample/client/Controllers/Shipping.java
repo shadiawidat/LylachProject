@@ -31,6 +31,17 @@ public class Shipping implements Initializable {
     @FXML
     private CheckBox Cash;
 
+    public List<Branch> getBranchesL() {
+        return BranchesL;
+    }
+
+    public void setBranchesL(List<Branch> branchesL) {
+        BranchesL = branchesL;
+    }
+
+    @FXML
+    private MenuButton Branches;
+
     @FXML
     private CheckBox Credit;
 
@@ -45,6 +56,10 @@ public class Shipping implements Initializable {
 
     @FXML
     private DatePicker Date;
+
+    @FXML
+    private Label InvalidBranch;
+
 
     @FXML
     private Label InvalidAdderss;
@@ -77,6 +92,9 @@ public class Shipping implements Initializable {
 
     @FXML
     private MenuItem MenuSignIn;
+
+    @FXML
+    private Label Branch;
 
     @FXML
     private MenuItem MenuSignOut;
@@ -120,8 +138,28 @@ public class Shipping implements Initializable {
     @FXML
     private Label PhoneNumberLB;
 
+    @FXML
+    private CheckBox Fornow;
+
+    @FXML
+    void Fornow(MouseEvent event) {
+        if(Fornow.isSelected()){
+            Hr.setDisable(true);
+            Mn.setDisable(true);
+            Date.setDisable(true);
+            InvalidDate.setVisible(false);
+            InvalidHour.setVisible(false);
+        }else{
+            Hr.setDisable(false);
+            Mn.setDisable(false);
+            Date.setDisable(false);
+        }
+    }
+
     final DecimalFormat df = new DecimalFormat("0.00");
 
+
+    private List<Branch> BranchesL = new ArrayList<>();
 
     @FXML
     void Credit(MouseEvent event) {
@@ -302,20 +340,31 @@ public class Shipping implements Initializable {
 
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
         Date date = new Date(Date.getValue().getYear(), Date.getValue().getMonthValue(), Date.getValue().getDayOfMonth());
-
-        InvalidDate.setVisible(!Utilities.checkAfterValidDate(now, date));
-        flag = (!Utilities.checkAfterValidDate(now, date));
-        InvalidHour.setVisible(Hr.getText().equals("Hr")||Mn.getText().equals("Mn"));
-        flag=flag||Hr.getText().equals("Hr")||Mn.getText().equals("Mn");
-        if(date.equals(now)&&!InvalidHour.isVisible()&& Utilities.checkAfterValidDate(now, date)){
-            InvalidHour.setVisible(LocalDateTime.now().getHour()>Integer.parseInt(Hr.getText()));
-            flag=flag||LocalDateTime.now().getHour()>Integer.parseInt(Hr.getText());
-            if(!InvalidHour.isVisible()) {
-                InvalidHour.setVisible(LocalDateTime.now().getMinute()>Integer.parseInt(Mn.getText()));
-                flag=flag||LocalDateTime.now().getMinute()>Integer.parseInt(Mn.getText());
-            }
+        InvalidBranch.setVisible(Branches.getText().equals(""));
+        if(Fornow.isSelected()){
+            InvalidDate.setVisible(false);
+        }else {
+            InvalidDate.setVisible(!Utilities.checkAfterValidDate(now, date));
+            flag = (!Utilities.checkAfterValidDate(now, date));
         }
-        flag=flag||Hr.getText().equals("Hr")||Mn.getText().equals("Mn");
+        flag=flag||Branches.getText().equals("");
+        System.out.println(Branches.getText().equals(""));
+
+        if(Fornow.isSelected()){
+            InvalidHour.setVisible(false);
+        }else {
+            InvalidHour.setVisible(Hr.getText().equals("Hr") || Mn.getText().equals("Mn"));
+            flag = flag || Hr.getText().equals("Hr") || Mn.getText().equals("Mn");
+            if (date.equals(now) && !InvalidHour.isVisible() && Utilities.checkAfterValidDate(now, date)) {
+                InvalidHour.setVisible(LocalDateTime.now().getHour() > Integer.parseInt(Hr.getText()));
+                flag = flag || LocalDateTime.now().getHour() > Integer.parseInt(Hr.getText());
+                if (!InvalidHour.isVisible()) {
+                    InvalidHour.setVisible(LocalDateTime.now().getMinute() > Integer.parseInt(Mn.getText()));
+                    flag = flag || LocalDateTime.now().getMinute() > Integer.parseInt(Mn.getText());
+                }
+            }
+            flag = flag || Hr.getText().equals("Hr") || Mn.getText().equals("Mn");
+        }
         if (deliveryid.isSelected()) {
             InvalidAdderss.setVisible(!Utilities.check_Validate_Address(Address.getText())||Address.getText().equals(""));
             flag = flag || Address.getText().equals("");
@@ -327,13 +376,22 @@ public class Shipping implements Initializable {
             }
         }
         if (flag) {
+            System.out.println("sdf");
             return;
         }
         double lastprice=SimpleClient.getClient().cartControl.subTotalG;
+        if(Fornow.isSelected()){
+            LocalDateTime d1=LocalDateTime.now();
+            System.out.println(d1);
+            Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + d1.getYear() + "±" + d1.getMonth().getValue() + "±" + d1.getDayOfMonth() + "±" + lastprice + "±" + (d1.getHour()+3) + "±" + d1.getMinute() + "±" + Cash.isSelected() + "±" + Branches.getText());
+            SimpleClient.getClient().sendToServer(ms);
+            SimpleClient.getClient().shippingControl = this;
+        }else{
+            Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + Date.getValue().getYear() + "±" + Date.getValue().getMonthValue() + "±" + Date.getValue().getDayOfMonth() + "±" + lastprice + "±" + Hr.getText() + "±" + Mn.getText() + "±" + Cash.isSelected() + "±" + Branches.getText());
+            SimpleClient.getClient().sendToServer(ms);
+            SimpleClient.getClient().shippingControl = this;
+        }
 
-        Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + Date.getValue().getYear() + "±" + Date.getValue().getMonthValue() + "±" + Date.getValue().getDayOfMonth()+"±" + lastprice+ "±" +Hr.getText()+ "±" +Mn.getText()+"±"+Cash.isSelected());
-        SimpleClient.getClient().sendToServer(ms);
-        SimpleClient.getClient().shippingControl = this;
 
 
 
@@ -354,8 +412,36 @@ public class Shipping implements Initializable {
             App.setRoot("Catalog");
         }
     }
+
+    public void loadBranches() {
+        Branches.getItems().clear();
+
+        for (Branch branch : BranchesL) {
+            MenuItem mt = new MenuItem(branch.getName());
+
+            mt.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Branches.setText(branch.getName());
+                }
+            });
+            Branches.getItems().add(mt);
+        }
+
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if(((Client)App.getUser()).getAccounttype()==AccountTypes.Basic)
+        {
+            Branches.setText(App.getUser().getMybranches().get(0).getName());
+        }
+        try {
+            SimpleClient.getClient().sendToServer(new Message(null, "#getBranchesSh"));
+            SimpleClient.getClient().shippingControl = this;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Cash.setSelected(true);
         for(MenuItem menuItem : Mn.getItems())

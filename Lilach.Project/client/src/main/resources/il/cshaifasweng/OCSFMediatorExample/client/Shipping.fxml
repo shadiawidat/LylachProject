@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Shipping">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Shipping">
     <children>
         <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
@@ -325,7 +325,7 @@
             <Font name="Cambria" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="InvalidHour" layoutX="492.0" layoutY="344.0" text="*Invalid" textFill="RED">
+      <Label fx:id="InvalidHour" layoutX="492.0" layoutY="344.0" text="*Invalid" textFill="RED" visible="false">
          <font>
             <Font size="14.0" />
          </font>
@@ -335,7 +335,7 @@
             <Font name="Cambria" size="18.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="Credit" layoutX="455.0" layoutY="383.0" mnemonicParsing="false" onMouseClicked="#Credit" prefHeight="27.0" prefWidth="121.0" text="Credit">
+      <CheckBox fx:id="Credit" layoutX="438.0" layoutY="383.0" mnemonicParsing="false" onMouseClicked="#Credit" prefHeight="27.0" prefWidth="121.0" text="Credit">
          <font>
             <Font name="Cambria" size="18.0" />
          </font>
@@ -355,5 +355,10 @@
             <Font name="Cambria" size="18.0" />
          </font>
       </MenuButton>
+      <CheckBox fx:id="Fornow" layoutX="537.0" layoutY="383.0" mnemonicParsing="false" onMouseClicked="#Fornow" text="For now">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </CheckBox>
     </children>
 </AnchorPane>

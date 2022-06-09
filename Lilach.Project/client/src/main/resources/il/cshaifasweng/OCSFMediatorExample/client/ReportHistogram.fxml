@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="393.0" maxWidth="780.0" minHeight="157.0" minWidth="157.0" prefHeight="393.0" prefWidth="780.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ReportHistogram">
+<AnchorPane maxHeight="462.0" maxWidth="780.0" minHeight="157.0" minWidth="157.0" prefHeight="462.0" prefWidth="780.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ReportHistogram">
    <children>
       <BarChart fx:id="Histogram" layoutX="264.0" layoutY="6.0" prefHeight="387.0" prefWidth="511.0">
         <xAxis>
@@ -17,7 +17,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <TextField fx:id="ReportType" editable="false" layoutX="14.0" layoutY="65.0" prefHeight="25.0" prefWidth="149.0" styleClass="textFields" />
+      <TextField fx:id="Type" editable="false" layoutX="14.0" layoutY="65.0" prefHeight="25.0" prefWidth="149.0" styleClass="textFields" />
       <TextField fx:id="DateFrom" editable="false" layoutX="14.0" layoutY="149.0" prefHeight="25.0" prefWidth="149.0" styleClass="textFields" />
       <TextField fx:id="DateTo" editable="false" layoutX="13.0" layoutY="232.0" styleClass="textFields" />
       <TextField fx:id="Branch" editable="false" layoutX="14.0" layoutY="308.0" styleClass="textFields" />

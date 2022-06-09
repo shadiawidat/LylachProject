@@ -41,6 +41,17 @@ public class Branch implements Serializable{
     @OneToMany(mappedBy = "branch")
     private List<Report> reports=new ArrayList<>();
 
+    public List<Cart> getMyCarts() {
+        return myCarts;
+    }
+
+    public void setMyCarts(List<Cart> myCarts) {
+        this.myCarts = myCarts;
+    }
+
+    @OneToMany(mappedBy = "myBranch",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private List<Cart> myCarts=new ArrayList<>();
+
     public Branch() {
 
     }

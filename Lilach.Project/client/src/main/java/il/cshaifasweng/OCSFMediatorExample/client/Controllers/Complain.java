@@ -58,6 +58,7 @@ public class Complain implements Initializable {
     private Label Remaining;
 
     final DecimalFormat df = new DecimalFormat("00");
+
     public int day,hour,minutes,sec;
 
     boolean onOff=false;
