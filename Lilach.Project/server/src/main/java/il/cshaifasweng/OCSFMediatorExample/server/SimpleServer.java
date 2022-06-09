@@ -833,7 +833,7 @@ public class SimpleServer extends AbstractServer {
                 }
                 client.sendToClient(new Message(rep,"#Rep1Ready"));
             } else if (msgarray[1].equals("Complain")) {
-                System.out.println("He");
+
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Complain> query = builder.createQuery(Complain.class);
                 query.from(Complain.class);
@@ -847,12 +847,15 @@ public class SimpleServer extends AbstractServer {
                 for (Complain complain : complains) {
                     if (!msgarray[2].equals("All") && !complain.getBranch().getName().equals(msgarray[2]))
                         continue;
-                    Date d4=complain.getDate();
+                    Date d7=complain.getDate();
+                    Date d4=new Date(d7.getYear(),d7.getMonth(),d7.getDate());
+
                     d4.setDate(d4.getDate()-1);
                     if(d4.after(d3))
                         continue;
                     if(d4.before(d1))
                         continue;
+                    System.out.println("hello");
                     rep1.getComplains().add(complain);
                 }
 
@@ -923,7 +926,6 @@ public class SimpleServer extends AbstractServer {
             }
             if (msgarray[1].equals("Complain"))
             {
-                System.out.println("He");
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Complain> query = builder.createQuery(Complain.class);
                 query.from(Complain.class);
@@ -937,19 +939,48 @@ public class SimpleServer extends AbstractServer {
                 for (Complain complain : complains) {
                     if (!msgarray[2].equals("All") && !complain.getBranch().getName().equals(msgarray[2]))
                         continue;
-                    Date d4=complain.getDate();
-                    System.out.println(d4);
+                    Date d7=complain.getDate();
+                    Date d4=new Date(d7.getYear(),d7.getMonth(),d7.getDate());
+
+                    d4.setDate(d4.getDate()-1);
                     if(d4.after(d3))
                         continue;
                     if(d4.before(d1))
                         continue;
+
                     rep1.getComplains().add(complain);
                 }
-                System.out.println(d1);
-                System.out.println(d3);
-                System.out.println(rep1.getComplains().size());
 
                 rep3=rep1;
+            }
+            if (msgarray[3].equals("Complain"))
+            {
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Complain> query = builder.createQuery(Complain.class);
+                query.from(Complain.class);
+                List<Complain> complains = session.createQuery(query).getResultList();
+
+                ComplainReport rep1 = new ComplainReport();
+                Date d1=((List<Date>)ms.getObject()).get(2),d3=((List<Date>)ms.getObject()).get(3);
+                rep1.setDatefrom(d1);
+                rep1.setDateto(d3);
+                rep1.setBranch(session.find(Branch.class,msgarray[4]));
+                for (Complain complain : complains) {
+                    if (!msgarray[2].equals("All") && !complain.getBranch().getName().equals(msgarray[4]))
+                        continue;
+                    Date d7=complain.getDate();
+                    Date d4=new Date(d7.getYear(),d7.getMonth(),d7.getDate());
+
+                    d4.setDate(d4.getDate()-1);
+                    if(d4.after(d3))
+                        continue;
+                    if(d4.before(d1))
+                        continue;
+
+                    rep1.getComplains().add(complain);
+                }
+
+                rep4=rep1;
             }
             if(msgarray[3].equals("Order"))
             {

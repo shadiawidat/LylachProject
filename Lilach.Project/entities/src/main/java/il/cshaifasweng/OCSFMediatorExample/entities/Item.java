@@ -23,7 +23,7 @@ public class Item implements Serializable {
 
 
 
-    @ManyToMany(mappedBy = "items",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "items",fetch = FetchType.LAZY)
     private List<Cart> carts =new ArrayList<>();
 
     public int getId() {

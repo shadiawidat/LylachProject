@@ -148,7 +148,7 @@ public class clientComplain implements Initializable {
         }
         else
         {
-            java.util.Date d = new Date(java.time.LocalDateTime.now().getYear()-1900, java.time.LocalDateTime.now().getMonthValue(), java.time.LocalDateTime.now().getDayOfMonth());
+            java.util.Date d = new Date(java.time.LocalDateTime.now().getYear()-1900, java.time.LocalDateTime.now().getMonthValue()-1, java.time.LocalDateTime.now().getDayOfMonth()+1);
             Message ms = new Message(d, "#SendingComplain±" + App.getUser().getUsername() + "±" + complainBox.getText() + "±" + Branches.getText());
             try {
                 SimpleClient.getClient().sendToServer(ms);
