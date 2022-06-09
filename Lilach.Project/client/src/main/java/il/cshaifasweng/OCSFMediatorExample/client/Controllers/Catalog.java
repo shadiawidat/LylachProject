@@ -669,6 +669,11 @@ public class Catalog implements Initializable {
         {
             MesseageIndicator.setVisible(true);
         }
+        else
+        {
+            MesseageIndicator.setVisible(false);
+        }
+        Messeges.getItems().clear();
         for (SMStext smStext : MySMS) {
             MenuItem menuItem = new MenuItem();
             menuItem.setText(smStext.getText());

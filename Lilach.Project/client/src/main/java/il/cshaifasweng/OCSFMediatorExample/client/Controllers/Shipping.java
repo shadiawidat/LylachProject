@@ -31,6 +31,17 @@ public class Shipping implements Initializable {
     @FXML
     private CheckBox Cash;
 
+    public List<Branch> getBranchesL() {
+        return BranchesL;
+    }
+
+    public void setBranchesL(List<Branch> branchesL) {
+        BranchesL = branchesL;
+    }
+
+    @FXML
+    private MenuButton Branches;
+
     @FXML
     private CheckBox Credit;
 
@@ -45,6 +56,10 @@ public class Shipping implements Initializable {
 
     @FXML
     private DatePicker Date;
+
+    @FXML
+    private Label InvalidBranch;
+
 
     @FXML
     private Label InvalidAdderss;
@@ -77,6 +92,9 @@ public class Shipping implements Initializable {
 
     @FXML
     private MenuItem MenuSignIn;
+
+    @FXML
+    private Label Branch;
 
     @FXML
     private MenuItem MenuSignOut;
@@ -122,6 +140,8 @@ public class Shipping implements Initializable {
 
     final DecimalFormat df = new DecimalFormat("0.00");
 
+
+    private List<Branch> BranchesL = new ArrayList<>();
 
     @FXML
     void Credit(MouseEvent event) {
@@ -302,9 +322,13 @@ public class Shipping implements Initializable {
 
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
         Date date = new Date(Date.getValue().getYear(), Date.getValue().getMonthValue(), Date.getValue().getDayOfMonth());
+        InvalidBranch.setVisible(Branches.getText().equals(""));
 
         InvalidDate.setVisible(!Utilities.checkAfterValidDate(now, date));
         flag = (!Utilities.checkAfterValidDate(now, date));
+
+        flag=flag||Branches.getText().equals("");
+        System.out.println(Branches.getText().equals(""));
         InvalidHour.setVisible(Hr.getText().equals("Hr")||Mn.getText().equals("Mn"));
         flag=flag||Hr.getText().equals("Hr")||Mn.getText().equals("Mn");
         if(date.equals(now)&&!InvalidHour.isVisible()&& Utilities.checkAfterValidDate(now, date)){
@@ -331,7 +355,7 @@ public class Shipping implements Initializable {
         }
         double lastprice=SimpleClient.getClient().cartControl.subTotalG;
 
-        Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + Date.getValue().getYear() + "±" + Date.getValue().getMonthValue() + "±" + Date.getValue().getDayOfMonth()+"±" + lastprice+ "±" +Hr.getText()+ "±" +Mn.getText()+"±"+Cash.isSelected());
+        Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + Date.getValue().getYear() + "±" + Date.getValue().getMonthValue() + "±" + Date.getValue().getDayOfMonth() + "±" + lastprice + "±" + Hr.getText() + "±" + Mn.getText() + "±" + Cash.isSelected() + "±" + Branches.getText());
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().shippingControl = this;
 
@@ -354,8 +378,36 @@ public class Shipping implements Initializable {
             App.setRoot("Catalog");
         }
     }
+
+    public void loadBranches() {
+        Branches.getItems().clear();
+
+        for (Branch branch : BranchesL) {
+            MenuItem mt = new MenuItem(branch.getName());
+
+            mt.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Branches.setText(branch.getName());
+                }
+            });
+            Branches.getItems().add(mt);
+        }
+
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if(((Client)App.getUser()).getAccounttype()==AccountTypes.Basic)
+        {
+            Branches.setText(App.getUser().getMybranches().get(0).getName());
+        }
+        try {
+            SimpleClient.getClient().sendToServer(new Message(null, "#getBranchesSh"));
+            SimpleClient.getClient().shippingControl = this;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Cash.setSelected(true);
         for(MenuItem menuItem : Mn.getItems())

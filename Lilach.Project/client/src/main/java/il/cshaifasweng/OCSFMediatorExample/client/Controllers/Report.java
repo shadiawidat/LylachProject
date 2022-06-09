@@ -329,9 +329,6 @@ public class Report implements Initializable {
 
         Date From1 = new Date(FirstReportFrom.getValue().getYear()-1900, FirstReportFrom.getValue().getMonthValue()-1, FirstReportFrom.getValue().getDayOfMonth());
         Date To1 = new Date(FirstReportTo.getValue().getYear()-1900, FirstReportTo.getValue().getMonthValue()-1, FirstReportTo.getValue().getDayOfMonth());
-        System.out.println(now);
-        System.out.println(From1);
-        System.out.println(To1);
         InvalidFRFrom.setVisible(!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(From1, now));
         InvalidFRTo.setVisible(!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(To1, now));
         if(From1.equals(To1)){
@@ -397,7 +394,7 @@ public class Report implements Initializable {
             SimpleClient.getClient().sendToServer(ms);
             SimpleClient.getClient().reportControl=this;
         }
-
+        ReportView.setCaller("Report");
     }
 
     @Override
