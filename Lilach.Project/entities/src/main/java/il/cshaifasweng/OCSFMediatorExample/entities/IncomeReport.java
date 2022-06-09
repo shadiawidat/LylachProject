@@ -38,6 +38,7 @@ public class IncomeReport extends Report implements Serializable{
         this.totalcount = 0;
         this.canceledcount = 0;
         this.orderscount = 0;
+        this.setReportType(ReportType.INCOME);
     }
     public void IncOrders()
     {

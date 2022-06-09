@@ -236,6 +236,15 @@ public class SimpleClient extends AbstractClient {
 			}
 			Platform.runLater(()->SimpleClient.getClient().reportViewControl.loadReports((il.cshaifasweng.OCSFMediatorExample.entities.Report) ms.getObject(),null));
 		}
+		else if(deliver.equals("#Rep2Ready"))
+		{
+			while(SimpleClient.getClient().reportViewControl==null)
+			{
+
+			}
+			System.out.println(((List<il.cshaifasweng.OCSFMediatorExample.entities.Report>) ms.getObject()).size());
+			Platform.runLater(()->SimpleClient.getClient().reportViewControl.loadReports(((List<il.cshaifasweng.OCSFMediatorExample.entities.Report>) ms.getObject()).get(0),((List<il.cshaifasweng.OCSFMediatorExample.entities.Report>) ms.getObject()).get(1)));
+		}
 		else if(deliver.equals("#CanceledOrder")){
 
 			Platform.runLater(()->{
