@@ -833,7 +833,7 @@ public class SimpleServer extends AbstractServer {
                 }
                 client.sendToClient(new Message(rep,"#Rep1Ready"));
             } else if (msgarray[1].equals("Complain")) {
-
+         
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Complain> query = builder.createQuery(Complain.class);
                 query.from(Complain.class);
@@ -847,6 +847,7 @@ public class SimpleServer extends AbstractServer {
                 for (Complain complain : complains) {
                     if (!msgarray[2].equals("All") && !complain.getBranch().getName().equals(msgarray[2]))
                         continue;
+
                     Date d7=complain.getDate();
                     Date d4=new Date(d7.getYear(),d7.getMonth(),d7.getDate());
 
@@ -855,7 +856,7 @@ public class SimpleServer extends AbstractServer {
                         continue;
                     if(d4.before(d1))
                         continue;
-                    System.out.println("hello");
+
                     rep1.getComplains().add(complain);
                 }
 
@@ -926,6 +927,7 @@ public class SimpleServer extends AbstractServer {
             }
             if (msgarray[1].equals("Complain"))
             {
+
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Complain> query = builder.createQuery(Complain.class);
                 query.from(Complain.class);
@@ -939,10 +941,12 @@ public class SimpleServer extends AbstractServer {
                 for (Complain complain : complains) {
                     if (!msgarray[2].equals("All") && !complain.getBranch().getName().equals(msgarray[2]))
                         continue;
+
                     Date d7=complain.getDate();
                     Date d4=new Date(d7.getYear(),d7.getMonth(),d7.getDate());
 
                     d4.setDate(d4.getDate()-1);
+
                     if(d4.after(d3))
                         continue;
                     if(d4.before(d1))
@@ -982,6 +986,7 @@ public class SimpleServer extends AbstractServer {
 
                 rep4=rep1;
             }
+
             if(msgarray[3].equals("Order"))
             {
                 CriteriaBuilder builder = session.getCriteriaBuilder();
