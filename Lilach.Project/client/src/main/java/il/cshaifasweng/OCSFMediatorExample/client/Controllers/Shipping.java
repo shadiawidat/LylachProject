@@ -348,6 +348,7 @@ public class Shipping implements Initializable {
             flag = (!Utilities.checkAfterValidDate(now, date));
         }
         flag=flag||Branches.getText().equals("");
+
         System.out.println(Branches.getText().equals(""));
 
         if(Fornow.isSelected()){
@@ -356,11 +357,11 @@ public class Shipping implements Initializable {
             InvalidHour.setVisible(Hr.getText().equals("Hr") || Mn.getText().equals("Mn"));
             flag = flag || Hr.getText().equals("Hr") || Mn.getText().equals("Mn");
             if (date.equals(now) && !InvalidHour.isVisible() && Utilities.checkAfterValidDate(now, date)) {
-                InvalidHour.setVisible(LocalDateTime.now().getHour() > Integer.parseInt(Hr.getText()));
-                flag = flag || LocalDateTime.now().getHour() > Integer.parseInt(Hr.getText());
+                InvalidHour.setVisible(LocalDateTime.now().plusHours(3).getHour() >( Integer.parseInt(Hr.getText())));
+                flag = flag || LocalDateTime.now().plusHours(3).getHour() > (Integer.parseInt(Hr.getText()));
                 if (!InvalidHour.isVisible()) {
-                    InvalidHour.setVisible(LocalDateTime.now().getMinute() > Integer.parseInt(Mn.getText()));
-                    flag = flag || LocalDateTime.now().getMinute() > Integer.parseInt(Mn.getText());
+                    InvalidHour.setVisible(LocalDateTime.now().plusHours(3).getHour() >( Integer.parseInt(Hr.getText()))||LocalDateTime.now().getMinute() > Integer.parseInt(Mn.getText()));
+                    flag = flag || (LocalDateTime.now().plusHours(3).getHour() >( Integer.parseInt(Hr.getText()))||LocalDateTime.now().getMinute() > Integer.parseInt(Mn.getText()));
                 }
             }
             flag = flag || Hr.getText().equals("Hr") || Mn.getText().equals("Mn");
@@ -435,6 +436,11 @@ public class Shipping implements Initializable {
         if(((Client)App.getUser()).getAccounttype()==AccountTypes.Basic)
         {
             Branches.setText(App.getUser().getMybranches().get(0).getName());
+            Branches.setDisable(true);
+            Branches.setOpacity(50000000);
+        }else{
+            Branches.setDisable(false);
+
         }
         try {
             SimpleClient.getClient().sendToServer(new Message(null, "#getBranchesSh"));

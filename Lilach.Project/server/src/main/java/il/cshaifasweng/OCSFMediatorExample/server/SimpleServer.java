@@ -933,6 +933,9 @@ public class SimpleServer extends AbstractServer {
             session.flush();
             session.getTransaction().commit();
 
+        }else if(request.equals("#ALogIn")){
+            User user = session.find(User.class,((User)(ms.getObject())).getUsername());
+            client.sendToClient(new Message(user,"#ReloadUser"));
         }
     }
 
