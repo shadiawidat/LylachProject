@@ -3,15 +3,17 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class OrderReport extends Report  implements Serializable{
     @OneToMany
-    private List<Cart> orders;
+    private List<Cart> orders=new ArrayList<>();
     private int ordersnum;
 
     public OrderReport() {
+        this.setReportType(ReportType.ORDER);
     }
 
     public OrderReport(List<Cart> orders,int ordersnum) {
