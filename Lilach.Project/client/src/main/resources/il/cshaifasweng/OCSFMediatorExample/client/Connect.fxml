@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Connect">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Connect">
    <children>
       <Button layoutX="251.0" layoutY="47.0" mnemonicParsing="false" onMouseClicked="#RunIt" style="-fx-background-color: green;" text="Run" textFill="WHITE">
          <font>
@@ -19,9 +19,12 @@
          </font></Button>
       <VBox layoutX="14.0" layoutY="21.0" prefHeight="102.0" prefWidth="222.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="26.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="222.0">
                <children>
-                  <Label text="IP" />
+                  <Label text="IP">
+                     <font>
+                        <Font name="Cambria" size="18.0" />
+                     </font></Label>
                   <MenuButton fx:id="IP" maxWidth="150.0" mnemonicParsing="false" prefWidth="20.0" styleClass="textFields" stylesheets="@../../../../Styles/Style.css" text="LocalHost">
                     <items>
                       <MenuItem mnemonicParsing="false" text="LocalHost" />
@@ -32,9 +35,12 @@
                   </MenuButton>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="17.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="222.0">
                <children>
-                  <Label text="Port" />
+                  <Label text="Port">
+                     <font>
+                        <Font name="Cambria" size="18.0" />
+                     </font></Label>
 
                   <TextField fx:id="Port" maxWidth="150.0" styleClass="textFields" stylesheets="@../../../../Styles/Style.css" text="3020">
 

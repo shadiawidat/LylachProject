@@ -3,28 +3,78 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class IncomeReport extends Report implements Serializable{
-    private Double Netincome;
+
+
+
+
     @OneToMany
-    private List<Cart> orders;
+    private List<Cart> canceledorders=new ArrayList<>();
+    @OneToMany
+    private List<Cart> orders=new ArrayList<>();
+
+
+
     private int totalcount;
     private int canceledcount;
     private int orderscount;
-    @OneToMany
-    private List<Cart> canceledorders;
+    private Double Netincome;
+
+
 
     public IncomeReport(Double netincome, int totalcount, int canceledcount, int orderscount) {
-        Netincome = netincome;
-        this.totalcount = totalcount;
-        this.canceledcount = canceledcount;
-        this.orderscount = orderscount;
+        Netincome = 0.0;
+        this.totalcount = 0;
+        this.canceledcount = 0;
+        this.orderscount = 0;
     }
 
     public IncomeReport() {
+        Netincome = 0.0;
+        this.totalcount = 0;
+        this.canceledcount = 0;
+        this.orderscount = 0;
+    }
+    public void IncOrders()
+    {
+        orderscount++;
+    }
 
+    public void DecOrders()
+    {
+        orderscount--;
+    }
+    public void IncCanceled()
+    {
+        canceledcount++;
+    }
+
+    public void DecCanceled()
+    {
+        canceledcount--;
+    }
+
+    public void IncTotal()
+    {
+        totalcount++;
+    }
+
+    public void DecTotal()
+    {
+        totalcount--;
+    }
+    public void IncNet(double price)
+    {
+        Netincome+=price;
+    }
+
+    public void DecNet(double price)
+    {
+        Netincome-=price;
     }
     public void AddOneCart(Cart c){
         orders.add(c);

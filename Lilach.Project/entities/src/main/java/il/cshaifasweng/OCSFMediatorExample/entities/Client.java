@@ -14,7 +14,6 @@ public class Client extends User implements Serializable {
     @OneToMany(mappedBy = "client")
     private List<Complain> complains=new ArrayList<>();
 
-
     private AccountTypes accounttype;
     private Double amount;
 

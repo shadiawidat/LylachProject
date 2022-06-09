@@ -97,7 +97,15 @@ public class SimpleClient extends AbstractClient {
 				accountControl.resetFields();
 				});
 
-		}else if (deliver.equals("#ComplainsReady"))
+		}else if (deliver.equals("#BranchesReadySh"))
+		{
+			shippingControl.setBranchesL((List<Branch>) ms.getObject());
+			Platform.runLater(()->{
+				shippingControl.loadBranches();
+			});
+
+		}
+		else if (deliver.equals("#ComplainsReady"))
 		{
 
 			Platform.runLater(()->{
@@ -220,13 +228,13 @@ public class SimpleClient extends AbstractClient {
 				}
 			});
 		}
-		else if(deliver.equals("#ReportsReady"))
+		else if(deliver.equals("#Rep1Ready"))
 		{
 			while(SimpleClient.getClient().reportViewControl==null)
 			{
 
 			}
-			Platform.runLater(()->SimpleClient.getClient().reportViewControl.loadReports(null,null));
+			Platform.runLater(()->SimpleClient.getClient().reportViewControl.loadReports((il.cshaifasweng.OCSFMediatorExample.entities.Report) ms.getObject(),null));
 		}
 		else if(deliver.equals("#CanceledOrder")){
 
@@ -242,6 +250,15 @@ public class SimpleClient extends AbstractClient {
 
 			Platform.runLater(()->{
 				catalogControl.loadms((List<SMStext>) ms.getObject());
+			});
+		}
+		else if(deliver.equals("#ReloadMS")){
+			Platform.runLater(()->{
+				try {
+					SimpleClient.getClient().sendToServer(new Message(App.getUser(),"#LoadMS"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			});
 		}
 		else if(deliver.equals("#AddNewItem"))

@@ -37,6 +37,22 @@ public class Cart implements Serializable {
     private int Minute;
     private Boolean canceled=false;
 
+    @ManyToOne
+    @JoinTable(
+            name = "Cart_Branch",
+            joinColumns = { @JoinColumn(name = "cart_id") },
+            inverseJoinColumns = { @JoinColumn(name = "Branch_id") }
+    )
+    private Branch myBranch;
+
+    public Branch getMyBranch() {
+        return myBranch;
+    }
+
+    public void setMyBranch(Branch myBranch) {
+        this.myBranch = myBranch;
+    }
+
     public int getHour() {
         return Hour;
     }
