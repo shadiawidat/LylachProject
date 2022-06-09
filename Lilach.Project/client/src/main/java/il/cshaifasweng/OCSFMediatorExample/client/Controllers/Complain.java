@@ -2,11 +2,8 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
-import il.cshaifasweng.OCSFMediatorExample.entities.Cart;
-import il.cshaifasweng.OCSFMediatorExample.entities.Client;
-import il.cshaifasweng.OCSFMediatorExample.entities.Client;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.Utilities;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -167,7 +164,7 @@ public class Complain implements Initializable {
         d3.setHours(d2.getHour());
         d3.setMinutes(d2.getMinute());
         d3.setSeconds(d2.getSecond());
-        d1.setDate(d1.getDate()-1);
+//        d1.setDate(d1.getDate()-1);
         System.out.println(d1);
         System.out.println(d3);
         int secs=0;
