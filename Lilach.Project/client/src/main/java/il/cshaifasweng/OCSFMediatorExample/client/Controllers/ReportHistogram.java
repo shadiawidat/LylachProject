@@ -204,7 +204,9 @@ public class ReportHistogram implements Initializable {
             Complain.setName("Complain");
 
             while (from.before(to))
+
             { int comp=0;
+
                 Complain.getData().add(new XYChart.Data<>(from.toString(),0));
 
                 for(il.cshaifasweng.OCSFMediatorExample.entities.Complain complain:(((ComplainReport)rep).getComplains()))
@@ -232,16 +234,21 @@ public class ReportHistogram implements Initializable {
             int comp=0;
             Complain.getData().add(new XYChart.Data<>(from.toString(),0));
 
+            System.out.println((((ComplainReport)rep).getComplains()).size());
             for(il.cshaifasweng.OCSFMediatorExample.entities.Complain complain:(((ComplainReport)rep).getComplains()))
             {
 
-                if(complain.getDate().getYear()==(from.getYear()+1900))
+                System.out.println(complain.getDate().getYear());
+
+                if(complain.getDate().getYear()==(from.getYear()))
                 {
-                    System.out.println("here");
-                    if(complain.getDate().getMonth()==(from.getMonth()+1))
+
+                    if(complain.getDate().getMonth()==(from.getMonth()))
                     {
-                        System.out.println("there");
-                        if(complain.getDate().getDate()==(from.getDate()))
+                        System.out.println(complain.getDate().getDate());
+
+                        if(complain.getDate().getDate()==(from.getDate()+1))
+
                         {
                             System.out.println("helooooo");
                             comp++;
