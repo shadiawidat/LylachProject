@@ -824,26 +824,19 @@ public class SimpleServer extends AbstractServer {
                 List<Cart> carts = session.createQuery(query).getResultList();
                 IncomeReport rep = new IncomeReport();
 
-                System.out.println("helloooooo");
                 Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
-                System.out.println(d1);
                 rep.setDatefrom(d1);
                 rep.setDateto(d3);
-                System.out.println(d3);
+                rep.setBranch(session.find(Branch.class,msgarray[2]));
                 for (Cart cart : carts) {
-                    System.out.println(cart.getItems()+"!");
                     if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[2]))
                         continue;
                     LocalDateTime d2=cart.getDate();
                     Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
-                    System.out.println(d1);
-                    System.out.println(d2);
-                    System.out.println(d3);
                     if(d4.after(d3))
                         continue;
                     if(d4.before(d1))
                         continue;
-                    System.out.println(cart.getItems()+"%");
                     if (cart.getCanceled()) {
                         rep.AddOneCanceledCart(cart);
                         rep.IncCanceled();
@@ -853,9 +846,7 @@ public class SimpleServer extends AbstractServer {
                         rep.IncNet(cart.getPrice());
                     }
                     rep.IncTotal();
-                    System.out.println("bananana");
                 }
-                System.out.println("hellloollolol");
                 client.sendToClient(new Message(rep,"#Rep1Ready"));
             } else if (msgarray[1].equals("Complain")) {
 
@@ -866,6 +857,65 @@ public class SimpleServer extends AbstractServer {
             if (msgarray[1].equals("Order")) {
 
             } else if (msgarray[1].equals("Income")) {
+
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
+                query.from(Cart.class);
+                List<Cart> carts = session.createQuery(query).getResultList();
+                IncomeReport rep1 = new IncomeReport();
+                IncomeReport rep2 = new IncomeReport();
+                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                Date d5=((List<Date>)ms.getObject()).get(1),d6=((List<Date>)ms.getObject()).get(2);
+                rep1.setDatefrom(d1);
+                rep1.setDateto(d3);
+                rep1.setBranch(session.find(Branch.class,msgarray[2]));
+                rep2.setDatefrom(d5);
+                rep2.setDateto(d6);
+                rep2.setBranch(session.find(Branch.class,msgarray[4]));
+                for (Cart cart : carts) {
+                    if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[2]))
+                        continue;
+                    LocalDateTime d2=cart.getDate();
+                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
+                    if(d4.after(d3))
+                        continue;
+                    if(d4.before(d1))
+                        continue;
+                    if (cart.getCanceled()) {
+                        rep1.AddOneCanceledCart(cart);
+                        rep1.IncCanceled();
+                    } else {
+                        rep1.AddOneCart(cart);
+                        rep1.IncOrders();
+                        rep1.IncNet(cart.getPrice());
+                    }
+                    rep1.IncTotal();
+                }
+                System.out.println("1");
+                for (Cart cart : carts) {
+                    if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[4]))
+                        continue;
+                    LocalDateTime d2=cart.getDate();
+                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
+                    if(d4.after(d6))
+                        continue;
+                    if(d4.before(d5))
+                        continue;
+                    if (cart.getCanceled()) {
+                        rep2.AddOneCanceledCart(cart);
+                        rep2.IncCanceled();
+                    } else {
+                        rep2.AddOneCart(cart);
+                        rep2.IncOrders();
+                        rep2.IncNet(cart.getPrice());
+                    }
+                    rep2.IncTotal();
+                }
+                List<Report> reps=new ArrayList<>();
+                reps.add(rep1);
+                reps.add(rep2);
+                System.out.println("2");
+                client.sendToClient(new Message(reps,"#Rep2Ready"));
 
             } else if (msgarray[1].equals("Complain")) {
 

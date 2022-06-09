@@ -10,6 +10,7 @@ public class OrderReport extends Report  implements Serializable{
     @OneToMany
     private List<Cart> orders;
     private int ordersnum;
+
     public OrderReport() {
     }
 

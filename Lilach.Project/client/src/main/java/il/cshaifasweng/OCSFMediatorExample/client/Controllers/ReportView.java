@@ -118,7 +118,8 @@ public class ReportView implements Initializable {
                     FXMLLoader fxmlLoader1 = new FXMLLoader();
                     fxmlLoader1.setLocation(SimpleClient.class.getResource("ReportHistogram.fxml"));
                     AnchorPane anchorPane1 = fxmlLoader1.load();
-                    ReportHistogram reportHistogram1 = fxmlLoader.getController();
+                    ReportHistogram reportHistogram1 = fxmlLoader1.getController();
+                    reportHistogram1.setInfo(rep2);
                     grid.add(anchorPane1, 0, 2); //(child,column,row)
                     //set grid width
                     grid.setMinWidth(Region.USE_COMPUTED_SIZE);
@@ -128,7 +129,7 @@ public class ReportView implements Initializable {
                     grid.setMinHeight(Region.USE_COMPUTED_SIZE);
                     grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
                     grid.setMaxHeight(Region.USE_PREF_SIZE);
-                    GridPane.setMargin(anchorPane, new Insets(10));
+                    GridPane.setMargin(anchorPane1, new Insets(10));
                 }
             }
          catch (IOException e) {
