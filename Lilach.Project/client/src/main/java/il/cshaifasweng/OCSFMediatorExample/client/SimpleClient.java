@@ -306,6 +306,8 @@ public class SimpleClient extends AbstractClient {
 			Platform.runLater(()->{
 				clientComplain.showNote();
 			});
+		}else if(deliver.equals("#ReloadUser")){
+			App.setUser(((User)ms.getObject()));
 		}
 
 		if (msg.getClass().equals(Warning.class)) {
