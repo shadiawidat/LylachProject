@@ -117,7 +117,8 @@ public class Catalog implements Initializable {
 
     @FXML
     private ImageView MesseageIndicator;
-
+    @FXML
+    private ImageView MesseageIndicator1;
     @FXML
     private MenuItem Reports;
     @FXML
@@ -695,7 +696,6 @@ public class Catalog implements Initializable {
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         if (searchin != null && searchin.equals("") == false) {
             SearchField.setText(searchin);
             ClickSearch(null);
@@ -703,10 +703,14 @@ public class Catalog implements Initializable {
         }
         if (App.getUser() == null) {
             UserName.setText("Welcome guest");
-
+            Messeges.setVisible(false);
+            MesseageIndicator.setVisible(false);
+            MesseageIndicator1.setVisible(false);
         }
         else {
             if(App.getUser().getPermission()==permissions.CLIENT) {
+                Messeges.setVisible(true);
+                MesseageIndicator1.setVisible(true);
                 try {
                     SimpleClient.getClient().sendToServer(new Message(App.getUser(),"#LoadMS"));
                     SimpleClient.getClient().catalogControl=this;
@@ -714,6 +718,10 @@ public class Catalog implements Initializable {
                     e.printStackTrace();
                 }
 
+            }else{
+                Messeges.setVisible(false);
+                MesseageIndicator.setVisible(false);
+                MesseageIndicator1.setVisible(false);
             }
             UserName.setText("Welcome " + App.getUser().getFirstname());
         }
@@ -723,6 +731,7 @@ public class Catalog implements Initializable {
                 MenuSignUp.setVisible(false);
                 CartB.setVisible(false);
                 MenuCart.setVisible(false);
+                MenuSignUp.setVisible(true);
             }
             if (App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.CorpManager) {
                 Reports.setVisible(true);
@@ -731,7 +740,7 @@ public class Catalog implements Initializable {
                 Reports.setVisible(false);
                 Complains.setVisible(false);
             }
-            if(App.getUser().getPermission()==permissions.WORKER){
+            if(App.getUser().getPermission()==permissions.CustomerServiceWorker){
                 Complains.setVisible(true);
             }
         }

@@ -62,25 +62,12 @@ public class ItemView {
     void AddToCart(MouseEvent event) throws IOException {
 
 
-        if(App.getUser()==null)
-        {
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-
+        if(App.getUser()==null) {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setContentText("Please sign in first");
-
-
-
-            Optional<ButtonType> result = a.showAndWait();
-            if(!result.isPresent()) {}
-            else if(result.get() == ButtonType.OK)
-                {
-                    App.setRoot("LogIn");
-                }
-            else if(result.get() == ButtonType.CANCEL) {
-            }
-                return;
-
-            }
+            a.showAndWait();
+            return;
+        }
         if(App.getUser().getPermission()!=permissions.CLIENT)
             return;
         SimpleClient.getClient().sendToServer(new Message(item,"#AddToCart "+App.getUser().getUsername()));

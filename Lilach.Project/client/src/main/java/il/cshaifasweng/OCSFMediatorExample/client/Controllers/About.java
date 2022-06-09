@@ -23,7 +23,7 @@ public class About implements Initializable {
     private Button Back;
     @FXML
     private ImageView CartB;
-
+//UP
 
     @FXML
     private ImageView MenuBtn;
@@ -76,6 +76,14 @@ public class About implements Initializable {
 
     @FXML
     void GoToProfile(ActionEvent event) throws IOException {
+        if(App.getUser()==null)
+        {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setContentText("Please sign in first");
+
+            a.showAndWait();
+            return;
+        }
         Account.setCaller("About");
         App.setRoot("Account");
     }

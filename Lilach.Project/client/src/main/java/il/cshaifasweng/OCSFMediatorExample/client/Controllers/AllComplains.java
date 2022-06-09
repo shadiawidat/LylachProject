@@ -175,11 +175,13 @@ public class AllComplains implements Initializable {
     public void loadComplains(List<il.cshaifasweng.OCSFMediatorExample.entities.Complain> complains){
         gridPane.getChildren().clear();
         Matched.setVisible(false);
+        int i=0;
         try {
             int column = 0;
             int row = 1;
             if(complains.size() == 0){
                 Matched.setVisible(true);
+                scroll.setVisible(false);
             }
             for (il.cshaifasweng.OCSFMediatorExample.entities.Complain complain : complains) {
                 if(complain.isHandled())
@@ -197,7 +199,7 @@ public class AllComplains implements Initializable {
                         }
                     }
                 }
-
+                i++;
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(SimpleClient.class.getResource("Complain.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
@@ -224,6 +226,10 @@ public class AllComplains implements Initializable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if(i == 0){
+            scroll.setVisible(false);
+            Matched.setVisible(true);
         }
     }
 

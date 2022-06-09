@@ -108,45 +108,7 @@ public class SimpleServer extends AbstractServer {
         super.clientDisconnected(client);
     }
 
-    protected void saveObjectList(List<Object> list) {
-        session.beginTransaction();
-        for (int i = 0; i < list.size(); i++) {
-            session.save(list.get(i));
-            session.flush();
-        }
-
-        session.getTransaction().commit();
-    }
-
-    protected void deleteObject(Object o) {
-        session.beginTransaction();
-
-        session.delete(o);
-        session.flush();
-
-        session.getTransaction().commit();
-    }
-
-    protected void deleteObjectList(List<Object> list) {
-        session.beginTransaction();
-
-        for (int i = 0; i < list.size(); i++) {
-            session.delete(list.get(i));
-        }
-        session.flush();
-
-        session.getTransaction().commit();
-    }
-
-    protected void setInfo(int itemId, double price) {
-        session.beginTransaction();
-        session.find(Item.class, itemId).setPrice(price);
-        session.getTransaction().commit();
-    }
-
     public void handleThread() {
-        int i = 0;
-
         while (isRunning) {
 
             Platform.runLater(() -> {
@@ -816,6 +778,28 @@ public class SimpleServer extends AbstractServer {
 
             String[] msgarray = request.split(" ");
             if (msgarray[1].equals("Order")) {
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
+                query.from(Cart.class);
+                List<Cart> carts = session.createQuery(query).getResultList();
+                OrderReport rep = new OrderReport();
+
+                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                rep.setDatefrom(d1);
+                rep.setDateto(d3);
+                rep.setBranch(session.find(Branch.class,msgarray[2]));
+                for (Cart cart : carts) {
+                    if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[2]))
+                        continue;
+                    LocalDateTime d2=cart.getDate();
+                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
+                    if(d4.after(d3))
+                        continue;
+                    if(d4.before(d1))
+                        continue;
+                    rep.getOrders().add(cart);
+                }
+                client.sendToClient(new Message(rep,"#Rep1Ready"));
             }
             else if (msgarray[1].equals("Income")) {
                 CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -849,29 +833,77 @@ public class SimpleServer extends AbstractServer {
                 }
                 client.sendToClient(new Message(rep,"#Rep1Ready"));
             } else if (msgarray[1].equals("Complain")) {
+         
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Complain> query = builder.createQuery(Complain.class);
+                query.from(Complain.class);
+                List<Complain> complains = session.createQuery(query).getResultList();
 
+                ComplainReport rep1 = new ComplainReport();
+                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                rep1.setDatefrom(d1);
+                rep1.setDateto(d3);
+                rep1.setBranch(session.find(Branch.class,msgarray[2]));
+                for (Complain complain : complains) {
+                    if (!msgarray[2].equals("All") && !complain.getBranch().getName().equals(msgarray[2]))
+                        continue;
+
+                    Date d7=complain.getDate();
+                    Date d4=new Date(d7.getYear(),d7.getMonth(),d7.getDate());
+
+                    d4.setDate(d4.getDate()-1);
+                    if(d4.after(d3))
+                        continue;
+                    if(d4.before(d1))
+                        continue;
+
+                    rep1.getComplains().add(complain);
+                }
+
+                client.sendToClient(new Message(rep1,"#Rep1Ready"));
             }
 
         } else if (request.startsWith("#PrepReports2")) {
             String[] msgarray = request.split(" ");
+            Report rep3=new Report();
+            Report rep4=new Report();
             if (msgarray[1].equals("Order")) {
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
+                query.from(Cart.class);
+                List<Cart> carts = session.createQuery(query).getResultList();
+                OrderReport rep1 = new OrderReport();
 
-            } else if (msgarray[1].equals("Income")) {
+                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                rep1.setDatefrom(d1);
+                rep1.setDateto(d3);
+                rep1.setBranch(session.find(Branch.class,msgarray[2]));
+                for (Cart cart : carts) {
+                    if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[2]))
+                        continue;
+                    LocalDateTime d2=cart.getDate();
+                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
+                    if(d4.after(d3))
+                        continue;
+                    if(d4.before(d1))
+                        continue;
+                    rep1.getOrders().add(cart);
+                }
+                rep3=rep1;
+
+            }
+            if (msgarray[1].equals("Income")) {
 
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
                 query.from(Cart.class);
                 List<Cart> carts = session.createQuery(query).getResultList();
                 IncomeReport rep1 = new IncomeReport();
-                IncomeReport rep2 = new IncomeReport();
                 Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
-                Date d5=((List<Date>)ms.getObject()).get(1),d6=((List<Date>)ms.getObject()).get(2);
                 rep1.setDatefrom(d1);
                 rep1.setDateto(d3);
                 rep1.setBranch(session.find(Branch.class,msgarray[2]));
-                rep2.setDatefrom(d5);
-                rep2.setDateto(d6);
-                rep2.setBranch(session.find(Branch.class,msgarray[4]));
+
                 for (Cart cart : carts) {
                     if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[2]))
                         continue;
@@ -891,7 +923,106 @@ public class SimpleServer extends AbstractServer {
                     }
                     rep1.IncTotal();
                 }
-                System.out.println("1");
+                rep3=rep1;
+            }
+            if (msgarray[1].equals("Complain"))
+            {
+
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Complain> query = builder.createQuery(Complain.class);
+                query.from(Complain.class);
+                List<Complain> complains = session.createQuery(query).getResultList();
+
+                ComplainReport rep1 = new ComplainReport();
+                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                rep1.setDatefrom(d1);
+                rep1.setDateto(d3);
+                rep1.setBranch(session.find(Branch.class,msgarray[2]));
+                for (Complain complain : complains) {
+                    if (!msgarray[2].equals("All") && !complain.getBranch().getName().equals(msgarray[2]))
+                        continue;
+
+                    Date d7=complain.getDate();
+                    Date d4=new Date(d7.getYear(),d7.getMonth(),d7.getDate());
+
+                    d4.setDate(d4.getDate()-1);
+
+                    if(d4.after(d3))
+                        continue;
+                    if(d4.before(d1))
+                        continue;
+
+                    rep1.getComplains().add(complain);
+                }
+
+                rep3=rep1;
+            }
+            if (msgarray[3].equals("Complain"))
+            {
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Complain> query = builder.createQuery(Complain.class);
+                query.from(Complain.class);
+                List<Complain> complains = session.createQuery(query).getResultList();
+
+                ComplainReport rep1 = new ComplainReport();
+                Date d1=((List<Date>)ms.getObject()).get(2),d3=((List<Date>)ms.getObject()).get(3);
+                rep1.setDatefrom(d1);
+                rep1.setDateto(d3);
+                rep1.setBranch(session.find(Branch.class,msgarray[4]));
+                for (Complain complain : complains) {
+                    if (!msgarray[2].equals("All") && !complain.getBranch().getName().equals(msgarray[4]))
+                        continue;
+                    Date d7=complain.getDate();
+                    Date d4=new Date(d7.getYear(),d7.getMonth(),d7.getDate());
+
+                    d4.setDate(d4.getDate()-1);
+                    if(d4.after(d3))
+                        continue;
+                    if(d4.before(d1))
+                        continue;
+
+                    rep1.getComplains().add(complain);
+                }
+
+                rep4=rep1;
+            }
+
+            if(msgarray[3].equals("Order"))
+            {
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
+                query.from(Cart.class);
+                List<Cart> carts = session.createQuery(query).getResultList();
+
+                OrderReport rep1 = new OrderReport();
+                Date d5=((List<Date>)ms.getObject()).get(2),d6=((List<Date>)ms.getObject()).get(3);
+                rep1.setDatefrom(d5);
+                rep1.setDateto(d6);
+                rep1.setBranch(session.find(Branch.class,msgarray[4]));
+                for (Cart cart : carts) {
+                    if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[4]))
+                        continue;
+                    LocalDateTime d2=cart.getDate();
+                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
+                    if(d4.after(d6))
+                        continue;
+                    if(d4.before(d5))
+                        continue;
+                    rep1.getOrders().add(cart);
+                }
+                rep4=rep1;
+            }
+            if(msgarray[3].equals("Income"))
+            {   CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
+                query.from(Cart.class);
+                List<Cart> carts = session.createQuery(query).getResultList();
+                IncomeReport rep1 = new IncomeReport();
+                Date d5=((List<Date>)ms.getObject()).get(2),d6=((List<Date>)ms.getObject()).get(3);
+
+                rep1.setDatefrom(d5);
+                rep1.setDateto(d6);
+                rep1.setBranch(session.find(Branch.class,msgarray[4]));
                 for (Cart cart : carts) {
                     if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[4]))
                         continue;
@@ -902,24 +1033,21 @@ public class SimpleServer extends AbstractServer {
                     if(d4.before(d5))
                         continue;
                     if (cart.getCanceled()) {
-                        rep2.AddOneCanceledCart(cart);
-                        rep2.IncCanceled();
+                        rep1.AddOneCanceledCart(cart);
+                        rep1.IncCanceled();
                     } else {
-                        rep2.AddOneCart(cart);
-                        rep2.IncOrders();
-                        rep2.IncNet(cart.getPrice());
+                        rep1.AddOneCart(cart);
+                        rep1.IncOrders();
+                        rep1.IncNet(cart.getPrice());
                     }
-                    rep2.IncTotal();
+                    rep1.IncTotal();
                 }
-                List<Report> reps=new ArrayList<>();
-                reps.add(rep1);
-                reps.add(rep2);
-                System.out.println("2");
-                client.sendToClient(new Message(reps,"#Rep2Ready"));
-
-            } else if (msgarray[1].equals("Complain")) {
-
+                rep4=rep1;
             }
+            List<Report> reps=new ArrayList<>();
+            reps.add(rep3);
+            reps.add(rep4);
+            client.sendToClient(new Message(reps,"#Rep2Ready"));
         } else if (request.startsWith("#Refund")) {
             String[] msgarray = request.split("±");
             Client c = session.find(Client.class, ((Client) ms.getObject()).getUsername());
@@ -933,6 +1061,9 @@ public class SimpleServer extends AbstractServer {
             session.flush();
             session.getTransaction().commit();
 
+        }else if(request.equals("#ALogIn")){
+            User user = session.find(User.class,((User)(ms.getObject())).getUsername());
+            client.sendToClient(new Message(user,"#ReloadUser"));
         }
     }
 

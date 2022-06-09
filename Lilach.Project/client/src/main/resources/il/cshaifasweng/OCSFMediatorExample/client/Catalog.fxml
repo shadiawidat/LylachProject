@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Catalog">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Catalog">
    <children>
    <HBox alignment="CENTER" layoutX="270.0" layoutY="120.0" prefHeight="603.0" prefWidth="650.0" style="-fx-background-color: #FDEFE9 #FDEFE9;" VBox.vgrow="ALWAYS">
          <children>
@@ -255,7 +255,7 @@
             <Font name="Cambria" size="14.0" />
          </font>
       </MenuButton>
-      <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="243.0" layoutY="43.0" pickOnBounds="true">
+      <ImageView fx:id="MesseageIndicator1" fitHeight="15.0" fitWidth="15.0" layoutX="243.0" layoutY="43.0" pickOnBounds="true">
          <image>
             <Image url="@../../../../Icons/Whitep.jpeg" />
          </image>

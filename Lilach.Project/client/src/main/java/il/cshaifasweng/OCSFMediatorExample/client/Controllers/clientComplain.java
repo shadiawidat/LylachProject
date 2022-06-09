@@ -148,7 +148,7 @@ public class clientComplain implements Initializable {
         }
         else
         {
-            java.util.Date d = new Date(java.time.LocalDateTime.now().getYear()-1900, java.time.LocalDateTime.now().getMonthValue(), java.time.LocalDateTime.now().getDayOfMonth());
+            java.util.Date d = new Date(java.time.LocalDateTime.now().getYear()-1900, java.time.LocalDateTime.now().getMonthValue()-1, java.time.LocalDateTime.now().getDayOfMonth()+1);
             Message ms = new Message(d, "#SendingComplain±" + App.getUser().getUsername() + "±" + complainBox.getText() + "±" + Branches.getText());
             try {
                 SimpleClient.getClient().sendToServer(ms);
@@ -205,6 +205,11 @@ public class clientComplain implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    void GoToCart(MouseEvent event) throws IOException {
+        Cart.setCaller("Account");
+        App.setRoot("Cart");
+    }
 
     @FXML
     void GoToProfile(ActionEvent event) {
@@ -217,22 +222,28 @@ public class clientComplain implements Initializable {
     }
 
     @FXML
-    void GoToReports(ActionEvent event) {
-
+    void GoToReports(ActionEvent event) throws IOException {
+        Report.setCaller("AllComplains");
+        App.setRoot("Report");
     }
 
     @FXML
-    void GoToSignOut(ActionEvent event) {
-
+    void GoToSignOut(ActionEvent event) throws IOException {
+        if(App.getUser()!=null)
+            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        App.setUser(null);
+        App.setRoot("LogIn");
     }
 
     @FXML
     void MenuClick(MouseEvent event) {
-
+        menu.setVisible(true);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(App.getUser().getPermission()!=permissions.MANAGER||App.getUser().getPermission()!=permissions.CorpManager)
+            menu.getMenus().get(0).getItems().get(1).setVisible(false);
 
         try {
             SimpleClient.getClient().sendToServer(new Message(null, "#getBranchesC"));
