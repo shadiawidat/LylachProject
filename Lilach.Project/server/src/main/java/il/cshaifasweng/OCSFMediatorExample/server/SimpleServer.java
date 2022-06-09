@@ -16,7 +16,6 @@ import org.hibernate.service.ServiceRegistry;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.io.IOException;
-import java.security.Permission;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -834,23 +833,55 @@ public class SimpleServer extends AbstractServer {
     }
 
     public void makeitwork() {
+
         User johnny = session.find(User.class, "johnny");
         User Lili = session.find(User.class, "lili");
         User Shaggy = session.find(User.class, "shaggy");
+        User Alber = session.find(User.class, "alber");
+        User Adam = session.find(User.class, "adam");
+        User Sandy = session.find(User.class, "sandy");
+        User Sama = session.find(User.class, "sama");
+        User Ben = session.find(User.class, "ben");
+        User George = session.find(User.class, "george");
+        User Liel = session.find(User.class, "liel");
+
 
         Branch Haifa = session.find(Branch.class, "haifa");
         Branch Nazareth = session.find(Branch.class, "nazareth");
         Branch Krayot = session.find(Branch.class, "krayot");
+        Branch Telaviv = session.find(Branch.class, "telaviv");
+        Branch Natanya = session.find(Branch.class, "natanya");
+        Branch Karmiel = session.find(Branch.class, "karmiel");
+        Branch Herzilya = session.find(Branch.class, "herzilya");
+        Branch Hadera = session.find(Branch.class, "hadera");
+        Branch Shefaraam = session.find(Branch.class, "shefaraam");
+        Branch Nahariya = session.find(Branch.class, "nahariya");
+
 
         BranchManager Moshe = session.find(BranchManager.class, "moshe");
         BranchManager ProfMalki = session.find(BranchManager.class, "profmalki");
         BranchManager eli = session.find(BranchManager.class, "eli");
+        BranchManager maya = session.find(BranchManager.class, "maya");
+        BranchManager alex = session.find(BranchManager.class, "alex");
+        BranchManager leen = session.find(BranchManager.class, "leen");
+        BranchManager polina = session.find(BranchManager.class, "polina");
+        BranchManager avi = session.find(BranchManager.class, "avi");
+        BranchManager yacov = session.find(BranchManager.class, "yacov");
+        BranchManager itay = session.find(BranchManager.class, "itay");
+
 
         CoroporationManager MsSneh = session.find(CoroporationManager.class, "sneh");
 
         Client lana31 = session.find(Client.class, "lana31");
         Client Ramkh = session.find(Client.class, "ramkh");
         Client MuradKh = session.find(Client.class, "muradkh");
+        Client Lara = session.find(Client.class, "lara");
+        Client Leam = session.find(Client.class, "leam");
+        Client Tom = session.find(Client.class, "tom");
+        Client Noel = session.find(Client.class, "noel");
+        Client Wass = session.find(Client.class, "wass");
+        Client Daniel = session.find(Client.class, "daniel");
+        Client Marian = session.find(Client.class, "marian");
 
         Transaction tx = session.beginTransaction();
 
@@ -872,6 +903,39 @@ public class SimpleServer extends AbstractServer {
         tx.commit();
 
         tx = session.beginTransaction();
+        Sama.getMybranches().add(Hadera);
+        Hadera.getUsers().add(Sama);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        Sandy.getMybranches().add(Nahariya);
+        Nahariya.getUsers().add(Sandy);
+        session.flush();
+        tx.commit();
+
+
+        tx = session.beginTransaction();
+        Adam.getMybranches().add(Telaviv);
+        Telaviv.getUsers().add(Adam);
+        session.flush();
+        tx.commit();
+
+
+        tx = session.beginTransaction();
+        Ben.getMybranches().add(Natanya);
+        Natanya.getUsers().add(Ben);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        George.getMybranches().add(Karmiel);
+        Karmiel.getUsers().add(George);
+        session.flush();
+        tx.commit();
+
+
+        tx = session.beginTransaction();
         Moshe.setMybranch(Krayot);
         Krayot.setBmanager(Moshe);
         session.flush();
@@ -890,12 +954,71 @@ public class SimpleServer extends AbstractServer {
         tx.commit();
 
         tx = session.beginTransaction();
+        maya.setMybranch(Karmiel);
+        Karmiel.setBmanager(maya);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        alex.setMybranch(Herzilya);
+        Herzilya.setBmanager(alex);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        avi.setMybranch(Shefaraam);
+        Shefaraam.setBmanager(avi);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        yacov.setMybranch(Nahariya);
+        Nahariya.setBmanager(yacov);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        polina.setMybranch(Natanya);
+        Natanya.setBmanager(polina);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        itay.setMybranch(Telaviv);
+        Telaviv.setBmanager(itay);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        leen.setMybranch(Hadera);
+        Hadera.setBmanager(leen);
+        session.flush();
+        tx.commit();
+
+
+        tx = session.beginTransaction();
         MsSneh.AddOneBranch(Haifa);
         MsSneh.AddOneBranch(Nazareth);
         MsSneh.AddOneBranch(Krayot);
+        MsSneh.AddOneBranch(Karmiel);
+        MsSneh.AddOneBranch(Hadera);
+        MsSneh.AddOneBranch(Nahariya);
+        MsSneh.AddOneBranch(Natanya);
+        MsSneh.AddOneBranch(Herzilya);
+        MsSneh.AddOneBranch(Telaviv);
+        MsSneh.AddOneBranch(Shefaraam);
         Haifa.setCmanager(MsSneh);
         Nazareth.setCmanager(MsSneh);
         Krayot.setCmanager(MsSneh);
+        Karmiel.setCmanager(MsSneh);
+        Hadera.setCmanager(MsSneh);
+        Nahariya.setCmanager(MsSneh);
+        Natanya.setCmanager(MsSneh);
+        Herzilya.setCmanager(MsSneh);
+        Telaviv.setCmanager(MsSneh);
+        Shefaraam.setCmanager(MsSneh);
+
+
         session.flush();
         tx.commit();
 
@@ -903,9 +1026,23 @@ public class SimpleServer extends AbstractServer {
         Ramkh.AddOneBranch(Haifa);
         Ramkh.AddOneBranch(Nazareth);
         Ramkh.AddOneBranch(Krayot);
+        Ramkh.AddOneBranch(Karmiel);
+        Ramkh.AddOneBranch(Nahariya);
+        Ramkh.AddOneBranch(Natanya);
+        Ramkh.AddOneBranch(Telaviv);
+        Ramkh.AddOneBranch(Shefaraam);
+        Ramkh.AddOneBranch(Hadera);
+        Ramkh.AddOneBranch(Herzilya);
         Haifa.getUsers().add(Ramkh);
         Nazareth.getUsers().add(Ramkh);
         Krayot.getUsers().add(Ramkh);
+        Karmiel.getUsers().add(Ramkh);
+        Nahariya.getUsers().add(Ramkh);
+        Natanya.getUsers().add(Ramkh);
+        Telaviv.getUsers().add(Ramkh);
+        Shefaraam.getUsers().add(Ramkh);
+        Hadera.getUsers().add(Ramkh);
+        Herzilya.getUsers().add(Ramkh);
         session.flush();
         tx.commit();
 
@@ -913,15 +1050,108 @@ public class SimpleServer extends AbstractServer {
         lana31.AddOneBranch(Haifa);
         lana31.AddOneBranch(Nazareth);
         lana31.AddOneBranch(Krayot);
+        lana31.AddOneBranch(Karmiel);
+        lana31.AddOneBranch(Nahariya);
+        lana31.AddOneBranch(Natanya);
+        lana31.AddOneBranch(Telaviv);
+        lana31.AddOneBranch(Shefaraam);
+        lana31.AddOneBranch(Hadera);
+        lana31.AddOneBranch(Herzilya);
         Haifa.getUsers().add(lana31);
         Nazareth.getUsers().add(lana31);
         Krayot.getUsers().add(lana31);
+        Karmiel.getUsers().add(lana31);
+        Nahariya.getUsers().add(lana31);
+        Natanya.getUsers().add(lana31);
+        Telaviv.getUsers().add(lana31);
+        Shefaraam.getUsers().add(lana31);
+        Hadera.getUsers().add(lana31);
+        Herzilya.getUsers().add(lana31);
         session.flush();
         tx.commit();
 
         tx = session.beginTransaction();
+        Leam.AddOneBranch(Haifa);
+        Leam.AddOneBranch(Nazareth);
+        Leam.AddOneBranch(Krayot);
+        Leam.AddOneBranch(Karmiel);
+        Leam.AddOneBranch(Nahariya);
+        Leam.AddOneBranch(Natanya);
+        Leam.AddOneBranch(Telaviv);
+        Leam.AddOneBranch(Shefaraam);
+        Leam.AddOneBranch(Hadera);
+        Leam.AddOneBranch(Herzilya);
+        Haifa.getUsers().add(Leam);
+        Nazareth.getUsers().add(Leam);
+        Krayot.getUsers().add(Leam);
+        Karmiel.getUsers().add(Leam);
+        Nahariya.getUsers().add(Leam);
+        Natanya.getUsers().add(Leam);
+        Telaviv.getUsers().add(Leam);
+        Shefaraam.getUsers().add(Leam);
+        Hadera.getUsers().add(Leam);
+        Herzilya.getUsers().add(Leam);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        Wass.AddOneBranch(Haifa);
+        Wass.AddOneBranch(Nazareth);
+        Wass.AddOneBranch(Krayot);
+        Wass.AddOneBranch(Karmiel);
+        Wass.AddOneBranch(Nahariya);
+        Wass.AddOneBranch(Natanya);
+        Wass.AddOneBranch(Telaviv);
+        Wass.AddOneBranch(Shefaraam);
+        Wass.AddOneBranch(Hadera);
+        Wass.AddOneBranch(Herzilya);
+        Haifa.getUsers().add(Wass);
+        Nazareth.getUsers().add(Wass);
+        Krayot.getUsers().add(Wass);
+        Karmiel.getUsers().add(Wass);
+        Nahariya.getUsers().add(Wass);
+        Natanya.getUsers().add(Wass);
+        Telaviv.getUsers().add(Wass);
+        Shefaraam.getUsers().add(Wass);
+        Hadera.getUsers().add(Wass);
+        Herzilya.getUsers().add(Wass);
+        session.flush();
+        tx.commit();
+
+
+        tx = session.beginTransaction();
         MuradKh.AddOneBranch(Krayot);
         Krayot.getUsers().add(MuradKh);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        Lara.AddOneBranch(Nahariya);
+        Nahariya.getUsers().add(Lara);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        Noel.AddOneBranch(Herzilya);
+        Herzilya.getUsers().add(Noel);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        Daniel.AddOneBranch(Telaviv);
+        Telaviv.getUsers().add(Daniel);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        Marian.AddOneBranch(Karmiel);
+        Karmiel.getUsers().add(Marian);
+        session.flush();
+        tx.commit();
+
+        tx = session.beginTransaction();
+        Tom.AddOneBranch(Natanya);
+        Natanya.getUsers().add(Tom);
         session.flush();
         tx.commit();
 
