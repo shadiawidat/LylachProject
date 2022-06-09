@@ -23,7 +23,7 @@ public class Connect implements Initializable {
     private CheckBox Client;
 
     @FXML
-    private MenuButton IP;
+    private TextField IP;
 
     @FXML
     private TextField Port;
@@ -61,18 +61,18 @@ public class Connect implements Initializable {
             socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
             MenuItem item=new MenuItem();
             item.setText(socket.getLocalAddress().getHostAddress());
-            IP.getItems().add(item);
+//            IP.getItems().add(item);
 
         } catch (SocketException | UnknownHostException e) {
             e.printStackTrace();
         }
-        for(MenuItem menuItem: IP.getItems()){
-            menuItem.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    IP.setText(menuItem.getText());
-                }
-            });
-        }
+//        for(MenuItem menuItem: IP.getItems()){
+//            menuItem.setOnAction(new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent e) {
+//                    IP.setText(menuItem.getText());
+//                }
+//            });
+//        }
     }
 }
