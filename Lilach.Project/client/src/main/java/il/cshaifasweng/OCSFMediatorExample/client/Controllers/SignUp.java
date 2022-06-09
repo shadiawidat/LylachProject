@@ -423,6 +423,9 @@ public class SignUp implements Initializable {
             UserNameConnected.setText("Welcome guest");
         }
         else {
+            if(App.getUser().getPermission()!=permissions.CLIENT){
+                CartB.setImage(null);
+            }
             MenuSignIn.setVisible(false);
             UserNameConnected.setText("Welcome " + App.getUser().getFirstname());
         }

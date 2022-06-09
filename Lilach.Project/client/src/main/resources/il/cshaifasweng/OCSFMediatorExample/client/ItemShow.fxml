@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="920.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemShow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="920.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemShow">
    <children>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -100,7 +100,7 @@
                   <VBox layoutX="42.0" layoutY="52.0" onDragOver="#HandleOver" prefHeight="451.0" prefWidth="213.0">
 
                      <children>
-                        <Label fx:id="idtext" maxHeight="37.0" prefHeight="37.0" prefWidth="172.0" stylesheets="@../../../../Styles/Style.css" text="ID: 32029">
+                        <Label fx:id="idtext" maxHeight="37.0" prefHeight="37.0" prefWidth="172.0" stylesheets="@../../../../Styles/Style.css" text="ID:">
                            <font>
                               <Font name="Cambria" size="22.0" />
                            </font>

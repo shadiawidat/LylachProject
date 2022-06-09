@@ -205,6 +205,11 @@ public class clientComplain implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    void GoToCart(MouseEvent event) throws IOException {
+        Cart.setCaller("Account");
+        App.setRoot("Cart");
+    }
 
     @FXML
     void GoToProfile(ActionEvent event) {
@@ -217,22 +222,28 @@ public class clientComplain implements Initializable {
     }
 
     @FXML
-    void GoToReports(ActionEvent event) {
-
+    void GoToReports(ActionEvent event) throws IOException {
+        Report.setCaller("AllComplains");
+        App.setRoot("Report");
     }
 
     @FXML
-    void GoToSignOut(ActionEvent event) {
-
+    void GoToSignOut(ActionEvent event) throws IOException {
+        if(App.getUser()!=null)
+            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        App.setUser(null);
+        App.setRoot("LogIn");
     }
 
     @FXML
     void MenuClick(MouseEvent event) {
-
+        menu.setVisible(true);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(App.getUser().getPermission()!=permissions.MANAGER||App.getUser().getPermission()!=permissions.CorpManager)
+            menu.getMenus().get(0).getItems().get(1).setVisible(false);
 
         try {
             SimpleClient.getClient().sendToServer(new Message(null, "#getBranchesC"));

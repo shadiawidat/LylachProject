@@ -1135,6 +1135,13 @@ public class Account implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Message ms = new Message(App.getUser(), "#ALogIn");
+        try {
+            SimpleClient.getClient().sendToServer(ms);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SimpleClient.getClient().accountControl=this;
         try {
             SimpleClient.getClient().sendToServer(new Message(null, "#getBranchesA"));
             SimpleClient.getClient().accountControl = this;

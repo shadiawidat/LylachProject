@@ -19,51 +19,6 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css">
           <children>
-              <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                  <children>
-                      <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
-                          <image>
-                              <Image url="@../../../../Icons/Menu.png" />
-                          </image>
-                          <HBox.margin>
-                              <Insets />
-                          </HBox.margin>
-                      </ImageView>
-                      <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
-                          <children>
-                              <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="247.0">
-                                  <font>
-                                      <Font name="Cambria" size="14.0" />
-                                  </font>
-                              </Label>
-                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
-                                  <font>
-                                      <Font name="Cambria Bold" size="24.0" />
-                                  </font>
-                              </Label>
-                              <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
-                                  <font>
-                                      <Font name="Cambria" size="24.0" />
-                                  </font>
-                              </Label>
-                              <Label fx:id="UserName" alignment="CENTER_RIGHT" onMouseClicked="#GoToAccount" prefHeight="25.0" prefWidth="247.0" text="Welcome John Pierre">
-                                  <font>
-                                      <Font name="Cambria" size="14.0" />
-                                  </font>
-                              </Label>
-                          </children>
-                      </HBox>
-                      <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-                          <HBox.margin>
-                              <Insets />
-                          </HBox.margin>
-                          <styleClass>
-                              <String fx:value="transparent" />
-                              <String fx:value="logo" />
-                          </styleClass>
-                      </ImageView>
-                  </children>
-              </HBox>
             <Button fx:id="Back" layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;">
                <font>
                   <Font name="Cambria" size="24.0" />
@@ -181,5 +136,53 @@
             </Label>
           </children>
       </AnchorPane>
+      <HBox alignment="CENTER" layoutX="40.0" layoutY="47.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
+               <image>
+                  <Image url="@../../../../Icons/Menu.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="247.0">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
+                     <font>
+                        <Font name="Cambria Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
+                     <font>
+                        <Font name="Cambria" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="UserName" alignment="CENTER_RIGHT" onMouseClicked="#GoToAccount" prefHeight="25.0" prefWidth="247.0" text="Welcome John Pierre">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="CartB" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+               <image>
+                  <Image url="@../../../../Icons/Cart.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="logo" />
+               </styleClass>
+            </ImageView>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
