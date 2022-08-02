@@ -56,7 +56,7 @@ public class SimpleClient extends AbstractClient {
 		Message ms=(Message)msg;
 		String deliver=ms.getString();
 		System.out.println(deliver);
-		if(deliver.equals("#CatalogReady")) {
+		if(deliver.equals("#CatalogReady")&&catalogControl!=null) {
 			Catalog.Catalog = (List<Item>) ms.getObject();
 			Platform.runLater(()->{catalogControl.LoadList(Catalog.Catalog);
 			catalogControl.resetShow();
@@ -66,10 +66,19 @@ public class SimpleClient extends AbstractClient {
 		{
 			App.setUser((User) ms.getObject());
 			Platform.runLater(()->{logControl.Sign();});
-		}else if (deliver.equals("#UserExists"))
+		}
+		else if (deliver.equals("#CatalogUpdated")&&catalogControl!=null)
+		{
+			Catalog.Catalog = (List<Item>) ms.getObject();
+			Platform.runLater(()->{catalogControl.RefreshList((List<Item>) ms.getObject());
+//				catalogControl.resetShow();
+			});
+		}
+		else if (deliver.equals("#UserExists"))
 		{
 			Platform.runLater(()->{signUpControl.UserExist();});
-		}else if (deliver.equals("#UserCreated"))
+		}
+		else if (deliver.equals("#UserCreated"))
 		{
 			Platform.runLater(()->{
 				try {
@@ -222,7 +231,7 @@ public class SimpleClient extends AbstractClient {
 
 			Platform.runLater(()->{
 				try {
-					itemshowControl.Deleted(true);
+					itemshowControl.Deleted(false);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

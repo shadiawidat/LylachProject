@@ -696,6 +696,7 @@ public class Catalog implements Initializable {
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         if (searchin != null && searchin.equals("") == false) {
             SearchField.setText(searchin);
             ClickSearch(null);
@@ -757,10 +758,25 @@ public class Catalog implements Initializable {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-//        if(App.getUser()!=null && App.getUser().getPermission()==permissions.WORKER) {
-//            Complains.setVisible(true);
-//        }
-
-
         }
+
+    public void RefreshList(List<Item> catalog) {
+
+        if(CatalogShow.size()<=0)
+            return;
+        List<Item> temp=new ArrayList<>();
+        for(Item item: CatalogShow)
+        {
+            for(Item item1:catalog)
+            {
+                if(item1.getId()==item.getId()) {
+                    temp.add(item1);
+                    break;
+                }
+            }
+        }
+        CatalogShow=temp;
+        LoadList(CatalogShow);
+
+    }
 }

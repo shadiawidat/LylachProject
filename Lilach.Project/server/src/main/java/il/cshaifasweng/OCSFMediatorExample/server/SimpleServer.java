@@ -217,6 +217,12 @@ public class SimpleServer extends AbstractServer {
         if (request.startsWith("#AddItem")) {
             saveObject(ms.getObject());
             client.sendToClient(new Message(null, "#AddNewItem"));
+            client.sendToClient(new Message(session.find(Item.class, ((Item) ms.getObject()).getId()), "#UpdateInfoSucceeded"));
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Item> query = builder.createQuery(Item.class);
+            query.from(Item.class);
+            Message msa = new Message(session.createQuery(query).getResultList(), "#CatalogUpdated");
+            sendToAllClients(msa);
         }
         if (request.startsWith("#LogIn")) {
             String[] msgarray = request.split(" ");
@@ -246,7 +252,6 @@ public class SimpleServer extends AbstractServer {
             }
 
         }
-
         if (request.startsWith("#UserExist")) {
             String[] msgarray = request.split(" ");
             Client user = session.find(Client.class, msgarray[1]);
@@ -385,7 +390,6 @@ public class SimpleServer extends AbstractServer {
                 client.sendToClient(new Message(user, "#UserFreezed"));
             }
         }
-
         if (request.startsWith("#GetCart")) {
             String[] msgarray = request.split(" ");
             Client nclient = session.find(Client.class, msgarray[1]);
@@ -403,7 +407,6 @@ public class SimpleServer extends AbstractServer {
             }
         }
         if (request.startsWith("#RemoveFromCart")) {
-
             String[] msgarray = request.split(" ");
             Client nclient = session.find(Client.class, msgarray[1]);
 
@@ -427,7 +430,6 @@ public class SimpleServer extends AbstractServer {
 
         }
         if (request.startsWith("#ApproveShipping")) {
-
             String[] msgarray = request.split("±");
             session.beginTransaction();
 
@@ -513,8 +515,6 @@ public class SimpleServer extends AbstractServer {
             Client nclient = session.find(Client.class, msgarray[1]);
             client.sendToClient(new Message(nclient.getMyorders(), "#OrdersReady"));
         }
-
-
         if (request.startsWith("#SendingComplain")) {
             String[] msgarray = request.split("±");
             Client nclient = session.find(Client.class, msgarray[1]);
@@ -549,8 +549,6 @@ public class SimpleServer extends AbstractServer {
             //Client nclient = session.find(Client.class, msgarray[1]);
             client.sendToClient(new Message(null, "#ComplainSent"));
         }
-
-
         if (request.startsWith("#GetComplains")) {
             String[] msgarray = request.split(" ");
             List<Complain> complainList = new ArrayList<>();
@@ -570,7 +568,6 @@ public class SimpleServer extends AbstractServer {
             client.sendToClient(new Message(complainList, "#ComplainsReady"));
 
         }
-
         if (request.startsWith("#UpdateUser")) {
 
             session.beginTransaction();
@@ -631,11 +628,6 @@ public class SimpleServer extends AbstractServer {
                 client.sendToClient(new Message(user, "#UserUpdated"));
             }
         }
-//			else {
-//				client.sendToClient(new Message(null, "#UserNotFound"));
-//			}
-
-
         if (request.startsWith("#AddToCart")) {
             String[] msgarray = request.split(" ");
             List<Cart> myorders = session.find(Client.class, msgarray[1]).getMyorders();
@@ -679,11 +671,17 @@ public class SimpleServer extends AbstractServer {
                 session.flush();
                 session.getTransaction().commit();
                 client.sendToClient(new Message(null, "#DeleteItemSucceeded"));
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Item> query = builder.createQuery(Item.class);
+                query.from(Item.class);
+                Message msa = new Message(session.createQuery(query).getResultList(), "#CatalogUpdated");
+                sendToAllClients(msa);
+
             } else {
                 client.sendToClient(new Message(null, "#DeleteItemFailed"));
+
             }
         }
-
         if (request.startsWith("#UpdateItemInfo")) {
             String[] msgarray = request.split(",");
             Item item = session.find(Item.class, ((Item) ms.getObject()).getId());
@@ -696,6 +694,11 @@ public class SimpleServer extends AbstractServer {
                 session.getTransaction().commit();
 
                 client.sendToClient(new Message(session.find(Item.class, ((Item) ms.getObject()).getId()), "#UpdateInfoSucceeded"));
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Item> query = builder.createQuery(Item.class);
+                query.from(Item.class);
+                Message msa = new Message(session.createQuery(query).getResultList(), "#CatalogUpdated");
+                sendToAllClients(msa);
             }
 
         }
@@ -705,6 +708,7 @@ public class SimpleServer extends AbstractServer {
             query.from(Item.class);
             Message msa = new Message(session.createQuery(query).getResultList(), "#CatalogReady");
             client.sendToClient(msa);
+
 
         }
         if (request.equals("#getBranchesS")) {
@@ -743,17 +747,6 @@ public class SimpleServer extends AbstractServer {
             Message msa = new Message(session.createQuery(query).getResultList(), "#BranchesReadySh");
             client.sendToClient(msa);
         }
-        /////////////////
-//        if (request.startsWith("#RemoveUser")) {
-//            String[] msgarray = request.split(" ");
-//            User user = session.find(User.class, msgarray[1]);
-//            if (user != null) {
-//                session.delete(user);
-//                client.sendToClient(new Message(user, "#UserRemoved"));
-//            } else {
-//                client.sendToClient(new Message(user, "#RemoveUserNotFound"));
-//            }
-//        }
         if (request.startsWith("#CancelOrder")) {
             String[] msgarray = request.split(" ");
 
@@ -774,7 +767,8 @@ public class SimpleServer extends AbstractServer {
             return;
 
 
-        } else if (request.startsWith("#PrepReports1")) {
+        }
+        else if (request.startsWith("#PrepReports1")) {
 
             String[] msgarray = request.split(" ");
             if (msgarray[1].equals("Order")) {
@@ -863,7 +857,8 @@ public class SimpleServer extends AbstractServer {
                 client.sendToClient(new Message(rep1,"#Rep1Ready"));
             }
 
-        } else if (request.startsWith("#PrepReports2")) {
+        }
+        else if (request.startsWith("#PrepReports2")) {
             String[] msgarray = request.split(" ");
             Report rep3=new Report();
             Report rep4=new Report();
@@ -1048,7 +1043,8 @@ public class SimpleServer extends AbstractServer {
             reps.add(rep3);
             reps.add(rep4);
             client.sendToClient(new Message(reps,"#Rep2Ready"));
-        } else if (request.startsWith("#Refund")) {
+        }
+        else if (request.startsWith("#Refund")) {
             String[] msgarray = request.split("±");
             Client c = session.find(Client.class, ((Client) ms.getObject()).getUsername());
             session.beginTransaction();
@@ -1061,7 +1057,8 @@ public class SimpleServer extends AbstractServer {
             session.flush();
             session.getTransaction().commit();
 
-        }else if(request.equals("#ALogIn")){
+        }
+        else if(request.equals("#ALogIn")){
             User user = session.find(User.class,((User)(ms.getObject())).getUsername());
             client.sendToClient(new Message(user,"#ReloadUser"));
         }

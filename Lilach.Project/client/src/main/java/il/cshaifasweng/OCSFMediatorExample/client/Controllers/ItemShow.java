@@ -163,6 +163,8 @@ public class ItemShow implements Initializable {
 
     private Image img;
 
+    private boolean changedimg=false;
+
 
 
     public static String getCaller() {
@@ -528,7 +530,9 @@ public class ItemShow implements Initializable {
     }
     @FXML
     void HandleDrop(DragEvent event) throws IOException {
+
         if((App.getUser()!=null&&App.getUser().getPermission()==permissions.CorpManager||App.getUser().getPermission()==permissions.WORKER||App.getUser().getPermission()==permissions.MANAGER) ){
+           changedimg=true;
             List<File> files = event.getDragboard().getFiles();
             img=new Image(new FileInputStream(files.get(0).getPath()));
            imgid.setImage(img);
@@ -545,6 +549,7 @@ public class ItemShow implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        changedimg=false;
         if(App.getUser()!=null)
             if (!App.getUser().getPermission().equals(permissions.CLIENT))
                 sideAddCart.setVisible(false);
@@ -730,9 +735,10 @@ public class ItemShow implements Initializable {
         }
         s=s+TypeText.getText()+"//"+NameText.getText()+".png";
         t=t+TypeText.getText()+"//"+NameText.getText()+".png";
-        ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(),null),"png",new File(s));
-        ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(),null),"png",new File(t));
-        Message ms= new Message(ITEM, "#UpdateItemInfo," + NName + " " + NPrice + " " + NType + " " + NColor + " " + NDiscount);
+        if(changedimg==true) {
+            ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(), null), "png", new File(s));
+            ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(), null), "png", new File(t));
+        }Message ms= new Message(ITEM, "#UpdateItemInfo," + NName + " " + NPrice + " " + NType + " " + NColor + " " + NDiscount);
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().itemshowControl= this;
 
