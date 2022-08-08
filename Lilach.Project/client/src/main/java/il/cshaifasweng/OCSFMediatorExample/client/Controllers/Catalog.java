@@ -335,11 +335,11 @@ public class Catalog implements Initializable {
     @FXML
     void CreateNew(MouseEvent event) {
         ItemShow.setCaller("CatalogNew");
-        System.out.println("here");
+
         Item item=new Item("",0.0,"","",0.0);
         App.setOnscreen(item);
         try {
-            System.out.println("here1");
+
             App.setRoot("ItemShow");
         } catch (IOException e) {
             e.printStackTrace();

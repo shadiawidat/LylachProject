@@ -165,7 +165,7 @@ public class ItemShow implements Initializable {
 
     private boolean changedimg=false;
 
-
+    private Item recItem;
 
     public static String getCaller() {
         return Caller;
@@ -398,9 +398,17 @@ public class ItemShow implements Initializable {
 
     }
 
+    public Item getRecItem() {
+        return recItem;
+    }
+
+    public void setRecItem(Item recItem) {
+        this.recItem = recItem;
+    }
+
     @FXML
     void AddItem(MouseEvent event) throws IOException {
-        System.out.println("here");
+
         boolean flag=false;
         InvalidName.setVisible(false);
         InvalidColor.setVisible(false);
@@ -441,10 +449,16 @@ public class ItemShow implements Initializable {
         }
         s=s+TypeText.getText()+"//"+NameText.getText()+".png";
         t=t+TypeText.getText()+"//"+NameText.getText()+".png";
-        ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(),null),"png",new File(s));
-        ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(),null),"png",new File(t));
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(), null), "png", new File(s));
+            ImageIO.write(SwingFXUtils.fromFXImage(imgid.getImage(), null), "png", new File(t));
+        } catch (RuntimeException e) {
+            Alert as = new Alert(Alert.AlertType.ERROR);
+            as.setContentText("PNG format only.");
+            as.showAndWait();
+            return;
+        }
         Item item = new Item(NameText.getText(),Double.parseDouble(PriceText.getText()),TypeText.getText(),ColorText.getText(),Double.parseDouble(DiscountText.getText()));
-
         Message ms =new Message(item,"#AddItem");
         SimpleClient.getClient().sendToServer(ms);
         SimpleClient.getClient().itemshowControl=this;
@@ -453,11 +467,7 @@ public class ItemShow implements Initializable {
 
     public void additem() throws IOException {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-
         a.setContentText("Item was added.");
-
-
-
         Optional<ButtonType> result = a.showAndWait();
         if(!result.isPresent()) {}
         else if(result.get() == ButtonType.OK)
@@ -465,6 +475,8 @@ public class ItemShow implements Initializable {
             App.setRoot("Catalog");
         }
         else if(result.get() == ButtonType.CANCEL) {
+            SimpleClient.getClient().sendToServer(new Message(recItem,"#DeleteItem"));
+            SimpleClient.getClient().itemshowControl=this;
         }
         return;
 

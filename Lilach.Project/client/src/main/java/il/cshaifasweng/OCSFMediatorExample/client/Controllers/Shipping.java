@@ -319,7 +319,6 @@ public class Shipping implements Initializable {
 
     @FXML
     void ApproveFunc(MouseEvent event) throws IOException {
-        System.out.println(((Client)App.getUser()).getAmount());
         if(Credit.isSelected()&&((Client)App.getUser()).getAmount()<SimpleClient.getClient().cartControl.subTotalG)
         {
             Alert a=new Alert(Alert.AlertType.ERROR);
@@ -349,7 +348,6 @@ public class Shipping implements Initializable {
         }
         flag=flag||Branches.getText().equals("");
 
-        System.out.println(Branches.getText().equals(""));
 
         if(Fornow.isSelected()){
             InvalidHour.setVisible(false);
@@ -377,13 +375,11 @@ public class Shipping implements Initializable {
             }
         }
         if (flag) {
-            System.out.println("sdf");
             return;
         }
         double lastprice=SimpleClient.getClient().cartControl.subTotalG;
         if(Fornow.isSelected()){
             LocalDateTime d1=LocalDateTime.now();
-            System.out.println(d1);
             Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + d1.getYear() + "±" + d1.getMonth().getValue() + "±" + d1.getDayOfMonth() + "±" + lastprice + "±" + (d1.getHour()+3) + "±" + d1.getMinute() + "±" + Cash.isSelected() + "±" + Branches.getText());
             SimpleClient.getClient().sendToServer(ms);
             SimpleClient.getClient().shippingControl = this;

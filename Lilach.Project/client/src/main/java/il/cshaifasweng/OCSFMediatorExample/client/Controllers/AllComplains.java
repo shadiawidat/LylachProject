@@ -187,8 +187,6 @@ public class AllComplains implements Initializable {
                 if(complain.isHandled())
                     continue;
                 if(App.getUser().getPermission()==permissions.MANAGER){
-                    System.out.println(((BranchManager)App.getUser()).getMybranch().getName());
-                    System.out.println(complain.getBranch().getName());
                     if(!(((BranchManager)App.getUser()).getMybranch().getName().equals(complain.getBranch().getName()))){
                         continue;
                     }

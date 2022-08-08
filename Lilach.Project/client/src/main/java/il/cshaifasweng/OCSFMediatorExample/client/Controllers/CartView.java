@@ -124,8 +124,6 @@ public class CartView implements Initializable {
         d3.setMinutes(d2.getMinute());
         d3.setSeconds(d2.getSecond());
         d1.setDate(d1.getDate()-1);
-        System.out.println(d1);
-        System.out.println(d3);
         int secs=0;
         if(d1.before(d3))
         {

@@ -71,7 +71,6 @@ public class SimpleClient extends AbstractClient {
 		{
 			Catalog.Catalog = (List<Item>) ms.getObject();
 			Platform.runLater(()->{catalogControl.RefreshList((List<Item>) ms.getObject());
-//				catalogControl.resetShow();
 			});
 		}
 		else if (deliver.equals("#UserExists"))
@@ -281,6 +280,7 @@ public class SimpleClient extends AbstractClient {
 		}
 		else if(deliver.equals("#AddNewItem"))
 		{
+			itemshowControl.setRecItem((Item)ms.getObject());
 			Platform.runLater(()->{
 				try {
 					itemshowControl.additem();

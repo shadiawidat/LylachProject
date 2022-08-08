@@ -248,7 +248,7 @@ public class SignUp implements Initializable {
 
     @FXML
     void SignUp(MouseEvent event) throws IOException {
-        System.out.println("here");
+
         InvalidAddress.setVisible(false);
         InvalidEmail.setVisible(false);
 
@@ -302,8 +302,7 @@ public class SignUp implements Initializable {
         flag=flag||!Utilities.checkValidDate(Birth, now);
         flag=flag||!Utilities.check_Validate_Amount(Amount.getText());
 
-        System.out.println("vvv");
-        System.out.println(AccountType.getText());
+
         if(AccountType.getText() == "Basic" && Branches.getText() == ""){
             InvalidBranch.setVisible(true);
             flag = true;
@@ -352,7 +351,7 @@ public class SignUp implements Initializable {
         Catalog.setCaller("LogIn");
     }
     public void UserExist() {
-        System.out.println("User Already exist");
+
         Alert a = new Alert(Alert.AlertType.NONE);
 
         // set alert type

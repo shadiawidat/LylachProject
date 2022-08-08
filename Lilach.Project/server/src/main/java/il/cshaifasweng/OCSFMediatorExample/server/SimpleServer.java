@@ -216,8 +216,9 @@ public class SimpleServer extends AbstractServer {
         }
         if (request.startsWith("#AddItem")) {
             saveObject(ms.getObject());
-            client.sendToClient(new Message(null, "#AddNewItem"));
-            client.sendToClient(new Message(session.find(Item.class, ((Item) ms.getObject()).getId()), "#UpdateInfoSucceeded"));
+
+            client.sendToClient(new Message(session.find(Item.class, ((Item) ms.getObject()).getId()), "#AddNewItem"));
+//            client.sendToClient(new Message(session.find(Item.class, ((Item) ms.getObject()).getId()), "#UpdateInfoSucceeded"));
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Item> query = builder.createQuery(Item.class);
             query.from(Item.class);
@@ -661,11 +662,8 @@ public class SimpleServer extends AbstractServer {
             client.sendToClient(new Message(null, "#AddedItem"));
         }
         if (request.startsWith("#DeleteItem")) {
-
             Item item = session.find(Item.class, ((Item) ms.getObject()).getId());
-
             if (item != null) {
-
                 session.beginTransaction();
                 session.delete(item);
                 session.flush();
@@ -679,6 +677,26 @@ public class SimpleServer extends AbstractServer {
 
             } else {
                 client.sendToClient(new Message(null, "#DeleteItemFailed"));
+
+            }
+        }
+        if (request.startsWith("#DeleteNewItem")) {
+            String[] msgarray = request.split(",");
+            Item item = session.find(Item.class, msgarray[1]);
+            if (item != null) {
+                session.beginTransaction();
+                session.delete(item);
+                session.flush();
+                session.getTransaction().commit();
+                client.sendToClient(new Message(null, "#DeleteNewItemSucceeded"));
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Item> query = builder.createQuery(Item.class);
+                query.from(Item.class);
+                Message msa = new Message(session.createQuery(query).getResultList(), "#CatalogUpdated");
+                sendToAllClients(msa);
+
+            } else {
+                client.sendToClient(new Message(null, "#DeleteNewItemFailed"));
 
             }
         }

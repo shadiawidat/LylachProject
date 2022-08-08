@@ -56,7 +56,7 @@ public class LogIn implements Initializable {
 
     @FXML
     void GoToAbout(MouseEvent event) throws IOException {
-        System.out.println("here");
+
         About.setCaller("LogIn");
         App.setRoot("About");
     }
@@ -150,7 +150,7 @@ public class LogIn implements Initializable {
                 }
             }
             else {
-                System.out.println("here");
+
                 Incorrect.setVisible(true);
                 UserName.setText("");
                 Password.setText("");

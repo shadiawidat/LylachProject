@@ -1,11 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
-import com.sun.marlin.stats.Histogram;
-import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import il.cshaifasweng.OCSFMediatorExample.entities.Cart;
-import il.cshaifasweng.OCSFMediatorExample.entities.Complain;
 import il.cshaifasweng.OCSFMediatorExample.entities.Report;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -99,27 +96,27 @@ public class ReportHistogram implements Initializable {
                                 for(Item item:cart.getItems()){
 
                                     if(item.getType().equals("Flower"))
-                                    {System.out.println("1");
+                                    {
                                         flowerc++;
                                         Flower.getData().get(i).setYValue(flowerc);
                                     }
                                     if(item.getType().equals("Vase"))
-                                    {System.out.println("2");
+                                    {
                                         Vasec++;
                                         Vase.getData().get(i).setYValue(Vasec);
                                     }
                                     if(item.getType().equals("Bouquet"))
-                                    {System.out.println("3");
+                                    {
                                         Bouquetc++;
                                         Bouquet.getData().get(i).setYValue(Bouquetc);
                                     }
                                     if(item.getType().equals("Gardening"))
-                                    {System.out.println("4");
+                                    {
                                         Gardeningc++;
                                         Gardening.getData().get(i).setYValue(Gardeningc);
                                     }
                                     if(item.getType().equals("Wedding"))
-                                    {System.out.println("5");
+                                    {
                                         Weddingc++;
                                         Wedding.getData().get(i).setYValue(Weddingc);
                                     }
@@ -155,30 +152,31 @@ public class ReportHistogram implements Initializable {
                             for(Item item:cart.getItems()){
 
                                 if(item.getType().equals("Flower"))
-                                {System.out.println("1");
+                                {
                                     flowerc++;
                                     Flower.getData().get(i).setYValue(flowerc);
                                 }
                                 if(item.getType().equals("Vase"))
-                                {System.out.println("2");
+                                {
                                     Vasec++;
                                     Vase.getData().get(i).setYValue(Vasec);
                                 }
                                 if(item.getType().equals("Bouquet"))
-                                {System.out.println("3");
+                                {
                                     Bouquetc++;
                                     Bouquet.getData().get(i).setYValue(Bouquetc);
                                 }
                                 if(item.getType().equals("Gardening"))
-                                {System.out.println("4");
+                                {
                                     Gardeningc++;
                                     Gardening.getData().get(i).setYValue(Gardeningc);
                                 }
                                 if(item.getType().equals("Wedding"))
-                                {System.out.println("5");
+                                {
                                     Weddingc++;
                                     Wedding.getData().get(i).setYValue(Weddingc);
                                 }
+
                             }
                         }
                     }
@@ -194,7 +192,7 @@ public class ReportHistogram implements Initializable {
         }
         if(rep.getReportType()== ReportType.COMPLAIN)
         {
-            System.out.println("here");
+
             int i=0;
             Date from=rep.getFrom();
 
@@ -214,13 +212,13 @@ public class ReportHistogram implements Initializable {
 
                     if(complain.getDate().getYear()==(from.getYear()+1900))
                     {
-                        System.out.println("here");
+
                         if(complain.getDate().getMonth()==(from.getMonth()+1))
                         {
-                            System.out.println("there");
+
                             if(complain.getDate().getDate()==(from.getDate()))
                             {
-                                System.out.println("helooooo");
+
                                 comp++;
                                 Complain.getData().get(i).setYValue(comp);
                             }
@@ -234,23 +232,19 @@ public class ReportHistogram implements Initializable {
             int comp=0;
             Complain.getData().add(new XYChart.Data<>(from.toString(),0));
 
-            System.out.println((((ComplainReport)rep).getComplains()).size());
             for(il.cshaifasweng.OCSFMediatorExample.entities.Complain complain:(((ComplainReport)rep).getComplains()))
             {
 
-                System.out.println(complain.getDate().getYear());
 
                 if(complain.getDate().getYear()==(from.getYear()))
                 {
 
                     if(complain.getDate().getMonth()==(from.getMonth()))
                     {
-                        System.out.println(complain.getDate().getDate());
 
                         if(complain.getDate().getDate()==(from.getDate()+1))
 
                         {
-                            System.out.println("helooooo");
                             comp++;
                             Complain.getData().get(i).setYValue(comp);
                         }

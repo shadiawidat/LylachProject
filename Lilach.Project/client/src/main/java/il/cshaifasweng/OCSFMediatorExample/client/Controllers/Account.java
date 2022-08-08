@@ -304,7 +304,7 @@ public class Account implements Initializable {
                 AccountType.setText((c.getAccounttype().name()));
                 BranchLB.setVisible(true);
                 Branches.setVisible(false);
-                System.out.println("ww");
+
                 PermisionsLB.setVisible(false);
                 PermisionsMN.setVisible(false);
 
@@ -323,7 +323,6 @@ public class Account implements Initializable {
                     NewBranch.setText(c.getMybranches().get(0).getName());
                 }
 //                int i = c.getMybranches().size();
-//                System.out.println(i);
 //                if(i == 1){
 //
 //                Branches.setText(c.getMybranches().get(0).getName());
@@ -367,7 +366,7 @@ public class Account implements Initializable {
                     PermisionsMN.setText(user.getPermission().name());
                     NewBranch.setVisible(true);
 
-                    System.out.println(user.getUsername());
+
                     for(Branch b : BranchesL){
                         if(user.getUsername().equals((b.getBmanager()).getUsername())){
                             NewBranch.setText(b.getName());
@@ -754,9 +753,7 @@ public class Account implements Initializable {
 
     @FXML
     void UpdateUser(MouseEvent event) throws IOException {
-        
-//        System.out.println(PermisionsMN.getText());
-//        System.out.println(App.getUser().getUsername());
+
 
         if (AccountType.isVisible()) {
             if (AccountType.getText().equals(AccountTypes.Basic.name())) {
@@ -1072,7 +1069,7 @@ public class Account implements Initializable {
 
             PermisionsMN.setText(App.getUser().getPermission().name());
         } else if (App.getUser().getPermission() == permissions.ADMIN) {
-            System.out.println("hello");
+
             Password.setVisible(false);
             PasswordLB.setVisible(false);
             CreditCard.setVisible(false);
@@ -1211,7 +1208,7 @@ public class Account implements Initializable {
             }
         }
         if(App.getUser().getPermission()==permissions.MANAGER) {
-            System.out.println("ana hon");
+
 //            CartB.setVisible(false);
             BranchLB.setVisible(true);
             Branches.setVisible(true);
