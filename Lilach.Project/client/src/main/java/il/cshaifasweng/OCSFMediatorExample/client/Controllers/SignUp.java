@@ -80,7 +80,31 @@ public class SignUp implements Initializable {
 
     @FXML
     private MenuButton Branches;
-
+    @FXML
+    private Label InvalidAccount;
+    @FXML
+    private Label InvalidAmount;
+    @FXML
+    private Label InvalidAddress;
+    @FXML
+    private Label InvalidCard;
+    @FXML
+    private Label InvalidDate;
+    @FXML
+    private Label InvalidEmail;
+    @FXML
+    private Label InvalidFname;
+    @FXML
+    private Label InvalidID;
+    @FXML
+    private Label InvalidLName;
+    @FXML
+    private Label InvalidPassword;
+    @FXML
+    private Label InvalidPhone;
+    @FXML
+    private Label InvalidUserName;
+    private List<Branch> BranchesL = new ArrayList<>();
 
     public static String getCaller() {
         return Caller;
@@ -90,43 +114,6 @@ public class SignUp implements Initializable {
         Caller = caller;
     }
 
-    @FXML
-    private Label InvalidAccount;
-
-    @FXML
-    private Label InvalidAmount;
-
-    @FXML
-    private Label InvalidAddress;
-
-    @FXML
-    private Label InvalidCard;
-
-    @FXML
-    private Label InvalidDate;
-
-    @FXML
-    private Label InvalidEmail;
-
-
-    @FXML
-    private Label InvalidFname;
-
-    @FXML
-    private Label InvalidID;
-
-    @FXML
-    private Label InvalidLName;
-
-    @FXML
-    private Label InvalidPassword;
-
-    @FXML
-    private Label InvalidPhone;
-
-    @FXML
-    private Label InvalidUserName;
-
     public List<il.cshaifasweng.OCSFMediatorExample.entities.Branch> getBranchesL() {
         return BranchesL;
     }
@@ -135,14 +122,11 @@ public class SignUp implements Initializable {
         BranchesL = branchesL;
     }
 
-    private List<Branch> BranchesL=new ArrayList<>();
-
     @FXML
     void CloseMenu(MouseEvent event) {
 
 //        menu.setVisible(false);
     }
-
 
 
     @FXML
@@ -153,30 +137,30 @@ public class SignUp implements Initializable {
     @FXML
     void GoToCart(MouseEvent event) throws IOException {
 
-            if(App.getUser()==null)
-            {
-                Alert a = new Alert(Alert.AlertType.INFORMATION);
+        if (App.getUser() == null) {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
 
-                a.setContentText("Please sign in first");
+            a.setContentText("Please sign in first");
 
-                a.showAndWait();
-                return;
-            }
+            a.showAndWait();
+            return;
+        }
 
 
         Cart.setCaller("SignUp");
         App.setRoot("Cart");
     }
+
     @FXML
     void GoToCatalog(ActionEvent event) throws IOException {
         Catalog.setCaller("LogIn");
         App.setRoot("Catalog");
     }
+
     @FXML
     void GoToCartMN(ActionEvent event) throws IOException {
 
-        if(App.getUser()==null)
-        {
+        if (App.getUser() == null) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
 
             a.setContentText("Please sign in first");
@@ -195,11 +179,9 @@ public class SignUp implements Initializable {
     }
 
 
-
     @FXML
     void GoToAccount(MouseEvent event) throws IOException {
-        if(App.getUser()==null)
-        {
+        if (App.getUser() == null) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setContentText("Please sign in first");
             a.showAndWait();
@@ -224,15 +206,14 @@ public class SignUp implements Initializable {
     @FXML
     void GoToProfile(ActionEvent event) throws IOException {
 
-            if(App.getUser()==null)
-            {
-                Alert a = new Alert(Alert.AlertType.INFORMATION);
+        if (App.getUser() == null) {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
 
-                a.setContentText("Please sign in first");
+            a.setContentText("Please sign in first");
 
-                a.showAndWait();
-                return;
-            }
+            a.showAndWait();
+            return;
+        }
 
         Account.setCaller("SignUp");
         App.setRoot("Account");
@@ -240,8 +221,8 @@ public class SignUp implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        if(App.getUser()!=null)
-            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if (App.getUser() != null)
+            SimpleClient.getClient().sendToServer(new Message(null, "#SignOut " + App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
@@ -265,9 +246,6 @@ public class SignUp implements Initializable {
         InvalidBranch.setVisible(false);
 
 
-
-
-
         InvalidID.setVisible(!Utilities.check_Validate_ID(ID.getText()));
         InvalidFname.setVisible(!Utilities.check_Validate_String(FirstName.getText()) || FirstName.getText().equals(""));
         InvalidLName.setVisible(!Utilities.check_Validate_String(LastName.getText()) || LastName.getText().equals(""));
@@ -285,64 +263,57 @@ public class SignUp implements Initializable {
         InvalidAccount.setVisible(AccountType.getText().equals(""));
         InvalidCard.setVisible(!Utilities.check_Validate_Card(CreditCard.getText()));
 
-        Date now = new Date(java.time.LocalDate.now().getYear()-1900, java.time.LocalDate.now().getMonthValue()-1, java.time.LocalDate.now().getDayOfMonth()+1);
-        Date Birth = new Date(Birthdate.getValue().getYear()-1900, Birthdate.getValue().getMonthValue()-1, Birthdate.getValue().getDayOfMonth()+1);
+        Date now = new Date(java.time.LocalDate.now().getYear() - 1900, java.time.LocalDate.now().getMonthValue() - 1, java.time.LocalDate.now().getDayOfMonth() + 1);
+        Date Birth = new Date(Birthdate.getValue().getYear() - 1900, Birthdate.getValue().getMonthValue() - 1, Birthdate.getValue().getDayOfMonth() + 1);
         InvalidDate.setVisible(!Utilities.checkValidDate(Birth, now));
 
-        boolean flag=!Utilities.check_Validate_ID(ID.getText());
-        flag=flag||!Utilities.check_Validate_String(FirstName.getText()) || FirstName.getText().equals("");
-        flag=flag||!Utilities.check_Validate_String(LastName.getText()) || LastName.getText().equals("");
-        flag=flag||Email.getText().equals("");
-        flag=flag||!Utilities.check_Validate_String(Address.getText()) || Address.getText().equals("");
+        boolean flag = !Utilities.check_Validate_ID(ID.getText());
+        flag = flag || !Utilities.check_Validate_String(FirstName.getText()) || FirstName.getText().equals("");
+        flag = flag || !Utilities.check_Validate_String(LastName.getText()) || LastName.getText().equals("");
+        flag = flag || Email.getText().equals("");
+        flag = flag || !Utilities.check_Validate_String(Address.getText()) || Address.getText().equals("");
         InvalidPassword.setVisible(!Utilities.check_Validate_Pass(Password.getText()));
-        flag=flag||!Utilities.check_Validate_Phone(Phone.getText());
-        flag=flag||!Utilities.check_Validate_Username(Username.getText());
-        flag=flag||AccountType.getText().equals("");
-        flag=flag||!Utilities.check_Validate_Card(CreditCard.getText());
-        flag=flag||!Utilities.checkValidDate(Birth, now);
-        flag=flag||!Utilities.check_Validate_Amount(Amount.getText());
+        flag = flag || !Utilities.check_Validate_Phone(Phone.getText());
+        flag = flag || !Utilities.check_Validate_Username(Username.getText());
+        flag = flag || AccountType.getText().equals("");
+        flag = flag || !Utilities.check_Validate_Card(CreditCard.getText());
+        flag = flag || !Utilities.checkValidDate(Birth, now);
+        flag = flag || !Utilities.check_Validate_Amount(Amount.getText());
 
 
-        if(AccountType.getText() == "Basic" && Branches.getText() == ""){
+        if (AccountType.getText() == "Basic" && Branches.getText() == "") {
             InvalidBranch.setVisible(true);
             flag = true;
         }
 
 
-
-
-        if(flag)
+        if (flag)
             return;
-        if(Double.parseDouble(Amount.getText()) < 100 && AccountType.getText() != "Basic"){
+        if (Double.parseDouble(Amount.getText()) < 100 && AccountType.getText() != "Basic") {
             InvalidAmount.setVisible(true);
             return;
         }
-        Client nClient=new Client(Username.getText(),Password.getText(),FirstName.getText(),LastName.getText(),Email.getText(),Phone.getText(),Birth,
-                Address.getText(), permissions.CLIENT,ID.getText(),CreditCard.getText(),type,Double.parseDouble(Amount.getText()));
+        Client nClient = new Client(Username.getText(), Password.getText(), FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Birth,
+                Address.getText(), permissions.CLIENT, ID.getText(), CreditCard.getText(), type, Double.parseDouble(Amount.getText()));
 
 
+        if (AccountTypes.Basic.name().equals(AccountType.getText())) {
 
-        if(AccountTypes.Basic.name().equals(AccountType.getText()))
-        {
+            for (Branch branch : BranchesL) {
+                if (branch.getName().equals(Branches.getText())) {
 
-            for(Branch branch:BranchesL)
-            {
-                if(branch.getName().equals(Branches.getText()))
-                {
-
-                    Message ms = new Message(nClient, "#UserExist " + Username.getText()+" "+branch.getName());
+                    Message ms = new Message(nClient, "#UserExist " + Username.getText() + " " + branch.getName());
                     SimpleClient.getClient().sendToServer(ms);
-                    SimpleClient.getClient().signUpControl=this;
+                    SimpleClient.getClient().signUpControl = this;
                     return;
                 }
             }
         }
 
 
-
-        Message ms = new Message(nClient, "#UserExist " + Username.getText()+" -1");
+        Message ms = new Message(nClient, "#UserExist " + Username.getText() + " -1");
         SimpleClient.getClient().sendToServer(ms);
-        SimpleClient.getClient().signUpControl=this;
+        SimpleClient.getClient().signUpControl = this;
     }
 
     public void NewUser(User user) throws IOException {
@@ -350,6 +321,7 @@ public class SignUp implements Initializable {
         App.setRoot("Catalog");
         Catalog.setCaller("LogIn");
     }
+
     public void UserExist() {
 
         Alert a = new Alert(Alert.AlertType.NONE);
@@ -368,7 +340,7 @@ public class SignUp implements Initializable {
         Branch.setVisible(false);
         Branches.setText("");
         InvalidBranch.setVisible(false);
-        type=AccountTypes.Premium;
+        type = AccountTypes.Premium;
         AccountType.setText(AccountTypes.Premium.name());
     }
 
@@ -377,18 +349,19 @@ public class SignUp implements Initializable {
 
         Branches.setVisible(true);
         Branch.setVisible(true);
-        type=AccountTypes.Basic;
+        type = AccountTypes.Basic;
         AccountType.setText(AccountTypes.Basic.name());
     }
-    public void loadBranches(){
+
+    public void loadBranches() {
         Branches.getItems().clear();
 
-        for(Branch branch:BranchesL)
-        {
-            MenuItem mt=new MenuItem(branch.getName());
+        for (Branch branch : BranchesL) {
+            MenuItem mt = new MenuItem(branch.getName());
 
             mt.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
+                @Override
+                public void handle(ActionEvent e) {
                     Branches.setText(branch.getName());
                 }
             });
@@ -402,15 +375,15 @@ public class SignUp implements Initializable {
         Branches.setVisible(false);
         Branch.setVisible(false);
         InvalidBranch.setVisible(false);
-        type=AccountTypes.Gold;
+        type = AccountTypes.Gold;
         AccountType.setText(AccountTypes.Gold.name());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            SimpleClient.getClient().sendToServer(new Message(null,"#getBranchesS"));
-            SimpleClient.getClient().signUpControl=this;
+            SimpleClient.getClient().sendToServer(new Message(null, "#getBranchesS"));
+            SimpleClient.getClient().signUpControl = this;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -420,9 +393,8 @@ public class SignUp implements Initializable {
             MenuProfile.setVisible(false);
             MenuCart.setVisible(false);
             UserNameConnected.setText("Welcome guest");
-        }
-        else {
-            if(App.getUser().getPermission()!=permissions.CLIENT){
+        } else {
+            if (App.getUser().getPermission() != permissions.CLIENT) {
                 CartB.setImage(null);
             }
             MenuSignIn.setVisible(false);

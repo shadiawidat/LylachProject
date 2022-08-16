@@ -21,7 +21,6 @@ public class clientComplain implements Initializable {
     public static String Caller = "";
 
 
-
     @FXML
     private Button Approve;
 
@@ -84,14 +83,6 @@ public class clientComplain implements Initializable {
 
     private List<il.cshaifasweng.OCSFMediatorExample.entities.Branch> BranchesL = new ArrayList<>();
 
-    public List<Branch> getBranchesL() {
-        return BranchesL;
-    }
-
-    public void setBranchesL(List<Branch> branchesL) {
-        BranchesL = branchesL;
-    }
-
     public static String getCaller() {
         return Caller;
     }
@@ -100,7 +91,7 @@ public class clientComplain implements Initializable {
         Caller = caller;
     }
 
-    public static void showNote(){
+    public static void showNote() {
         TilePane r = new TilePane();
         // create a alert
         Alert a = new Alert(Alert.AlertType.INFORMATION);
@@ -108,9 +99,8 @@ public class clientComplain implements Initializable {
         a.setContentText("Complaint Sent Successfully!");
 
         Optional<ButtonType> result = a.showAndWait();
-        if(!result.isPresent()) {}
-        else if(result.get() == ButtonType.OK)
-        {
+        if (!result.isPresent()) {
+        } else if (result.get() == ButtonType.OK) {
             try {
                 Account.setCaller("Catalog");
                 App.setRoot("Account");
@@ -118,6 +108,14 @@ public class clientComplain implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<Branch> getBranchesL() {
+        return BranchesL;
+    }
+
+    public void setBranchesL(List<Branch> branchesL) {
+        BranchesL = branchesL;
     }
 
     public void loadBranches() {
@@ -138,17 +136,15 @@ public class clientComplain implements Initializable {
 
     @FXML
     void ApproveFunc(MouseEvent event) {
-        if(complainBox.getText().equals("")) {
+        if (complainBox.getText().equals("")) {
             InvalidReason.setVisible(true);
             return;
         }
-        if(Branches.getText().equals("")) {
+        if (Branches.getText().equals("")) {
             InvalidBranch.setVisible(true);
             return;
-        }
-        else
-        {
-            java.util.Date d = new Date(java.time.LocalDateTime.now().getYear()-1900, java.time.LocalDateTime.now().getMonthValue()-1, java.time.LocalDateTime.now().getDayOfMonth()+1);
+        } else {
+            java.util.Date d = new Date(java.time.LocalDateTime.now().getYear() - 1900, java.time.LocalDateTime.now().getMonthValue() - 1, java.time.LocalDateTime.now().getDayOfMonth() + 1);
             Message ms = new Message(d, "#SendingComplain±" + App.getUser().getUsername() + "±" + complainBox.getText() + "±" + Branches.getText());
             try {
                 SimpleClient.getClient().sendToServer(ms);
@@ -205,6 +201,7 @@ public class clientComplain implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     void GoToCart(MouseEvent event) throws IOException {
         Cart.setCaller("Account");
@@ -229,8 +226,8 @@ public class clientComplain implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        if(App.getUser()!=null)
-            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if (App.getUser() != null)
+            SimpleClient.getClient().sendToServer(new Message(null, "#SignOut " + App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
@@ -242,12 +239,12 @@ public class clientComplain implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(App.getUser().getPermission()!=permissions.MANAGER||App.getUser().getPermission()!=permissions.CorpManager)
+        if (App.getUser().getPermission() != permissions.MANAGER || App.getUser().getPermission() != permissions.CorpManager)
             menu.getMenus().get(0).getItems().get(1).setVisible(false);
 
         try {
             SimpleClient.getClient().sendToServer(new Message(null, "#getBranchesC"));
-            SimpleClient.getClient().clientComplainControl=this;
+            SimpleClient.getClient().clientComplainControl = this;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -257,9 +254,9 @@ public class clientComplain implements Initializable {
         LastName.setText(App.getUser().getLastname());
         ID.setText(App.getUser().getID());
         PhoneNumber.setText(App.getUser().getPhonenumber());
-        String[]s = String.valueOf(java.time.LocalDateTime.now()).split("T");
-        s=s[0].split("-");
-        Date.setText(s[2]+"/"+s[1]+"/"+s[0]);
+        String[] s = String.valueOf(java.time.LocalDateTime.now()).split("T");
+        s = s[0].split("-");
+        Date.setText(s[2] + "/" + s[1] + "/" + s[0]);
         UserName.setDisable(true);
         UserName.setOpacity(50000000);
         FirstName.setDisable(true);
@@ -274,7 +271,7 @@ public class clientComplain implements Initializable {
         Date.setOpacity(50000000);
         InvalidReason.setVisible(false);
         InvalidBranch.setVisible(false);
-        if(((Client)App.getUser()).getAccounttype()==AccountTypes.Basic){
+        if (((Client) App.getUser()).getAccounttype() == AccountTypes.Basic) {
             Branches.setText(App.getUser().getMybranches().get(0).getName());
             Branches.setDisable(true);
             Branches.setOpacity(50000000);

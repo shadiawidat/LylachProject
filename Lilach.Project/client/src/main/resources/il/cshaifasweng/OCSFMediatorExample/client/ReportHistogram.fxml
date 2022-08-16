@@ -3,27 +3,31 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane maxHeight="462.0" maxWidth="780.0" minHeight="157.0" minWidth="157.0" prefHeight="462.0" prefWidth="780.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ReportHistogram">
-   <children>
-      <BarChart fx:id="Histogram" layoutX="264.0" layoutY="6.0" prefHeight="387.0" prefWidth="511.0">
-        <xAxis>
-          <CategoryAxis prefHeight="23.0" prefWidth="403.0" side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </BarChart>
-      <TextField fx:id="Type" editable="false" layoutX="14.0" layoutY="65.0" prefHeight="25.0" prefWidth="149.0" styleClass="textFields" />
-      <TextField fx:id="DateFrom" editable="false" layoutX="14.0" layoutY="149.0" prefHeight="25.0" prefWidth="149.0" styleClass="textFields" />
-      <TextField fx:id="DateTo" editable="false" layoutX="13.0" layoutY="232.0" styleClass="textFields" />
-      <TextField fx:id="Branch" editable="false" layoutX="14.0" layoutY="308.0" styleClass="textFields" />
-      <Label layoutX="14.0" layoutY="31.0" styleClass="Label" stylesheets="@../../../../Styles/Style.css" text="ReportType" />
-      <Label layoutX="14.0" layoutY="116.0" styleClass="Label" text="FromDate" />
-      <Label layoutX="14.0" layoutY="199.0" styleClass="Label" text="ToDate" />
-      <Label layoutX="13.0" layoutY="278.0" styleClass="Label" text="Branch" />
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="462.0" maxWidth="780.0" minHeight="157.0" minWidth="157.0" prefHeight="462.0"
+            prefWidth="780.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css"
+            xmlns="http://javafx.com/javafx/18"
+            fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ReportHistogram">
+    <children>
+        <BarChart fx:id="Histogram" layoutX="264.0" layoutY="6.0" prefHeight="387.0" prefWidth="511.0">
+            <xAxis>
+                <CategoryAxis prefHeight="23.0" prefWidth="403.0" side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT"/>
+            </yAxis>
+        </BarChart>
+        <TextField fx:id="Type" editable="false" layoutX="14.0" layoutY="65.0" prefHeight="25.0" prefWidth="149.0"
+                   styleClass="textFields"/>
+        <TextField fx:id="DateFrom" editable="false" layoutX="14.0" layoutY="149.0" prefHeight="25.0" prefWidth="149.0"
+                   styleClass="textFields"/>
+        <TextField fx:id="DateTo" editable="false" layoutX="13.0" layoutY="232.0" styleClass="textFields"/>
+        <TextField fx:id="Branch" editable="false" layoutX="14.0" layoutY="308.0" styleClass="textFields"/>
+        <Label layoutX="14.0" layoutY="31.0" styleClass="Label" stylesheets="@../../../../Styles/Style.css"
+               text="ReportType"/>
+        <Label layoutX="14.0" layoutY="116.0" styleClass="Label" text="FromDate"/>
+        <Label layoutX="14.0" layoutY="199.0" styleClass="Label" text="ToDate"/>
+        <Label layoutX="13.0" layoutY="278.0" styleClass="Label" text="Branch"/>
+    </children>
 </AnchorPane>

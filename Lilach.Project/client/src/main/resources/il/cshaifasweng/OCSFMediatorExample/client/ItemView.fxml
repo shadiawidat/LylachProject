@@ -1,61 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="170.0" maxWidth="170.0" minHeight="157.0" minWidth="157.0" prefHeight="157.0" prefWidth="157.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemView">
-   <children>
-      <VBox alignment="CENTER" maxHeight="160.0" maxWidth="160.0" minHeight="160.0" minWidth="160.0" prefHeight="160.0" prefWidth="160.0">
-         <children>
-            <ImageView fx:id="imageid" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#ShowItem" pickOnBounds="true" VBox.vgrow="NEVER">
-               <image>
-                  <Image url="@../../../../Media/orchid_transparent.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="18.0" top="10.0" />
-               </VBox.margin>
-            </ImageView>
-            <HBox alignment="CENTER" maxHeight="35.0" maxWidth="144.0" minHeight="35.0" minWidth="144.0" prefHeight="35.0" prefWidth="144.0">
-               <children>
-                  <ImageView fx:id="AddCartBtn" fitHeight="69.0" fitWidth="28.0" onMouseClicked="#AddToCart" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../Icons/Add_to_cart.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets right="60.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Label fx:id="price" alignment="CENTER" prefHeight="36.0" prefWidth="43.0" text="\$2.35">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </HBox>
-         </children>
-      </VBox>
-      <ImageView fx:id="SaleImage" fitHeight="123.0" fitWidth="130.0" layoutX="34.0" onMouseClicked="#ShowItem" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Media/Sales/SaleItem.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="nameid" alignment="CENTER" layoutX="1.0" layoutY="98.0" maxHeight="36.0" maxWidth="154.0" minHeight="36.0" minWidth="154.0" onMouseClicked="#ShowItem" prefHeight="36.0" prefWidth="154.0" text=" Lavaneder">
-         <font>
-            <Font name="Cambria" size="14.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="170.0" maxWidth="170.0" minHeight="157.0" minWidth="157.0" prefHeight="157.0"
+            prefWidth="157.0" styleClass="itemviewicon" stylesheets="@../../../../Styles/Style.css"
+            xmlns="http://javafx.com/javafx/18"
+            fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.ItemView">
+    <children>
+        <VBox alignment="CENTER" maxHeight="160.0" maxWidth="160.0" minHeight="160.0" minWidth="160.0"
+              prefHeight="160.0" prefWidth="160.0">
+            <children>
+                <ImageView fx:id="imageid" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#ShowItem"
+                           pickOnBounds="true" VBox.vgrow="NEVER">
+                    <image>
+                        <Image url="@../../../../Media/orchid_transparent.png"/>
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="18.0" top="10.0"/>
+                    </VBox.margin>
+                </ImageView>
+                <HBox alignment="CENTER" maxHeight="35.0" maxWidth="144.0" minHeight="35.0" minWidth="144.0"
+                      prefHeight="35.0" prefWidth="144.0">
+                    <children>
+                        <ImageView fx:id="AddCartBtn" fitHeight="69.0" fitWidth="28.0" onMouseClicked="#AddToCart"
+                                   pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../../Icons/Add_to_cart.png"/>
+                            </image>
+                            <HBox.margin>
+                                <Insets right="60.0"/>
+                            </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="price" alignment="CENTER" prefHeight="36.0" prefWidth="43.0" text="\$2.35">
+                            <font>
+                                <Font name="Cambria" size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </HBox>
+            </children>
+        </VBox>
+        <ImageView fx:id="SaleImage" fitHeight="123.0" fitWidth="130.0" layoutX="34.0" onMouseClicked="#ShowItem"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../Media/Sales/SaleItem.png"/>
+            </image>
+        </ImageView>
+        <Label fx:id="nameid" alignment="CENTER" layoutX="1.0" layoutY="98.0" maxHeight="36.0" maxWidth="154.0"
+               minHeight="36.0" minWidth="154.0" onMouseClicked="#ShowItem" prefHeight="36.0" prefWidth="154.0"
+               text=" Lavaneder">
+            <font>
+                <Font name="Cambria" size="14.0"/>
+            </font>
+        </Label>
+    </children>
 </AnchorPane>

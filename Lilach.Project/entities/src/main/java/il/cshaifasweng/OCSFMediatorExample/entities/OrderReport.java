@@ -7,27 +7,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class OrderReport extends Report  implements Serializable{
+public class OrderReport extends Report implements Serializable {
     @OneToMany
-    private List<Cart> orders=new ArrayList<>();
+    private List<Cart> orders = new ArrayList<>();
     private int ordersnum;
 
     public OrderReport() {
         this.setReportType(ReportType.ORDER);
     }
 
-    public OrderReport(List<Cart> orders,int ordersnum) {
+    public OrderReport(List<Cart> orders, int ordersnum) {
         super();
         this.ordersnum = ordersnum;
-        this.orders=orders;
+        this.orders = orders;
     }
 
-    public void AddOneCart(Cart c){
+    public void AddOneCart(Cart c) {
         orders.add(c);
     }
-    public void DeleteOneCart(Cart c){
+
+    public void DeleteOneCart(Cart c) {
         orders.remove(c);
     }
+
     public List<Cart> getOrders() {
         return orders;
     }

@@ -1,5 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <dependencies>
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -9,48 +10,48 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>17-ea+8</version>
+            <version>18</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17-ea+8</version>
+            <version>18</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
-            <version>17-ea+8</version>
+            <version>18</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>17-ea+8</version>
+            <version>18</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>17-ea+8</version>
+            <version>18</version>
             <classifier>win</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>17-ea+8</version>
+            <version>18</version>
             <classifier>linux</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>17-ea+8</version>
+            <version>18</version>
             <classifier>mac</classifier>
         </dependency>
     </dependencies>
     <parent>
-    <groupId>il.cshaifasweng</groupId>
-    <artifactId>OCSFMediatorExample</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <groupId>il.cshaifasweng.OCSFMediatorExample</groupId>
-  <artifactId>entities</artifactId>
-  <packaging>jar</packaging>
+        <groupId>il.cshaifasweng</groupId>
+        <artifactId>OCSFMediatorExample</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>il.cshaifasweng.OCSFMediatorExample</groupId>
+    <artifactId>entities</artifactId>
+    <packaging>jar</packaging>
 </project>

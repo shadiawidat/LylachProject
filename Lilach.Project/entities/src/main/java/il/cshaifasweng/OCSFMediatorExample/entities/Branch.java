@@ -1,31 +1,38 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "branch")
-public class Branch implements Serializable{
+public class Branch implements Serializable {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String name;
 
     private int id;
+    @OneToOne(mappedBy = "mybranch", cascade = CascadeType.REMOVE)
+    private BranchManager bmanager;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CoroporationManager cmanager;
+    @ManyToMany(mappedBy = "mybranches", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<User> users = new ArrayList<>();
+    @OneToMany(mappedBy = "branch")
+    private List<Complain> complains = new ArrayList<>();
+    @OneToMany(mappedBy = "branch")
+    private List<Report> reports = new ArrayList<>();
+    @OneToMany(mappedBy = "myBranch", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Cart> myCarts = new ArrayList<>();
 
     public Branch(String name) {
         this.name = name;
     }
 
-    @OneToOne(mappedBy = "mybranch",cascade = CascadeType.REMOVE)
-    private BranchManager bmanager;
+    public Branch() {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CoroporationManager cmanager;
-
-    @ManyToMany(mappedBy = "mybranches",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
-    private List<User> users=new ArrayList<>();
+    }
 
     public int getId() {
         return id;
@@ -35,12 +42,6 @@ public class Branch implements Serializable{
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "branch")
-    private List<Complain> complains=new ArrayList<>();
-
-    @OneToMany(mappedBy = "branch")
-    private List<Report> reports=new ArrayList<>();
-
     public List<Cart> getMyCarts() {
         return myCarts;
     }
@@ -49,37 +50,36 @@ public class Branch implements Serializable{
         this.myCarts = myCarts;
     }
 
-    @OneToMany(mappedBy = "myBranch",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
-    private List<Cart> myCarts=new ArrayList<>();
-
-    public Branch() {
-
-    }
-
-    public void AddOneComplain(Complain c){
+    public void AddOneComplain(Complain c) {
         complains.add(c);
     }
-    public void DeleteOneComplain(Complain c){
+
+    public void DeleteOneComplain(Complain c) {
         complains.remove(c);
     }
-    public void AddOneReport(Report r){
+
+    public void AddOneReport(Report r) {
         reports.add(r);
     }
-    public void DeleteOneReport(Report r){
+
+    public void DeleteOneReport(Report r) {
         reports.remove(r);
     }
+
     public BranchManager getBmanager() {
         return bmanager;
     }
+
+    public void setBmanager(BranchManager bmanager) {
+        this.bmanager = bmanager;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-    public void setBmanager(BranchManager bmanager) {
-        this.bmanager = bmanager;
     }
 
     public CoroporationManager getCmanager() {

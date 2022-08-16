@@ -3,7 +3,6 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,18 +15,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import net.bytebuddy.asm.Advice;
 
 import java.io.IOException;
 import java.net.URL;
-import java.security.Permission;
 import java.util.*;
 
 
 class SortByPrice implements Comparator<Item> {
     // Used for sorting in ascending order of ID
-    public int compare(Item a, Item b)
-    {
+    public int compare(Item a, Item b) {
         if (a.getPrice() < b.getPrice()) return -1;
         if (a.getPrice() > b.getPrice()) return 1;
         return 0;
@@ -36,8 +32,7 @@ class SortByPrice implements Comparator<Item> {
 
 class SortByLetters implements Comparator<Item> {
     // Used for sorting in ascending order of ID
-    public int compare(Item a, Item b)
-    {
+    public int compare(Item a, Item b) {
         return a.getName().compareTo(b.getName());
     }
 }
@@ -47,43 +42,31 @@ public class Catalog implements Initializable {
     public static String Caller = "";
     public static List<Item> Catalog = new ArrayList<>();
     public static List<Item> CatalogShow = new ArrayList<>();
-
-    @FXML
-    private Button X_button;
-
-    @FXML
-    private Button Back;
-
-    @FXML
-    private MenuButton Messeges;
-
-    @FXML
-    private Button addItemBtn;
-
-    @FXML
-    private ImageView CartB;
-
-    @FXML
-    private ImageView MenuBtn;
-
-    @FXML
-    private Button SearchBtn;
-
+    public static String searchin;
     @FXML
     public TextField SearchField;
-
+    @FXML
+    private Button X_button;
+    @FXML
+    private Button Back;
+    @FXML
+    private MenuButton Messeges;
+    @FXML
+    private Button addItemBtn;
+    @FXML
+    private ImageView CartB;
+    @FXML
+    private ImageView MenuBtn;
+    @FXML
+    private Button SearchBtn;
     @FXML
     private Label UserName;
-
     @FXML
     private MenuItem YellowColor;
-
     @FXML
     private GridPane grid;
-
     @FXML
     private ScrollPane scroll;
-
     private boolean YellowFlag;
     @FXML
     private MenuItem MenuAbout;
@@ -99,22 +82,16 @@ public class Catalog implements Initializable {
     private MenuItem MenuSignUp;
     @FXML
     private MenuBar menu;
-
     @FXML
     private Label Matched;
-
     @FXML
     private TextField Max;
-
     @FXML
     private TextField Min;
-
     @FXML
     private Button Filter;
-
     @FXML
     private Label InvalidPrice;
-
     @FXML
     private ImageView MesseageIndicator;
     @FXML
@@ -123,9 +100,6 @@ public class Catalog implements Initializable {
     private MenuItem Reports;
     @FXML
     private MenuItem Complains;
-
-    public static String searchin;
-
 
     public static String getCaller() {
         return Caller;
@@ -143,8 +117,7 @@ public class Catalog implements Initializable {
 
     @FXML
     void GoToCartMN(ActionEvent event) throws IOException {
-        if(App.getUser()==null)
-        {
+        if (App.getUser() == null) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setContentText("Please sign in first");
             a.showAndWait();
@@ -156,8 +129,7 @@ public class Catalog implements Initializable {
 
     @FXML
     void GoToProfile(ActionEvent event) throws IOException {
-        if(App.getUser()==null)
-        {
+        if (App.getUser() == null) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setContentText("Please sign in first");
 
@@ -170,16 +142,16 @@ public class Catalog implements Initializable {
 
     @FXML
     void GoToSignIn(ActionEvent event) throws IOException {
-        if(App.getUser()!=null)
-            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if (App.getUser() != null)
+            SimpleClient.getClient().sendToServer(new Message(null, "#SignOut " + App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        if(App.getUser()!=null)
-             SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if (App.getUser() != null)
+            SimpleClient.getClient().sendToServer(new Message(null, "#SignOut " + App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
@@ -203,8 +175,7 @@ public class Catalog implements Initializable {
 
     @FXML
     void GoToAccount(MouseEvent event) throws IOException {
-        if(App.getUser()==null)
-        {
+        if (App.getUser() == null) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setContentText("Please sign in first");
 
@@ -218,8 +189,7 @@ public class Catalog implements Initializable {
     @FXML
     void GoToCart(MouseEvent event) throws IOException {
 
-        if(App.getUser()==null)
-        {
+        if (App.getUser() == null) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setContentText("Please sign in first");
             a.showAndWait();
@@ -229,6 +199,7 @@ public class Catalog implements Initializable {
         Cart.setCaller("Catalog");
         App.setRoot("Cart");
     }
+
     @FXML
     void GoToComplains(ActionEvent event) throws IOException {
         AllComplains.setCaller("Catalog");
@@ -244,7 +215,7 @@ public class Catalog implements Initializable {
     private void getData() throws IOException {
         Message ms = new Message(null, "#LoadCatalog");
         SimpleClient.getClient().sendToServer(ms);
-        SimpleClient.getClient().catalogControl=this;
+        SimpleClient.getClient().catalogControl = this;
     }
 
     @FXML
@@ -263,71 +234,63 @@ public class Catalog implements Initializable {
     @FXML
     void ClickSearch(MouseEvent event) {
 
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getName().toLowerCase().startsWith(SearchField.getText().toLowerCase()))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getName().toLowerCase().startsWith(SearchField.getText().toLowerCase())) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
+
     public void ItemShowSearch(MouseEvent event) {
         CatalogShow.clear();
-        for(Item item:Catalog)
-        {
-            if(item.getName().toLowerCase().startsWith(SearchField.getText().toLowerCase()))
-            {
+        for (Item item : Catalog) {
+            if (item.getName().toLowerCase().startsWith(SearchField.getText().toLowerCase())) {
                 CatalogShow.add(item);
             }
         }
         LoadList(CatalogShow);
         SearchField.setText("");
     }
+
     @FXML
     void Black(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getColor().equals("Black"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getColor().equals("Black")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Multicolor(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getColor().equals("MultiColor"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getColor().equals("MultiColor")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Orange(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getColor().equals("Orange"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getColor().equals("Orange")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
@@ -336,7 +299,7 @@ public class Catalog implements Initializable {
     void CreateNew(MouseEvent event) {
         ItemShow.setCaller("CatalogNew");
 
-        Item item=new Item("",0.0,"","",0.0);
+        Item item = new Item("", 0.0, "", "", 0.0);
         App.setOnscreen(item);
         try {
 
@@ -348,90 +311,78 @@ public class Catalog implements Initializable {
 
     @FXML
     void Pink(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getColor().equals("Pink"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getColor().equals("Pink")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Purple(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getColor().equals("Purple"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getColor().equals("Purple")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Red(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getColor().equals("Red"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getColor().equals("Red")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void White(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getColor().equals("White"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getColor().equals("White")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Yellow(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getColor().equals("Yellow"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getColor().equals("Yellow")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void SFlower(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getType().equals("Flower"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getType().equals("Flower")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
@@ -477,77 +428,66 @@ public class Catalog implements Initializable {
 
     @FXML
     void Vases(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getType().equals("Vase"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getType().equals("Vase")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Weddings(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getType().equals("Wedding"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getType().equals("Wedding")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
 
 
-
     @FXML
     void OnSale(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getDiscount()>0)
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getDiscount() > 0) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void GardeningTools(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getType().equals("Gardening"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getType().equals("Gardening")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
 
     @FXML
     void Bouquets(ActionEvent event) {
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getType().equals("Bouquet"))
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getType().equals("Bouquet")) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
         X_button.setVisible(true);
     }
@@ -563,37 +503,34 @@ public class Catalog implements Initializable {
     @FXML
     void FilterByPrices(MouseEvent event) {
 
-        if(Utilities.check_Validate_Price(Min.getText())==false||Utilities.check_Validate_Price(Max.getText())==false) {
+        if (Utilities.check_Validate_Price(Min.getText()) == false || Utilities.check_Validate_Price(Max.getText()) == false) {
             InvalidPrice.setVisible(true);
             Min.setText("");
             Max.setText("");
             return;
         }
-        if(Integer.parseInt(Min.getText()) > Integer.parseInt(Max.getText())){
+        if (Integer.parseInt(Min.getText()) > Integer.parseInt(Max.getText())) {
             InvalidPrice.setVisible(true);
             Min.setText("");
             Max.setText("");
             return;
         }
 
-        double min=Double.parseDouble(Min.getText()),max=Double.parseDouble(Max.getText());
-        if(min>max)
-        {
+        double min = Double.parseDouble(Min.getText()), max = Double.parseDouble(Max.getText());
+        if (min > max) {
             Min.setText("");
             Max.setText("");
             return;
         }
 
 
-        List<Item> tempo=new ArrayList<>();
-        for(Item item:CatalogShow)
-        {
-            if(item.getPrice()<=max&&item.getPrice()>=min)
-            {
+        List<Item> tempo = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            if (item.getPrice() <= max && item.getPrice() >= min) {
                 tempo.add(item);
             }
         }
-        CatalogShow=tempo;
+        CatalogShow = tempo;
         LoadList(tempo);
 
         Min.setText("");
@@ -607,25 +544,25 @@ public class Catalog implements Initializable {
     void Cancel_filters(MouseEvent event) {
         resetShow();
         LoadList(Catalog);
-        CatalogShow=Catalog;
+        CatalogShow = Catalog;
         Min.setVisible(false);
         Max.setVisible(false);
         Filter.setVisible(false);
         InvalidPrice.setVisible(false);
         X_button.setVisible(false);
     }
-    public void resetShow()
-    {
-        CatalogShow=Catalog;
+
+    public void resetShow() {
+        CatalogShow = Catalog;
     }
-    public void LoadList(List<Item> items)
-    {
-        if(App.getUser()!=null)
-        if(App.getUser().getPermission()== permissions.WORKER||App.getUser().getPermission()== permissions.MANAGER||App.getUser().getPermission()== permissions.ADMIN||App.getUser().getPermission()== permissions.CorpManager)
-            CartB.setImage(null);
+
+    public void LoadList(List<Item> items) {
+        if (App.getUser() != null)
+            if (App.getUser().getPermission() == permissions.WORKER || App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.ADMIN || App.getUser().getPermission() == permissions.CorpManager)
+                CartB.setImage(null);
         Matched.setVisible(false);
         scroll.setVisible(true);
-        if(items.size()==0) {
+        if (items.size() == 0) {
             scroll.setVisible(false);
             Matched.setVisible(true);
         }
@@ -640,9 +577,9 @@ public class Catalog implements Initializable {
                 ItemView itemController = fxmlLoader.getController();
 
                 itemController.setItemView(item);
-                if(App.getUser()!=null)
-                if(App.getUser().getPermission()!=permissions.CLIENT)
-                    itemController.getAddCart().setImage(null);
+                if (App.getUser() != null)
+                    if (App.getUser().getPermission() != permissions.CLIENT)
+                        itemController.getAddCart().setImage(null);
 
                 if (column == 3) {
                     column = 0;
@@ -665,15 +602,9 @@ public class Catalog implements Initializable {
             e.printStackTrace();
         }
     }
-    public void loadms(List<SMStext> MySMS){
-        if(MySMS.size()>0)
-        {
-            MesseageIndicator.setVisible(true);
-        }
-        else
-        {
-            MesseageIndicator.setVisible(false);
-        }
+
+    public void loadms(List<SMStext> MySMS) {
+        MesseageIndicator.setVisible(MySMS.size() > 0);
         Messeges.getItems().clear();
         for (SMStext smStext : MySMS) {
             MenuItem menuItem = new MenuItem();
@@ -683,7 +614,7 @@ public class Catalog implements Initializable {
                 public void handle(ActionEvent e) {
                     try {
 
-                        SimpleClient.getClient().sendToServer(new Message(null,"#MakeRead,"+menuItem.getText()));
+                        SimpleClient.getClient().sendToServer(new Message(null, "#MakeRead," + menuItem.getText()));
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -693,6 +624,7 @@ public class Catalog implements Initializable {
             Messeges.getItems().add(menuItem);
         }
     }
+
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -707,19 +639,18 @@ public class Catalog implements Initializable {
             Messeges.setVisible(false);
             MesseageIndicator.setVisible(false);
             MesseageIndicator1.setVisible(false);
-        }
-        else {
-            if(App.getUser().getPermission()==permissions.CLIENT) {
+        } else {
+            if (App.getUser().getPermission() == permissions.CLIENT) {
                 Messeges.setVisible(true);
                 MesseageIndicator1.setVisible(true);
                 try {
-                    SimpleClient.getClient().sendToServer(new Message(App.getUser(),"#LoadMS"));
-                    SimpleClient.getClient().catalogControl=this;
+                    SimpleClient.getClient().sendToServer(new Message(App.getUser(), "#LoadMS"));
+                    SimpleClient.getClient().catalogControl = this;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-            }else{
+            } else {
                 Messeges.setVisible(false);
                 MesseageIndicator.setVisible(false);
                 MesseageIndicator1.setVisible(false);
@@ -741,11 +672,10 @@ public class Catalog implements Initializable {
                 Reports.setVisible(false);
                 Complains.setVisible(false);
             }
-            if(App.getUser().getPermission()==permissions.CustomerServiceWorker){
+            if (App.getUser().getPermission() == permissions.CustomerServiceWorker) {
                 Complains.setVisible(true);
             }
-        }
-        else {
+        } else {
             MenuSignOut.setVisible(false);
             Reports.setVisible(false);
             Complains.setVisible(false);
@@ -753,29 +683,27 @@ public class Catalog implements Initializable {
         if (App.getUser() != null)
             if (App.getUser().getPermission() == permissions.MANAGER || App.getUser().getPermission() == permissions.WORKER || App.getUser().getPermission() == permissions.CorpManager)
                 addItemBtn.setVisible(true);
-            try {
-                getData();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            getData();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+    }
 
     public void RefreshList(List<Item> catalog) {
 
-        if(CatalogShow.size()<=0)
+        if (CatalogShow.size() <= 0)
             return;
-        List<Item> temp=new ArrayList<>();
-        for(Item item: CatalogShow)
-        {
-            for(Item item1:catalog)
-            {
-                if(item1.getId()==item.getId()) {
+        List<Item> temp = new ArrayList<>();
+        for (Item item : CatalogShow) {
+            for (Item item1 : catalog) {
+                if (item1.getId() == item.getId()) {
                     temp.add(item1);
                     break;
                 }
             }
         }
-        CatalogShow=temp;
+        CatalogShow = temp;
         LoadList(CatalogShow);
 
     }

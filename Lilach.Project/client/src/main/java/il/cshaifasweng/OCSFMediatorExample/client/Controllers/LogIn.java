@@ -5,7 +5,6 @@ import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.Utilities;
 import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -71,6 +70,7 @@ public class LogIn implements Initializable {
         SignUp.setCaller("LogIn");
         App.setRoot("SignUp");
     }
+
     @FXML
     void GoToSignUp(MouseEvent event) throws IOException {
         SignUp.setCaller("LogIn");
@@ -91,8 +91,7 @@ public class LogIn implements Initializable {
 
     @FXML
     void SignIn(MouseEvent event) throws IOException, InterruptedException {
-        if(!Utilities.check_Validate_Username(UserName.getText())||!Utilities.check_Validate_Pass(Password.getText()))
-        {
+        if (!Utilities.check_Validate_Username(UserName.getText()) || !Utilities.check_Validate_Pass(Password.getText())) {
             Incorrect.setVisible(true);
             UserName.setText("");
             Password.setText("");
@@ -101,68 +100,65 @@ public class LogIn implements Initializable {
         }
         Message ms = new Message(null, "#LogIn " + UserName.getText() + " " + Password.getText());
         SimpleClient.getClient().sendToServer(ms);
-        SimpleClient.getClient().logControl=this;
+        SimpleClient.getClient().logControl = this;
 
     }
-    public void Sign(){
-            if (App.getUser() != null) {
-                if (App.getUser().isFreeze()) {
-                    Alert a = new Alert(Alert.AlertType.ERROR);
 
-                    a.setContentText("User is freezed.");
+    public void Sign() {
+        if (App.getUser() != null) {
+            if (App.getUser().isFreeze()) {
+                Alert a = new Alert(Alert.AlertType.ERROR);
 
-                    a.showAndWait();
-                    return;
-                }
-                if (App.getUser().isLogedIn()) {
-                    Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setContentText("User is freezed.");
 
-                    a.setContentText("You are already signed in.");
-
-                    a.showAndWait();
-                    return;
-                }
-                App.getUser().setLogedIn(true);
-                if (App.getUser().getPermission() == permissions.ADMIN)
-                {
-                    try {
-                        Account.setCaller("LogIn");
-                        App.setRoot("Account");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else if(App.getUser().getPermission() == permissions.CustomerServiceWorker){
-                    try {
-                        AllComplains.setCaller("LogIn");
-                        App.setRoot("AllComplains");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else{
-                    try {
-                        Catalog.setCaller("LogIn");
-                        App.setRoot("Catalog");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            else {
-
-                Incorrect.setVisible(true);
-                UserName.setText("");
-                Password.setText("");
+                a.showAndWait();
                 return;
             }
+            if (App.getUser().isLogedIn()) {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+
+                a.setContentText("You are already signed in.");
+
+                a.showAndWait();
+                return;
+            }
+            App.getUser().setLogedIn(true);
+            if (App.getUser().getPermission() == permissions.ADMIN) {
+                try {
+                    Account.setCaller("LogIn");
+                    App.setRoot("Account");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (App.getUser().getPermission() == permissions.CustomerServiceWorker) {
+                try {
+                    AllComplains.setCaller("LogIn");
+                    App.setRoot("AllComplains");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    Catalog.setCaller("LogIn");
+                    App.setRoot("Catalog");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+
+            Incorrect.setVisible(true);
+            UserName.setText("");
+            Password.setText("");
+            return;
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(App.getUser()!=null) {
+        if (App.getUser() != null) {
             try {
-                SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+                SimpleClient.getClient().sendToServer(new Message(null, "#SignOut " + App.getUser().getUsername()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -2,7 +2,10 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.AccountTypes;
+import il.cshaifasweng.OCSFMediatorExample.entities.Client;
+import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,23 +17,28 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import org.hibernate.id.factory.IdentifierGeneratorFactory;
-
-import java.text.DecimalFormat;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import static java.lang.Math.round;
-
 public class Cart implements Initializable {
     public static String Caller = "";
     @FXML
     public List<Item> items;
+    @FXML
+    public Label Saved;
+    @FXML
+    public Label Tax;
+    @FXML
+    public Label Total;
+    public double subTotalG;
+    public double subTotalD;
+    public double subTotalT;
     @FXML
     private Button Back;
     @FXML
@@ -42,15 +50,9 @@ public class Cart implements Initializable {
     @FXML
     private ImageView MenuBtn;
     @FXML
-    public Label Saved;
-    @FXML
     private Button Shipping;
     @FXML
-    public Label Tax;
-    @FXML
     private Label Matched;
-    @FXML
-    public Label Total;
     @FXML
     private MenuItem MenuAbout;
     @FXML
@@ -72,10 +74,13 @@ public class Cart implements Initializable {
     @FXML
     private ScrollPane scroll;
 
-    public double subTotalG;
+    public static String getCaller() {
+        return Caller;
+    }
 
-    public double subTotalD;
-    public double subTotalT;
+    public static void setCaller(String caller) {
+        Caller = caller;
+    }
 
     public double getSubTotalT() {
         return subTotalT;
@@ -99,14 +104,6 @@ public class Cart implements Initializable {
 
     public void setSubTotalG(double subTotalG) {
         this.subTotalG = subTotalG;
-    }
-
-    public static String getCaller() {
-        return Caller;
-    }
-
-    public static void setCaller(String caller) {
-        Caller = caller;
     }
 
     @FXML

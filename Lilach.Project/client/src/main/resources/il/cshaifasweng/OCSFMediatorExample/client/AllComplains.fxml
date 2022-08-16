@@ -1,158 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.String?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.AllComplains">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0"
+            styleClass="anchors" stylesheets="@../../../../Styles/Style.css"
+            xmlns="http://javafx.com/javafx/17"
+            fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.AllComplains">
     <children>
-        <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="148.0" maxHeight="450.0" prefHeight="200.0" prefWidth="233.0" styleClass="menubox" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="148.0">
+        <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="148.0" maxHeight="450.0" prefHeight="200.0"
+              prefWidth="233.0" styleClass="menubox" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="148.0">
             <children>
                 <Label text="Complains handling">
                     <font>
-                        <Font name="Cambria" size="18.0" />
+                        <Font name="Cambria" size="18.0"/>
                     </font>
                     <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="20.0"/>
                     </VBox.margin>
                 </Label>
                 <Label text="please make sure that">
                     <font>
-                        <Font name="Cambria" size="18.0" />
+                        <Font name="Cambria" size="18.0"/>
                     </font>
                     <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="20.0"/>
                     </VBox.margin>
                 </Label>
                 <Label text="Complains have to be handled">
                     <font>
-                        <Font name="Cambria" size="18.0" />
+                        <Font name="Cambria" size="18.0"/>
                     </font>
                     <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="20.0"/>
                     </VBox.margin>
                 </Label>
                 <Label text="in 24 hours.">
                     <font>
-                        <Font name="Cambria" size="18.0" />
+                        <Font name="Cambria" size="18.0"/>
                     </font>
                     <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="20.0"/>
                     </VBox.margin>
                 </Label>
                 <Label>
                     <font>
-                        <Font name="Cambria" size="18.0" />
+                        <Font name="Cambria" size="18.0"/>
                     </font>
                     <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="20.0"/>
                     </VBox.margin>
                 </Label>
                 <ImageView fitHeight="221.0" fitWidth="247.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../Media/GIFS/thanksforyourservice.jpg" />
+                        <Image url="@../../../../Media/GIFS/thanksforyourservice.jpg"/>
                     </image>
                 </ImageView>
             </children>
         </VBox>
-        <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+        <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar"
+              stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+              AnchorPane.topAnchor="20.0">
             <children>
-                <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
+                <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick"
+                           pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
                     <image>
-                        <Image url="@../../../../Icons/Menu.png" />
+                        <Image url="@../../../../Icons/Menu.png"/>
                     </image>
                     <HBox.margin>
-                        <Insets />
+                        <Insets/>
                     </HBox.margin>
                 </ImageView>
                 <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
                     <children>
                         <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="247.0">
                             <font>
-                                <Font name="Cambria" size="14.0" />
+                                <Font name="Cambria" size="14.0"/>
                             </font>
                         </Label>
                         <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
                             <font>
-                                <Font name="Cambria Bold" size="24.0" />
+                                <Font name="Cambria Bold" size="24.0"/>
                             </font>
                         </Label>
                         <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
                             <font>
-                                <Font name="Cambria" size="24.0" />
+                                <Font name="Cambria" size="24.0"/>
                             </font>
                         </Label>
-                        <Label fx:id="UserName" alignment="CENTER_RIGHT" onMouseClicked="#GoToAccount" prefHeight="25.0" prefWidth="247.0" text="Welcome John Pierre">
+                        <Label fx:id="UserName" alignment="CENTER_RIGHT" onMouseClicked="#GoToAccount" prefHeight="25.0"
+                               prefWidth="247.0" text="Welcome John Pierre">
                             <font>
-                                <Font name="Cambria" size="14.0" />
+                                <Font name="Cambria" size="14.0"/>
                             </font>
                         </Label>
                     </children>
                 </HBox>
-                <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                <ImageView fx:id="CartButton" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true"
+                           HBox.hgrow="NEVER">
                     <HBox.margin>
-                        <Insets />
+                        <Insets/>
                     </HBox.margin>
                     <styleClass>
-                        <String fx:value="transparent" />
-                        <String fx:value="logo" />
+                        <String fx:value="transparent"/>
+                        <String fx:value="logo"/>
                     </styleClass>
                 </ImageView>
             </children>
         </HBox>
-          <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="26.0" layoutY="106.0" prefHeight="534.0" prefWidth="869.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="109.0">
-              <content>
-                  <GridPane fx:id="gridPane" minHeight="13.0" minWidth="14.0" prefHeight="13.0" prefWidth="14.0" style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css">
-                      <rowConstraints>
-                          <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                      </rowConstraints>
-                  </GridPane>
-              </content>
-          </ScrollPane>
-      <Button fx:id="Back" layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="650.0">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Button>
-      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="169.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
-        <menus>
-          <Menu mnemonicParsing="false" text="Go to">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#GoToCatalog" text="Catalog" />
-                  <MenuItem mnemonicParsing="false" onAction="#GoToReports" text="Reports" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Account">
-            <items>
-                  <MenuItem fx:id="MenuSignOut" mnemonicParsing="false" onAction="#GoToSignOut" text="Sign Out" />
-                  <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem fx:id="MenuAbout" mnemonicParsing="false" onAction="#GoToAbout" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <Label fx:id="Matched" layoutX="344.0" layoutY="338.0" text="There are no complains" visible="false">
-         <font>
-            <Font name="Cambria" size="48.0" />
-         </font>
-      </Label>
+        <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="26.0" layoutY="106.0" prefHeight="534.0"
+                    prefWidth="869.0" style="-fx-background-color: #FDEFE9#FDEFE9;"
+                    stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER" AnchorPane.bottomAnchor="77.0"
+                    AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="109.0">
+            <content>
+                <GridPane fx:id="gridPane" minHeight="13.0" minWidth="14.0" prefHeight="13.0" prefWidth="14.0"
+                          style="-fx-background-color: #FDEFE9#FDEFE9;" stylesheets="@../../../../Styles/Style.css">
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                    </rowConstraints>
+                </GridPane>
+            </content>
+        </ScrollPane>
+        <Button fx:id="Back" layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back"
+                styleClass="BackBtn" stylesheets="@../../../../Styles/Style.css" text="&lt;"
+                AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="650.0">
+            <font>
+                <Font name="Cambria" size="24.0"/>
+            </font>
+        </Button>
+        <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0"
+                 prefWidth="169.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+            <menus>
+                <Menu mnemonicParsing="false" text="Go to">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#GoToCatalog" text="Catalog"/>
+                        <MenuItem mnemonicParsing="false" onAction="#GoToReports" text="Reports"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Account">
+                    <items>
+                        <MenuItem fx:id="MenuSignOut" mnemonicParsing="false" onAction="#GoToSignOut" text="Sign Out"/>
+                        <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem fx:id="MenuAbout" mnemonicParsing="false" onAction="#GoToAbout" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <Label fx:id="Matched" layoutX="344.0" layoutY="338.0" text="There are no complains" visible="false">
+            <font>
+                <Font name="Cambria" size="48.0"/>
+            </font>
+        </Label>
 
     </children>
 </AnchorPane>

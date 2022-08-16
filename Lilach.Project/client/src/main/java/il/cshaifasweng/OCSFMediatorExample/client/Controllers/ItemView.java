@@ -3,14 +3,12 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.MyListener;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Client;
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,7 +16,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public class ItemView {
 
@@ -27,6 +24,13 @@ public class ItemView {
     private Item item;
     @FXML
     private ImageView AddCartBtn;
+    @FXML
+    private ImageView imageid;
+    @FXML
+    private ImageView SaleImage;
+    @FXML
+    private Label price;
+    private MyListener myListener;
 
     public ImageView getAddCart() {
         return AddCartBtn;
@@ -35,15 +39,6 @@ public class ItemView {
     public void setAddCart(ImageView addCart) {
         AddCartBtn = addCart;
     }
-
-    @FXML
-    private ImageView imageid;
-    @FXML
-    private ImageView SaleImage;
-    @FXML
-    private Label price;
-
-    private MyListener myListener;
 
     public ImageView getSaleImage() {
         return SaleImage;
@@ -62,16 +57,16 @@ public class ItemView {
     void AddToCart(MouseEvent event) throws IOException {
 
 
-        if(App.getUser()==null) {
+        if (App.getUser() == null) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setContentText("Please sign in first");
             a.showAndWait();
             return;
         }
-        if(App.getUser().getPermission()!=permissions.CLIENT)
+        if (App.getUser().getPermission() != permissions.CLIENT)
             return;
-        SimpleClient.getClient().sendToServer(new Message(item,"#AddToCart "+App.getUser().getUsername()));
-        SimpleClient.getClient().itemviewControl=this;
+        SimpleClient.getClient().sendToServer(new Message(item, "#AddToCart " + App.getUser().getUsername()));
+        SimpleClient.getClient().itemviewControl = this;
 
         Alert a = new Alert(Alert.AlertType.INFORMATION);
 
@@ -80,7 +75,7 @@ public class ItemView {
         a.showAndWait();
     }
 
-    public void Confirmation(){
+    public void Confirmation() {
         TilePane r = new TilePane();
         // create a alert
         Alert a = new Alert(Alert.AlertType.NONE);
@@ -90,17 +85,17 @@ public class ItemView {
         a.showAndWait();
 
     }
+
     @FXML
     void ShowItem(MouseEvent event) throws Exception {
         ItemShow.setCaller("Catalog");
         App.setOnscreen(item);
         ItemShow.related.clear();
-        Platform.runLater(()->{
-            for (Item item:Catalog.Catalog)
-            {
-                if(item.getColor()==this.item.getColor())
+        Platform.runLater(() -> {
+            for (Item item : Catalog.Catalog) {
+                if (item.getColor() == this.item.getColor())
                     ItemShow.related.add(item);
-                else if(item.getType().equals("Vase")&&this.item.getType().equals("Flower"))
+                else if (item.getType().equals("Vase") && this.item.getType().equals("Flower"))
                     ItemShow.related.add(item);
             }
             try {

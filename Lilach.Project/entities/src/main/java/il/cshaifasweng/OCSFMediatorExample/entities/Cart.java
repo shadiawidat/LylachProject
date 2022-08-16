@@ -16,16 +16,16 @@ public class Cart implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "Cart_Item",
-            joinColumns = { @JoinColumn(name = "cart_id") },
-            inverseJoinColumns = { @JoinColumn(name = "item_id") }
+            joinColumns = {@JoinColumn(name = "cart_id")},
+            inverseJoinColumns = {@JoinColumn(name = "item_id")}
     )
-    private List<Item> items=new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
 
     @ManyToOne
     @JoinTable(
             name = "Cart_Client",
-            joinColumns = { @JoinColumn(name = "cart_id") },
-            inverseJoinColumns = { @JoinColumn(name = "Client_id") }
+            joinColumns = {@JoinColumn(name = "cart_id")},
+            inverseJoinColumns = {@JoinColumn(name = "Client_id")}
     )
     private Client client;
 
@@ -35,15 +35,47 @@ public class Cart implements Serializable {
     private Double price;
     private int Hour;
     private int Minute;
-    private Boolean canceled=false;
+    private Boolean canceled = false;
 
     @ManyToOne
     @JoinTable(
             name = "Cart_Branch",
-            joinColumns = { @JoinColumn(name = "cart_id") },
-            inverseJoinColumns = { @JoinColumn(name = "Branch_id") }
+            joinColumns = {@JoinColumn(name = "cart_id")},
+            inverseJoinColumns = {@JoinColumn(name = "Branch_id")}
     )
     private Branch myBranch;
+    private Boolean delivery;
+    private String address;
+    private boolean Payed;
+    private boolean forSomeOne;
+    private String someOne;
+    private String someOnePhone;
+    private PaymentMethod paymentMethod;
+    private boolean SMSED;
+
+    public Cart() {
+
+    }
+
+    public Cart(Client client) {
+        this.client = client;
+        client.AddOneToCart(this);
+//        this.date = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
+        ;
+        Payed = false;
+    }
+
+    public Cart(Date date, String blessingticket, Double price, Boolean delivery, String address, String paymentmethod, Client client) {
+        super();
+//        this.date = date;
+        this.blessingticket = blessingticket;
+        this.price = price;
+        this.delivery = delivery;
+        this.address = address;
+
+        this.client = client;
+        this.Payed = false;
+    }
 
     public Branch getMyBranch() {
         return myBranch;
@@ -109,16 +141,6 @@ public class Cart implements Serializable {
         this.someOnePhone = someOnePhone;
     }
 
-    private Boolean delivery;
-    private String address;
-    private boolean Payed;
-    private boolean forSomeOne;
-    private String someOne;
-    private String someOnePhone;
-    private PaymentMethod paymentMethod;
-
-    private boolean SMSED;
-
     public boolean isSMSED() {
         return SMSED;
     }
@@ -127,17 +149,12 @@ public class Cart implements Serializable {
         this.SMSED = SMSED;
     }
 
-
     public PaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
-    }
-
-    public Cart() {
-
     }
 
     public boolean isPayed() {
@@ -148,36 +165,12 @@ public class Cart implements Serializable {
         Payed = payed;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
     public Date getDeliverydate() {
         return Deliverydate;
     }
 
     public void setDeliverydate(Date deliverydate) {
         Deliverydate = deliverydate;
-    }
-
-    public Cart(Client client) {
-        this.client = client;
-        client.AddOneToCart(this);
-//        this.date = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
-        ;
-        Payed = false;
-    }
-
-    public Cart(Date date, String blessingticket, Double price, Boolean delivery, String address, String paymentmethod, Client client) {
-        super();
-//        this.date = date;
-        this.blessingticket = blessingticket;
-        this.price = price;
-        this.delivery = delivery;
-        this.address = address;
-
-        this.client=client;
-        this.Payed=false;
     }
 
     public List<Item> getItems() {
@@ -198,6 +191,10 @@ public class Cart implements Serializable {
 
     public LocalDateTime getDate() {
         return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public String getBlessingticket() {
@@ -232,11 +229,11 @@ public class Cart implements Serializable {
         this.address = address;
     }
 
-    public void DropInCart(Item item)
-    {
+    public void DropInCart(Item item) {
         items.add(item);
     }
-    public void GetOutCart(Item item){
+
+    public void GetOutCart(Item item) {
         items.remove(item);
     }
 }

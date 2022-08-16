@@ -7,23 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class IncomeReport extends Report implements Serializable{
-
-
+public class IncomeReport extends Report implements Serializable {
 
 
     @OneToMany
-    private List<Cart> canceledorders=new ArrayList<>();
+    private List<Cart> canceledorders = new ArrayList<>();
     @OneToMany
-    private List<Cart> orders=new ArrayList<>();
-
+    private List<Cart> orders = new ArrayList<>();
 
 
     private int totalcount;
     private int canceledcount;
     private int orderscount;
     private Double Netincome;
-
 
 
     public IncomeReport(Double netincome, int totalcount, int canceledcount, int orderscount) {
@@ -40,55 +36,55 @@ public class IncomeReport extends Report implements Serializable{
         this.orderscount = 0;
         this.setReportType(ReportType.INCOME);
     }
-    public void IncOrders()
-    {
+
+    public void IncOrders() {
         orderscount++;
     }
 
-    public void DecOrders()
-    {
+    public void DecOrders() {
         orderscount--;
     }
-    public void IncCanceled()
-    {
+
+    public void IncCanceled() {
         canceledcount++;
     }
 
-    public void DecCanceled()
-    {
+    public void DecCanceled() {
         canceledcount--;
     }
 
-    public void IncTotal()
-    {
+    public void IncTotal() {
         totalcount++;
     }
 
-    public void DecTotal()
-    {
+    public void DecTotal() {
         totalcount--;
     }
-    public void IncNet(double price)
-    {
-        Netincome+=price;
+
+    public void IncNet(double price) {
+        Netincome += price;
     }
 
-    public void DecNet(double price)
-    {
-        Netincome-=price;
+    public void DecNet(double price) {
+        Netincome -= price;
     }
-    public void AddOneCart(Cart c){
+
+    public void AddOneCart(Cart c) {
         orders.add(c);
     }
-    public void DeleteOneCart(Cart c){
+
+    public void DeleteOneCart(Cart c) {
         orders.remove(c);
     }
-    public void AddOneCanceledCart(Cart c){
+
+    public void AddOneCanceledCart(Cart c) {
         canceledorders.add(c);
     }
-    public void DeleteOneCanceledCart(Cart c){
+
+    public void DeleteOneCanceledCart(Cart c) {
         canceledorders.remove(c);
     }
+
     public Double getNetincome() {
         return Netincome;
     }

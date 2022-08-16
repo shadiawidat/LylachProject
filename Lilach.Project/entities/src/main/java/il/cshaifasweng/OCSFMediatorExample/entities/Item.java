@@ -1,8 +1,6 @@
-
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +20,22 @@ public class Item implements Serializable {
     private String imagesrc;
 
 
+    @ManyToMany(mappedBy = "items", fetch = FetchType.LAZY)
 
+    private List<Cart> carts = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "items",fetch = FetchType.LAZY)
+    public Item() {
+    }
 
-    private List<Cart> carts =new ArrayList<>();
+    public Item(String name, double price, String type, String color, double discount) {
+        this.name = name;
+        this.price = price;
+        this.type = type;
+        this.color = color;
+        this.imagesrc = "/Media/" + type + "/" + name + ".png";
+        this.Discount = discount;
+
+    }
 
     public int getId() {
         return id;
@@ -34,19 +43,6 @@ public class Item implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Item() {
-    }
-
-    public Item(String name, double price,String type,String color,double discount){
-        this.name=name;
-        this.price=price;
-        this.type=type;
-        this.color=color;
-        this.imagesrc="/Media/"+type+"/"+name+".png";
-        this.Discount=discount;
-
     }
 
     public String getName() {
@@ -105,16 +101,16 @@ public class Item implements Serializable {
         this.carts = carts;
     }
 
-    public void EngageCart(Cart cart){
+    public void EngageCart(Cart cart) {
         carts.add(cart);
     }
 
-    public void DisEngageCart(Cart cart){
+    public void DisEngageCart(Cart cart) {
         carts.remove(cart);
     }
 
-    public void setinfo(String newinfo){
-        String[] info= newinfo.split(" ");
+    public void setinfo(String newinfo) {
+        String[] info = newinfo.split(" ");
         setName(info[0]);
         setPrice(Double.parseDouble(info[1]));
         setType(info[2]);

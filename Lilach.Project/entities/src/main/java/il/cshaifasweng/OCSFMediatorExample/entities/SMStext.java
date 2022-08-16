@@ -11,15 +11,18 @@ public class SMStext implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String text;
-    private boolean SMSread =false;
+    private boolean SMSread = false;
 
     @ManyToOne
-    @JoinColumn(name="Client_ID")
+    @JoinColumn(name = "Client_ID")
     private Client client;
 
     public SMStext(String text) {
         this.text = text;
-        this.SMSread=false;
+        this.SMSread = false;
+    }
+
+    public SMStext() {
     }
 
     public boolean isSMSread() {
@@ -28,9 +31,6 @@ public class SMStext implements Serializable {
 
     public void setSMSread(boolean SMSread) {
         this.SMSread = SMSread;
-    }
-
-    public SMStext() {
     }
 
     public int getId() {

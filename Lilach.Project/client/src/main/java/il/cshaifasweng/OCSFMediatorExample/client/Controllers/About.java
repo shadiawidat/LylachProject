@@ -46,7 +46,8 @@ public class About implements Initializable {
     @FXML
     private MenuBar menu;
     @FXML
-    private Label UserNameConnected; @FXML
+    private Label UserNameConnected;
+    @FXML
     private MenuItem Reports;
     @FXML
     private MenuItem Complains;
@@ -76,8 +77,7 @@ public class About implements Initializable {
 
     @FXML
     void GoToProfile(ActionEvent event) throws IOException {
-        if(App.getUser()==null)
-        {
+        if (App.getUser() == null) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setContentText("Please sign in first");
 
@@ -151,6 +151,7 @@ public class About implements Initializable {
         Cart.setCaller("About");
         App.setRoot("Cart");
     }
+
     @FXML
     void GoToComplains(ActionEvent event) throws IOException {
         AllComplains.setCaller("Catalog");
@@ -189,12 +190,11 @@ public class About implements Initializable {
         if ((App.getUser() != null) && ((App.getUser().getPermission().equals(permissions.MANAGER)) || (App.getUser().getPermission().equals(permissions.CorpManager)))) {
             Reports.setVisible(true);
             Complains.setVisible(true);
-        }
-        else {
+        } else {
             Reports.setVisible(false);
             Complains.setVisible(false);
         }
-        if((App.getUser()!=null) && (App.getUser().getPermission().equals(permissions.ADMIN)))
+        if ((App.getUser() != null) && (App.getUser().getPermission().equals(permissions.ADMIN)))
             CatalogBtn.setVisible(false);
     }
 }

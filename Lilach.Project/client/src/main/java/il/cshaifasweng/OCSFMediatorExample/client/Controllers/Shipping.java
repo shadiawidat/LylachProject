@@ -21,15 +21,92 @@ import java.util.*;
 public class Shipping implements Initializable {
 
     public static String Caller = "";
-
+    final DecimalFormat df = new DecimalFormat("0.00");
     @FXML
     private TextField Address;
-
     @FXML
     private Button Approve;
-
     @FXML
     private CheckBox Cash;
+    @FXML
+    private MenuButton Branches;
+    @FXML
+    private CheckBox Credit;
+    @FXML
+    private Button Back;
+    @FXML
+    private TextField Blessing;
+    @FXML
+    private ImageView CartButton;
+    @FXML
+    private DatePicker Date;
+    @FXML
+    private Label InvalidBranch;
+    @FXML
+    private Label InvalidAdderss;
+    @FXML
+    private Label InvalidDate;
+    @FXML
+    private Label InvalidName;
+    @FXML
+    private Label InvalidHour;
+    @FXML
+    private Label InvalidPhoneNumber;
+    @FXML
+    private MenuItem MenuAbout;
+    @FXML
+    private MenuButton Mn;
+    @FXML
+    private MenuButton Hr;
+    @FXML
+    private ImageView MenuBtn;
+    @FXML
+    private MenuItem MenuCart;
+    @FXML
+    private MenuItem MenuProfile;
+    @FXML
+    private MenuItem MenuSignIn;
+    @FXML
+    private Label Branch;
+    @FXML
+    private MenuItem MenuSignOut;
+    @FXML
+    private MenuItem MenuSignUp;
+    @FXML
+    private TextField Name;
+    @FXML
+    private TextField PhoneNumber;
+    @FXML
+    private Label Saved;
+    @FXML
+    private Label Tax;
+    @FXML
+    private Label Total;
+    @FXML
+    private Label UserName;
+    @FXML
+    private MenuBar menu;
+    @FXML
+    private CheckBox ForSomeoneId;
+    @FXML
+    private CheckBox deliveryid;
+    @FXML
+    private Label AddressLB;
+    @FXML
+    private Label NameLB;
+    @FXML
+    private Label PhoneNumberLB;
+    @FXML
+    private CheckBox Fornow;
+    private List<Branch> BranchesL = new ArrayList<>();
+
+    public static String getCaller() {
+        return Caller;
+    }
+
+    public static void setCaller(String caller) {
+        Caller = caller;
+    }
 
     public List<Branch> getBranchesL() {
         return BranchesL;
@@ -40,164 +117,47 @@ public class Shipping implements Initializable {
     }
 
     @FXML
-    private MenuButton Branches;
-
-    @FXML
-    private CheckBox Credit;
-
-    @FXML
-    private Button Back;
-
-    @FXML
-    private TextField Blessing;
-
-    @FXML
-    private ImageView CartButton;
-
-    @FXML
-    private DatePicker Date;
-
-    @FXML
-    private Label InvalidBranch;
-
-
-    @FXML
-    private Label InvalidAdderss;
-
-    @FXML
-    private Label InvalidDate;
-
-    @FXML
-    private Label InvalidName;
-    @FXML
-    private Label InvalidHour;
-    @FXML
-    private Label InvalidPhoneNumber;
-
-    @FXML
-    private MenuItem MenuAbout;
-    @FXML
-    private MenuButton Mn;
-    @FXML
-    private MenuButton Hr;
-
-    @FXML
-    private ImageView MenuBtn;
-
-    @FXML
-    private MenuItem MenuCart;
-
-    @FXML
-    private MenuItem MenuProfile;
-
-    @FXML
-    private MenuItem MenuSignIn;
-
-    @FXML
-    private Label Branch;
-
-    @FXML
-    private MenuItem MenuSignOut;
-
-    @FXML
-    private MenuItem MenuSignUp;
-
-    @FXML
-    private TextField Name;
-
-    @FXML
-    private TextField PhoneNumber;
-
-    @FXML
-    private Label Saved;
-
-    @FXML
-    private Label Tax;
-
-    @FXML
-    private Label Total;
-
-    @FXML
-    private Label UserName;
-
-    @FXML
-    private MenuBar menu;
-
-    @FXML
-    private CheckBox ForSomeoneId;
-
-    @FXML
-    private CheckBox deliveryid;
-
-    @FXML
-    private Label AddressLB;
-
-    @FXML
-    private Label NameLB;
-
-    @FXML
-    private Label PhoneNumberLB;
-
-    @FXML
-    private CheckBox Fornow;
-
-    @FXML
     void Fornow(MouseEvent event) {
-        if(Fornow.isSelected()){
+        if (Fornow.isSelected()) {
             Hr.setDisable(true);
             Mn.setDisable(true);
             Date.setDisable(true);
             InvalidDate.setVisible(false);
             InvalidHour.setVisible(false);
-        }else{
+        } else {
             Hr.setDisable(false);
             Mn.setDisable(false);
             Date.setDisable(false);
         }
     }
 
-    final DecimalFormat df = new DecimalFormat("0.00");
-
-
-    private List<Branch> BranchesL = new ArrayList<>();
-
     @FXML
     void Credit(MouseEvent event) {
-        if(Cash.isSelected())
-        {
+        if (Cash.isSelected()) {
             Cash.setSelected(false);
             Credit.setSelected(true);
-        }
-        else
-        {       Cash.setSelected(true);
+        } else {
+            Cash.setSelected(true);
             Credit.setSelected(false);
         }
     }
+
     @FXML
     void Cash(MouseEvent event) {
-        if(Credit.isSelected())
-        {
+        if (Credit.isSelected()) {
             Credit.setSelected(false);
             Cash.setSelected(true);
-        }
-        else
-        {
+        } else {
             Credit.setSelected(true);
             Cash.setSelected(false);
         }
     }
+
     @FXML
     void Back(MouseEvent event) throws IOException {
         App.setRoot(getCaller());
     }
 
-    public static String getCaller() {
-        return Caller;
-    }
-
-    public static void setCaller(String caller) {
-        Caller = caller;
-    }
     @FXML
     void CartClick(MouseEvent event) {
 
@@ -210,22 +170,22 @@ public class Shipping implements Initializable {
 
     @FXML
     void Delivery(MouseEvent event) {
-        if(deliveryid.isSelected()) {
+        if (deliveryid.isSelected()) {
             ForSomeoneId.setVisible(true);
             Address.setVisible(true);
             AddressLB.setVisible(true);
-            if(ForSomeoneId.isSelected()){
+            if (ForSomeoneId.isSelected()) {
                 Name.setVisible(true);
                 NameLB.setVisible(true);
                 PhoneNumber.setVisible(true);
                 PhoneNumberLB.setVisible(true);
-            }else {
+            } else {
                 Name.setVisible(false);
                 NameLB.setVisible(false);
                 PhoneNumber.setVisible(false);
                 PhoneNumberLB.setVisible(false);
             }
-        }else{
+        } else {
             InvalidAdderss.setVisible(false);
             InvalidDate.setVisible(false);
             InvalidPhoneNumber.setVisible(false);
@@ -242,13 +202,13 @@ public class Shipping implements Initializable {
 
     @FXML
     void ForSomeone(MouseEvent event) {
-        if(deliveryid.isSelected()){
-            if(ForSomeoneId.isSelected()){
+        if (deliveryid.isSelected()) {
+            if (ForSomeoneId.isSelected()) {
                 Name.setVisible(true);
                 NameLB.setVisible(true);
                 PhoneNumber.setVisible(true);
                 PhoneNumberLB.setVisible(true);
-            }else{
+            } else {
                 Name.setText("");
                 Name.setVisible(false);
                 NameLB.setVisible(false);
@@ -256,7 +216,7 @@ public class Shipping implements Initializable {
                 PhoneNumber.setVisible(false);
                 PhoneNumberLB.setVisible(false);
             }
-        }else{
+        } else {
             InvalidAdderss.setVisible(false);
             InvalidPhoneNumber.setVisible(false);
             InvalidName.setVisible(false);
@@ -300,8 +260,8 @@ public class Shipping implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        if(App.getUser()!=null)
-            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if (App.getUser() != null)
+            SimpleClient.getClient().sendToServer(new Message(null, "#SignOut " + App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
@@ -319,18 +279,15 @@ public class Shipping implements Initializable {
 
     @FXML
     void ApproveFunc(MouseEvent event) throws IOException {
-        if(Credit.isSelected()&&((Client)App.getUser()).getAmount()<SimpleClient.getClient().cartControl.subTotalG)
-        {
-            Alert a=new Alert(Alert.AlertType.ERROR);
-            a.setContentText("Your total is: "+SimpleClient.getClient().cartControl.subTotalG+"\nYour budget is: "+((Client)App.getUser()).getAmount()+"\nPlease recharge first!");
+        if (Credit.isSelected() && ((Client) App.getUser()).getAmount() < SimpleClient.getClient().cartControl.subTotalG) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText("Your total is: " + SimpleClient.getClient().cartControl.subTotalG + "\nYour budget is: " + ((Client) App.getUser()).getAmount() + "\nPlease recharge first!");
             a.showAndWait();
             return;
         }
 
 
-
-
-        boolean flag=false;
+        boolean flag = false;
         InvalidHour.setVisible(false);
         InvalidAdderss.setVisible(false);
         InvalidDate.setVisible(false);
@@ -340,56 +297,54 @@ public class Shipping implements Initializable {
         Date now = new Date(java.time.LocalDate.now().getYear(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getDayOfMonth());
         Date date = new Date(Date.getValue().getYear(), Date.getValue().getMonthValue(), Date.getValue().getDayOfMonth());
         InvalidBranch.setVisible(Branches.getText().equals(""));
-        if(Fornow.isSelected()){
+        if (Fornow.isSelected()) {
             InvalidDate.setVisible(false);
-        }else {
+        } else {
             InvalidDate.setVisible(!Utilities.checkAfterValidDate(now, date));
             flag = (!Utilities.checkAfterValidDate(now, date));
         }
-        flag=flag||Branches.getText().equals("");
+        flag = flag || Branches.getText().equals("");
 
 
-        if(Fornow.isSelected()){
+        if (Fornow.isSelected()) {
             InvalidHour.setVisible(false);
-        }else {
+        } else {
             InvalidHour.setVisible(Hr.getText().equals("Hr") || Mn.getText().equals("Mn"));
             flag = flag || Hr.getText().equals("Hr") || Mn.getText().equals("Mn");
             if (date.equals(now) && !InvalidHour.isVisible() && Utilities.checkAfterValidDate(now, date)) {
-                InvalidHour.setVisible(LocalDateTime.now().plusHours(3).getHour() >( Integer.parseInt(Hr.getText())));
+                InvalidHour.setVisible(LocalDateTime.now().plusHours(3).getHour() > (Integer.parseInt(Hr.getText())));
                 flag = flag || LocalDateTime.now().plusHours(3).getHour() > (Integer.parseInt(Hr.getText()));
                 if (!InvalidHour.isVisible()) {
-                    InvalidHour.setVisible(LocalDateTime.now().plusHours(3).getHour() >( Integer.parseInt(Hr.getText()))||LocalDateTime.now().getMinute() > Integer.parseInt(Mn.getText()));
-                    flag = flag || (LocalDateTime.now().plusHours(3).getHour() >( Integer.parseInt(Hr.getText()))||LocalDateTime.now().getMinute() > Integer.parseInt(Mn.getText()));
+                    InvalidHour.setVisible(LocalDateTime.now().plusHours(3).getHour() > (Integer.parseInt(Hr.getText())) || LocalDateTime.now().getMinute() > Integer.parseInt(Mn.getText()));
+                    flag = flag || (LocalDateTime.now().plusHours(3).getHour() > (Integer.parseInt(Hr.getText())) || LocalDateTime.now().getMinute() > Integer.parseInt(Mn.getText()));
                 }
             }
             flag = flag || Hr.getText().equals("Hr") || Mn.getText().equals("Mn");
         }
         if (deliveryid.isSelected()) {
-            InvalidAdderss.setVisible(!Utilities.check_Validate_Address(Address.getText())||Address.getText().equals(""));
+            InvalidAdderss.setVisible(!Utilities.check_Validate_Address(Address.getText()) || Address.getText().equals(""));
             flag = flag || Address.getText().equals("");
             if (ForSomeoneId.isSelected()) {
                 InvalidName.setVisible(!Utilities.check_Validate_name(Name.getText()) || Name.getText().equals(""));
-                InvalidPhoneNumber.setVisible(!Utilities.check_Validate_Phone(PhoneNumber.getText())||PhoneNumber.getText().equals(""));
+                InvalidPhoneNumber.setVisible(!Utilities.check_Validate_Phone(PhoneNumber.getText()) || PhoneNumber.getText().equals(""));
                 flag = flag || !Utilities.check_Validate_name(Name.getText()) || Name.getText().equals("");
-                flag = flag || !Utilities.check_Validate_Phone(PhoneNumber.getText())||PhoneNumber.getText().equals("");
+                flag = flag || !Utilities.check_Validate_Phone(PhoneNumber.getText()) || PhoneNumber.getText().equals("");
             }
         }
         if (flag) {
             return;
         }
-        double lastprice=SimpleClient.getClient().cartControl.subTotalG;
-        if(Fornow.isSelected()){
-            LocalDateTime d1=LocalDateTime.now();
-            Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + d1.getYear() + "±" + d1.getMonth().getValue() + "±" + d1.getDayOfMonth() + "±" + lastprice + "±" + (d1.getHour()+3) + "±" + d1.getMinute() + "±" + Cash.isSelected() + "±" + Branches.getText());
+        double lastprice = SimpleClient.getClient().cartControl.subTotalG;
+        if (Fornow.isSelected()) {
+            LocalDateTime d1 = LocalDateTime.now();
+            Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + d1.getYear() + "±" + d1.getMonth().getValue() + "±" + d1.getDayOfMonth() + "±" + lastprice + "±" + (d1.getHour() + 3) + "±" + d1.getMinute() + "±" + Cash.isSelected() + "±" + Branches.getText());
             SimpleClient.getClient().sendToServer(ms);
             SimpleClient.getClient().shippingControl = this;
-        }else{
+        } else {
             Message ms = new Message(date, "#ApproveShipping±" + App.getUser().getUsername() + "±" + Address.getText() + "±" + Name.getText() + "±" + PhoneNumber.getText() + "±" + Blessing.getText() + "±" + deliveryid.isSelected() + "±" + Date.getValue().getYear() + "±" + Date.getValue().getMonthValue() + "±" + Date.getValue().getDayOfMonth() + "±" + lastprice + "±" + Hr.getText() + "±" + Mn.getText() + "±" + Cash.isSelected() + "±" + Branches.getText());
             SimpleClient.getClient().sendToServer(ms);
             SimpleClient.getClient().shippingControl = this;
         }
-
-
 
 
     }
@@ -403,9 +358,8 @@ public class Shipping implements Initializable {
         a.setContentText("Shipping Approved!");
 
         Optional<ButtonType> result = a.showAndWait();
-        if(!result.isPresent()) {}
-        else if(result.get() == ButtonType.OK)
-        {
+        if (!result.isPresent()) {
+        } else if (result.get() == ButtonType.OK) {
             App.setRoot("Catalog");
         }
     }
@@ -426,15 +380,15 @@ public class Shipping implements Initializable {
         }
 
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        if(((Client)App.getUser()).getAccounttype()==AccountTypes.Basic)
-        {
+        if (((Client) App.getUser()).getAccounttype() == AccountTypes.Basic) {
             Branches.setText(App.getUser().getMybranches().get(0).getName());
             Branches.setDisable(true);
             Branches.setOpacity(50000000);
-        }else{
+        } else {
             Branches.setDisable(false);
 
         }
@@ -446,8 +400,7 @@ public class Shipping implements Initializable {
         }
 
         Cash.setSelected(true);
-        for(MenuItem menuItem : Mn.getItems())
-        {
+        for (MenuItem menuItem : Mn.getItems()) {
             menuItem.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
@@ -457,8 +410,7 @@ public class Shipping implements Initializable {
         }
 
 
-        for(MenuItem menuItem : Hr.getItems())
-        {
+        for (MenuItem menuItem : Hr.getItems()) {
             menuItem.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
@@ -472,8 +424,7 @@ public class Shipping implements Initializable {
 
         if (App.getUser() == null) {
             UserName.setText("Welcome guest");
-        }
-        else {
+        } else {
             UserName.setText("Welcome " + App.getUser().getFirstname());
 
 //                if(((Client) App.getUser()).getAccounttype()==(AccountTypes.Premium)){
@@ -482,12 +433,12 @@ public class Shipping implements Initializable {
 //                }
 //            else
 //            {
-                Total.setText(df.format(SimpleClient.getClient().cartControl.subTotalG) + "$");
-                Saved.setText(df.format(SimpleClient.getClient().cartControl.subTotalD) + "$");
-         //   }
-            double x = (((SimpleClient.getClient().cartControl.subTotalG - SimpleClient.getClient().cartControl.subTotalD)/1.17)*0.17);
+            Total.setText(df.format(SimpleClient.getClient().cartControl.subTotalG) + "$");
+            Saved.setText(df.format(SimpleClient.getClient().cartControl.subTotalD) + "$");
+            //   }
+            double x = (((SimpleClient.getClient().cartControl.subTotalG - SimpleClient.getClient().cartControl.subTotalD) / 1.17) * 0.17);
 
-            Tax.setText(df.format(SimpleClient.getClient().cartControl.subTotalT)+"$");
+            Tax.setText(df.format(SimpleClient.getClient().cartControl.subTotalT) + "$");
 
 
         }

@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class User implements Serializable{
+public class User implements Serializable {
     @Id
     private String username;
     private String password;
@@ -26,16 +26,16 @@ public class User implements Serializable{
     @ManyToMany
     @JoinTable(
             name = "User_Branch",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "branch_id") }
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "branch_id")}
     )
-    private List<Branch> mybranches=new ArrayList<>();
+    private List<Branch> mybranches = new ArrayList<>();
 
     public User() {
     }
 
     //Worker's Contructor
-    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID,boolean Freeze) {
+    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, boolean Freeze) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -45,12 +45,12 @@ public class User implements Serializable{
         this.birthday = birthday;
         this.address = address;
         this.permission = permission;
-        this.ID=ID;
-        this.Freeze=Freeze;
+        this.ID = ID;
+        this.Freeze = Freeze;
     }
 
 
-    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard,boolean Freeze) {
+    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard, boolean Freeze) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -60,12 +60,12 @@ public class User implements Serializable{
         this.birthday = birthday;
         this.address = address;
         this.permission = permission;
-        this.ID=ID;
-        this.Freeze=Freeze;
-        this.LogedIn=false;
+        this.ID = ID;
+        this.Freeze = Freeze;
+        this.LogedIn = false;
     }
 
-    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard,boolean Freeze,Branch b) {
+    public User(String username, String password, String firstname, String lastname, String email, String phonenumber, Date birthday, String address, permissions permission, String ID, String creditCard, boolean Freeze, Branch b) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -75,17 +75,10 @@ public class User implements Serializable{
         this.birthday = birthday;
         this.address = address;
         this.permission = permission;
-        this.ID=ID;
-        this.Freeze=Freeze;
-        this.LogedIn=false;
+        this.ID = ID;
+        this.Freeze = Freeze;
+        this.LogedIn = false;
 
-    }
-
-    public void AddOneBranch(Branch b){
-        mybranches.add(b);
-    }
-    public void DeleteOneBranch(Branch b){
-        mybranches.remove(b);
     }
 
     public User(User guest) {
@@ -98,6 +91,14 @@ public class User implements Serializable{
         this.birthday = guest.birthday;
         this.address = guest.address;
         this.permission = guest.permission;
+    }
+
+    public void AddOneBranch(Branch b) {
+        mybranches.add(b);
+    }
+
+    public void DeleteOneBranch(Branch b) {
+        mybranches.remove(b);
     }
 
     public String getUsername() {

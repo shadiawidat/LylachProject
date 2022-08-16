@@ -480,10 +480,10 @@ public class SimpleServer extends AbstractServer {
                     cart.setDeliverydate(d);
                     cart.setDate(LocalDateTime.now());
 
-                    cart.setMyBranch(session.find(Branch.class,msgarray[14]));
+                    cart.setMyBranch(session.find(Branch.class, msgarray[14]));
 
 
-                    session.find(Branch.class,msgarray[14]).getMyCarts().add(cart);
+                    session.find(Branch.class, msgarray[14]).getMyCarts().add(cart);
                     System.out.println("heresadas");
                     session.flush();
                     session.getTransaction().commit();
@@ -785,8 +785,7 @@ public class SimpleServer extends AbstractServer {
             return;
 
 
-        }
-        else if (request.startsWith("#PrepReports1")) {
+        } else if (request.startsWith("#PrepReports1")) {
 
             String[] msgarray = request.split(" ");
             if (msgarray[1].equals("Order")) {
@@ -796,42 +795,41 @@ public class SimpleServer extends AbstractServer {
                 List<Cart> carts = session.createQuery(query).getResultList();
                 OrderReport rep = new OrderReport();
 
-                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                Date d1 = ((List<Date>) ms.getObject()).get(0), d3 = ((List<Date>) ms.getObject()).get(1);
                 rep.setDatefrom(d1);
                 rep.setDateto(d3);
-                rep.setBranch(session.find(Branch.class,msgarray[2]));
+                rep.setBranch(session.find(Branch.class, msgarray[2]));
                 for (Cart cart : carts) {
                     if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[2]))
                         continue;
-                    LocalDateTime d2=cart.getDate();
-                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
-                    if(d4.after(d3))
+                    LocalDateTime d2 = cart.getDate();
+                    Date d4 = new Date(d2.getYear() - 1900, d2.getMonth().getValue() - 1, d2.getDayOfMonth());
+                    if (d4.after(d3))
                         continue;
-                    if(d4.before(d1))
+                    if (d4.before(d1))
                         continue;
                     rep.getOrders().add(cart);
                 }
-                client.sendToClient(new Message(rep,"#Rep1Ready"));
-            }
-            else if (msgarray[1].equals("Income")) {
+                client.sendToClient(new Message(rep, "#Rep1Ready"));
+            } else if (msgarray[1].equals("Income")) {
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
                 query.from(Cart.class);
                 List<Cart> carts = session.createQuery(query).getResultList();
                 IncomeReport rep = new IncomeReport();
 
-                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                Date d1 = ((List<Date>) ms.getObject()).get(0), d3 = ((List<Date>) ms.getObject()).get(1);
                 rep.setDatefrom(d1);
                 rep.setDateto(d3);
-                rep.setBranch(session.find(Branch.class,msgarray[2]));
+                rep.setBranch(session.find(Branch.class, msgarray[2]));
                 for (Cart cart : carts) {
                     if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[2]))
                         continue;
-                    LocalDateTime d2=cart.getDate();
-                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
-                    if(d4.after(d3))
+                    LocalDateTime d2 = cart.getDate();
+                    Date d4 = new Date(d2.getYear() - 1900, d2.getMonth().getValue() - 1, d2.getDayOfMonth());
+                    if (d4.after(d3))
                         continue;
-                    if(d4.before(d1))
+                    if (d4.before(d1))
                         continue;
                     if (cart.getCanceled()) {
                         rep.AddOneCanceledCart(cart);
@@ -843,43 +841,42 @@ public class SimpleServer extends AbstractServer {
                     }
                     rep.IncTotal();
                 }
-                client.sendToClient(new Message(rep,"#Rep1Ready"));
+                client.sendToClient(new Message(rep, "#Rep1Ready"));
             } else if (msgarray[1].equals("Complain")) {
-         
+
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Complain> query = builder.createQuery(Complain.class);
                 query.from(Complain.class);
                 List<Complain> complains = session.createQuery(query).getResultList();
 
                 ComplainReport rep1 = new ComplainReport();
-                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                Date d1 = ((List<Date>) ms.getObject()).get(0), d3 = ((List<Date>) ms.getObject()).get(1);
                 rep1.setDatefrom(d1);
                 rep1.setDateto(d3);
-                rep1.setBranch(session.find(Branch.class,msgarray[2]));
+                rep1.setBranch(session.find(Branch.class, msgarray[2]));
                 for (Complain complain : complains) {
                     if (!msgarray[2].equals("All") && !complain.getBranch().getName().equals(msgarray[2]))
                         continue;
 
-                    Date d7=complain.getDate();
-                    Date d4=new Date(d7.getYear(),d7.getMonth(),d7.getDate());
+                    Date d7 = complain.getDate();
+                    Date d4 = new Date(d7.getYear(), d7.getMonth(), d7.getDate());
 
-                    d4.setDate(d4.getDate()-1);
-                    if(d4.after(d3))
+                    d4.setDate(d4.getDate() - 1);
+                    if (d4.after(d3))
                         continue;
-                    if(d4.before(d1))
+                    if (d4.before(d1))
                         continue;
 
                     rep1.getComplains().add(complain);
                 }
 
-                client.sendToClient(new Message(rep1,"#Rep1Ready"));
+                client.sendToClient(new Message(rep1, "#Rep1Ready"));
             }
 
-        }
-        else if (request.startsWith("#PrepReports2")) {
+        } else if (request.startsWith("#PrepReports2")) {
             String[] msgarray = request.split(" ");
-            Report rep3=new Report();
-            Report rep4=new Report();
+            Report rep3 = new Report();
+            Report rep4 = new Report();
             if (msgarray[1].equals("Order")) {
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
@@ -887,22 +884,22 @@ public class SimpleServer extends AbstractServer {
                 List<Cart> carts = session.createQuery(query).getResultList();
                 OrderReport rep1 = new OrderReport();
 
-                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                Date d1 = ((List<Date>) ms.getObject()).get(0), d3 = ((List<Date>) ms.getObject()).get(1);
                 rep1.setDatefrom(d1);
                 rep1.setDateto(d3);
-                rep1.setBranch(session.find(Branch.class,msgarray[2]));
+                rep1.setBranch(session.find(Branch.class, msgarray[2]));
                 for (Cart cart : carts) {
                     if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[2]))
                         continue;
-                    LocalDateTime d2=cart.getDate();
-                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
-                    if(d4.after(d3))
+                    LocalDateTime d2 = cart.getDate();
+                    Date d4 = new Date(d2.getYear() - 1900, d2.getMonth().getValue() - 1, d2.getDayOfMonth());
+                    if (d4.after(d3))
                         continue;
-                    if(d4.before(d1))
+                    if (d4.before(d1))
                         continue;
                     rep1.getOrders().add(cart);
                 }
-                rep3=rep1;
+                rep3 = rep1;
 
             }
             if (msgarray[1].equals("Income")) {
@@ -912,19 +909,19 @@ public class SimpleServer extends AbstractServer {
                 query.from(Cart.class);
                 List<Cart> carts = session.createQuery(query).getResultList();
                 IncomeReport rep1 = new IncomeReport();
-                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                Date d1 = ((List<Date>) ms.getObject()).get(0), d3 = ((List<Date>) ms.getObject()).get(1);
                 rep1.setDatefrom(d1);
                 rep1.setDateto(d3);
-                rep1.setBranch(session.find(Branch.class,msgarray[2]));
+                rep1.setBranch(session.find(Branch.class, msgarray[2]));
 
                 for (Cart cart : carts) {
                     if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[2]))
                         continue;
-                    LocalDateTime d2=cart.getDate();
-                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
-                    if(d4.after(d3))
+                    LocalDateTime d2 = cart.getDate();
+                    Date d4 = new Date(d2.getYear() - 1900, d2.getMonth().getValue() - 1, d2.getDayOfMonth());
+                    if (d4.after(d3))
                         continue;
-                    if(d4.before(d1))
+                    if (d4.before(d1))
                         continue;
                     if (cart.getCanceled()) {
                         rep1.AddOneCanceledCart(cart);
@@ -936,10 +933,9 @@ public class SimpleServer extends AbstractServer {
                     }
                     rep1.IncTotal();
                 }
-                rep3=rep1;
+                rep3 = rep1;
             }
-            if (msgarray[1].equals("Complain"))
-            {
+            if (msgarray[1].equals("Complain")) {
 
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Complain> query = builder.createQuery(Complain.class);
@@ -947,103 +943,101 @@ public class SimpleServer extends AbstractServer {
                 List<Complain> complains = session.createQuery(query).getResultList();
 
                 ComplainReport rep1 = new ComplainReport();
-                Date d1=((List<Date>)ms.getObject()).get(0),d3=((List<Date>)ms.getObject()).get(1);
+                Date d1 = ((List<Date>) ms.getObject()).get(0), d3 = ((List<Date>) ms.getObject()).get(1);
                 rep1.setDatefrom(d1);
                 rep1.setDateto(d3);
-                rep1.setBranch(session.find(Branch.class,msgarray[2]));
+                rep1.setBranch(session.find(Branch.class, msgarray[2]));
                 for (Complain complain : complains) {
                     if (!msgarray[2].equals("All") && !complain.getBranch().getName().equals(msgarray[2]))
                         continue;
 
-                    Date d7=complain.getDate();
-                    Date d4=new Date(d7.getYear(),d7.getMonth(),d7.getDate());
+                    Date d7 = complain.getDate();
+                    Date d4 = new Date(d7.getYear(), d7.getMonth(), d7.getDate());
 
-                    d4.setDate(d4.getDate()-1);
+                    d4.setDate(d4.getDate() - 1);
 
-                    if(d4.after(d3))
+                    if (d4.after(d3))
                         continue;
-                    if(d4.before(d1))
+                    if (d4.before(d1))
                         continue;
 
                     rep1.getComplains().add(complain);
                 }
 
-                rep3=rep1;
+                rep3 = rep1;
             }
-            if (msgarray[3].equals("Complain"))
-            {
+            if (msgarray[3].equals("Complain")) {
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Complain> query = builder.createQuery(Complain.class);
                 query.from(Complain.class);
                 List<Complain> complains = session.createQuery(query).getResultList();
 
                 ComplainReport rep1 = new ComplainReport();
-                Date d1=((List<Date>)ms.getObject()).get(2),d3=((List<Date>)ms.getObject()).get(3);
+                Date d1 = ((List<Date>) ms.getObject()).get(2), d3 = ((List<Date>) ms.getObject()).get(3);
                 rep1.setDatefrom(d1);
                 rep1.setDateto(d3);
-                rep1.setBranch(session.find(Branch.class,msgarray[4]));
+                rep1.setBranch(session.find(Branch.class, msgarray[4]));
                 for (Complain complain : complains) {
                     if (!msgarray[2].equals("All") && !complain.getBranch().getName().equals(msgarray[4]))
                         continue;
-                    Date d7=complain.getDate();
-                    Date d4=new Date(d7.getYear(),d7.getMonth(),d7.getDate());
+                    Date d7 = complain.getDate();
+                    Date d4 = new Date(d7.getYear(), d7.getMonth(), d7.getDate());
 
-                    d4.setDate(d4.getDate()-1);
-                    if(d4.after(d3))
+                    d4.setDate(d4.getDate() - 1);
+                    if (d4.after(d3))
                         continue;
-                    if(d4.before(d1))
+                    if (d4.before(d1))
                         continue;
 
                     rep1.getComplains().add(complain);
                 }
 
-                rep4=rep1;
+                rep4 = rep1;
             }
 
-            if(msgarray[3].equals("Order"))
-            {
+            if (msgarray[3].equals("Order")) {
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
                 query.from(Cart.class);
                 List<Cart> carts = session.createQuery(query).getResultList();
 
                 OrderReport rep1 = new OrderReport();
-                Date d5=((List<Date>)ms.getObject()).get(2),d6=((List<Date>)ms.getObject()).get(3);
+                Date d5 = ((List<Date>) ms.getObject()).get(2), d6 = ((List<Date>) ms.getObject()).get(3);
                 rep1.setDatefrom(d5);
                 rep1.setDateto(d6);
-                rep1.setBranch(session.find(Branch.class,msgarray[4]));
+                rep1.setBranch(session.find(Branch.class, msgarray[4]));
                 for (Cart cart : carts) {
                     if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[4]))
                         continue;
-                    LocalDateTime d2=cart.getDate();
-                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
-                    if(d4.after(d6))
+                    LocalDateTime d2 = cart.getDate();
+                    Date d4 = new Date(d2.getYear() - 1900, d2.getMonth().getValue() - 1, d2.getDayOfMonth());
+                    if (d4.after(d6))
                         continue;
-                    if(d4.before(d5))
+                    if (d4.before(d5))
                         continue;
                     rep1.getOrders().add(cart);
                 }
-                rep4=rep1;
+                rep4 = rep1;
             }
-            if(msgarray[3].equals("Income"))
-            {   CriteriaBuilder builder = session.getCriteriaBuilder();
+            if (msgarray[3].equals("Income")) {
+                CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
                 query.from(Cart.class);
                 List<Cart> carts = session.createQuery(query).getResultList();
                 IncomeReport rep1 = new IncomeReport();
-                Date d5=((List<Date>)ms.getObject()).get(2),d6=((List<Date>)ms.getObject()).get(3);
+                Date d5 = ((List<Date>) ms.getObject()).get(2), d6 = ((List<Date>) ms.getObject()).get(3);
 
                 rep1.setDatefrom(d5);
                 rep1.setDateto(d6);
-                rep1.setBranch(session.find(Branch.class,msgarray[4]));
+                rep1.setBranch(session.find(Branch.class, msgarray[4]));
                 for (Cart cart : carts) {
                     if (!msgarray[2].equals("All") && !cart.getMyBranch().getName().equals(msgarray[4]))
                         continue;
-                    LocalDateTime d2=cart.getDate();
-                    Date d4=new Date(d2.getYear()-1900, d2.getMonth().getValue()-1, d2.getDayOfMonth());
-                    if(d4.after(d6))
+                    LocalDateTime d2 = cart.getDate();
+                    Date d4 = new Date(d2.getYear() - 1900, d2.getMonth().getValue() - 1, d2.getDayOfMonth());
+                    if (d4.after(d6))
                         continue;
-                    if(d4.before(d5))
+                    if (d4.before(d5))
                         continue;
                     if (cart.getCanceled()) {
                         rep1.AddOneCanceledCart(cart);
@@ -1055,14 +1049,13 @@ public class SimpleServer extends AbstractServer {
                     }
                     rep1.IncTotal();
                 }
-                rep4=rep1;
+                rep4 = rep1;
             }
-            List<Report> reps=new ArrayList<>();
+            List<Report> reps = new ArrayList<>();
             reps.add(rep3);
             reps.add(rep4);
-            client.sendToClient(new Message(reps,"#Rep2Ready"));
-        }
-        else if (request.startsWith("#Refund")) {
+            client.sendToClient(new Message(reps, "#Rep2Ready"));
+        } else if (request.startsWith("#Refund")) {
             String[] msgarray = request.split("±");
             Client c = session.find(Client.class, ((Client) ms.getObject()).getUsername());
             session.beginTransaction();
@@ -1075,10 +1068,9 @@ public class SimpleServer extends AbstractServer {
             session.flush();
             session.getTransaction().commit();
 
-        }
-        else if(request.equals("#ALogIn")){
-            User user = session.find(User.class,((User)(ms.getObject())).getUsername());
-            client.sendToClient(new Message(user,"#ReloadUser"));
+        } else if (request.equals("#ALogIn")) {
+            User user = session.find(User.class, ((User) (ms.getObject())).getUsername());
+            client.sendToClient(new Message(user, "#ReloadUser"));
         }
     }
 

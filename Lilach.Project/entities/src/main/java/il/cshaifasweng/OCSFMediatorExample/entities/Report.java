@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "report")
-public class Report implements Serializable{
+public class Report implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,14 +15,15 @@ public class Report implements Serializable{
     private Date datefrom;
     private Date dateto;
     private ReportType reportType;
+
     public Report() {
     }
 
-    public Report(Date from, Date to,Branch branch , ReportType reportType) {
+    public Report(Date from, Date to, Branch branch, ReportType reportType) {
         this.datefrom = from;
         this.dateto = to;
-        this.branch=branch;
-        this.reportType=reportType;
+        this.branch = branch;
+        this.reportType = reportType;
     }
 
     public Date getDatefrom() {

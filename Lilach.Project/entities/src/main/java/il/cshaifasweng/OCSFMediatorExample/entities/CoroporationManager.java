@@ -1,6 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,10 +10,10 @@ import java.util.List;
 
 @Entity
 
-public class CoroporationManager extends User implements Serializable{
+public class CoroporationManager extends User implements Serializable {
 
-    @OneToMany(mappedBy = "cmanager",cascade = CascadeType.REMOVE)
-    private List<Branch> corpmybranches=new ArrayList<>();
+    @OneToMany(mappedBy = "cmanager", cascade = CascadeType.REMOVE)
+    private List<Branch> corpmybranches = new ArrayList<>();
 
     public CoroporationManager() {
 
@@ -22,10 +24,11 @@ public class CoroporationManager extends User implements Serializable{
 
     }
 
-    public void AddOneBranch(Branch b){
+    public void AddOneBranch(Branch b) {
         corpmybranches.add(b);
     }
-    public void DeleteOneBranch(Branch b){
+
+    public void DeleteOneBranch(Branch b) {
         corpmybranches.remove(b);
     }
 

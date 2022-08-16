@@ -2,10 +2,8 @@ package il.cshaifasweng.OCSFMediatorExample.client.Controllers;
 
 import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.Report;
-import il.cshaifasweng.OCSFMediatorExample.entities.permissions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,8 +76,8 @@ public class ReportView implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        if(App.getUser()!=null)
-            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if (App.getUser() != null)
+            SimpleClient.getClient().sendToServer(new Message(null, "#SignOut " + App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
@@ -96,15 +94,31 @@ public class ReportView implements Initializable {
     }
 
 
-    public void loadReports(il.cshaifasweng.OCSFMediatorExample.entities.Report rep1, Report rep2){
+    public void loadReports(il.cshaifasweng.OCSFMediatorExample.entities.Report rep1, Report rep2) {
         grid.getChildren().clear();
         try {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(SimpleClient.class.getResource("ReportHistogram.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
-                ReportHistogram reportHistogram = fxmlLoader.getController();
-                reportHistogram.setInfo(rep1);
-                grid.add(anchorPane, 0, 1); //(child,column,row)
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(SimpleClient.class.getResource("ReportHistogram.fxml"));
+            AnchorPane anchorPane = fxmlLoader.load();
+            ReportHistogram reportHistogram = fxmlLoader.getController();
+            reportHistogram.setInfo(rep1);
+            grid.add(anchorPane, 0, 1); //(child,column,row)
+            //set grid width
+            grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+            grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            grid.setMaxWidth(Region.USE_PREF_SIZE);
+            //set grid height
+            grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+            grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+            grid.setMaxHeight(Region.USE_PREF_SIZE);
+            GridPane.setMargin(anchorPane, new Insets(10));
+            if (rep2 != null) {
+                FXMLLoader fxmlLoader1 = new FXMLLoader();
+                fxmlLoader1.setLocation(SimpleClient.class.getResource("ReportHistogram.fxml"));
+                AnchorPane anchorPane1 = fxmlLoader1.load();
+                ReportHistogram reportHistogram1 = fxmlLoader1.getController();
+                reportHistogram1.setInfo(rep2);
+                grid.add(anchorPane1, 0, 2); //(child,column,row)
                 //set grid width
                 grid.setMinWidth(Region.USE_COMPUTED_SIZE);
                 grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
@@ -113,26 +127,9 @@ public class ReportView implements Initializable {
                 grid.setMinHeight(Region.USE_COMPUTED_SIZE);
                 grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
                 grid.setMaxHeight(Region.USE_PREF_SIZE);
-                GridPane.setMargin(anchorPane, new Insets(10));
-                if(rep2!=null) {
-                    FXMLLoader fxmlLoader1 = new FXMLLoader();
-                    fxmlLoader1.setLocation(SimpleClient.class.getResource("ReportHistogram.fxml"));
-                    AnchorPane anchorPane1 = fxmlLoader1.load();
-                    ReportHistogram reportHistogram1 = fxmlLoader1.getController();
-                    reportHistogram1.setInfo(rep2);
-                    grid.add(anchorPane1, 0, 2); //(child,column,row)
-                    //set grid width
-                    grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxWidth(Region.USE_PREF_SIZE);
-                    //set grid height
-                    grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    grid.setMaxHeight(Region.USE_PREF_SIZE);
-                    GridPane.setMargin(anchorPane1, new Insets(10));
-                }
+                GridPane.setMargin(anchorPane1, new Insets(10));
             }
-         catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -144,6 +141,6 @@ public class ReportView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        SimpleClient.getClient().reportViewControl=this;
+        SimpleClient.getClient().reportViewControl = this;
     }
 }

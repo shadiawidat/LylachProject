@@ -7,19 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -135,6 +127,15 @@ public class Report implements Initializable {
 
     @FXML
     private MenuBar menu;
+    private List<Branch> BranchesL = new ArrayList<>();
+
+    public static String getCaller() {
+        return Caller;
+    }
+
+    public static void setCaller(String caller) {
+        Caller = caller;
+    }
 
     public List<il.cshaifasweng.OCSFMediatorExample.entities.Branch> getBranchesL() {
         return BranchesL;
@@ -144,42 +145,37 @@ public class Report implements Initializable {
         BranchesL = branchesL;
     }
 
-    private List<Branch> BranchesL=new ArrayList<>();
-    public void loadBranches1(){
+    public void loadBranches1() {
         FirstReportBranch.getItems().clear();
-        for(Branch branch:BranchesL)
-        {
-            MenuItem mt=new MenuItem(branch.getName());
+        for (Branch branch : BranchesL) {
+            MenuItem mt = new MenuItem(branch.getName());
             mt.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
+                @Override
+                public void handle(ActionEvent e) {
                     FirstReportBranch.setText(branch.getName());
                 }
             });
             FirstReportBranch.getItems().add(mt);
         }
-    }public void loadBranches2(){
+    }
+
+    public void loadBranches2() {
         SecondReportBranch.getItems().clear();
-        for(Branch branch:BranchesL)
-        {
-            MenuItem mt=new MenuItem(branch.getName());
+        for (Branch branch : BranchesL) {
+            MenuItem mt = new MenuItem(branch.getName());
             mt.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
+                @Override
+                public void handle(ActionEvent e) {
                     SecondReportBranch.setText(branch.getName());
                 }
             });
             SecondReportBranch.getItems().add(mt);
         }
     }
+
     @FXML
     void Back(MouseEvent event) throws IOException {
         App.setRoot(getCaller());
-    }
-
-    public static String getCaller() {
-        return Caller;
-    }
-    public static void setCaller(String caller) {
-        Caller = caller;
     }
 
     @FXML
@@ -228,8 +224,8 @@ public class Report implements Initializable {
 
     @FXML
     void GoToSignOut(ActionEvent event) throws IOException {
-        if(App.getUser()!=null)
-            SimpleClient.getClient().sendToServer(new Message(null,"#SignOut "+App.getUser().getUsername()));
+        if (App.getUser() != null)
+            SimpleClient.getClient().sendToServer(new Message(null, "#SignOut " + App.getUser().getUsername()));
         App.setUser(null);
         App.setRoot("LogIn");
     }
@@ -322,7 +318,7 @@ public class Report implements Initializable {
     @FXML
     void ViewReports(MouseEvent event) throws IOException {
 
-        boolean flag=false;
+        boolean flag = false;
         InvalidFRType.setVisible(false);
         InvalidFRFrom.setVisible(true);
         InvalidFRTo.setVisible(false);
@@ -334,64 +330,64 @@ public class Report implements Initializable {
         InvalidSRBranch.setVisible(false);
         InvalidFRType.setVisible(FirstReportType.getText().equals(""));
         InvalidFRBranch.setVisible(FirstReportBranch.getText().equals(""));
-        if(CompareTo.isSelected()) {
+        if (CompareTo.isSelected()) {
             InvalidSRType.setVisible(SecondReportType.getText().equals(""));
             InvalidSRBranch.setVisible(SecondReportBranch.getText().equals(""));
-        }else{
+        } else {
             InvalidSRType.setVisible(false);
             InvalidSRBranch.setVisible(false);
         }
-        Date now = new Date(java.time.LocalDate.now().getYear()-1900, java.time.LocalDate.now().getMonthValue()-1, java.time.LocalDate.now().getDayOfMonth());
+        Date now = new Date(java.time.LocalDate.now().getYear() - 1900, java.time.LocalDate.now().getMonthValue() - 1, java.time.LocalDate.now().getDayOfMonth());
 
-        Date From1 = new Date(FirstReportFrom.getValue().getYear()-1900, FirstReportFrom.getValue().getMonthValue()-1, FirstReportFrom.getValue().getDayOfMonth());
-        Date To1 = new Date(FirstReportTo.getValue().getYear()-1900, FirstReportTo.getValue().getMonthValue()-1, FirstReportTo.getValue().getDayOfMonth());
-        InvalidFRFrom.setVisible(!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(From1, now));
-        InvalidFRTo.setVisible(!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(To1, now));
-        if(From1.equals(To1)){
+        Date From1 = new Date(FirstReportFrom.getValue().getYear() - 1900, FirstReportFrom.getValue().getMonthValue() - 1, FirstReportFrom.getValue().getDayOfMonth());
+        Date To1 = new Date(FirstReportTo.getValue().getYear() - 1900, FirstReportTo.getValue().getMonthValue() - 1, FirstReportTo.getValue().getDayOfMonth());
+        InvalidFRFrom.setVisible(!Utilities.checkValidDate(From1, To1) || !Utilities.checkValidDatebeforequalnow(From1, now));
+        InvalidFRTo.setVisible(!Utilities.checkValidDate(From1, To1) || !Utilities.checkValidDatebeforequalnow(To1, now));
+        if (From1.equals(To1)) {
             InvalidFRFrom.setVisible(!Utilities.checkValidDatebeforequalnow(From1, now));
             InvalidFRTo.setVisible(!Utilities.checkValidDatebeforequalnow(To1, now));
-            flag=flag||!Utilities.checkValidDatebeforequalnow(From1, now);
-            flag=flag||!Utilities.checkValidDatebeforequalnow(To1, now);
-        }else{
-            flag=flag||!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(From1, now);
-            flag=flag||!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(To1, now);
+            flag = flag || !Utilities.checkValidDatebeforequalnow(From1, now);
+            flag = flag || !Utilities.checkValidDatebeforequalnow(To1, now);
+        } else {
+            flag = flag || !Utilities.checkValidDate(From1, To1) || !Utilities.checkValidDatebeforequalnow(From1, now);
+            flag = flag || !Utilities.checkValidDate(From1, To1) || !Utilities.checkValidDatebeforequalnow(To1, now);
         }
 
-        Date From2 = new Date(SecondReportFrom.getValue().getYear()-1900, SecondReportFrom.getValue().getMonthValue()-1, SecondReportFrom.getValue().getDayOfMonth());
-        Date To2 = new Date(SecondReportTo.getValue().getYear()-1900, SecondReportTo.getValue().getMonthValue()-1, SecondReportTo.getValue().getDayOfMonth());
-        if(CompareTo.isSelected()) {
-            InvalidSRFrom.setVisible(!Utilities.checkValidDate(From2, To2)||!Utilities.checkValidDatebeforequalnow(From2, now));
-            InvalidSRTo.setVisible(!Utilities.checkValidDate(From2, To2)||!Utilities.checkValidDatebeforequalnow(To2, now));
-            if(From1.equals(To1)){
+        Date From2 = new Date(SecondReportFrom.getValue().getYear() - 1900, SecondReportFrom.getValue().getMonthValue() - 1, SecondReportFrom.getValue().getDayOfMonth());
+        Date To2 = new Date(SecondReportTo.getValue().getYear() - 1900, SecondReportTo.getValue().getMonthValue() - 1, SecondReportTo.getValue().getDayOfMonth());
+        if (CompareTo.isSelected()) {
+            InvalidSRFrom.setVisible(!Utilities.checkValidDate(From2, To2) || !Utilities.checkValidDatebeforequalnow(From2, now));
+            InvalidSRTo.setVisible(!Utilities.checkValidDate(From2, To2) || !Utilities.checkValidDatebeforequalnow(To2, now));
+            if (From1.equals(To1)) {
                 InvalidFRFrom.setVisible(!Utilities.checkValidDatebeforequalnow(From1, now));
                 InvalidFRTo.setVisible(!Utilities.checkValidDatebeforequalnow(To1, now));
-                flag=flag||!Utilities.checkValidDatebeforequalnow(From1, now);
-                flag=flag||!Utilities.checkValidDatebeforequalnow(To1, now);
-            }else{
-                flag=flag||!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(From1, now);
-                flag=flag||!Utilities.checkValidDate(From1, To1)||!Utilities.checkValidDatebeforequalnow(To1, now);
+                flag = flag || !Utilities.checkValidDatebeforequalnow(From1, now);
+                flag = flag || !Utilities.checkValidDatebeforequalnow(To1, now);
+            } else {
+                flag = flag || !Utilities.checkValidDate(From1, To1) || !Utilities.checkValidDatebeforequalnow(From1, now);
+                flag = flag || !Utilities.checkValidDate(From1, To1) || !Utilities.checkValidDatebeforequalnow(To1, now);
             }
-            if(From2.equals(To2)){
+            if (From2.equals(To2)) {
                 InvalidSRFrom.setVisible(!Utilities.checkValidDatebeforequalnow(From2, now));
                 InvalidSRTo.setVisible(!Utilities.checkValidDatebeforequalnow(To2, now));
-                flag=flag||!Utilities.checkValidDatebeforequalnow(From2, now);
-                flag=flag||!Utilities.checkValidDatebeforequalnow(To2, now);
-            }else{
-                flag=flag||!Utilities.checkValidDate(From2, To2)||!Utilities.checkValidDatebeforequalnow(From2, now);
-                flag=flag||!Utilities.checkValidDate(From2, To2)||!Utilities.checkValidDatebeforequalnow(To2, now);
+                flag = flag || !Utilities.checkValidDatebeforequalnow(From2, now);
+                flag = flag || !Utilities.checkValidDatebeforequalnow(To2, now);
+            } else {
+                flag = flag || !Utilities.checkValidDate(From2, To2) || !Utilities.checkValidDatebeforequalnow(From2, now);
+                flag = flag || !Utilities.checkValidDate(From2, To2) || !Utilities.checkValidDatebeforequalnow(To2, now);
             }
-        }else{
+        } else {
             InvalidSRFrom.setVisible(false);
             InvalidSRTo.setVisible(false);
         }
-        flag=flag||FirstReportType.getText().equals("");
-        flag=flag||FirstReportBranch.getText().equals("");
-        flag=flag||(SecondReportType.getText().equals("")&&CompareTo.isSelected());
-        flag=flag||(SecondReportBranch.getText().equals("")&&CompareTo.isSelected());
-        if(flag)
+        flag = flag || FirstReportType.getText().equals("");
+        flag = flag || FirstReportBranch.getText().equals("");
+        flag = flag || (SecondReportType.getText().equals("") && CompareTo.isSelected());
+        flag = flag || (SecondReportBranch.getText().equals("") && CompareTo.isSelected());
+        if (flag)
             return;
 
-        if(!CompareTo.isSelected()) {
+        if (!CompareTo.isSelected()) {
 
             List<Date> DateList = new ArrayList<>();
             DateList.add(From1);
@@ -399,17 +395,17 @@ public class Report implements Initializable {
             Message ms = new Message(DateList, "#PrepReports1 " + FirstReportType.getText() + " " + FirstReportBranch.getText());
             App.setRoot("ReportView");
             SimpleClient.getClient().sendToServer(ms);
-            SimpleClient.getClient().reportControl=this;
-        }else{
+            SimpleClient.getClient().reportControl = this;
+        } else {
             List<Date> DateList = new ArrayList<>();
             DateList.add(From1);
             DateList.add(To1);
             DateList.add(From2);
             DateList.add(To2);
-            Message ms = new Message(DateList, "#PrepReports2 " + FirstReportType.getText() + " " + FirstReportBranch.getText()+" "+SecondReportType.getText() + " " + SecondReportBranch.getText());
+            Message ms = new Message(DateList, "#PrepReports2 " + FirstReportType.getText() + " " + FirstReportBranch.getText() + " " + SecondReportType.getText() + " " + SecondReportBranch.getText());
             App.setRoot("ReportView");
             SimpleClient.getClient().sendToServer(ms);
-            SimpleClient.getClient().reportControl=this;
+            SimpleClient.getClient().reportControl = this;
         }
         ReportView.setCaller("Report");
     }
@@ -417,8 +413,8 @@ public class Report implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            SimpleClient.getClient().sendToServer(new Message(null,"#getBranchesR"));
-            SimpleClient.getClient().reportControl=this;
+            SimpleClient.getClient().sendToServer(new Message(null, "#getBranchesR"));
+            SimpleClient.getClient().reportControl = this;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -426,13 +422,12 @@ public class Report implements Initializable {
         FirstReportTo.setValue(java.time.LocalDate.now());
         SecondReportFrom.setValue(java.time.LocalDate.now());
         SecondReportTo.setValue(java.time.LocalDate.now());
-        if(App.getUser().getPermission()==permissions.MANAGER)
-        {
+        if (App.getUser().getPermission() == permissions.MANAGER) {
             CompareTo.setVisible(false);
-            FirstReportBranch.setText(((BranchManager)App.getUser()).getMybranch().getName());
+            FirstReportBranch.setText(((BranchManager) App.getUser()).getMybranch().getName());
             FirstReportBranch.setDisable(true);
             FirstReportBranch.setOpacity(300000000);
-            SecondReportBranch.setText(((BranchManager)App.getUser()).getMybranch().getName());
+            SecondReportBranch.setText(((BranchManager) App.getUser()).getMybranch().getName());
             SecondReportBranch.setDisable(true);
             SecondReportBranch.setOpacity(300000000);
         }

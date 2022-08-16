@@ -3,16 +3,17 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+
 @Entity
 @Table(name = "complain")
-public class Complain implements Serializable{
+public class Complain implements Serializable {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name="Branch_ID")
+    @JoinColumn(name = "Branch_ID")
     private Branch branch;
     @ManyToOne
     private Client client;
@@ -20,7 +21,18 @@ public class Complain implements Serializable{
     private String reason;
     private Date date;
     private boolean handled;
-    private int Hour=0;
+    private int Hour = 0;
+    private int Minute = 0;
+
+    public Complain(String reason, Date date) {
+        super();
+        this.reason = reason;
+        this.date = date;
+    }
+
+    public Complain() {
+
+    }
 
     public int getHour() {
         return Hour;
@@ -36,17 +48,6 @@ public class Complain implements Serializable{
 
     public void setMinute(int minute) {
         Minute = minute;
-    }
-
-    private int Minute=0;
-    public Complain(String reason, Date date) {
-        super();
-        this.reason = reason;
-        this.date = date;
-    }
-
-    public Complain() {
-
     }
 
     public boolean isHandled() {
@@ -88,6 +89,7 @@ public class Complain implements Serializable{
     public void setDate(Date date) {
         this.date = date;
     }
+
     public int getId() {
         return id;
     }

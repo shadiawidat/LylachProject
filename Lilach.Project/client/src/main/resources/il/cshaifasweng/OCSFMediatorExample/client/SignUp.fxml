@@ -1,421 +1,434 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" styleClass="anchors"
+            stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17"
+            fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.SignUp">
+    <children>
+        <Label layoutX="126.0" layoutY="596.0" text="BirthDate" AnchorPane.leftAnchor="126.0"
+               AnchorPane.topAnchor="596.0">
+            <font>
+                <Font name="Cambria" size="24.0"/>
+            </font>
+        </Label>
+        <TextField editable="false" layoutX="124.0" layoutY="621.0" prefHeight="103.0" styleClass="textFields">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </TextField>
+        <Button layoutX="395.0" layoutY="652.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#SignUp"
+                styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="SingUp"
+                AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="652.0">
+            <font>
+                <Font name="Cambria Bold Italic" size="24.0"/>
+            </font>
+        </Button>
+        <DatePicker fx:id="Birthdate" layoutX="138.0" layoutY="632.0" prefHeight="30.0" prefWidth="222.0"
+                    style="-fx-background-color: #FFFFFF;"/>
+        <Button layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn"
+                text="&lt;">
+            <font>
+                <Font name="Cambria" size="24.0"/>
+            </font>
+        </Button>
+        <HBox alignment="CENTER" layoutX="30.0" layoutY="37.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar"
+              stylesheets="@../../../../Styles/Style.css" AnchorPane.bottomAnchor="640.0" AnchorPane.leftAnchor="20.0"
+              AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick"
+                           pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
+                    <image>
+                        <Image url="@../../../../Icons/Menu.png"/>
+                    </image>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                </ImageView>
+                <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
+                    <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="247.0">
+                            <font>
+                                <Font name="Cambria" size="14.0"/>
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
+                            <font>
+                                <Font name="Cambria Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="UserNameConnected" alignment="CENTER_RIGHT" onMouseClicked="#GoToAccount"
+                               prefHeight="25.0" prefWidth="247.0" text="Welcome Guest">
+                            <font>
+                                <Font name="Cambria" size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <ImageView fx:id="CartB" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true"
+                           preserveRatio="true" HBox.hgrow="NEVER">
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                    <styleClass>
+                        <String fx:value="transparent"/>
+                        <String fx:value="logo"/>
+                    </styleClass>
+                    <image>
+                        <Image url="@../../../../Icons/Cart.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </HBox>
+        <VBox layoutX="124.0" layoutY="108.0" prefHeight="413.0" prefWidth="250.0" AnchorPane.leftAnchor="124.0"
+              AnchorPane.topAnchor="108.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label text="First name">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidFname" text="*Invalid" textFill="RED" visible="false">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <TextField fx:id="FirstName" prefHeight="103.0" styleClass="textFields"
+                           stylesheets="@../../../../Styles/Style.css">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </TextField>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label text="Last name">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidLName" text="*Invalid" textFill="RED" visible="false">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <TextField fx:id="LastName" prefHeight="103.0" styleClass="textFields"
+                           stylesheets="@../../../../Styles/Style.css">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </TextField>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label text="ID">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidID" text="*Invalid" textFill="RED" visible="false">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <TextField fx:id="ID" prefHeight="103.0" styleClass="textFields"
+                           stylesheets="@../../../../Styles/Style.css">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </TextField>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label text="Username">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidUserName" text="*Invalid" textFill="RED" visible="false">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <TextField fx:id="Username" prefHeight="103.0" styleClass="textFields"
+                           stylesheets="@../../../../Styles/Style.css">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </TextField>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label text="Password">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidPassword" text="*Invalid" textFill="RED" visible="false">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <PasswordField fx:id="Password" minHeight="51.0" prefHeight="50.0" styleClass="textFields"/>
+            </children>
+        </VBox>
+        <VBox layoutX="574.0" layoutY="109.0" prefHeight="531.0" prefWidth="250.0" AnchorPane.leftAnchor="574.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="12.0" prefWidth="250.0">
+                    <children>
+                        <Label text="Address">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidAddress" text="*Invalid" textFill="RED" visible="false">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <TextField fx:id="Address" prefHeight="103.0" styleClass="textFields">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </TextField>
+                <HBox alignment="CENTER_LEFT" prefHeight="17.0" prefWidth="250.0">
+                    <children>
+                        <Label text="Phone">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidPhone" text="*Invalid" textFill="RED" visible="false">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <TextField fx:id="Phone" prefHeight="103.0" styleClass="textFields"
+                           stylesheets="@../../../../Styles/Style.css">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </TextField>
+                <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="250.0">
+                    <children>
+                        <Label text="Email">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidEmail" text="*Invalid" textFill="RED" visible="false">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <TextField fx:id="Email" prefHeight="103.0" styleClass="textFields">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </TextField>
+                <HBox alignment="CENTER_LEFT" prefHeight="11.0" prefWidth="250.0">
+                    <children>
+                        <Label text="Credit Card">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidCard" text="*Invalid" textFill="RED" visible="false">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <TextField fx:id="CreditCard" prefHeight="103.0" styleClass="textFields">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </TextField>
+                <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="250.0">
+                    <children>
+                        <Label text="Account type">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidAccount" text="*Please choose" textFill="RED" visible="false">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <MenuButton fx:id="AccountType" alignment="CENTER" minHeight="51.0" mnemonicParsing="false"
+                            styleClass="textFields">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#OneBranch" text="Basic - One Branch"/>
+                        <MenuItem mnemonicParsing="false" onAction="#AllBranches" text="Gold -All Branches"/>
+                        <MenuItem mnemonicParsing="false" onAction="#Subscription"
+                                  text="Premium - All Branches + Discount 10% -100$"/>
+                    </items>
+                    <font>
+                        <Font name="Cambria" size="18.0"/>
+                    </font>
+                </MenuButton>
+                <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="250.0">
+                    <children>
+                        <Label fx:id="Branch" text="Branch" visible="false">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidBranch" text="*Please choose" textFill="RED" visible="false">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <MenuButton fx:id="Branches" alignment="CENTER" minHeight="51.0" mnemonicParsing="false"
+                            styleClass="textFields" visible="false">
+                    <font>
+                        <Font name="Cambria" size="18.0"/>
+                    </font>
+                </MenuButton>
+            </children>
+        </VBox>
+        <Label fx:id="InvalidDate" layoutX="261.0" layoutY="622.0" text="*Invalid" textFill="RED" visible="false">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.SignUp">
-   <children>
-      <Label layoutX="126.0" layoutY="596.0" text="BirthDate" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="596.0">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
-      <TextField editable="false" layoutX="124.0" layoutY="621.0" prefHeight="103.0" styleClass="textFields">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </TextField>
-      <Button layoutX="395.0" layoutY="652.0" maxWidth="130.0" mnemonicParsing="false" onMouseClicked="#SignUp" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="SingUp" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="652.0">
-         <font>
-            <Font name="Cambria Bold Italic" size="24.0" />
-         </font></Button>
-      <DatePicker fx:id="Birthdate" layoutX="138.0" layoutY="632.0" prefHeight="30.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" />
-      <Button layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" styleClass="BackBtn" text="&lt;">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Button>
-      <HBox alignment="CENTER" layoutX="30.0" layoutY="37.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.bottomAnchor="640.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-         <children>
-            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
-               <image>
-                  <Image url="@../../../../Icons/Menu.png" />
-               </image>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </ImageView>
-            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="247.0">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
-                     <font>
-                        <Font name="Cambria Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="UserNameConnected" alignment="CENTER_RIGHT" onMouseClicked="#GoToAccount" prefHeight="25.0" prefWidth="247.0" text="Welcome Guest">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <ImageView fx:id="CartB" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <styleClass>
-                  <String fx:value="transparent" />
-                  <String fx:value="logo" />
-               </styleClass>
-               <image>
-                  <Image url="@../../../../Icons/Cart.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
-      <VBox layoutX="124.0" layoutY="108.0" prefHeight="413.0" prefWidth="250.0" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="108.0">
-         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="First name">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidFname" text="*Invalid" textFill="RED" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <TextField fx:id="FirstName" prefHeight="103.0" styleClass="textFields" stylesheets="@../../../../Styles/Style.css">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Last name">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidLName" text="*Invalid" textFill="RED" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <TextField fx:id="LastName" prefHeight="103.0" styleClass="textFields" stylesheets="@../../../../Styles/Style.css">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="ID">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidID" text="*Invalid" textFill="RED" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <TextField fx:id="ID" prefHeight="103.0" styleClass="textFields" stylesheets="@../../../../Styles/Style.css">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Username">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidUserName" text="*Invalid" textFill="RED" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <TextField fx:id="Username" prefHeight="103.0" styleClass="textFields" stylesheets="@../../../../Styles/Style.css">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Password">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidPassword" text="*Invalid" textFill="RED" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <PasswordField fx:id="Password" minHeight="51.0" prefHeight="50.0" styleClass="textFields" />
-         </children>
-      </VBox>
-      <VBox layoutX="574.0" layoutY="109.0" prefHeight="531.0" prefWidth="250.0" AnchorPane.leftAnchor="574.0">
-         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="12.0" prefWidth="250.0">
-               <children>
-                  <Label text="Address">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidAddress" text="*Invalid" textFill="RED" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <TextField fx:id="Address" prefHeight="103.0" styleClass="textFields">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <HBox alignment="CENTER_LEFT" prefHeight="17.0" prefWidth="250.0">
-               <children>
-                  <Label text="Phone">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidPhone" text="*Invalid" textFill="RED" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <TextField fx:id="Phone" prefHeight="103.0" styleClass="textFields" stylesheets="@../../../../Styles/Style.css">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="250.0">
-               <children>
-                  <Label text="Email">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidEmail" text="*Invalid" textFill="RED" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <TextField fx:id="Email" prefHeight="103.0" styleClass="textFields">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <HBox alignment="CENTER_LEFT" prefHeight="11.0" prefWidth="250.0">
-               <children>
-                  <Label text="Credit Card">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidCard" text="*Invalid" textFill="RED" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <TextField fx:id="CreditCard" prefHeight="103.0" styleClass="textFields">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="250.0">
-               <children>
-                  <Label text="Account type">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidAccount" text="*Please choose" textFill="RED" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <MenuButton fx:id="AccountType" alignment="CENTER" minHeight="51.0" mnemonicParsing="false" styleClass="textFields">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#OneBranch" text="Basic - One Branch" />
-                <MenuItem mnemonicParsing="false" onAction="#AllBranches" text="Gold -All Branches" />
-                  <MenuItem mnemonicParsing="false" onAction="#Subscription" text="Premium - All Branches + Discount 10% -100$" />
-              </items>
-               <font>
-                  <Font name="Cambria" size="18.0" />
-               </font>
-            </MenuButton>
-            <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="250.0">
-               <children>
-                  <Label fx:id="Branch" text="Branch" visible="false">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidBranch" text="*Please choose" textFill="RED" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <MenuButton fx:id="Branches" alignment="CENTER" minHeight="51.0" mnemonicParsing="false" styleClass="textFields" visible="false">
-               <font>
-                  <Font name="Cambria" size="18.0" />
-               </font>
-            </MenuButton>
-         </children>
-      </VBox>
-      <Label fx:id="InvalidDate" layoutX="261.0" layoutY="622.0" text="*Invalid" textFill="RED" visible="false">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-
-      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="169.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
-         <menus>
-            <Menu fx:id="GoTo" mnemonicParsing="false" text="Go to">
-               <items>
-                  <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCartMN" text="Cart" />
-                  <MenuItem mnemonicParsing="false" onAction="#GoToCatalog" text="Catalog" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Account">
-               <items>
-                  <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in" />
-                  <MenuItem fx:id="MenuSignOut" mnemonicParsing="false" onAction="#GoToSignOut" text="Sign Out" />
-                  <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="MenuAbout" mnemonicParsing="false" onAction="#GoToAbout" text="About" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <VBox layoutX="384.0" layoutY="108.0" prefHeight="95.0" prefWidth="170.0">
-         <children>
-            <HBox prefHeight="30.0" prefWidth="146.0">
-               <children>
-                  <Label fx:id="AmountLB" text="Amount">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="InvalidAmount" prefHeight="30.0" prefWidth="54.0" text="Invalid" textFill="#ff0015" visible="false">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <TextField fx:id="Amount" prefHeight="93.0" prefWidth="110.0" styleClass="textFields">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-         </children>
-      </VBox>
-   </children>
+        <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0"
+                 prefWidth="169.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+            <menus>
+                <Menu fx:id="GoTo" mnemonicParsing="false" text="Go to">
+                    <items>
+                        <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCartMN" text="Cart"/>
+                        <MenuItem mnemonicParsing="false" onAction="#GoToCatalog" text="Catalog"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Account">
+                    <items>
+                        <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in"/>
+                        <MenuItem fx:id="MenuSignOut" mnemonicParsing="false" onAction="#GoToSignOut" text="Sign Out"/>
+                        <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem fx:id="MenuAbout" mnemonicParsing="false" onAction="#GoToAbout" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <VBox layoutX="384.0" layoutY="108.0" prefHeight="95.0" prefWidth="170.0">
+            <children>
+                <HBox prefHeight="30.0" prefWidth="146.0">
+                    <children>
+                        <Label fx:id="AmountLB" text="Amount">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="InvalidAmount" prefHeight="30.0" prefWidth="54.0" text="Invalid"
+                               textFill="#ff0015" visible="false">
+                            <font>
+                                <Font name="Cambria" size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <TextField fx:id="Amount" prefHeight="93.0" prefWidth="110.0" styleClass="textFields">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </TextField>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

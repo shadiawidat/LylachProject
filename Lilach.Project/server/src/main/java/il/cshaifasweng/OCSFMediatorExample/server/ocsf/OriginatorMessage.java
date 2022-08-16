@@ -11,51 +11,47 @@ package il.cshaifasweng.OCSFMediatorExample.server.ocsf;
  * @author Dr. Robert Lagani&egrave;re
  * @version July 2001
  */
-public class OriginatorMessage
-{
-  /**
-   * The connection that originated the message
-   */
-  private ConnectionToClient originator;
+public class OriginatorMessage {
+    /**
+     * The connection that originated the message
+     */
+    private ConnectionToClient originator;
 
-  /**
-   * The message.
-   */
-  private Object message;
+    /**
+     * The message.
+     */
+    private Object message;
 
 // Constructor ***************************************************************
 
-  /**
-   * Constructs an instance of an OriginatorMessage
-   *
-   * @param originator The client who created this message
-   * @param message The contents of the message
-   */
-  public OriginatorMessage(ConnectionToClient originator, Object message)
-  {
-    this.originator = originator;
-    this.message = message;
-  }
+    /**
+     * Constructs an instance of an OriginatorMessage
+     *
+     * @param originator The client who created this message
+     * @param message    The contents of the message
+     */
+    public OriginatorMessage(ConnectionToClient originator, Object message) {
+        this.originator = originator;
+        this.message = message;
+    }
 
 // Accessor methods *********************************************************
 
-  /**
-   * Returns the originating connection.
-   *
-   * @return The connection from which the message originated.
-   */
-  public ConnectionToClient getOriginator()
-  {
-    return originator;
-  }
+    /**
+     * Returns the originating connection.
+     *
+     * @return The connection from which the message originated.
+     */
+    public ConnectionToClient getOriginator() {
+        return originator;
+    }
 
-  /**
-   * Returns the message's contents.
-   *
-   * @return The content of the message.
-   */
-  public Object getMessage()
-  {
-    return message;
-  }
+    /**
+     * Returns the message's contents.
+     *
+     * @return The content of the message.
+     */
+    public Object getMessage() {
+        return message;
+    }
 }

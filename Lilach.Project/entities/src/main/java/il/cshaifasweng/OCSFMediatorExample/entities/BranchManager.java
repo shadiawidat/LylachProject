@@ -1,8 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class BranchManager extends User implements Serializable {

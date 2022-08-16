@@ -1,17 +1,12 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import il.cshaifasweng.OCSFMediatorExample.server.App;
-
-import il.cshaifasweng.OCSFMediatorExample.server.SimpleServer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-import java.io.IOException;
 import java.net.*;
 import java.util.ResourceBundle;
 
@@ -33,13 +28,12 @@ public class Connect implements Initializable {
     void RunIt(MouseEvent event) throws Exception {
 
         try {
-            App.server=new SimpleServer(Integer.parseInt(Port.getText()));
-            App.server.isRunning=true;
+            App.server = new SimpleServer(Integer.parseInt(Port.getText()));
+            App.server.isRunning = true;
             App.server.timerthread.start();
             App.generateItems();
             App.server.listen();
-            if(App.server.isListening())
-            {
+            if (App.server.isListening()) {
                 RunBtn.setVisible(false);
                 StopBtn.setVisible(true);
             }
@@ -61,13 +55,13 @@ public class Connect implements Initializable {
         StopBtn.setVisible(false);
         App.server.close();
         App.server.stopListening();
-        App.server=null;
+        App.server = null;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        try(final DatagramSocket socket = new DatagramSocket()){
+        try (final DatagramSocket socket = new DatagramSocket()) {
             socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
             IP.setText(socket.getLocalAddress().getHostAddress());
             IP.setOpacity(Double.MAX_VALUE);

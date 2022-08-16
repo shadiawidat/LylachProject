@@ -1,269 +1,305 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0"
+            styleClass="anchors" stylesheets="@../../../../Styles/Style.css"
+            xmlns="http://javafx.com/javafx/17"
+            fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Catalog">
+    <children>
+        <HBox alignment="CENTER" layoutX="270.0" layoutY="120.0" prefHeight="603.0" prefWidth="650.0"
+              style="-fx-background-color: #FDEFE9 #FDEFE9;" VBox.vgrow="ALWAYS">
+            <children>
+                <ScrollPane fx:id="scroll" hbarPolicy="NEVER" prefHeight="578.0" prefWidth="534.0"
+                            style="-fx-background-color: #FDEFE9;" stylesheets="@../../../../Styles/Style.css"
+                            vbarPolicy="NEVER">
+                    <content>
+                        <GridPane fx:id="grid" minHeight="600.0" minWidth="600.0" prefHeight="641.0" prefWidth="600.0"
+                                  style="-fx-background-color: #FDEFE9;" stylesheets="@../../../../Styles/Style.css">
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            </rowConstraints>
+                        </GridPane>
+                    </content>
+                </ScrollPane>
+            </children>
+        </HBox>
+        <HBox alignment="BOTTOM_CENTER" layoutX="2.0" layoutY="-1.0" prefHeight="163.0" prefWidth="920.0"
+              style="-fx-background-color: FDEFE9;">
+            <children>
+                <Button fx:id="X_button" maxWidth="30.0" mnemonicParsing="false" onMouseClicked="#Cancel_filters"
+                        styleClass="left_menu_btns" text="X" visible="false">
+                    <HBox.margin>
+                        <Insets bottom="23.0" left="60.0"/>
+                    </HBox.margin>
+                </Button>
+                <TextField fx:id="Min" maxHeight="30.0" maxWidth="100.0" promptText="Min" styleClass="textFields"
+                           visible="false">
+                    <HBox.margin>
+                        <Insets bottom="23.0" left="20.0"/>
+                    </HBox.margin>
+                </TextField>
+                <TextField fx:id="Max" maxHeight="30.0" maxWidth="100.0" promptText="Max" styleClass="textFields"
+                           visible="false">
+                    <HBox.margin>
+                        <Insets bottom="23.0" left="10.0"/>
+                    </HBox.margin>
+                </TextField>
+                <Button fx:id="Filter" maxWidth="60.0" mnemonicParsing="false" onMouseClicked="#FilterByPrices"
+                        styleClass="left_menu_btns" text="Filter" visible="false">
+                    <HBox.margin>
+                        <Insets bottom="23.0" left="10.0"/>
+                    </HBox.margin>
+                    <font>
+                        <Font name="Cambria" size="14.0"/>
+                    </font>
+                </Button>
+                <Label fx:id="InvalidPrice" text="*Invalid" textFill="RED" visible="false">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets bottom="29.0" left="10.0" right="20.0"/>
+                    </HBox.margin>
+                </Label>
+            </children>
+        </HBox>
+        <ImageView fitHeight="221.0" fitWidth="247.0" layoutX="35.0" layoutY="417.0" pickOnBounds="true"
+                   preserveRatio="true" styleClass="GIFs" AnchorPane.topAnchor="417.0">
+            <image>
+                <Image url="@../../../../Media/Sales/SpringSale.png"/>
+            </image>
+        </ImageView>
+        <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar"
+              stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+              AnchorPane.topAnchor="20.0">
+            <children>
+                <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick"
+                           pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
+                    <image>
+                        <Image url="@../../../../Icons/Menu.png"/>
+                    </image>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                </ImageView>
+                <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
+                    <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="247.0">
+                            <font>
+                                <Font name="Cambria" size="14.0"/>
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
+                            <font>
+                                <Font name="Cambria Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
+                            <font>
+                                <Font name="Cambria" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="UserName" alignment="CENTER_RIGHT" onMouseClicked="#GoToAccount" prefHeight="25.0"
+                               prefWidth="247.0" text="Welcome John Pierre">
+                            <font>
+                                <Font name="Cambria" size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <ImageView fx:id="CartB" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true"
+                           preserveRatio="true" HBox.hgrow="NEVER">
+                    <image>
+                        <Image url="@../../../../Icons/Cart.png"/>
+                    </image>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                    <styleClass>
+                        <String fx:value="transparent"/>
+                        <String fx:value="logo"/>
+                    </styleClass>
+                </ImageView>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" layoutX="20.0" layoutY="101.0" prefHeight="100.0" prefWidth="248.0"
+              styleClass="textFields">
+            <children>
+                <TextField fx:id="SearchField" prefHeight="25.0" prefWidth="133.0" promptText="Type here to search">
+                    <styleClass>
+                        <String fx:value="transparent"/>
+                        <String fx:value="rounded"/>
+                    </styleClass>
+                </TextField>
+                <Button fx:id="SearchBtn" mnemonicParsing="false" onMouseClicked="#ClickSearch" text="Search">
+                    <styleClass>
+                        <String fx:value="rounded"/>
+                        <String fx:value="transparent"/>
+                        <String fx:value="searchbtn"/>
+                    </styleClass>
+                    <font>
+                        <Font name="Cambria" size="14.0"/>
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+        <Button fx:id="Back" layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back"
+                prefHeight="51.0" prefWidth="86.0" styleClass="BackBtn" text="&lt;">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Button>
+        <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="164.0" maxHeight="230.0" prefHeight="230.0"
+              prefWidth="100.0" styleClass="menubox" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="164.0">
+            <children>
+                <MenuButton mnemonicParsing="false" styleClass="left_menu_btns"
+                            stylesheets="@../../../../Styles/Style.css" text="Refine by">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#Price" text="Price"/>
+                        <MenuItem mnemonicParsing="false" onAction="#OnSale" text="OnSale"/>
+                    </items>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                    <font>
+                        <Font name="Cambria" size="14.0"/>
+                    </font>
+                </MenuButton>
+                <MenuButton mnemonicParsing="false" styleClass="left_menu_btns"
+                            stylesheets="@../../../../Styles/Style.css" text="Categories">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#SFlower" text="Single flowers"/>
+                        <MenuItem mnemonicParsing="false" onAction="#Bouquets" text="Bouquets"/>
+                        <MenuItem mnemonicParsing="false" onAction="#Vases" text="Vases"/>
+                        <MenuItem mnemonicParsing="false" onAction="#GardeningTools" text="Gardening Tools"/>
+                        <MenuItem mnemonicParsing="false" onAction="#Weddings" text="Weddings"/>
+                    </items>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                    <font>
+                        <Font name="Cambria" size="14.0"/>
+                    </font>
+                </MenuButton>
+                <MenuButton mnemonicParsing="false" styleClass="left_menu_btns"
+                            stylesheets="@../../../../Styles/Style.css" text="Sort By">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#SortHL" text="Price: High to Low"/>
+                        <MenuItem mnemonicParsing="false" onAction="#SortLH" text="Price: Low to High"/>
+                        <MenuItem mnemonicParsing="false" onAction="#SortAZ" text="Name: A-&gt;Z"/>
+                        <MenuItem mnemonicParsing="false" onAction="#SortZA" text="Name: Z-&gt;A"/>
+                    </items>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                    <font>
+                        <Font name="Cambria" size="14.0"/>
+                    </font>
+                </MenuButton>
+                <MenuButton contentDisplay="TOP" mnemonicParsing="false" styleClass="left_menu_btns"
+                            stylesheets="@../../../../Styles/Style.css" text="Pick colors">
+                    <items>
+                        <MenuItem fx:id="YellowColor" mnemonicParsing="false" onAction="#Yellow"
+                                  style="-fx-background-color: #FEEE09; -fx-background-radius: 10;"
+                                  text="                     "/>
+                        <MenuItem mnemonicParsing="false" onAction="#Orange"
+                                  style="-fx-background-color: F79254; -fx-background-radius: 10;"
+                                  text="                     "/>
+                        <MenuItem mnemonicParsing="false" onAction="#White"
+                                  style="-fx-background-color: F9F5F4; -fx-background-radius: 10;"
+                                  text="                     "/>
+                        <MenuItem mnemonicParsing="false" onAction="#Purple"
+                                  style="-fx-background-color: B95493; -fx-background-radius: 10;"
+                                  text="                     "/>
+                        <MenuItem mnemonicParsing="false" onAction="#Red"
+                                  style="-fx-background-color: DC0023; -fx-background-radius: 10;"
+                                  text="                     "/>
+                        <MenuItem mnemonicParsing="false" onAction="#Black"
+                                  style="-fx-background-color: #000000; -fx-background-radius: 10;"
+                                  text="                     "/>
+                        <MenuItem mnemonicParsing="false" onAction="#Pink"
+                                  style="-fx-background-color: #F1919B; -fx-background-radius: 10;"
+                                  text="                     "/>
+                        <MenuItem mnemonicParsing="false" onAction="#Multicolor" style="-fx-background-radius: 10;"
+                                  text="MultiColor"/>
+                    </items>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                    <font>
+                        <Font name="Cambria" size="14.0"/>
+                    </font>
+                </MenuButton>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="964.0" styleClass="anchors" stylesheets="@../../../../Styles/Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Controllers.Catalog">
-   <children>
-   <HBox alignment="CENTER" layoutX="270.0" layoutY="120.0" prefHeight="603.0" prefWidth="650.0" style="-fx-background-color: #FDEFE9 #FDEFE9;" VBox.vgrow="ALWAYS">
-         <children>
-      <ScrollPane fx:id="scroll" hbarPolicy="NEVER" prefHeight="578.0" prefWidth="534.0" style="-fx-background-color: #FDEFE9;" stylesheets="@../../../../Styles/Style.css" vbarPolicy="NEVER">
-         <content>
-            <GridPane fx:id="grid" minHeight="600.0" minWidth="600.0" prefHeight="641.0" prefWidth="600.0" style="-fx-background-color: #FDEFE9;" stylesheets="@../../../../Styles/Style.css">
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-               </rowConstraints>
-            </GridPane>
-         </content>
-      </ScrollPane>
-         </children></HBox>
-      <HBox alignment="BOTTOM_CENTER" layoutX="2.0" layoutY="-1.0" prefHeight="163.0" prefWidth="920.0" style="-fx-background-color: FDEFE9;">
-         <children>
-            <Button fx:id="X_button" maxWidth="30.0" mnemonicParsing="false" onMouseClicked="#Cancel_filters" styleClass="left_menu_btns" text="X" visible="false">
-               <HBox.margin>
-                  <Insets bottom="23.0" left="60.0" />
-               </HBox.margin>
-            </Button>
-            <TextField fx:id="Min" maxHeight="30.0" maxWidth="100.0" promptText="Min" styleClass="textFields" visible="false">
-               <HBox.margin>
-                  <Insets bottom="23.0" left="20.0" />
-               </HBox.margin>
-            </TextField>
-            <TextField fx:id="Max" maxHeight="30.0" maxWidth="100.0" promptText="Max" styleClass="textFields" visible="false">
-               <HBox.margin>
-                  <Insets bottom="23.0" left="10.0" />
-               </HBox.margin>
-            </TextField>
-            <Button fx:id="Filter" maxWidth="60.0" mnemonicParsing="false" onMouseClicked="#FilterByPrices" styleClass="left_menu_btns" text="Filter" visible="false">
-               <HBox.margin>
-                  <Insets bottom="23.0" left="10.0" />
-               </HBox.margin>
-               <font>
-                  <Font name="Cambria" size="14.0" />
-               </font>
-            </Button>
-            <Label fx:id="InvalidPrice" text="*Invalid" textFill="RED" visible="false">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets bottom="29.0" left="10.0" right="20.0" />
-               </HBox.margin>
-            </Label>
-         </children>
-      </HBox>
-      <ImageView fitHeight="221.0" fitWidth="247.0" layoutX="35.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true" styleClass="GIFs" AnchorPane.topAnchor="417.0">
-         <image>
-            <Image url="@../../../../Media/Sales/SpringSale.png" />
-         </image>
-      </ImageView>
-      <HBox alignment="CENTER" layoutX="20.0" layoutY="27.0" prefHeight="100.0" prefWidth="842.0" styleClass="toolbar" stylesheets="@../../../../Styles/Style.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-         <children>
-            <ImageView fx:id="MenuBtn" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#MenuClick" pickOnBounds="true" preserveRatio="true" styleClass="cartIcon">
-               <image>
-                  <Image url="@../../../../Icons/Menu.png" />
-               </image>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </ImageView>
-            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="756.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="247.0">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="96.0" text="Lylach's">
-                     <font>
-                        <Font name="Cambria Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="30.0" prefWidth="99.0" text=" boutique">
-                     <font>
-                        <Font name="Cambria" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="UserName" alignment="CENTER_RIGHT" onMouseClicked="#GoToAccount" prefHeight="25.0" prefWidth="247.0" text="Welcome John Pierre">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <ImageView fx:id="CartB" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#GoToCart" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-               <image>
-                  <Image url="@../../../../Icons/Cart.png" />
-               </image>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <styleClass>
-                  <String fx:value="transparent" />
-                  <String fx:value="logo" />
-               </styleClass>
-            </ImageView>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" layoutX="20.0" layoutY="101.0" prefHeight="100.0" prefWidth="248.0" styleClass="textFields">
-         <children>
-            <TextField fx:id="SearchField" prefHeight="25.0" prefWidth="133.0" promptText="Type here to search">
-               <styleClass>
-                  <String fx:value="transparent" />
-                  <String fx:value="rounded" />
-               </styleClass>
-            </TextField>
-            <Button fx:id="SearchBtn" mnemonicParsing="false" onMouseClicked="#ClickSearch" text="Search">
-               <styleClass>
-                  <String fx:value="rounded" />
-                  <String fx:value="transparent" />
-                  <String fx:value="searchbtn" />
-               </styleClass>
-               <font>
-                  <Font name="Cambria" size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
-      <Button fx:id="Back" layoutX="20.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#Back" prefHeight="51.0" prefWidth="86.0" styleClass="BackBtn" text="&lt;">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
-      <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="164.0" maxHeight="230.0" prefHeight="230.0" prefWidth="100.0" styleClass="menubox" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="164.0">
-         <children>
-            <MenuButton mnemonicParsing="false" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Refine by">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#Price" text="Price" />
-                <MenuItem mnemonicParsing="false" onAction="#OnSale" text="OnSale" />
-              </items>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Cambria" size="14.0" />
-               </font>
-            </MenuButton>
-            <MenuButton mnemonicParsing="false" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Categories">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#SFlower" text="Single flowers" />
-                  <MenuItem mnemonicParsing="false" onAction="#Bouquets" text="Bouquets" />
-                  <MenuItem mnemonicParsing="false" onAction="#Vases" text="Vases" />
-                  <MenuItem mnemonicParsing="false" onAction="#GardeningTools" text="Gardening Tools" />
-                  <MenuItem mnemonicParsing="false" onAction="#Weddings" text="Weddings" />
-               </items>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Cambria" size="14.0" />
-               </font>
-            </MenuButton>
-            <MenuButton mnemonicParsing="false" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Sort By">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#SortHL" text="Price: High to Low" />
-                  <MenuItem mnemonicParsing="false" onAction="#SortLH" text="Price: Low to High" />
-                  <MenuItem mnemonicParsing="false" onAction="#SortAZ" text="Name: A-&gt;Z" />
-                  <MenuItem mnemonicParsing="false" onAction="#SortZA" text="Name: Z-&gt;A" />
-               </items>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Cambria" size="14.0" />
-               </font>
-            </MenuButton>
-            <MenuButton contentDisplay="TOP" mnemonicParsing="false" styleClass="left_menu_btns" stylesheets="@../../../../Styles/Style.css" text="Pick colors">
-               <items>
-                  <MenuItem fx:id="YellowColor" mnemonicParsing="false" onAction="#Yellow" style="-fx-background-color: #FEEE09; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" onAction="#Orange" style="-fx-background-color: F79254; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" onAction="#White" style="-fx-background-color: F9F5F4; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" onAction="#Purple" style="-fx-background-color: B95493; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" onAction="#Red" style="-fx-background-color: DC0023; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" onAction="#Black" style="-fx-background-color: #000000; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" onAction="#Pink" style="-fx-background-color: #F1919B; -fx-background-radius: 10;" text="                     " />
-                  <MenuItem mnemonicParsing="false" onAction="#Multicolor" style="-fx-background-radius: 10;" text="MultiColor" />
-               </items>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Cambria" size="14.0" />
-               </font>
-            </MenuButton>
-
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets></VBox>
-      <Button fx:id="addItemBtn" layoutX="690.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#CreateNew" prefHeight="50.0" prefWidth="229.0" text="Add Item" visible="false">
-         <font>
-            <Font name="Cambria Bold Italic" size="24.0" />
-         </font>
-         <styleClass>
-            <String fx:value="btns" />
-            <String fx:value="left_menu_btns" />
-         </styleClass>
-      </Button>
-      <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0" prefWidth="169.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
-         <menus>
-            <Menu mnemonicParsing="false" text="Go to">
-               <items>
-                  <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUp" text="SignUp" />
-                  <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCartMN" text="Cart" />
-                  <MenuItem fx:id="Complains" mnemonicParsing="false" onAction="#GoToComplains" text="Complains" />
-                  <MenuItem fx:id="Reports" mnemonicParsing="false" onAction="#GoToReports" text="Reports" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Account">
-               <items>
-                  <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in" />
-                  <MenuItem fx:id="MenuSignOut" mnemonicParsing="false" onAction="#GoToSignOut" text="Sign Out" />
-                  <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="MenuAbout" mnemonicParsing="false" onAction="#GoToAbout" text="About" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <Label fx:id="Matched" layoutX="428.0" layoutY="352.0" text="No Items Matched" visible="false">
-         <font>
-            <Font name="Cambria" size="48.0" />
-         </font>
-      </Label>
-      <MenuButton fx:id="Messeges" alignment="CENTER" layoutX="148.0" layoutY="35.0" maxHeight="30.0" maxWidth="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" styleClass="textFields" text="Messages" textAlignment="CENTER">
-         <font>
-            <Font name="Cambria" size="14.0" />
-         </font>
-      </MenuButton>
-      <ImageView fx:id="MesseageIndicator1" fitHeight="15.0" fitWidth="15.0" layoutX="243.0" layoutY="43.0" pickOnBounds="true">
-         <image>
-            <Image url="@../../../../Icons/Whitep.jpeg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="MesseageIndicator" fitHeight="15.0" fitWidth="15.0" layoutX="243.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../../Icons/Redp.png" />
-         </image>
-      </ImageView>
-   </children>
+            </children>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+        </VBox>
+        <Button fx:id="addItemBtn" layoutX="690.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#CreateNew"
+                prefHeight="50.0" prefWidth="229.0" text="Add Item" visible="false">
+            <font>
+                <Font name="Cambria Bold Italic" size="24.0"/>
+            </font>
+            <styleClass>
+                <String fx:value="btns"/>
+                <String fx:value="left_menu_btns"/>
+            </styleClass>
+        </Button>
+        <MenuBar fx:id="menu" layoutX="36.0" layoutY="66.0" onMouseExited="#CloseMenu" prefHeight="28.0"
+                 prefWidth="169.0" style="-fx-background-color: #FFFFFF;" styleClass="rounded" visible="false">
+            <menus>
+                <Menu mnemonicParsing="false" text="Go to">
+                    <items>
+                        <MenuItem fx:id="MenuSignUp" mnemonicParsing="false" onAction="#GoToSignUp" text="SignUp"/>
+                        <MenuItem fx:id="MenuCart" mnemonicParsing="false" onAction="#GoToCartMN" text="Cart"/>
+                        <MenuItem fx:id="Complains" mnemonicParsing="false" onAction="#GoToComplains" text="Complains"/>
+                        <MenuItem fx:id="Reports" mnemonicParsing="false" onAction="#GoToReports" text="Reports"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Account">
+                    <items>
+                        <MenuItem fx:id="MenuSignIn" mnemonicParsing="false" onAction="#GoToSignIn" text="Sign in"/>
+                        <MenuItem fx:id="MenuSignOut" mnemonicParsing="false" onAction="#GoToSignOut" text="Sign Out"/>
+                        <MenuItem fx:id="MenuProfile" mnemonicParsing="false" onAction="#GoToProfile" text="Profile"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem fx:id="MenuAbout" mnemonicParsing="false" onAction="#GoToAbout" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <Label fx:id="Matched" layoutX="428.0" layoutY="352.0" text="No Items Matched" visible="false">
+            <font>
+                <Font name="Cambria" size="48.0"/>
+            </font>
+        </Label>
+        <MenuButton fx:id="Messeges" alignment="CENTER" layoutX="148.0" layoutY="35.0" maxHeight="30.0" maxWidth="120.0"
+                    mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" styleClass="textFields" text="Messages"
+                    textAlignment="CENTER">
+            <font>
+                <Font name="Cambria" size="14.0"/>
+            </font>
+        </MenuButton>
+        <ImageView fx:id="MesseageIndicator1" fitHeight="15.0" fitWidth="15.0" layoutX="243.0" layoutY="43.0"
+                   pickOnBounds="true">
+            <image>
+                <Image url="@../../../../Icons/Whitep.jpeg"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="MesseageIndicator" fitHeight="15.0" fitWidth="15.0" layoutX="243.0" layoutY="43.0"
+                   pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="@../../../../Icons/Redp.png"/>
+            </image>
+        </ImageView>
+    </children>
 </AnchorPane>
