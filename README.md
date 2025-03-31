@@ -19,7 +19,7 @@ The Flower Shop Management System is a robust application developed using Java a
   - Client-Server Architecture (Efficient communication and real-time updates)
 
 ### Screenshots
-- 🔑 Login & 🔖 Catalog Pages
+- 🔑 Login & 🌸 Catalog Pages
 
 > | ![Image](https://github.com/user-attachments/assets/440a707e-7749-4f1e-9c7b-8d79e8e4a0ef)  &nbsp;  ![Image](https://github.com/user-attachments/assets/6bfdcbc3-09f1-46c0-a140-9cb2c22b57db)
 
