@@ -1,8 +1,10 @@
-# *Overview*
+# Full Stack Project - Lylach 
+
+## 📋 *Overview*
       
 The Flower Shop Management System is a robust application developed using Java and JavaFX with a client-server architecture. The system efficiently manages inventory, client data, and orders, ensuring seamless synchronization and real-time updates.
 
-### *Features*
+### 🔧 *Features*
 
 - Inventory Management: Tracks available flowers, stock levels, and restocking alerts.
 - Client Management: Stores customer details, order history, and preferences.
@@ -11,14 +13,14 @@ The Flower Shop Management System is a robust application developed using Java a
 - Database Integration: Uses SQL with advanced database techniques for efficient data handling.
 - User-Friendly Interface: Built with JavaFX, providing a modern and intuitive UI.
 
-### *Technologies Used*
+### ⚙️ *Technologies Used*
 
   - Java (Core logic and application development)
   - JavaFX (Graphical User Interface)
   - SQL (Database management)
   - Client-Server Architecture (Efficient communication and real-time updates)
 
-### Screenshots
+### 📸 Screenshots
 - 🔑 Login & 🌸 Catalog Pages
 
 > | ![Image](https://github.com/user-attachments/assets/440a707e-7749-4f1e-9c7b-8d79e8e4a0ef)  &nbsp;  ![Image](https://github.com/user-attachments/assets/6bfdcbc3-09f1-46c0-a140-9cb2c22b57db)
