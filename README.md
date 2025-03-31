@@ -16,9 +16,16 @@ The Flower Shop Management System is a robust application developed using Java a
   - Java (Core logic and application development)
   - JavaFX (Graphical User Interface)
   - SQL (Database management)
-  - JDBC (Database connectivity)
   - Client-Server Architecture (Efficient communication and real-time updates)
 
+### Screenshots
+- 🔑 Login & 🔖 Catalog Pages
+
+> | ![Image](https://github.com/user-attachments/assets/440a707e-7749-4f1e-9c7b-8d79e8e4a0ef)  &nbsp;  ![Image](https://github.com/user-attachments/assets/6bfdcbc3-09f1-46c0-a140-9cb2c22b57db)
+
+- 🛒 Shopping Cart & 💳 Checkout Pages
+> ![Image](https://github.com/user-attachments/assets/acd64802-71d5-4137-99ca-5a03b4cd9463)  &nbsp; ![Image](https://github.com/user-attachments/assets/94dcbae1-c3aa-43f3-b98c-a2d0b813a59d)
+- 
 ### *Team Collaboration*
 
 > This project was developed collaboratively by a team of 4 developers, with coordinated efforts in system design, database architecture, and feature implementation.
