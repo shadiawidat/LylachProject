@@ -6,7 +6,7 @@ The Flower Shop Management System is a robust application developed using Java a
 
 ### 🔧 *Features*
 
-- Inventory Management: Tracks available flowers, stock levels, and restocking alerts.
+- Inventory Management: Tracks available flowers, and stock levels.
 - Client Management: Stores customer details, order history, and preferences.
 - Order Processing: Manages order placement, billing, and payment tracking.
 - Real-time Synchronization: Updates inventory and client data across all connected systems.
